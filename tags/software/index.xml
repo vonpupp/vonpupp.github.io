@@ -12,7 +12,7 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 12 Aug 2023 23:50:51 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 13 Aug 2023 15:05:44 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/tags/software/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -33,7 +33,7 @@ of the patented ideas.&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/steve-jobs-with-patent.jpg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/images/fm_patents.jpg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;He commented that patents are like walking in a mine field, but worst because a
 mine ones it blows up it doesn&amp;rsquo;t blows again, patents keeps blowing on and on.
@@ -56,7 +56,7 @@ your idea. Then something similar will happen&amp;hellip;&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/mobile-patent-suits.png&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/mobile-patent-suits.png&#34;/&gt; &lt;/figure&gt;
 
 &lt;h2 id=&#34;a-patent-to-protect-yourself-from-others-attacking-you&#34;&gt;A patent to protect yourself from others attacking you&lt;/h2&gt;
 &lt;p&gt;The truth is that it won&amp;rsquo;t protect you unless you find another infringement on the other side that is covered by your patent. A minor company wont sue you anyway since they don&amp;rsquo;t have the resources, and a big one will have very good lawyers to do so and to also defend themselves, so it&amp;rsquo;s a endless legal battle and unnecessary waste of money.&lt;/p&gt;
@@ -80,9 +80,7 @@ doing so than composing with the worry of not getting sued&amp;rdquo;.&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/categories/emacs">emacs</category>
-                                 
-                                    <category domain="https://albertdelafuente.com/categories/english">english</category>
+                                    <category domain="https://albertdelafuente.com/categories/development">development</category>
                                 
                             
                         
@@ -97,6 +95,8 @@ doing so than composing with the worry of not getting sued&amp;rdquo;.&lt;/p&gt;
                                     <category domain="https://albertdelafuente.com/tags/software">software</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/floss">floss</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/patents">patents</category>
                                 
                             
                         

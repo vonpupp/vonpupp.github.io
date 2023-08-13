@@ -1,0 +1,103 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>
+            
+                    experiments on
+                
+            
+            Albert De La Fuente&#39;s site</title>
+        <link>https://albertdelafuente.com/categories/experiments/</link>
+        <description>Recent content  in experiments
+            on Albert De La Fuente&#39;s site</description>
+        <language>en-us</language>
+        
+                <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 13 Aug 2023 15:05:44 -0300</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+            <atom:link href="https://albertdelafuente.com/categories/experiments/index.xml" rel="self" type="application/rss&#43;xml" />
+        
+            
+            <item>
+                <title>Finding communities on graphs</title>
+                <link>https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/</link>
+                
+                
+                <description>&lt;p&gt;Some months before I had to import a quite big list of use cases, relationships and requirements data into Enterprise Architect for a project. Of course I didn&amp;rsquo;t do that manually, so I made a hack to do that automatically. Recently I had a new task to accomplish, to split into groups that use case list by their relationships, and once again I thought about doing it automatically since I already have the data structures available and then, I decided: let&amp;rsquo;s play a little bit with the data 8-).&lt;/p&gt;
+&lt;p&gt;Since I&amp;rsquo;m not very familiarized with the use case data itself I looked up for a way on how to apply for the same concepts on other areas, and then I came up making some experiments with my Facebook and LinkedIn networks. I learned many things and the results were really interesting.&lt;/p&gt;
+&lt;p&gt;I first started with my Facebook contacts and this was the initial result&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/fb1-2.jpeg&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;Afterward I applied a community detection algorithm (Louvain) with a specific parameter and I could identify 63 groups / communities.&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/fb2-2.jpeg&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;Can you see them? Well&amp;hellip; neither do I&amp;hellip; So I applied a atlas layout algorithm so it&amp;rsquo;s visually friendly, and this is the result&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/fb3-800.jpeg&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;It&amp;rsquo;s interesting to notice that about 46% of my contacts are within the three biggest groups (20.77%, 14.46% and 12.52%). There are also contacts (that multicolored group in the middle) that I couldn&amp;rsquo;t retrieve their connections (probably because a privacy setting). Of course the graphics generated are anonymized, but I&amp;rsquo;m able to identify each group, for instance the bottom middle blue group are my last job work European colleagues. The top right cyan group are some friends from FLOSS communities. Pretty cool, huh?&lt;/p&gt;
+&lt;p&gt;On the other hand getting the Linkedin results wasn&amp;rsquo;t that straightforward I had to deal with oauth and the LinkedIn API webservice directly within python. This are the results of my LinkedIn network.&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/linkedin.jpeg&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;Some notable groups at first were: bottom left cyan group are again my last work European colleagues, and green my last work Latin America colleagues.&lt;/p&gt;
+&lt;h2 id=&#34;conclusions&#34;&gt;Conclusions&lt;/h2&gt;
+&lt;p&gt;This is an amazingly powerful analytics tool that could be used in many areas, probably the most notable  (nowadays) are marketing and social networking. At the same time it&amp;rsquo;s quite scary to see how our privacy goes away, I don&amp;rsquo;t think it would be hard to track somebody having the right information. If I could do this by just examining the relationships imagine what could be possible with some extra data.&lt;/p&gt;
+</description>
+                
+                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
+                
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/experiments">experiments</category>
+                                
+                            
+                        
+                     
+                        
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/graphs">graphs</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/communities">communities</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/clustering">clustering</category>
+                                
+                            
+                        
+                    
+                
+                <guid>https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/</guid>
+                <pubDate>Sun, 25 Aug 2013 00:00:00 +0000</pubDate>
+            </item>
+        
+    </channel>
+</rss>
+
+

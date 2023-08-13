@@ -12,7 +12,7 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 12 Aug 2023 23:50:51 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 13 Aug 2023 15:05:44 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/tags/system/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -109,6 +109,12 @@ grub-install &amp;ndash;efi-directory=/boot &amp;ndash;target=x86_64-efi /dev/sd
                                     <category domain="https://albertdelafuente.com/tags/archlinux">archlinux</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/system">system</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/grub">grub</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/luks">luks</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/lvm">lvm</category>
                                 
                             
                         
@@ -210,7 +216,7 @@ partitions to recreate the ramdisk.&lt;/p&gt;
 free to send me a PR.&lt;/p&gt;
 </description>
                 
-                        <author>Albert@fakeEmailToMakeValidatorHappy.com (Albert)</author>
+                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
                 
                      
                         
@@ -233,6 +239,10 @@ free to send me a PR.&lt;/p&gt;
                                     <category domain="https://albertdelafuente.com/tags/archlinux">archlinux</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/system">system</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/luks">luks</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/lvm">lvm</category>
                                 
                             
                         
@@ -373,7 +383,9 @@ free to send me a PR.&lt;/p&gt;
                                  
                                     <category domain="https://albertdelafuente.com/tags/system">system</category>
                                  
-                                    <category domain="https://albertdelafuente.com/tags/security">security</category>
+                                    <category domain="https://albertdelafuente.com/tags/gpg">gpg</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/dns">dns</category>
                                 
                             
                         
@@ -438,13 +450,9 @@ free to send me a PR.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;parted /dev/sda
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;resize
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;![](http://xyne.archlinux.ca/etc/dyn/img/graphviz/Pacserve%5FRequest%5FFlow%5FChart.svg)&#34;&gt;
-&lt;p&gt;{# Local Variables: #}
-{# mode: markdown #}
-{# End: #}&lt;/p&gt;
-</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
                 
-                        <author>Albert@fakeEmailToMakeValidatorHappy.com (Albert)</author>
+                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
                 
                      
                         
@@ -467,6 +475,10 @@ free to send me a PR.&lt;/p&gt;
                                     <category domain="https://albertdelafuente.com/tags/archlinux">archlinux</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/system">system</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/luks">luks</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/lvm">lvm</category>
                                 
                             
                         

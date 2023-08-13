@@ -1,0 +1,166 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>
+            
+                    dns on
+                
+            
+            Albert De La Fuente&#39;s site</title>
+        <link>https://albertdelafuente.com/tags/dns/</link>
+        <description>Recent content  in dns
+            on Albert De La Fuente&#39;s site</description>
+        <language>en-us</language>
+        
+                <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 13 Aug 2023 15:05:44 -0300</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+            <atom:link href="https://albertdelafuente.com/tags/dns/index.xml" rel="self" type="application/rss&#43;xml" />
+        
+            
+            <item>
+                <title>How to publish a GPG key via DNS</title>
+                <link>https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/</link>
+                
+                
+                <description>&lt;p&gt;Publishing keys is quite common. One nice way to do so is by using the Public
+Key Association (PKA) DNS record. Basically this is a record that points to a
+file that can be downloaded over the internet. This method is an alternative
+(not exclusive) to using keyservers.&lt;/p&gt;
+&lt;p&gt;One of the problems of keyservers (in my opinion), is the problem of deleting
+old keys. I pretty much like the idea of PGP keyserver which verifies
+periodically by sending an email if the address is still in use and therefore
+maintain that &lt;code&gt;uid&lt;/code&gt; of the key. The only problem is that the PGP server is
+centralized and it does not use FLOSS standards.&lt;/p&gt;
+&lt;p&gt;I understand that deleting a key on a distributed environment is hard and
+probably maintaining a history of deletions as done actually on most of
+keyservers is still a good solution. However since I don&amp;rsquo;t use GPG very often
+and I am not publishing my key yet, I wanted to try PKA.&lt;/p&gt;
+&lt;p&gt;This tutorial is made of two basic parts, first creating a TXT DNS record and
+then verifying that the key gets downloaded properly.&lt;/p&gt;
+&lt;h3 id=&#34;tutorial-overview&#34;&gt;Tutorial overview&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Creating the TXT DNS record&lt;/li&gt;
+&lt;li&gt;Testing the PKA record&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
+&lt;p&gt;I assume that you have gpg installed and that you know the basic idea on how it
+works, that you know what a private and a public keys are for and how to use
+them.&lt;/p&gt;
+&lt;h2 id=&#34;creating-the-txt-dns-record&#34;&gt;Creating the TXT DNS record&lt;/h2&gt;
+&lt;p&gt;To create the TXT DNS record you will need to know the fingerprint of the key.
+To do so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ gpg --list-keys vonpupp@keybase.io
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pub   rsa2048/0x536814BF4871A220 2016-11-12 &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;SC&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;expires: 2018-11-12&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      Key &lt;span class=&#34;nv&#34;&gt;fingerprint&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; F0B9 B3FB 25E9 &lt;span class=&#34;m&#34;&gt;1209&lt;/span&gt; 728E  &lt;span class=&#34;m&#34;&gt;4844&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5368&lt;/span&gt; 14BF &lt;span class=&#34;m&#34;&gt;4871&lt;/span&gt; A220
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      uid                   &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;ultimate&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Albert De La Fuente &amp;lt;vonpupp@keybase.io&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      uid                   &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;ultimate&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Albert De La Fuente &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Social email address&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &amp;lt;vonpupp@gmail.com&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      uid                   &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;ultimate&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Albert De La Fuente &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Main email address&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &amp;lt;mail@albertdelafuente.com&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      uid                   &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;ultimate&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Albert De La Fuente &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Haevas email address&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &amp;lt;albert@haevas.com&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      uid                   &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;ultimate&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Albert De La Fuente &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Academic email address&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &amp;lt;albert@ime.usp.br&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      sub   rsa2048/0xE2977BF3F82AB971 2016-11-12 &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;E&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;expires: 2018-11-12&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In my case, the fingerprint is &lt;strong&gt;F0B9 B3FB 25E9 1209 728E  4844 5368 14BF 4871
+A220&lt;/strong&gt;, or &lt;strong&gt;0x536814BF4871A220&lt;/strong&gt; for short.&lt;/p&gt;
+&lt;p&gt;Then you need to export the key with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ gpg --export -a 0x536814BF4871A220 &amp;gt; public-0x536814BF4871A220.asc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then create a TXT record where:&lt;/p&gt;
+&lt;h2 id=&#34;the-name-part&#34;&gt;The &lt;code&gt;Name&lt;/code&gt; part:&lt;/h2&gt;
+&lt;p&gt;Is composed of &lt;code&gt;mailbox&lt;/code&gt;._pka.albertdelafuente.com. So for
+instance if my email is &lt;code&gt;long-anti-spam-email-address@albertdelafuentedotcom&lt;/code&gt;,
+then the name part should be
+&lt;code&gt;long-anti-spam-email-address._pka.albertdelafuente.com&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;the-text-data&#34;&gt;The &lt;code&gt;Text&lt;/code&gt; data:&lt;/h2&gt;
+&lt;p&gt;Contains the &lt;code&gt;fingerprint&lt;/code&gt; and the &lt;code&gt;URL&lt;/code&gt; where to download the key. In my case:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;v=pka1;fpr=F0B9B3FB25E91209728E4844536814BF4871A220;uri=http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Do not forget to upload the key to match the &lt;code&gt;uri&lt;/code&gt; as on the TXT record. In my case:
+&lt;a href=&#34;http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc&#34;&gt;http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;testing-the-pka-record&#34;&gt;Testing the PKA record&lt;/h2&gt;
+&lt;p&gt;Once done that you can download the key (just for testing purposes) on another computer or VM as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Test message&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; gpg --auto-key-locate pka -ear mail@albertdelafuente.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In my case this will prompt you with a confirmation since my primary uid does
+not match the email. This is made in purpose because I have read that some
+spammers are using keyservers to get valid email addresses, therefore I always
+use keybase as my primary id.&lt;/p&gt;
+&lt;p&gt;You will see something similar to this as the output:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg: &lt;span class=&#34;nv&#34;&gt;directory&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/vagrant/.gnupg&lt;span class=&#34;s1&#34;&gt;&amp;#39; created
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;gpg: new configuration file =/home/vagrant/.gnupg/gpg.conf&amp;#39;&lt;/span&gt; created
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg: WARNING: options &lt;span class=&#34;nv&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/vagrant/.gnupg/gpg.conf&lt;span class=&#34;s1&#34;&gt;&amp;#39; are not yet active during this run
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;gpg: keyring =/home/vagrant/.gnupg/secring.gpg&amp;#39;&lt;/span&gt; created
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg: &lt;span class=&#34;nv&#34;&gt;keyring&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/home/vagrant/.gnupg/pubring.gpg&lt;span class=&#34;s1&#34;&gt;&amp;#39; created
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;gpg: requesting key 4871A220 from http server albertdelafuente.com
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;gpg: /home/vagrant/.gnupg/trustdb.gpg: trustdb created
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;gpg: key 4871A220: public key &amp;#34;Albert De La Fuente &amp;lt;vonpupp@keybase.io&amp;gt;&amp;#34; imported
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;gpg: Total number processed: 1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;gpg:               imported: 1  (RSA: 1)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s1&#34;&gt;gpg: automatically retrieved =mail@albertdelafuente.com&amp;#39;&lt;/span&gt; via PKA
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gpg: F82AB971: There is no assurance this key belongs to the named user
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pub  2048R/F82AB971 2016-11-12 Albert De La Fuente &amp;lt;vonpupp@keybase.io&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Primary key fingerprint: F0B9 B3FB 25E9 &lt;span class=&#34;m&#34;&gt;1209&lt;/span&gt; 728E  &lt;span class=&#34;m&#34;&gt;4844&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5368&lt;/span&gt; 14BF &lt;span class=&#34;m&#34;&gt;4871&lt;/span&gt; A220
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      Subkey fingerprint: 7A10 07B4 3F49 &lt;span class=&#34;m&#34;&gt;5317&lt;/span&gt; 5DE0  52E8 E297 7BF3 F82A B971
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;It is NOT certain that the key belongs to the person named
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;in the user ID.  If you *really* know what you are doing,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;you may answer the next question with yes.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Use this key anyway? &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;y/N&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; y
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-----BEGIN PGP MESSAGE-----
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Version: GnuPG v1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hQEMA+KXe/P4KrlxAQf/d1yxYFBSPs0RKHJ98w+s82jK25R/IXCiFNe6BkX+oyp+
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;uh+4AObx93SuJ/ryHlthHQmnpid4BQWmhmCksiAH+xD1xrlrCDIsNQfJ5+aPQXjz
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+Z6iKrWy8Lk13i6u3wgMZuk2eKN9Z1ppi15arXhFc93cta5p5K5tAH7CwMd5zP93
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;r7wgI2Jff+x3erN0zbkJ2PZgDrHZVLVWyOnwgRBw12N8El3L8i6JFbNY+g25AMUm
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;MMCPSTit8ILsFoPtkrJEOdq5p5aCw3dvIVSzmxflMJEsgqO+Per+KxtMehaBF5qX
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;I2TzltcgjlisSJ3rcBtjpm12rSVJrPs4BG2UKz0w6tJIAbF0FLlWXe8zMJMK1E3Q
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;BQ7y/gjTduiuuD++qyIxqWCoLCgHixvP4WiTPbbKvoXl4BP8Bf1ED9M/0Cyss2NI
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;tW7vVlLcXRQb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;gdKa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-----END PGP MESSAGE-----
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;conclusions&#34;&gt;Conclusions&lt;/h2&gt;
+&lt;p&gt;As you can see it is not that hard to publish a public key via DNS. You need to
+export your key to a file and upload it and then create a TXT record relating
+the fingerprint and the location of the key. You may also publish your key on a
+keyserver also since not everybody retrieve the keys over DNS.&lt;/p&gt;
+&lt;p&gt;Thanks for reading. Spot an error or want to explain something better, feel
+free to send me a PR.&lt;/p&gt;
+</description>
+                
+                        <author>Albert@fakeEmailToMakeValidatorHappy.com (Albert)</author>
+                
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/linux">linux</category>
+                                
+                            
+                        
+                     
+                        
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/system">system</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/gpg">gpg</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/dns">dns</category>
+                                
+                            
+                        
+                    
+                
+                <guid>https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/</guid>
+                <pubDate>Sun, 13 Nov 2016 00:00:00 +0000</pubDate>
+            </item>
+        
+    </channel>
+</rss>
+
+

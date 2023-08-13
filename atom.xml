@@ -10,7 +10,7 @@
             <link href="https://albertdelafuente.com/index.xml" rel="alternate" type="application/rss+xml" title="rss" />
             <link href="https://albertdelafuente.com/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
             <link href="https://albertdelafuente.com/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
-    <updated>2023-08-12T23:50:51-03:00</updated>
+    <updated>2023-08-13T15:05:44-03:00</updated>
     
     
     <author>
@@ -23,11 +23,375 @@
     
         
         <entry>
+            <title type="html"><![CDATA[Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python]]></title>
+            <link href="https://albertdelafuente.com/posts/bhs/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/lhlg/?utm_source=atom_feed" rel="related" type="text/html" title="Learning hebrew like a geek" />
+                <link href="https://albertdelafuente.com/exobrain/20211206220218-hebrew_root_words_parent_roots_dictionary/?utm_source=atom_feed" rel="related" type="text/html" title="Hebrew root words - parent roots dictionary" />
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
+                <link href="https://albertdelafuente.com/exobrain/20220128220728-curso_de_hebreo_de_emc_shalom_colombia/?utm_source=atom_feed" rel="related" type="text/html" title="Curso de hebreo de EMC Shalom Colombia" />
+                <link href="https://albertdelafuente.com/exobrain/20220129174154-how_to_configure_the_keyboard_layout_for_hebrew/?utm_source=atom_feed" rel="related" type="text/html" title="How to configure the keyboard layout for Hebrew (biblicalSIL, phonetic, etc)" />
+            
+                <id>https://albertdelafuente.com/posts/bhs/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2023-08-13T14:55:59-03:00</published>
+            <updated>2023-08-13T14:55:59-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>I am very curious about Hebrew, specially the way the language is hierarchically
+designed. Tree letter words are commonly known as trilateral roots and the rest
+of the words are variation of these three letters and categorized under the same
+family. I am not going to get into these details since it is not the scope of
+this post.</p>
+<p>Long story short, the journey of trying to learn Hebrew started probably between
+2006 to 2008 and I haven&rsquo;t had much success at it. Or lets say that the
+expectations don&rsquo;t match reality =P. So I thought that I could try to somehow
+start with the most common words in the scriptures and that is what motivated <a href="/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/">to
+parse the Aleppo codex and analyze its content in python</a>. I quickly learned
+that my approach was rather naive given the prefixes that causes variations to
+the words, even thought the meaning of the word itself is the same.</p>
+<p>This blog post is a second attempt to tackle the same problem but with a more
+sophisticated linguistic approach using Text Fabric.</p>
+<p>A corpus of ancient texts and (linguistic) annotations represents a large body
+of knowledge.</p>
+<p>Text-Fabric is a Python package for processing and access a corpus of ancient
+text and linguistic annotations. In this specific case I am using the Hebrew
+Bible Database, containing the text of the Hebrew Bible augmented with
+linguistic annotations compiled by the Eep Talstra Centre for Bible and
+Computer, VU University Amsterdam.</p>
+<p>The text is based on the Biblia Hebraica Stuttgartensia edited by Karl Elliger
+and Wilhelm Rudolph, Fifth Revised Edition, edited by Adrian Schenker, © 1977
+and 1997 Deutsche Bibelgesellschaft, Stuttgart.</p>
+<p>The text-fabric version has been prepared by Dirk Roorda Data Archiving and
+Networked Services, with thanks to Martijn Naaijer, Cody Kingham, and
+Constantijn Sikkel.</p>
+<p>It is amazing to see the work these researchers did compiling all this data and
+making it public for free. I am very thankful for it.</p>
+<p>I am using a literate programming approach with Doom Emacs and org-mode.</p>
+<h2 id="create-the-virtual-environment">Create the virtual environment</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">virtualenv ~/.workon-home/venv-textfabric
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/.workon-home/venv-textfabric
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ./bin/activate.fish
+</span></span><span class="line"><span class="cl">pip install text-fabric pandas requests
+</span></span></code></pre></div><h2 id="activate-the-virtual-environment">Activate the virtual environment</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">pyvenv-activate</span> <span class="s">&#34;~/.workon-home/venv-textfabric&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="load-the-etcbc-bhsa-dataset">Load the ETCBC/bhsa dataset</h2>
+<p>Use <code>run-python</code> and <code>ober-eval-block-in-repl</code> to evaluate each block (<code>C-c r</code>
+at the time being). For the sake of a more practical approach to writing using
+literate programming the output of the blocks will follow the code.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">tf.app</span> <span class="kn">import</span> <span class="n">use</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">collections</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="n">use</span><span class="p">(</span><span class="s2">&#34;ETCBC/bhsa&#34;</span><span class="p">,</span> <span class="n">hoist</span><span class="o">=</span><span class="nb">globals</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;counting objects ...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">otype</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">all</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">otype</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">{:&gt;7}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">s&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">otype</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Done&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">**Locating corpus resources ...**
+</span></span><span class="line"><span class="cl">app: ~/text-fabric-data/github/ETCBC/bhsa/app
+</span></span><span class="line"><span class="cl">data: ~/text-fabric-data/github/ETCBC/bhsa/tf/2021
+</span></span><span class="line"><span class="cl">data: ~/text-fabric-data/github/ETCBC/phono/tf/2021
+</span></span><span class="line"><span class="cl">data: ~/text-fabric-data/github/ETCBC/parallels/tf/2021
+</span></span><span class="line"><span class="cl">Text-Fabric:
+</span></span><span class="line"><span class="cl">	Text-Fabric API 12.0.5 =&gt; https:/annotation.github.io/text-fabric/tf/cheatsheet.html
+</span></span><span class="line"><span class="cl">	ETCBC/bhsa/app  v3 =&gt; https:/github.com/ETCBC/bhsa/blob/master/app
+</span></span><span class="line"><span class="cl">	Search Reference =&gt; https:/annotation.github.io/text-fabric/tf/about/searchusage.html
+</span></span><span class="line"><span class="cl">Data:
+</span></span><span class="line"><span class="cl">	ETCBC - bhsa 2021 =&gt; https:/ETCBC.github.io/bhsa/
+</span></span><span class="line"><span class="cl">	Character table =&gt; https:/annotation.github.io/text-fabric/tf/writing/hebrew.html
+</span></span><span class="line"><span class="cl">	Feature docs =&gt; https:/ETCBC.github.io/bhsa/features/0_home
+</span></span><span class="line"><span class="cl">Node types:
+</span></span><span class="line"><span class="cl">book                      39 10938.21 =     100
+</span></span><span class="line"><span class="cl">chapter                  929   459.19 =     100
+</span></span><span class="line"><span class="cl">lex                     9230    46.22 =     100
+</span></span><span class="line"><span class="cl">verse                  23213    18.38 =     100
+</span></span><span class="line"><span class="cl">half_verse             45179     9.44 =     100
+</span></span><span class="line"><span class="cl">sentence               63717     6.70 =     100
+</span></span><span class="line"><span class="cl">sentence_atom          64514     6.61 =     100
+</span></span><span class="line"><span class="cl">clause                 88131     4.84 =     100
+</span></span><span class="line"><span class="cl">clause_atom            90704     4.70 =     100
+</span></span><span class="line"><span class="cl">phrase                253203     1.68 =     100
+</span></span><span class="line"><span class="cl">phrase_atom           267532     1.59 =     100
+</span></span><span class="line"><span class="cl">subphrase             113850     1.42        38
+</span></span><span class="line"><span class="cl">*word*                426590     1.00 =     100
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> Sets:
+</span></span><span class="line"><span class="cl"> Features:
+</span></span><span class="line"><span class="cl">Parallel Passages
+</span></span><span class="line"><span class="cl">	crossref             🆗 links between similar passages
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">BHSA = Biblia Hebraica Stuttgartensia Amstelodamensis
+</span></span><span class="line"><span class="cl">	book                 ✅ book name in Latin (Genesis; Numeri; Reges1; ...)
+</span></span><span class="line"><span class="cl">	book@ll              ✅ book name in amharic (ኣማርኛ)
+</span></span><span class="line"><span class="cl">	chapter              ✅ chapter number (1; 2; 3; ...)
+</span></span><span class="line"><span class="cl">	code                 ✅ identifier of a clause atom relationship (0; 74; 367; ...)
+</span></span><span class="line"><span class="cl">	det                  ✅ determinedness of phrase(atom) (det; und; NA.)
+</span></span><span class="line"><span class="cl">	domain               ✅ text type of clause (? (Unknown); N (narrative); D (discursive); Q (Quotation).)
+</span></span><span class="line"><span class="cl">	freq_lex             ✅ frequency of lexemes
+</span></span><span class="line"><span class="cl">	function             ✅ syntactic function of phrase (Cmpl; Objc; Pred; ...)
+</span></span><span class="line"><span class="cl">	g_cons               ✅ word consonantal-transliterated (B R&gt;CJT BR&gt; &gt;LHJM ...)
+</span></span><span class="line"><span class="cl">	g_cons_utf8          ✅ word consonantal-Hebrew (ב ראשׁית ברא אלהים)
+</span></span><span class="line"><span class="cl">	g_lex                ✅ lexeme pointed-transliterated (B.:- R;&gt;CIJT B.@R@&gt; &gt;:ELOH ...)
+</span></span><span class="line"><span class="cl">	g_lex_utf8           ✅ lexeme pointed-Hebrew (בְּ רֵאשִׁית בָּרָא אֱלֹה)
+</span></span><span class="line"><span class="cl">	g_word               ✅ word pointed-transliterated (B.:- R;&gt;CI73JT B.@R@74&gt; &gt;:ELOHI92JM)
+</span></span><span class="line"><span class="cl">	g_word_utf8          ✅ word pointed-Hebrew (בְּ רֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים)
+</span></span><span class="line"><span class="cl">	gloss                🆗 english translation of lexeme (beginning create god(s))
+</span></span><span class="line"><span class="cl">	gn                   ✅ grammatical gender (m; f; NA; unknown.)
+</span></span><span class="line"><span class="cl">	label                ✅ (half-)verse label (half verses: A; B; C; verses:  GEN 01,02)
+</span></span><span class="line"><span class="cl">	language             ✅ of word or lexeme (Hebrew; Aramaic.)
+</span></span><span class="line"><span class="cl">	lex                  ✅ lexeme consonantal-transliterated (B R&gt;CJT/ BR&gt;[ &gt;LHJM/)
+</span></span><span class="line"><span class="cl">	lex_utf8             ✅ lexeme consonantal-Hebrew (ב ראשׁית֜ ברא אלהים֜)
+</span></span><span class="line"><span class="cl">	ls                   ✅ lexical set, subclassification of part-of-speech (card; ques; mult)
+</span></span><span class="line"><span class="cl">	nametype             ⚠️ named entity type (pers; mens; gens; topo; ppde.)
+</span></span><span class="line"><span class="cl">	nme                  ✅ nominal ending consonantal-transliterated (absent; n/a; JM, ...)
+</span></span><span class="line"><span class="cl">	nu                   ✅ grammatical number (sg; du; pl; NA; unknown.)
+</span></span><span class="line"><span class="cl">	number               ✅ sequence number of an object within its context
+</span></span><span class="line"><span class="cl">	otype
+</span></span><span class="line"><span class="cl">	pargr                🆗 hierarchical paragraph number (1; 1.2; 1.2.3.4; ...)
+</span></span><span class="line"><span class="cl">	pdp                  ✅ phrase dependent part-of-speech (art; verb; subs; nmpr, ...)
+</span></span><span class="line"><span class="cl">	pfm                  ✅ preformative consonantal-transliterated (absent; n/a; J, ...)
+</span></span><span class="line"><span class="cl">	prs                  ✅ pronominal suffix consonantal-transliterated (absent; n/a; W; ...)
+</span></span><span class="line"><span class="cl">	prs_gn               ✅ pronominal suffix gender (m; f; NA; unknown.)
+</span></span><span class="line"><span class="cl">	prs_nu               ✅ pronominal suffix number (sg; du; pl; NA; unknown.)
+</span></span><span class="line"><span class="cl">	prs_ps               ✅ pronominal suffix person (p1; p2; p3; NA; unknown.)
+</span></span><span class="line"><span class="cl">	ps                   ✅ grammatical person (p1; p2; p3; NA; unknown.)
+</span></span><span class="line"><span class="cl">	qere                 ✅ word pointed-transliterated masoretic reading correction
+</span></span><span class="line"><span class="cl">	qere_trailer         ✅ interword material -pointed-transliterated (Masoretic correction)
+</span></span><span class="line"><span class="cl">	qere_trailer_utf8    ✅ interword material -pointed-transliterated (Masoretic correction)
+</span></span><span class="line"><span class="cl">	qere_utf8            ✅ word pointed-Hebrew masoretic reading correction
+</span></span><span class="line"><span class="cl">	rank_lex             ✅ ranking of lexemes based on freqnuecy
+</span></span><span class="line"><span class="cl">	rela                 ✅ linguistic relation between clause/(sub)phrase(atom) (ADJ; MOD; ATR; ...)
+</span></span><span class="line"><span class="cl">	sp                   ✅ part-of-speech (art; verb; subs; nmpr, ...)
+</span></span><span class="line"><span class="cl">	st                   ✅ state of a noun (a (absolute); c (construct); e (emphatic).)
+</span></span><span class="line"><span class="cl">	tab                  ✅ clause atom: its level in the linguistic embedding
+</span></span><span class="line"><span class="cl">	trailer              ✅ interword material pointed-transliterated (&amp; 00 05 00_P ...)
+</span></span><span class="line"><span class="cl">	trailer_utf8         ✅ interword material pointed-Hebrew (־ ׃)
+</span></span><span class="line"><span class="cl">	txt                  ✅ text type of clause and surrounding (repetion of ? N D Q as in feature domain)
+</span></span><span class="line"><span class="cl">	typ                  ✅ clause/phrase(atom) type (VP; NP; Ellp; Ptcp; WayX)
+</span></span><span class="line"><span class="cl">	uvf                  ✅ univalent final consonant consonantal-transliterated (absent; N; J; ...)
+</span></span><span class="line"><span class="cl">	vbe                  ✅ verbal ending consonantal-transliterated (n/a; W; ...)
+</span></span><span class="line"><span class="cl">	vbs                  ✅ root formation consonantal-transliterated (absent; n/a; H; ...)
+</span></span><span class="line"><span class="cl">	verse                ✅ verse number
+</span></span><span class="line"><span class="cl">	voc_lex              ✅ vocalized lexeme pointed-transliterated (B.: R;&gt;CIJT BR&gt; &gt;:ELOHIJM)
+</span></span><span class="line"><span class="cl">	voc_lex_utf8         ✅ vocalized lexeme pointed-Hebrew (בְּ רֵאשִׁית ברא אֱלֹהִים)
+</span></span><span class="line"><span class="cl">	vs                   ✅ verbal stem (qal; piel; hif; apel; pael)
+</span></span><span class="line"><span class="cl">	vt                   ✅ verbal tense (perf; impv; wayq; infc)
+</span></span><span class="line"><span class="cl">	mother               ✅ linguistic dependency between textual objects
+</span></span><span class="line"><span class="cl">	oslots
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Phonetic Transcriptions
+</span></span><span class="line"><span class="cl">	phono                🆗 phonological transcription (bᵊ rēšˌîṯ bārˈā ʔᵉlōhˈîm)
+</span></span><span class="line"><span class="cl">	phono_trailer        🆗 interword material in phonological transcription
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  0.00s counting objects ...
+</span></span><span class="line"><span class="cl">   |     0.00s      39 books
+</span></span><span class="line"><span class="cl">   |     0.00s     929 chapters
+</span></span><span class="line"><span class="cl">   |     0.00s    9230 lexs
+</span></span><span class="line"><span class="cl">   |     0.00s   23213 verses
+</span></span><span class="line"><span class="cl">   |     0.00s   45179 half_verses
+</span></span><span class="line"><span class="cl">   |     0.01s   63717 sentences
+</span></span><span class="line"><span class="cl">   |     0.01s   64514 sentence_atoms
+</span></span><span class="line"><span class="cl">   |     0.01s   88131 clauses
+</span></span><span class="line"><span class="cl">   |     0.01s   90704 clause_atoms
+</span></span><span class="line"><span class="cl">   |     0.03s  253203 phrases
+</span></span><span class="line"><span class="cl">   |     0.03s  267532 phrase_atoms
+</span></span><span class="line"><span class="cl">   |     0.01s  113850 subphrases
+</span></span><span class="line"><span class="cl">   |     0.04s  426590 words
+</span></span><span class="line"><span class="cl">  0.15s Done
+</span></span></code></pre></div><h2 id="defining-some-helpers-to-count-lexemes-by-type-and-printing-the-top-n-occurrences">Defining some helpers to count lexemes by type, and printing the top &ldquo;n&rdquo; occurrences</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_lexeme_by_type</span><span class="p">(</span><span class="n">lex_type</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">verbs</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#A.info(&#34;Collecting data&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="s2">&#34;lex&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">!=</span> <span class="n">lex_type</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">        <span class="n">verbs</span><span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">lex_utf8</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">F</span><span class="o">.</span><span class="n">freq_lex</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#A.info(&#34;Done&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">(</span><span class="n">verbs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_top_n_items</span><span class="p">(</span><span class="n">items_list</span><span class="p">,</span> <span class="n">quantity</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">items_list</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">0</span><span class="p">:</span><span class="n">quantity</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_items</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">lex_type</span><span class="p">,</span> <span class="n">lex_qty</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">items</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="n">lex_type</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print_top_n_items</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">lex_qty</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"></code></pre></div><h2 id="analizing-some-lexemes">Analizing some lexemes</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">freqList</span><span class="p">())</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">((&#39;subs&#39;, 125583), (&#39;verb&#39;, 75451), (&#39;prep&#39;, 73298), (&#39;conj&#39;, 62737), (&#39;nmpr&#39;, 35607), (&#39;art&#39;, 30387), (&#39;adjv&#39;, 10141), (&#39;nega&#39;, 6059), (&#39;prps&#39;, 5035), (&#39;advb&#39;, 4603), (&#39;prde&#39;, 2678), (&#39;intj&#39;, 1912), (&#39;inrg&#39;, 1303), (&#39;prin&#39;, 1026))
+</span></span></code></pre></div><p>These are the &ldquo;types&rdquo; of words we can query Text Fabric. Now lets see the top 10 verbs</p>
+<h3 id="printing-the-top-10-verbs">Printing the top 10 verbs</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">lex_qty</span> <span class="o">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_items</span><span class="p">(</span><span class="s1">&#39;Verbs:&#39;</span><span class="p">,</span> <span class="s1">&#39;verb&#39;</span><span class="p">,</span> <span class="n">lex_qty</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Verbs:
+</span></span><span class="line"><span class="cl">אמר: 5379
+</span></span><span class="line"><span class="cl">היה: 3561
+</span></span><span class="line"><span class="cl">עשׂה: 2629
+</span></span><span class="line"><span class="cl">בוא: 2570
+</span></span><span class="line"><span class="cl">נתן: 2017
+</span></span><span class="line"><span class="cl">הלך: 1554
+</span></span><span class="line"><span class="cl">ראה: 1298
+</span></span><span class="line"><span class="cl">שׁמע: 1168
+</span></span><span class="line"><span class="cl">דבר: 1143
+</span></span><span class="line"><span class="cl">ישׁב: 1082
+</span></span></code></pre></div><p>For the sake of readability I am going to summarize this on a table</p>
+<!--list-separator-->
+<ul>
+<li>
+<p>Top 10 verbs</p>
+<table>
+<thead>
+<tr>
+<th>Pronun.</th>
+<th>Word</th>
+<th>Qty</th>
+<th>Meaning</th>
+<th>Strongs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lsquo;āmar</td>
+<td>אמר</td>
+<td>5379</td>
+<td>To say, speak, utter</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h559/kjv/wlc/0-1/">H559</a></td>
+</tr>
+<tr>
+<td>hāyâ</td>
+<td>היה</td>
+<td>3561</td>
+<td>to be, become, come to pass, exist, happen, fall out</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h1961/kjv/wlc/0-1/">H1961</a></td>
+</tr>
+<tr>
+<td>ʿāśâ</td>
+<td>עשׂה</td>
+<td>2629</td>
+<td>to do, fashion, accomplish, make</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h6213/kjv/wlc/0-1/">H6213</a></td>
+</tr>
+<tr>
+<td>bo</td>
+<td>בוא</td>
+<td>2570</td>
+<td>to go in, enter, come, go, come in</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h935/kjv/wlc/0-1/">H935</a></td>
+</tr>
+<tr>
+<td>naw-than&rsquo;</td>
+<td>נתן</td>
+<td>2017</td>
+<td>to give, put, set</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h5414/kjv/wlc/0-1/">H5414</a></td>
+</tr>
+<tr>
+<td>haw-lak'</td>
+<td>הלך</td>
+<td>1554</td>
+<td>to go, walk, come</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h1980/kjv/wlc/0-1/">H1980</a></td>
+</tr>
+<tr>
+<td>raw-aw'</td>
+<td>ראה</td>
+<td>1298</td>
+<td>to see, look at, inspect, perceive, consider</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h7200/kjv/wlc/0-1/">H7200</a></td>
+</tr>
+<tr>
+<td>shaw-mah'</td>
+<td>שׁמע</td>
+<td>1168</td>
+<td>to hear, listen to, obey</td>
+<td>WLC <a href="https://www.blueletterbible.org/lexicon/h8085/wlc/wlc/0-1/">H885</a></td>
+</tr>
+<tr>
+<td>daw-bar'</td>
+<td>דבר</td>
+<td>1143</td>
+<td>to speak, command, promise, warn, threaten, sing</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h1696/kjv/wlc/0-1/">H1696</a></td>
+</tr>
+<tr>
+<td>yaw-shab'</td>
+<td>ישׁב</td>
+<td>1082</td>
+<td>to dwell, remain, sit, abide</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h3427/kjv/wlc/0-1/">H3427</a></td>
+</tr>
+</tbody>
+</table>
+<p>I made this list by hand, which is not very practical for automation, so I wonder if there is a better way to achieve this. I don&rsquo;t have an answer for this at this time, but this repository looks promising: <a href="https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv">https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv</a>.</p>
+<p>I still have some work that is not documented, so this is work in progress. I am still learning how to properly use TF&rsquo;s API.</p>
+</li>
+</ul>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/scriptures" term="scriptures" label="scriptures" />
+                             
+                                <category scheme="https://albertdelafuente.com/categories/development" term="development" label="development" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/hebrew" term="hebrew" label="hebrew" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/python" term="python" label="python" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/bhsa" term="bhsa" label="BHSA" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/codex" term="codex" label="codex" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
             <title type="html"><![CDATA[Exploring my [exo]brain]]></title>
             <link href="https://albertdelafuente.com/posts/20220612002812-exploring_my_exo_brain/?utm_source=atom_feed" rel="alternate" type="text/html" />
             
                 <link href="https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/?utm_source=atom_feed" rel="related" type="text/html" title="Finding communities on graphs" />
-                <link href="https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/?utm_source=atom_feed" rel="related" type="text/html" title="Learning hebrew like a geek" />
             
                 <id>https://albertdelafuente.com/posts/20220612002812-exploring_my_exo_brain/</id>
             
@@ -36,7 +400,7 @@
                         <name>Albert De La Fuente Vigliotti</name>
                     </author>
             <published>2022-06-12T00:00:00+00:00</published>
-            <updated>2022-07-02T00:50:06-03:00</updated>
+            <updated>2023-08-13T11:05:12-03:00</updated>
             
             
             <content type="html"><![CDATA[<p>I really like working with graphs. I remember a project that I worked a while
@@ -274,7 +638,9 @@ shows my homesteading notes and all the ongoing projects.</p>
                         
                             
                              
-                                <category scheme="https://albertdelafuente.com/categories/english" term="english" label="english" />
+                                <category scheme="https://albertdelafuente.com/categories/emacs" term="emacs" label="emacs" />
+                             
+                                <category scheme="https://albertdelafuente.com/categories/visualization" term="visualization" label="visualization" />
                             
                         
                     
@@ -307,33 +673,25 @@ shows my homesteading notes and all the ongoing projects.</p>
         
         <entry>
             <title type="html"><![CDATA[Learning hebrew like a geek]]></title>
-            <link href="https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            <link href="https://albertdelafuente.com/posts/lhlg/?utm_source=atom_feed" rel="alternate" type="text/html" />
             
-                <link href="https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/?utm_source=atom_feed" rel="related" type="text/html" title="Finding communities on graphs" />
+                <link href="https://albertdelafuente.com/posts/bhs/?utm_source=atom_feed" rel="related" type="text/html" title="Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python" />
+                <link href="https://albertdelafuente.com/exobrain/20220128220728-curso_de_hebreo_de_emc_shalom_colombia/?utm_source=atom_feed" rel="related" type="text/html" title="Curso de hebreo de EMC Shalom Colombia" />
+                <link href="https://albertdelafuente.com/exobrain/20220129174154-how_to_configure_the_keyboard_layout_for_hebrew/?utm_source=atom_feed" rel="related" type="text/html" title="How to configure the keyboard layout for Hebrew (biblicalSIL, phonetic, etc)" />
+                <link href="https://albertdelafuente.com/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/?utm_source=atom_feed" rel="related" type="text/html" title="How to parse the Aleppo codex and analyze its content in python" />
+                <link href="https://albertdelafuente.com/exobrain/20220130183606-how_to_use_dictd/?utm_source=atom_feed" rel="related" type="text/html" title="How to use dictd with hebrew dictionaries" />
             
-                <id>https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/</id>
+                <id>https://albertdelafuente.com/posts/lhlg/</id>
             
             
                     <author>
                         <name>Albert De La Fuente Vigliotti</name>
                     </author>
             <published>2022-06-01T00:00:00+00:00</published>
-            <updated>2023-08-12T23:40:21-03:00</updated>
+            <updated>2023-08-13T11:28:22-03:00</updated>
             
             
-            <content type="html"><![CDATA[<div class="ox-hugo-toc toc">
-<div class="heading">Table of Contents</div>
-<ul>
-<li><a href="#how">How?</a></li>
-<li><a href="#assumptions-and-limitations">Assumptions and limitations</a></li>
-<li><a href="#interesting-findings">Interesting findings</a></li>
-<li><a href="#experiments-organized-by-sections">Experiments organized by sections</a></li>
-<li><a href="#experiments-organized-by-books">Experiments organized by books</a></li>
-<li><a href="#conclusion">Conclusion</a></li>
-</ul>
-</div>
-<!--endtoc-->
-<p>The other day I was thinking about some practical way of learning hebrew,
+            <content type="html"><![CDATA[<p>The other day I was thinking about some practical way of learning hebrew,
 something dynamic that tickles my scientist curiosity. And I thought, wouldn&rsquo;t
 it be cool if I could parse one of the hebrew codexes and get the top 20 most
 frequent words of a chapter or a book? Well this is an attempt to answer these
@@ -1048,7 +1406,9 @@ looks really lean and straigthforward.</p>
                         
                             
                              
-                                <category scheme="https://albertdelafuente.com/categories/english" term="english" label="english" />
+                                <category scheme="https://albertdelafuente.com/categories/scriptures" term="scriptures" label="scriptures" />
+                             
+                                <category scheme="https://albertdelafuente.com/categories/development" term="development" label="development" />
                             
                         
                     
@@ -1060,9 +1420,13 @@ looks really lean and straigthforward.</p>
                         
                             
                              
-                                <category scheme="https://albertdelafuente.com/tags/research" term="research" label="research" />
+                                <category scheme="https://albertdelafuente.com/tags/hebrew" term="hebrew" label="hebrew" />
                              
-                                <category scheme="https://albertdelafuente.com/tags/nlp" term="nlp" label="nlp" />
+                                <category scheme="https://albertdelafuente.com/tags/python" term="python" label="python" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/aleppo" term="aleppo" label="Aleppo" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/codex" term="codex" label="codex" />
                             
                         
                     
@@ -1078,6 +1442,7 @@ looks really lean and straigthforward.</p>
                 <link href="https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/?utm_source=atom_feed" rel="related" type="text/html" title="How to manually boot/recover a system with LUKS and LVM" />
                 <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
                 <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="related" type="text/html" title="How to publish a GPG key via DNS" />
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
             
                 <id>https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/</id>
             
@@ -1086,7 +1451,7 @@ looks really lean and straigthforward.</p>
                         <name>Albert De La Fuente Vigliotti</name>
                     </author>
             <published>2021-08-04T00:00:00+00:00</published>
-            <updated>2022-07-02T10:38:37-03:00</updated>
+            <updated>2023-08-13T11:19:32-03:00</updated>
             
             
             <content type="html"><![CDATA[<div class="ox-hugo-toc toc">
@@ -1173,6 +1538,12 @@ grub-install &ndash;efi-directory=/boot &ndash;target=x86_64-efi /dev/sda</p>
                                 <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
                              
                                 <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/grub" term="grub" label="grub" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
                             
                         
                     
@@ -1186,7 +1557,6 @@ grub-install &ndash;efi-directory=/boot &ndash;target=x86_64-efi /dev/sda</p>
             <link href="https://albertdelafuente.com/posts/sandbox/?utm_source=atom_feed" rel="alternate" type="text/html" />
             
                 <link href="https://albertdelafuente.com/exobrain/20220128220728-curso_de_hebreo_de_emc_shalom_colombia/?utm_source=atom_feed" rel="related" type="text/html" title="Curso de hebreo de EMC Shalom Colombia" />
-                <link href="https://albertdelafuente.com/exobrain/20200313214456-how_to_use_magit/?utm_source=atom_feed" rel="related" type="text/html" title="How to use magit" />
             
                 <id>https://albertdelafuente.com/posts/sandbox/</id>
             
@@ -1195,7 +1565,7 @@ grub-install &ndash;efi-directory=/boot &ndash;target=x86_64-efi /dev/sda</p>
                         <name>Albert De La Fuente Vigliotti</name>
                     </author>
             <published>2020-08-07T00:00:00+00:00</published>
-            <updated>2022-05-23T22:56:54-03:00</updated>
+            <updated>2023-08-13T11:17:28-03:00</updated>
             
             
             <content type="html"><![CDATA[<p>Okay this is like my fifth attempt to blog and so far, unsuccessfully.</p>
@@ -1356,7 +1726,7 @@ Also there html5 attributes prefixed with <code>rundoc-</code>.</p>
 <figure>
     
         
-            <img src="http://45.media.tumblr.com/270992d792c9899f79888a8ea6955ca5/tumblr_o0jt792qLd1r83d7lo6_540.gif"/> </figure>
+            <img src="https://media.tenor.com/Vkid3xkvTAMAAAAd/dog-in-space-dog.gif"/> </figure>
 
 <h2 id="description-list">Description List</h2>
 <dl>
@@ -1390,7 +1760,7 @@ Also there html5 attributes prefixed with <code>rundoc-</code>.</p>
                              
                                 <category scheme="https://albertdelafuente.com/tags/org-mode" term="org-mode" label="org-mode" />
                              
-                                <category scheme="https://albertdelafuente.com/tags/emacs" term="emacs" label="emacs" />
+                                <category scheme="https://albertdelafuente.com/tags/hugo" term="hugo" label="hugo" />
                             
                         
                     
@@ -1405,15 +1775,16 @@ Also there html5 attributes prefixed with <code>rundoc-</code>.</p>
             
                 <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
                 <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="related" type="text/html" title="How to publish a GPG key via DNS" />
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
             
                 <id>https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/</id>
             
             
                     <author>
-                        <name>Albert</name>
+                        <name>Albert De La Fuente Vigliotti</name>
                     </author>
             <published>2016-11-22T00:00:00+00:00</published>
-            <updated>2022-06-21T21:14:20-03:00</updated>
+            <updated>2023-08-13T11:20:59-03:00</updated>
             
             
             <content type="html"><![CDATA[<p>I have been using LVM on top of LUKS for more than 2 years without problems.
@@ -1523,6 +1894,10 @@ free to send me a PR.</p>
                                 <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
                              
                                 <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
                             
                         
                     
@@ -1544,7 +1919,7 @@ free to send me a PR.</p>
                         <name>Albert</name>
                     </author>
             <published>2016-11-13T00:00:00+00:00</published>
-            <updated>2022-01-09T21:49:24-03:00</updated>
+            <updated>2023-08-13T11:22:29-03:00</updated>
             
             
             <content type="html"><![CDATA[<p>Publishing keys is quite common. One nice way to do so is by using the Public
@@ -1670,7 +2045,9 @@ free to send me a PR.</p>
                              
                                 <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
                              
-                                <category scheme="https://albertdelafuente.com/tags/security" term="security" label="security" />
+                                <category scheme="https://albertdelafuente.com/tags/gpg" term="gpg" label="gpg" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/dns" term="dns" label="dns" />
                             
                         
                     
@@ -1683,15 +2060,16 @@ free to send me a PR.</p>
             <title type="html"><![CDATA[Resizing lvm on luks]]></title>
             <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="alternate" type="text/html" />
             
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
             
                 <id>https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/</id>
             
             
                     <author>
-                        <name>Albert</name>
+                        <name>Albert De La Fuente Vigliotti</name>
                     </author>
             <published>2015-11-01T00:00:00+00:00</published>
-            <updated>2022-01-09T21:49:20-03:00</updated>
+            <updated>2023-08-13T11:23:43-03:00</updated>
             
             
             <content type="html"><![CDATA[<h2 id="how-to-manually-boot-recover-a-system-with-luks-and-lvm">How to manually boot/recover a system with LUKS and LVM</h2>
@@ -1743,11 +2121,7 @@ free to send me a PR.</p>
 </span></span><span class="line"><span class="cl">parted /dev/sda
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">resize
-</span></span></code></pre></div><img src="![](http://xyne.archlinux.ca/etc/dyn/img/graphviz/Pacserve%5FRequest%5FFlow%5FChart.svg)">
-<p>{# Local Variables: #}
-{# mode: markdown #}
-{# End: #}</p>
-]]></content>
+</span></span></code></pre></div>]]></content>
             
                  
                     
@@ -1770,6 +2144,10 @@ free to send me a PR.</p>
                                 <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
                              
                                 <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
                             
                         
                     
@@ -1780,17 +2158,18 @@ free to send me a PR.</p>
         
         <entry>
             <title type="html"><![CDATA[Configuring pacsrv and powerpill on Arch Linux]]></title>
-            <link href="https://albertdelafuente.com/posts/post1/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="alternate" type="text/html" />
             
+                <link href="https://albertdelafuente.com/posts/bhs/?utm_source=atom_feed" rel="related" type="text/html" title="Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python" />
             
-                <id>https://albertdelafuente.com/posts/post1/</id>
+                <id>https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/</id>
             
             
                     <author>
                         <name>Albert De La Fuente Vigliotti</name>
                     </author>
             <published>2015-10-21T00:00:00+00:00</published>
-            <updated>2022-05-23T23:14:54-03:00</updated>
+            <updated>2023-08-13T12:06:01-03:00</updated>
             
             
             <content type="html"><![CDATA[<p>On this post I will show how to configure and use <code>Pacserve</code> and <code>Powerpill</code> on
@@ -1801,14 +2180,14 @@ network can be configured as <code>Slaves</code> and they will download the pack
 the Master whenever possible instead of the Internet directly. The objective is
 to save bandwidth and time when using the package manager.</p>
 <h2 id="configuring-pacserve-and-powerpill-on-arch-linux">Configuring Pacserve and Powerpill on Arch Linux</h2>
-<p>The documentation of <a href="http://xyne.archlinux.ca/projects/pacserve/">Pacserve</a> explains how it works. This image summarizes
+<p>The documentation of <a href="https://xyne.dev/projects/pacserve/">Pacserve</a> explains how it works. This image summarizes
 well the behavior.</p>
 
 
 
 <figure>
     
-        <img src="https://albertdelafuente.com/home/av/org-media/images/albertdelafuente.com/Pacserve_Network_Topology_Example.svg"/> </figure>
+        <img src="https://albertdelafuente.com/ox-hugo/Pacserve_Request_Flow_Chart.svg"/> </figure>
 
 <p>Pacserve by itself seems very interesting however I could not make it work
 properly. I think it has something to do my router UDP multicast forwarding
@@ -1972,9 +2351,7 @@ start Pacserve on the Slave(s) hosts as:</p>
                         
                             
                              
-                                <category scheme="https://albertdelafuente.com/categories/emacs" term="emacs" label="emacs" />
-                             
-                                <category scheme="https://albertdelafuente.com/categories/portugues" term="portugues" label="portugues" />
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
                             
                         
                     
@@ -1986,7 +2363,7 @@ start Pacserve on the Slave(s) hosts as:</p>
                         
                             
                              
-                                <category scheme="https://albertdelafuente.com/tags/arch" term="arch" label="arch" />
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
                              
                                 <category scheme="https://albertdelafuente.com/tags/python" term="python" label="python" />
                             
@@ -2009,7 +2386,7 @@ start Pacserve on the Slave(s) hosts as:</p>
                         <name>Albert De La Fuente Vigliotti</name>
                     </author>
             <published>2013-08-25T00:00:00+00:00</published>
-            <updated>2022-07-21T21:01:59-03:00</updated>
+            <updated>2023-08-13T11:50:29-03:00</updated>
             
             
             <content type="html"><![CDATA[<p>Some months before I had to import a quite big list of use cases, relationships and requirements data into Enterprise Architect for a project. Of course I didn&rsquo;t do that manually, so I made a hack to do that automatically. Recently I had a new task to accomplish, to split into groups that use case list by their relationships, and once again I thought about doing it automatically since I already have the data structures available and then, I decided: let&rsquo;s play a little bit with the data 8-).</p>
@@ -2020,7 +2397,7 @@ start Pacserve on the Slave(s) hosts as:</p>
 
 <figure>
     
-        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb1-2.jpeg"/> </figure>
+        <img src="https://albertdelafuente.com/ox-hugo/fb1-2.jpeg"/> </figure>
 
 <p>Afterward I applied a community detection algorithm (Louvain) with a specific parameter and I could identify 63 groups / communities.</p>
 
@@ -2028,7 +2405,7 @@ start Pacserve on the Slave(s) hosts as:</p>
 
 <figure>
     
-        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb2-2.jpeg"/> </figure>
+        <img src="https://albertdelafuente.com/ox-hugo/fb2-2.jpeg"/> </figure>
 
 <p>Can you see them? Well&hellip; neither do I&hellip; So I applied a atlas layout algorithm so it&rsquo;s visually friendly, and this is the result</p>
 
@@ -2036,7 +2413,7 @@ start Pacserve on the Slave(s) hosts as:</p>
 
 <figure>
     
-        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb3-800.jpeg"/> </figure>
+        <img src="https://albertdelafuente.com/ox-hugo/fb3-800.jpeg"/> </figure>
 
 <p>It&rsquo;s interesting to notice that about 46% of my contacts are within the three biggest groups (20.77%, 14.46% and 12.52%). There are also contacts (that multicolored group in the middle) that I couldn&rsquo;t retrieve their connections (probably because a privacy setting). Of course the graphics generated are anonymized, but I&rsquo;m able to identify each group, for instance the bottom middle blue group are my last job work European colleagues. The top right cyan group are some friends from FLOSS communities. Pretty cool, huh?</p>
 <p>On the other hand getting the Linkedin results wasn&rsquo;t that straightforward I had to deal with oauth and the LinkedIn API webservice directly within python. This are the results of my LinkedIn network.</p>
@@ -2045,7 +2422,7 @@ start Pacserve on the Slave(s) hosts as:</p>
 
 <figure>
     
-        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/link1-800.jpeg"/> </figure>
+        <img src="https://albertdelafuente.com/ox-hugo/linkedin.jpeg"/> </figure>
 
 <p>Some notable groups at first were: bottom left cyan group are again my last work European colleagues, and green my last work Latin America colleagues.</p>
 <h2 id="conclusions">Conclusions</h2>
@@ -2058,7 +2435,7 @@ start Pacserve on the Slave(s) hosts as:</p>
                         
                             
                              
-                                <category scheme="https://albertdelafuente.com/categories/english" term="english" label="english" />
+                                <category scheme="https://albertdelafuente.com/categories/experiments" term="experiments" label="experiments" />
                             
                         
                     
@@ -2069,8 +2446,6 @@ start Pacserve on the Slave(s) hosts as:</p>
                          
                         
                             
-                             
-                                <category scheme="https://albertdelafuente.com/tags/research" term="research" label="research" />
                              
                                 <category scheme="https://albertdelafuente.com/tags/graphs" term="graphs" label="graphs" />
                              
@@ -2098,7 +2473,7 @@ start Pacserve on the Slave(s) hosts as:</p>
                         <name>Albert De La Fuente Vigliotti</name>
                     </author>
             <published>2013-01-08T00:00:00+00:00</published>
-            <updated>2022-06-29T22:55:57-03:00</updated>
+            <updated>2023-08-13T11:38:29-03:00</updated>
             
             
             <content type="html"><![CDATA[<p>Recently I&rsquo;ve been to a talk given by Richard Stallman about how software
@@ -2111,7 +2486,7 @@ of the patented ideas.</p>
 
 <figure>
     
-        <img src="https://albertdelafuente.com/steve-jobs-with-patent.jpg"/> </figure>
+        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/images/fm_patents.jpg"/> </figure>
 
 <p>He commented that patents are like walking in a mine field, but worst because a
 mine ones it blows up it doesn&rsquo;t blows again, patents keeps blowing on and on.
@@ -2134,7 +2509,7 @@ your idea. Then something similar will happen&hellip;</p>
 
 <figure>
     
-        <img src="https://albertdelafuente.com/mobile-patent-suits.png"/> </figure>
+        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/mobile-patent-suits.png"/> </figure>
 
 <h2 id="a-patent-to-protect-yourself-from-others-attacking-you">A patent to protect yourself from others attacking you</h2>
 <p>The truth is that it won&rsquo;t protect you unless you find another infringement on the other side that is covered by your patent. A minor company wont sue you anyway since they don&rsquo;t have the resources, and a big one will have very good lawyers to do so and to also defend themselves, so it&rsquo;s a endless legal battle and unnecessary waste of money.</p>
@@ -2156,9 +2531,7 @@ doing so than composing with the worry of not getting sued&rdquo;.</p>
                         
                             
                              
-                                <category scheme="https://albertdelafuente.com/categories/emacs" term="emacs" label="emacs" />
-                             
-                                <category scheme="https://albertdelafuente.com/categories/english" term="english" label="english" />
+                                <category scheme="https://albertdelafuente.com/categories/development" term="development" label="development" />
                             
                         
                     
@@ -2173,6 +2546,8 @@ doing so than composing with the worry of not getting sued&rdquo;.</p>
                                 <category scheme="https://albertdelafuente.com/tags/software" term="software" label="software" />
                              
                                 <category scheme="https://albertdelafuente.com/tags/floss" term="floss" label="floss" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/patents" term="patents" label="patents" />
                             
                         
                     

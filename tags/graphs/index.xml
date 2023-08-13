@@ -12,7 +12,7 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 12 Aug 2023 23:50:51 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 13 Aug 2023 15:05:44 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/tags/graphs/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -260,7 +260,9 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/categories/english">english</category>
+                                    <category domain="https://albertdelafuente.com/categories/emacs">emacs</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/visualization">visualization</category>
                                 
                             
                         
@@ -306,7 +308,7 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb1-2.jpeg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/fb1-2.jpeg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;Afterward I applied a community detection algorithm (Louvain) with a specific parameter and I could identify 63 groups / communities.&lt;/p&gt;
 
@@ -314,7 +316,7 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb2-2.jpeg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/fb2-2.jpeg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;Can you see them? Well&amp;hellip; neither do I&amp;hellip; So I applied a atlas layout algorithm so it&amp;rsquo;s visually friendly, and this is the result&lt;/p&gt;
 
@@ -322,7 +324,7 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb3-800.jpeg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/fb3-800.jpeg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;It&amp;rsquo;s interesting to notice that about 46% of my contacts are within the three biggest groups (20.77%, 14.46% and 12.52%). There are also contacts (that multicolored group in the middle) that I couldn&amp;rsquo;t retrieve their connections (probably because a privacy setting). Of course the graphics generated are anonymized, but I&amp;rsquo;m able to identify each group, for instance the bottom middle blue group are my last job work European colleagues. The top right cyan group are some friends from FLOSS communities. Pretty cool, huh?&lt;/p&gt;
 &lt;p&gt;On the other hand getting the Linkedin results wasn&amp;rsquo;t that straightforward I had to deal with oauth and the LinkedIn API webservice directly within python. This are the results of my LinkedIn network.&lt;/p&gt;
@@ -331,7 +333,7 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/link1-800.jpeg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/linkedin.jpeg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;Some notable groups at first were: bottom left cyan group are again my last work European colleagues, and green my last work Latin America colleagues.&lt;/p&gt;
 &lt;h2 id=&#34;conclusions&#34;&gt;Conclusions&lt;/h2&gt;
@@ -346,7 +348,7 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/categories/english">english</category>
+                                    <category domain="https://albertdelafuente.com/categories/experiments">experiments</category>
                                 
                             
                         
@@ -357,8 +359,6 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
                              
                             
                                 
-                                 
-                                    <category domain="https://albertdelafuente.com/tags/research">research</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/graphs">graphs</category>
                                  

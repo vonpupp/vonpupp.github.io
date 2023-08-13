@@ -12,7 +12,7 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 12 Aug 2023 23:50:51 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 13 Aug 2023 15:05:44 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/tags/org-mode/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -181,7 +181,7 @@ Also there html5 attributes prefixed with &lt;code&gt;rundoc-&lt;/code&gt;.&lt;/
 &lt;figure&gt;
     
         
-            &lt;img src=&#34;http://45.media.tumblr.com/270992d792c9899f79888a8ea6955ca5/tumblr_o0jt792qLd1r83d7lo6_540.gif&#34;/&gt; &lt;/figure&gt;
+            &lt;img src=&#34;https://media.tenor.com/Vkid3xkvTAMAAAAd/dog-in-space-dog.gif&#34;/&gt; &lt;/figure&gt;
 
 &lt;h2 id=&#34;description-list&#34;&gt;Description List&lt;/h2&gt;
 &lt;dl&gt;
@@ -217,7 +217,7 @@ Also there html5 attributes prefixed with &lt;code&gt;rundoc-&lt;/code&gt;.&lt;/
                                  
                                     <category domain="https://albertdelafuente.com/tags/org-mode">org-mode</category>
                                  
-                                    <category domain="https://albertdelafuente.com/tags/emacs">emacs</category>
+                                    <category domain="https://albertdelafuente.com/tags/hugo">hugo</category>
                                 
                             
                         

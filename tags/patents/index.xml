@@ -1,0 +1,112 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>
+            
+                    patents on
+                
+            
+            Albert De La Fuente&#39;s site</title>
+        <link>https://albertdelafuente.com/tags/patents/</link>
+        <description>Recent content  in patents
+            on Albert De La Fuente&#39;s site</description>
+        <language>en-us</language>
+        
+                <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 13 Aug 2023 15:05:44 -0300</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+            <atom:link href="https://albertdelafuente.com/tags/patents/index.xml" rel="self" type="application/rss&#43;xml" />
+        
+            
+            <item>
+                <title>Software patents</title>
+                <link>https://albertdelafuente.com/posts/20220109211322-software_patents/</link>
+                
+                
+                <description>&lt;p&gt;Recently I&amp;rsquo;ve been to a talk given by Richard Stallman about how software
+patents are useless for the software industry. Since software is applied
+mathematics and, it generally needs to combine several ideas to make a new one,
+by doing that you could easily infringe a software patent by using one (or more)
+of the patented ideas.&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/images/fm_patents.jpg&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;He commented that patents are like walking in a mine field, but worst because a
+mine ones it blows up it doesn&amp;rsquo;t blows again, patents keeps blowing on and on.
+He later highlighted some different scenarios.&lt;/p&gt;
+&lt;h2 id=&#34;a-patent-for-your-idea-not-to-be-stolen-dot-this-is-the-worst-case-scenario&#34;&gt;A patent for your idea not to be &amp;ldquo;stolen&amp;rdquo;**. This is the worst case scenario&lt;/h2&gt;
+&lt;p&gt;You might think that you had a great idea and you want to patent it so no one
+will stole your idea. Later a big company comes in and develops something around
+your idea. Then something similar will happen&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&amp;gt; (You) You go there and say: Hey this idea is mine, and I have the patent so you cannot use it!&lt;/p&gt;
+&lt;p&gt;&amp;gt;&amp;gt; (Big company) Ohh, it is a shame&amp;hellip; But let me remind you that within your idea you used some ideas similar to these three patents of us&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&amp;gt; (oh oh)&lt;/p&gt;
+&lt;p&gt;&amp;gt;&amp;gt; &amp;hellip;and we can find other patents (among our thousands) of us, you might violated with your idea as well&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&amp;gt; ehmmm&lt;/p&gt;
+&lt;p&gt;&amp;gt;&amp;gt; &amp;hellip;so in order to no one get hurts, lets make a deal: You give us the right to use your patent and we wont sue you&lt;/p&gt;
+&lt;p&gt;&amp;gt; Well&amp;hellip; You evaluate (in silence) and remember that they have some good lawyers and a lot of money as well&amp;hellip; And you end by saying: Okay you can use it&lt;/p&gt;
+&lt;p&gt;&amp;gt;&amp;gt; Great. Thanks =D&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Conclusion: The big company wins.&lt;/strong&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/mobile-patent-suits.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;h2 id=&#34;a-patent-to-protect-yourself-from-others-attacking-you&#34;&gt;A patent to protect yourself from others attacking you&lt;/h2&gt;
+&lt;p&gt;The truth is that it won&amp;rsquo;t protect you unless you find another infringement on the other side that is covered by your patent. A minor company wont sue you anyway since they don&amp;rsquo;t have the resources, and a big one will have very good lawyers to do so and to also defend themselves, so it&amp;rsquo;s a endless legal battle and unnecessary waste of money.&lt;/p&gt;
+&lt;p&gt;He also pointed that in fact a patent could be also be harmful if you try to defend yourself you don&amp;rsquo;t know how to use it properly, or something is wrong within the patent.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;A never ending legal story if someones attacks you, or in the best scenario
+nobody will attack you so you won&amp;rsquo;t really need the patent in first place.&lt;/p&gt;
+&lt;p&gt;Later he also made a symbolism about software and music which personally I found
+very interesting. &amp;ldquo;Imagine that when Beethoven was alive the whole patent idea
+arose and somebody patented parts of musical pieces. Then some beautiful
+compositions would never been made. It&amp;rsquo;s easier to compose for the beauty of
+doing so than composing with the worry of not getting sued&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;The whole speech makes a lot of sense while patents in software don&amp;rsquo;t.&lt;/p&gt;
+</description>
+                
+                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
+                
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/development">development</category>
+                                
+                            
+                        
+                     
+                        
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/software">software</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/floss">floss</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/patents">patents</category>
+                                
+                            
+                        
+                    
+                
+                <guid>https://albertdelafuente.com/posts/20220109211322-software_patents/</guid>
+                <pubDate>Tue, 08 Jan 2013 00:00:00 +0000</pubDate>
+            </item>
+        
+    </channel>
+</rss>
+
+

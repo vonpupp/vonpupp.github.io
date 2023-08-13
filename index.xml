@@ -10,10 +10,364 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 12 Aug 2023 23:50:51 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 13 Aug 2023 15:05:44 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/index.xml" rel="self" type="application/rss&#43;xml" />
+        
+            
+            <item>
+                <title>Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python</title>
+                <link>https://albertdelafuente.com/posts/bhs/</link>
+                
+                
+                <description>&lt;p&gt;I am very curious about Hebrew, specially the way the language is hierarchically
+designed. Tree letter words are commonly known as trilateral roots and the rest
+of the words are variation of these three letters and categorized under the same
+family. I am not going to get into these details since it is not the scope of
+this post.&lt;/p&gt;
+&lt;p&gt;Long story short, the journey of trying to learn Hebrew started probably between
+2006 to 2008 and I haven&amp;rsquo;t had much success at it. Or lets say that the
+expectations don&amp;rsquo;t match reality =P. So I thought that I could try to somehow
+start with the most common words in the scriptures and that is what motivated &lt;a href=&#34;https://albertdelafuente.com/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/&#34;&gt;to
+parse the Aleppo codex and analyze its content in python&lt;/a&gt;. I quickly learned
+that my approach was rather naive given the prefixes that causes variations to
+the words, even thought the meaning of the word itself is the same.&lt;/p&gt;
+&lt;p&gt;This blog post is a second attempt to tackle the same problem but with a more
+sophisticated linguistic approach using Text Fabric.&lt;/p&gt;
+&lt;p&gt;A corpus of ancient texts and (linguistic) annotations represents a large body
+of knowledge.&lt;/p&gt;
+&lt;p&gt;Text-Fabric is a Python package for processing and access a corpus of ancient
+text and linguistic annotations. In this specific case I am using the Hebrew
+Bible Database, containing the text of the Hebrew Bible augmented with
+linguistic annotations compiled by the Eep Talstra Centre for Bible and
+Computer, VU University Amsterdam.&lt;/p&gt;
+&lt;p&gt;The text is based on the Biblia Hebraica Stuttgartensia edited by Karl Elliger
+and Wilhelm Rudolph, Fifth Revised Edition, edited by Adrian Schenker, © 1977
+and 1997 Deutsche Bibelgesellschaft, Stuttgart.&lt;/p&gt;
+&lt;p&gt;The text-fabric version has been prepared by Dirk Roorda Data Archiving and
+Networked Services, with thanks to Martijn Naaijer, Cody Kingham, and
+Constantijn Sikkel.&lt;/p&gt;
+&lt;p&gt;It is amazing to see the work these researchers did compiling all this data and
+making it public for free. I am very thankful for it.&lt;/p&gt;
+&lt;p&gt;I am using a literate programming approach with Doom Emacs and org-mode.&lt;/p&gt;
+&lt;h2 id=&#34;create-the-virtual-environment&#34;&gt;Create the virtual environment&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;virtualenv ~/.workon-home/venv-textfabric
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/.workon-home/venv-textfabric
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; ./bin/activate.fish
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pip install text-fabric pandas requests
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;activate-the-virtual-environment&#34;&gt;Activate the virtual environment&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;pyvenv-activate&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;~/.workon-home/venv-textfabric&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;load-the-etcbc-bhsa-dataset&#34;&gt;Load the ETCBC/bhsa dataset&lt;/h2&gt;
+&lt;p&gt;Use &lt;code&gt;run-python&lt;/code&gt; and &lt;code&gt;ober-eval-block-in-repl&lt;/code&gt; to evaluate each block (&lt;code&gt;C-c r&lt;/code&gt;
+at the time being). For the sake of a more practical approach to writing using
+literate programming the output of the blocks will follow the code.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;tf.app&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;use&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;os&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;collections&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;itertools&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;chain&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;use&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ETCBC/bhsa&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hoist&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;globals&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;indent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;reset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;counting objects ...&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;otype&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;otype&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;indent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;level&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;otype&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;otype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{:&amp;gt;7}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;s&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;otype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;indent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;level&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Done&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;**Locating corpus resources ...**
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;app: ~/text-fabric-data/github/ETCBC/bhsa/app
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;data: ~/text-fabric-data/github/ETCBC/bhsa/tf/2021
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;data: ~/text-fabric-data/github/ETCBC/phono/tf/2021
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;data: ~/text-fabric-data/github/ETCBC/parallels/tf/2021
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Text-Fabric:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	Text-Fabric API 12.0.5 =&amp;gt; https:/annotation.github.io/text-fabric/tf/cheatsheet.html
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	ETCBC/bhsa/app  v3 =&amp;gt; https:/github.com/ETCBC/bhsa/blob/master/app
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	Search Reference =&amp;gt; https:/annotation.github.io/text-fabric/tf/about/searchusage.html
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Data:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	ETCBC - bhsa 2021 =&amp;gt; https:/ETCBC.github.io/bhsa/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	Character table =&amp;gt; https:/annotation.github.io/text-fabric/tf/writing/hebrew.html
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	Feature docs =&amp;gt; https:/ETCBC.github.io/bhsa/features/0_home
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Node types:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;book                      39 10938.21 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chapter                  929   459.19 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lex                     9230    46.22 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;verse                  23213    18.38 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;half_verse             45179     9.44 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sentence               63717     6.70 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sentence_atom          64514     6.61 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clause                 88131     4.84 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clause_atom            90704     4.70 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;phrase                253203     1.68 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;phrase_atom           267532     1.59 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;subphrase             113850     1.42        38
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;*word*                426590     1.00 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Sets:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Features:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Parallel Passages
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	crossref             🆗 links between similar passages
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;BHSA = Biblia Hebraica Stuttgartensia Amstelodamensis
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	book                 ✅ book name in Latin (Genesis; Numeri; Reges1; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	book@ll              ✅ book name in amharic (ኣማርኛ)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	chapter              ✅ chapter number (1; 2; 3; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	code                 ✅ identifier of a clause atom relationship (0; 74; 367; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	det                  ✅ determinedness of phrase(atom) (det; und; NA.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	domain               ✅ text type of clause (? (Unknown); N (narrative); D (discursive); Q (Quotation).)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	freq_lex             ✅ frequency of lexemes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	function             ✅ syntactic function of phrase (Cmpl; Objc; Pred; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_cons               ✅ word consonantal-transliterated (B R&amp;gt;CJT BR&amp;gt; &amp;gt;LHJM ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_cons_utf8          ✅ word consonantal-Hebrew (ב ראשׁית ברא אלהים)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_lex                ✅ lexeme pointed-transliterated (B.:- R;&amp;gt;CIJT B.@R@&amp;gt; &amp;gt;:ELOH ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_lex_utf8           ✅ lexeme pointed-Hebrew (בְּ רֵאשִׁית בָּרָא אֱלֹה)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_word               ✅ word pointed-transliterated (B.:- R;&amp;gt;CI73JT B.@R@74&amp;gt; &amp;gt;:ELOHI92JM)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_word_utf8          ✅ word pointed-Hebrew (בְּ רֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	gloss                🆗 english translation of lexeme (beginning create god(s))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	gn                   ✅ grammatical gender (m; f; NA; unknown.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	label                ✅ (half-)verse label (half verses: A; B; C; verses:  GEN 01,02)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	language             ✅ of word or lexeme (Hebrew; Aramaic.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	lex                  ✅ lexeme consonantal-transliterated (B R&amp;gt;CJT/ BR&amp;gt;[ &amp;gt;LHJM/)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	lex_utf8             ✅ lexeme consonantal-Hebrew (ב ראשׁית֜ ברא אלהים֜)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	ls                   ✅ lexical set, subclassification of part-of-speech (card; ques; mult)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	nametype             ⚠️ named entity type (pers; mens; gens; topo; ppde.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	nme                  ✅ nominal ending consonantal-transliterated (absent; n/a; JM, ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	nu                   ✅ grammatical number (sg; du; pl; NA; unknown.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	number               ✅ sequence number of an object within its context
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	otype
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	pargr                🆗 hierarchical paragraph number (1; 1.2; 1.2.3.4; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	pdp                  ✅ phrase dependent part-of-speech (art; verb; subs; nmpr, ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	pfm                  ✅ preformative consonantal-transliterated (absent; n/a; J, ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	prs                  ✅ pronominal suffix consonantal-transliterated (absent; n/a; W; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	prs_gn               ✅ pronominal suffix gender (m; f; NA; unknown.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	prs_nu               ✅ pronominal suffix number (sg; du; pl; NA; unknown.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	prs_ps               ✅ pronominal suffix person (p1; p2; p3; NA; unknown.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	ps                   ✅ grammatical person (p1; p2; p3; NA; unknown.)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	qere                 ✅ word pointed-transliterated masoretic reading correction
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	qere_trailer         ✅ interword material -pointed-transliterated (Masoretic correction)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	qere_trailer_utf8    ✅ interword material -pointed-transliterated (Masoretic correction)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	qere_utf8            ✅ word pointed-Hebrew masoretic reading correction
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	rank_lex             ✅ ranking of lexemes based on freqnuecy
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	rela                 ✅ linguistic relation between clause/(sub)phrase(atom) (ADJ; MOD; ATR; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	sp                   ✅ part-of-speech (art; verb; subs; nmpr, ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	st                   ✅ state of a noun (a (absolute); c (construct); e (emphatic).)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	tab                  ✅ clause atom: its level in the linguistic embedding
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	trailer              ✅ interword material pointed-transliterated (&amp;amp; 00 05 00_P ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	trailer_utf8         ✅ interword material pointed-Hebrew (־ ׃)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	txt                  ✅ text type of clause and surrounding (repetion of ? N D Q as in feature domain)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	typ                  ✅ clause/phrase(atom) type (VP; NP; Ellp; Ptcp; WayX)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	uvf                  ✅ univalent final consonant consonantal-transliterated (absent; N; J; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	vbe                  ✅ verbal ending consonantal-transliterated (n/a; W; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	vbs                  ✅ root formation consonantal-transliterated (absent; n/a; H; ...)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	verse                ✅ verse number
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	voc_lex              ✅ vocalized lexeme pointed-transliterated (B.: R;&amp;gt;CIJT BR&amp;gt; &amp;gt;:ELOHIJM)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	voc_lex_utf8         ✅ vocalized lexeme pointed-Hebrew (בְּ רֵאשִׁית ברא אֱלֹהִים)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	vs                   ✅ verbal stem (qal; piel; hif; apel; pael)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	vt                   ✅ verbal tense (perf; impv; wayq; infc)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	mother               ✅ linguistic dependency between textual objects
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	oslots
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Phonetic Transcriptions
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	phono                🆗 phonological transcription (bᵊ rēšˌîṯ bārˈā ʔᵉlōhˈîm)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	phono_trailer        🆗 interword material in phonological transcription
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0.00s counting objects ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s      39 books
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s     929 chapters
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s    9230 lexs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s   23213 verses
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s   45179 half_verses
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s   63717 sentences
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s   64514 sentence_atoms
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s   88131 clauses
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s   90704 clause_atoms
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.03s  253203 phrases
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.03s  267532 phrase_atoms
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s  113850 subphrases
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.04s  426590 words
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0.15s Done
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;defining-some-helpers-to-count-lexemes-by-type-and-printing-the-top-n-occurrences&#34;&gt;Defining some helpers to count lexemes by type, and printing the top &amp;ldquo;n&amp;rdquo; occurrences&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get_lexeme_by_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lex_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;verbs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;collections&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Counter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;indent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;reset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#A.info(&amp;#34;Collecting data&amp;#34;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;otype&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;lex&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lex_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;verbs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lex_utf8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;freq_lex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#A.info(&amp;#34;Done&amp;#34;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;verbs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print_top_n_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items_list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;quantity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reverse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;False&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;: &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{}&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;item&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;sorted&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items_list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]))[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;quantity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;label&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lex_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lex_qty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;label&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;items&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;get_lexeme_by_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lex_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;print_top_n_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lex_qty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;analizing-some-lexemes&#34;&gt;Analizing some lexemes&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;freqList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;((&amp;#39;subs&amp;#39;, 125583), (&amp;#39;verb&amp;#39;, 75451), (&amp;#39;prep&amp;#39;, 73298), (&amp;#39;conj&amp;#39;, 62737), (&amp;#39;nmpr&amp;#39;, 35607), (&amp;#39;art&amp;#39;, 30387), (&amp;#39;adjv&amp;#39;, 10141), (&amp;#39;nega&amp;#39;, 6059), (&amp;#39;prps&amp;#39;, 5035), (&amp;#39;advb&amp;#39;, 4603), (&amp;#39;prde&amp;#39;, 2678), (&amp;#39;intj&amp;#39;, 1912), (&amp;#39;inrg&amp;#39;, 1303), (&amp;#39;prin&amp;#39;, 1026))
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These are the &amp;ldquo;types&amp;rdquo; of words we can query Text Fabric. Now lets see the top 10 verbs&lt;/p&gt;
+&lt;h3 id=&#34;printing-the-top-10-verbs&#34;&gt;Printing the top 10 verbs&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;lex_qty&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;print_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Verbs:&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;verb&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lex_qty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Verbs:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;אמר: 5379
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;היה: 3561
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;עשׂה: 2629
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;בוא: 2570
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;נתן: 2017
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;הלך: 1554
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ראה: 1298
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;שׁמע: 1168
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;דבר: 1143
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ישׁב: 1082
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For the sake of readability I am going to summarize this on a table&lt;/p&gt;
+&lt;!--list-separator--&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Top 10 verbs&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Pronun.&lt;/th&gt;
+&lt;th&gt;Word&lt;/th&gt;
+&lt;th&gt;Qty&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;th&gt;Strongs&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;lsquo;āmar&lt;/td&gt;
+&lt;td&gt;אמר&lt;/td&gt;
+&lt;td&gt;5379&lt;/td&gt;
+&lt;td&gt;To say, speak, utter&lt;/td&gt;
+&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h559/kjv/wlc/0-1/&#34;&gt;H559&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;hāyâ&lt;/td&gt;
+&lt;td&gt;היה&lt;/td&gt;
+&lt;td&gt;3561&lt;/td&gt;
+&lt;td&gt;to be, become, come to pass, exist, happen, fall out&lt;/td&gt;
+&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1961/kjv/wlc/0-1/&#34;&gt;H1961&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ʿāśâ&lt;/td&gt;
+&lt;td&gt;עשׂה&lt;/td&gt;
+&lt;td&gt;2629&lt;/td&gt;
+&lt;td&gt;to do, fashion, accomplish, make&lt;/td&gt;
+&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h6213/kjv/wlc/0-1/&#34;&gt;H6213&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;bo&lt;/td&gt;
+&lt;td&gt;בוא&lt;/td&gt;
+&lt;td&gt;2570&lt;/td&gt;
+&lt;td&gt;to go in, enter, come, go, come in&lt;/td&gt;
+&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h935/kjv/wlc/0-1/&#34;&gt;H935&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;naw-than&amp;rsquo;&lt;/td&gt;
+&lt;td&gt;נתן&lt;/td&gt;
+&lt;td&gt;2017&lt;/td&gt;
+&lt;td&gt;to give, put, set&lt;/td&gt;
+&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h5414/kjv/wlc/0-1/&#34;&gt;H5414&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;haw-lak&#39;&lt;/td&gt;
+&lt;td&gt;הלך&lt;/td&gt;
+&lt;td&gt;1554&lt;/td&gt;
+&lt;td&gt;to go, walk, come&lt;/td&gt;
+&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1980/kjv/wlc/0-1/&#34;&gt;H1980&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;raw-aw&#39;&lt;/td&gt;
+&lt;td&gt;ראה&lt;/td&gt;
+&lt;td&gt;1298&lt;/td&gt;
+&lt;td&gt;to see, look at, inspect, perceive, consider&lt;/td&gt;
+&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h7200/kjv/wlc/0-1/&#34;&gt;H7200&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;shaw-mah&#39;&lt;/td&gt;
+&lt;td&gt;שׁמע&lt;/td&gt;
+&lt;td&gt;1168&lt;/td&gt;
+&lt;td&gt;to hear, listen to, obey&lt;/td&gt;
+&lt;td&gt;WLC &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h8085/wlc/wlc/0-1/&#34;&gt;H885&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;daw-bar&#39;&lt;/td&gt;
+&lt;td&gt;דבר&lt;/td&gt;
+&lt;td&gt;1143&lt;/td&gt;
+&lt;td&gt;to speak, command, promise, warn, threaten, sing&lt;/td&gt;
+&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1696/kjv/wlc/0-1/&#34;&gt;H1696&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;yaw-shab&#39;&lt;/td&gt;
+&lt;td&gt;ישׁב&lt;/td&gt;
+&lt;td&gt;1082&lt;/td&gt;
+&lt;td&gt;to dwell, remain, sit, abide&lt;/td&gt;
+&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3427/kjv/wlc/0-1/&#34;&gt;H3427&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;I made this list by hand, which is not very practical for automation, so I wonder if there is a better way to achieve this. I don&amp;rsquo;t have an answer for this at this time, but this repository looks promising: &lt;a href=&#34;https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv&#34;&gt;https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I still have some work that is not documented, so this is work in progress. I am still learning how to properly use TF&amp;rsquo;s API.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+                
+                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
+                
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/scriptures">scriptures</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/development">development</category>
+                                
+                            
+                        
+                     
+                        
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/hebrew">hebrew</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/python">python</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/bhsa">BHSA</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/codex">codex</category>
+                                
+                            
+                        
+                    
+                
+                <guid>https://albertdelafuente.com/posts/bhs/</guid>
+                <pubDate>Sun, 13 Aug 2023 14:55:59 -0300</pubDate>
+            </item>
         
             
             <item>
@@ -258,7 +612,9 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/categories/english">english</category>
+                                    <category domain="https://albertdelafuente.com/categories/emacs">emacs</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/visualization">visualization</category>
                                 
                             
                         
@@ -293,22 +649,10 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
             
             <item>
                 <title>Learning hebrew like a geek</title>
-                <link>https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/</link>
+                <link>https://albertdelafuente.com/posts/lhlg/</link>
                 
                 
-                <description>&lt;div class=&#34;ox-hugo-toc toc&#34;&gt;
-&lt;div class=&#34;heading&#34;&gt;Table of Contents&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#how&#34;&gt;How?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#assumptions-and-limitations&#34;&gt;Assumptions and limitations&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#interesting-findings&#34;&gt;Interesting findings&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#experiments-organized-by-sections&#34;&gt;Experiments organized by sections&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#experiments-organized-by-books&#34;&gt;Experiments organized by books&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;!--endtoc--&gt;
-&lt;p&gt;The other day I was thinking about some practical way of learning hebrew,
+                <description>&lt;p&gt;The other day I was thinking about some practical way of learning hebrew,
 something dynamic that tickles my scientist curiosity. And I thought, wouldn&amp;rsquo;t
 it be cool if I could parse one of the hebrew codexes and get the top 20 most
 frequent words of a chapter or a book? Well this is an attempt to answer these
@@ -1025,7 +1369,9 @@ looks really lean and straigthforward.&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/categories/english">english</category>
+                                    <category domain="https://albertdelafuente.com/categories/scriptures">scriptures</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/development">development</category>
                                 
                             
                         
@@ -1037,15 +1383,19 @@ looks really lean and straigthforward.&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/tags/research">research</category>
+                                    <category domain="https://albertdelafuente.com/tags/hebrew">hebrew</category>
                                  
-                                    <category domain="https://albertdelafuente.com/tags/nlp">nlp</category>
+                                    <category domain="https://albertdelafuente.com/tags/python">python</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/aleppo">Aleppo</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/codex">codex</category>
                                 
                             
                         
                     
                 
-                <guid>https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/</guid>
+                <guid>https://albertdelafuente.com/posts/lhlg/</guid>
                 <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
             </item>
         
@@ -1141,6 +1491,12 @@ grub-install &amp;ndash;efi-directory=/boot &amp;ndash;target=x86_64-efi /dev/sd
                                     <category domain="https://albertdelafuente.com/tags/archlinux">archlinux</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/system">system</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/grub">grub</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/luks">luks</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/lvm">lvm</category>
                                 
                             
                         
@@ -1314,7 +1670,7 @@ Also there html5 attributes prefixed with &lt;code&gt;rundoc-&lt;/code&gt;.&lt;/
 &lt;figure&gt;
     
         
-            &lt;img src=&#34;http://45.media.tumblr.com/270992d792c9899f79888a8ea6955ca5/tumblr_o0jt792qLd1r83d7lo6_540.gif&#34;/&gt; &lt;/figure&gt;
+            &lt;img src=&#34;https://media.tenor.com/Vkid3xkvTAMAAAAd/dog-in-space-dog.gif&#34;/&gt; &lt;/figure&gt;
 
 &lt;h2 id=&#34;description-list&#34;&gt;Description List&lt;/h2&gt;
 &lt;dl&gt;
@@ -1350,7 +1706,7 @@ Also there html5 attributes prefixed with &lt;code&gt;rundoc-&lt;/code&gt;.&lt;/
                                  
                                     <category domain="https://albertdelafuente.com/tags/org-mode">org-mode</category>
                                  
-                                    <category domain="https://albertdelafuente.com/tags/emacs">emacs</category>
+                                    <category domain="https://albertdelafuente.com/tags/hugo">hugo</category>
                                 
                             
                         
@@ -1452,7 +1808,7 @@ partitions to recreate the ramdisk.&lt;/p&gt;
 free to send me a PR.&lt;/p&gt;
 </description>
                 
-                        <author>Albert@fakeEmailToMakeValidatorHappy.com (Albert)</author>
+                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
                 
                      
                         
@@ -1475,6 +1831,10 @@ free to send me a PR.&lt;/p&gt;
                                     <category domain="https://albertdelafuente.com/tags/archlinux">archlinux</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/system">system</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/luks">luks</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/lvm">lvm</category>
                                 
                             
                         
@@ -1615,7 +1975,9 @@ free to send me a PR.&lt;/p&gt;
                                  
                                     <category domain="https://albertdelafuente.com/tags/system">system</category>
                                  
-                                    <category domain="https://albertdelafuente.com/tags/security">security</category>
+                                    <category domain="https://albertdelafuente.com/tags/gpg">gpg</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/dns">dns</category>
                                 
                             
                         
@@ -1680,13 +2042,9 @@ free to send me a PR.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;parted /dev/sda
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;resize
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;![](http://xyne.archlinux.ca/etc/dyn/img/graphviz/Pacserve%5FRequest%5FFlow%5FChart.svg)&#34;&gt;
-&lt;p&gt;{# Local Variables: #}
-{# mode: markdown #}
-{# End: #}&lt;/p&gt;
-</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
                 
-                        <author>Albert@fakeEmailToMakeValidatorHappy.com (Albert)</author>
+                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
                 
                      
                         
@@ -1709,6 +2067,10 @@ free to send me a PR.&lt;/p&gt;
                                     <category domain="https://albertdelafuente.com/tags/archlinux">archlinux</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/system">system</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/luks">luks</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/lvm">lvm</category>
                                 
                             
                         
@@ -1721,7 +2083,7 @@ free to send me a PR.&lt;/p&gt;
             
             <item>
                 <title>Configuring pacsrv and powerpill on Arch Linux</title>
-                <link>https://albertdelafuente.com/posts/post1/</link>
+                <link>https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/</link>
                 
                 
                 <description>&lt;p&gt;On this post I will show how to configure and use &lt;code&gt;Pacserve&lt;/code&gt; and &lt;code&gt;Powerpill&lt;/code&gt; on
@@ -1732,14 +2094,14 @@ network can be configured as &lt;code&gt;Slaves&lt;/code&gt; and they will downl
 the Master whenever possible instead of the Internet directly. The objective is
 to save bandwidth and time when using the package manager.&lt;/p&gt;
 &lt;h2 id=&#34;configuring-pacserve-and-powerpill-on-arch-linux&#34;&gt;Configuring Pacserve and Powerpill on Arch Linux&lt;/h2&gt;
-&lt;p&gt;The documentation of &lt;a href=&#34;http://xyne.archlinux.ca/projects/pacserve/&#34;&gt;Pacserve&lt;/a&gt; explains how it works. This image summarizes
+&lt;p&gt;The documentation of &lt;a href=&#34;https://xyne.dev/projects/pacserve/&#34;&gt;Pacserve&lt;/a&gt; explains how it works. This image summarizes
 well the behavior.&lt;/p&gt;
 
 
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/home/av/org-media/images/albertdelafuente.com/Pacserve_Network_Topology_Example.svg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/Pacserve_Request_Flow_Chart.svg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;Pacserve by itself seems very interesting however I could not make it work
 properly. I think it has something to do my router UDP multicast forwarding
@@ -1905,9 +2267,7 @@ start Pacserve on the Slave(s) hosts as:&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/categories/emacs">emacs</category>
-                                 
-                                    <category domain="https://albertdelafuente.com/categories/portugues">portugues</category>
+                                    <category domain="https://albertdelafuente.com/categories/linux">linux</category>
                                 
                             
                         
@@ -1919,7 +2279,7 @@ start Pacserve on the Slave(s) hosts as:&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/tags/arch">arch</category>
+                                    <category domain="https://albertdelafuente.com/tags/archlinux">archlinux</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/python">python</category>
                                 
@@ -1927,7 +2287,7 @@ start Pacserve on the Slave(s) hosts as:&lt;/p&gt;
                         
                     
                 
-                <guid>https://albertdelafuente.com/posts/post1/</guid>
+                <guid>https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/</guid>
                 <pubDate>Wed, 21 Oct 2015 00:00:00 +0000</pubDate>
             </item>
         
@@ -1945,7 +2305,7 @@ start Pacserve on the Slave(s) hosts as:&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb1-2.jpeg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/fb1-2.jpeg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;Afterward I applied a community detection algorithm (Louvain) with a specific parameter and I could identify 63 groups / communities.&lt;/p&gt;
 
@@ -1953,7 +2313,7 @@ start Pacserve on the Slave(s) hosts as:&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb2-2.jpeg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/fb2-2.jpeg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;Can you see them? Well&amp;hellip; neither do I&amp;hellip; So I applied a atlas layout algorithm so it&amp;rsquo;s visually friendly, and this is the result&lt;/p&gt;
 
@@ -1961,7 +2321,7 @@ start Pacserve on the Slave(s) hosts as:&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb3-800.jpeg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/fb3-800.jpeg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;It&amp;rsquo;s interesting to notice that about 46% of my contacts are within the three biggest groups (20.77%, 14.46% and 12.52%). There are also contacts (that multicolored group in the middle) that I couldn&amp;rsquo;t retrieve their connections (probably because a privacy setting). Of course the graphics generated are anonymized, but I&amp;rsquo;m able to identify each group, for instance the bottom middle blue group are my last job work European colleagues. The top right cyan group are some friends from FLOSS communities. Pretty cool, huh?&lt;/p&gt;
 &lt;p&gt;On the other hand getting the Linkedin results wasn&amp;rsquo;t that straightforward I had to deal with oauth and the LinkedIn API webservice directly within python. This are the results of my LinkedIn network.&lt;/p&gt;
@@ -1970,7 +2330,7 @@ start Pacserve on the Slave(s) hosts as:&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/link1-800.jpeg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/linkedin.jpeg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;Some notable groups at first were: bottom left cyan group are again my last work European colleagues, and green my last work Latin America colleagues.&lt;/p&gt;
 &lt;h2 id=&#34;conclusions&#34;&gt;Conclusions&lt;/h2&gt;
@@ -1985,7 +2345,7 @@ start Pacserve on the Slave(s) hosts as:&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/categories/english">english</category>
+                                    <category domain="https://albertdelafuente.com/categories/experiments">experiments</category>
                                 
                             
                         
@@ -1996,8 +2356,6 @@ start Pacserve on the Slave(s) hosts as:&lt;/p&gt;
                              
                             
                                 
-                                 
-                                    <category domain="https://albertdelafuente.com/tags/research">research</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/graphs">graphs</category>
                                  
@@ -2029,7 +2387,7 @@ of the patented ideas.&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/steve-jobs-with-patent.jpg&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/images/fm_patents.jpg&#34;/&gt; &lt;/figure&gt;
 
 &lt;p&gt;He commented that patents are like walking in a mine field, but worst because a
 mine ones it blows up it doesn&amp;rsquo;t blows again, patents keeps blowing on and on.
@@ -2052,7 +2410,7 @@ your idea. Then something similar will happen&amp;hellip;&lt;/p&gt;
 
 &lt;figure&gt;
     
-        &lt;img src=&#34;https://albertdelafuente.com/mobile-patent-suits.png&#34;/&gt; &lt;/figure&gt;
+        &lt;img src=&#34;https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/mobile-patent-suits.png&#34;/&gt; &lt;/figure&gt;
 
 &lt;h2 id=&#34;a-patent-to-protect-yourself-from-others-attacking-you&#34;&gt;A patent to protect yourself from others attacking you&lt;/h2&gt;
 &lt;p&gt;The truth is that it won&amp;rsquo;t protect you unless you find another infringement on the other side that is covered by your patent. A minor company wont sue you anyway since they don&amp;rsquo;t have the resources, and a big one will have very good lawyers to do so and to also defend themselves, so it&amp;rsquo;s a endless legal battle and unnecessary waste of money.&lt;/p&gt;
@@ -2076,9 +2434,7 @@ doing so than composing with the worry of not getting sued&amp;rdquo;.&lt;/p&gt;
                             
                                 
                                  
-                                    <category domain="https://albertdelafuente.com/categories/emacs">emacs</category>
-                                 
-                                    <category domain="https://albertdelafuente.com/categories/english">english</category>
+                                    <category domain="https://albertdelafuente.com/categories/development">development</category>
                                 
                             
                         
@@ -2093,6 +2449,8 @@ doing so than composing with the worry of not getting sued&amp;rdquo;.&lt;/p&gt;
                                     <category domain="https://albertdelafuente.com/tags/software">software</category>
                                  
                                     <category domain="https://albertdelafuente.com/tags/floss">floss</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/patents">patents</category>
                                 
                             
                         

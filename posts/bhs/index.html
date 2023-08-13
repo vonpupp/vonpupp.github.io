@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+    
+    
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    
+    <meta name="referrer" content="no-referrer">
+
+    <title>
+        
+            Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python ❚ Albert De La Fuente&#39;s site
+        
+    </title>
+
+    
+    
+    <!-- Google Analytics -->
+    <script type="application/javascript">
+     
+     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
+         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
+         ga('create', 'UA-27656036-2', 'auto');
+         ga('require', 'linkid'); 
+         ga('send', 'pageview');
+     }
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+    <style>
+     
+     
+     :root {
+         --theme-color: #f4bf75;
+         --theme-color-light: rgba(244, 191, 117, 0.2);
+     }
+     
+     html {
+         line-height: 1.5;
+     }
+    </style>
+
+    
+    
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    
+    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+
+    
+
+
+
+    
+        <style>
+         
+         /* Background */ .chroma { background-color: #ffffff }
+/* Error */ .chroma .err { color: #a61717; background-color: #e3d2d2 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+/* Keyword */ .chroma .k { color: #000000; font-weight: bold }
+/* KeywordConstant */ .chroma .kc { color: #000000; font-weight: bold }
+/* KeywordDeclaration */ .chroma .kd { color: #000000; font-weight: bold }
+/* KeywordNamespace */ .chroma .kn { color: #000000; font-weight: bold }
+/* KeywordPseudo */ .chroma .kp { color: #000000; font-weight: bold }
+/* KeywordReserved */ .chroma .kr { color: #000000; font-weight: bold }
+/* KeywordType */ .chroma .kt { color: #445588; font-weight: bold }
+/* NameAttribute */ .chroma .na { color: #008080 }
+/* NameBuiltin */ .chroma .nb { color: #0086b3 }
+/* NameBuiltinPseudo */ .chroma .bp { color: #999999 }
+/* NameClass */ .chroma .nc { color: #445588; font-weight: bold }
+/* NameConstant */ .chroma .no { color: #008080 }
+/* NameDecorator */ .chroma .nd { color: #3c5d5d; font-weight: bold }
+/* NameEntity */ .chroma .ni { color: #800080 }
+/* NameException */ .chroma .ne { color: #990000; font-weight: bold }
+/* NameFunction */ .chroma .nf { color: #990000; font-weight: bold }
+/* NameLabel */ .chroma .nl { color: #990000; font-weight: bold }
+/* NameNamespace */ .chroma .nn { color: #555555 }
+/* NameTag */ .chroma .nt { color: #000080 }
+/* NameVariable */ .chroma .nv { color: #008080 }
+/* NameVariableClass */ .chroma .vc { color: #008080 }
+/* NameVariableGlobal */ .chroma .vg { color: #008080 }
+/* NameVariableInstance */ .chroma .vi { color: #008080 }
+/* LiteralString */ .chroma .s { color: #dd1144 }
+/* LiteralStringAffix */ .chroma .sa { color: #dd1144 }
+/* LiteralStringBacktick */ .chroma .sb { color: #dd1144 }
+/* LiteralStringChar */ .chroma .sc { color: #dd1144 }
+/* LiteralStringDelimiter */ .chroma .dl { color: #dd1144 }
+/* LiteralStringDoc */ .chroma .sd { color: #dd1144 }
+/* LiteralStringDouble */ .chroma .s2 { color: #dd1144 }
+/* LiteralStringEscape */ .chroma .se { color: #dd1144 }
+/* LiteralStringHeredoc */ .chroma .sh { color: #dd1144 }
+/* LiteralStringInterpol */ .chroma .si { color: #dd1144 }
+/* LiteralStringOther */ .chroma .sx { color: #dd1144 }
+/* LiteralStringRegex */ .chroma .sr { color: #009926 }
+/* LiteralStringSingle */ .chroma .s1 { color: #dd1144 }
+/* LiteralStringSymbol */ .chroma .ss { color: #990073 }
+/* LiteralNumber */ .chroma .m { color: #009999 }
+/* LiteralNumberBin */ .chroma .mb { color: #009999 }
+/* LiteralNumberFloat */ .chroma .mf { color: #009999 }
+/* LiteralNumberHex */ .chroma .mh { color: #009999 }
+/* LiteralNumberInteger */ .chroma .mi { color: #009999 }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #009999 }
+/* LiteralNumberOct */ .chroma .mo { color: #009999 }
+/* Operator */ .chroma .o { color: #000000; font-weight: bold }
+/* OperatorWord */ .chroma .ow { color: #000000; font-weight: bold }
+/* Comment */ .chroma .c { color: #999988; font-style: italic }
+/* CommentHashbang */ .chroma .ch { color: #999988; font-style: italic }
+/* CommentMultiline */ .chroma .cm { color: #999988; font-style: italic }
+/* CommentSingle */ .chroma .c1 { color: #999988; font-style: italic }
+/* CommentSpecial */ .chroma .cs { color: #999999; font-weight: bold; font-style: italic }
+/* CommentPreproc */ .chroma .cp { color: #999999; font-weight: bold; font-style: italic }
+/* CommentPreprocFile */ .chroma .cpf { color: #999999; font-weight: bold; font-style: italic }
+/* GenericDeleted */ .chroma .gd { color: #000000; background-color: #ffdddd }
+/* GenericEmph */ .chroma .ge { color: #000000; font-style: italic }
+/* GenericError */ .chroma .gr { color: #aa0000 }
+/* GenericHeading */ .chroma .gh { color: #999999 }
+/* GenericInserted */ .chroma .gi { color: #000000; background-color: #ddffdd }
+/* GenericOutput */ .chroma .go { color: #888888 }
+/* GenericPrompt */ .chroma .gp { color: #555555 }
+/* GenericStrong */ .chroma .gs { font-weight: bold }
+/* GenericSubheading */ .chroma .gu { color: #aaaaaa }
+/* GenericTraceback */ .chroma .gt { color: #aa0000 }
+/* GenericUnderline */ .chroma .gl { text-decoration: underline }
+/* TextWhitespace */ .chroma .w { color: #bbbbbb }
+
+         
+         /* Overrides on top of the theme and Chroma CSS */
+/* Chroma-based lines highlighting in code blocks */
+.chroma .hl {
+    background-color: #e8e8e8;
+    /* Extend highlight up to 100 characters (assuming that the code blocks never have more than 100 characters in a line) */
+    min-width: 100ch;
+}
+/* GenericHeading */ .chroma .gh { color: #999999; font-weight: bold }
+/* GenericSubheading */ .chroma .gu { color: #aaaaaa; font-weight: bold }
+
+         
+        </style>
+    
+
+    
+
+    
+    
+    
+
+    
+    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    
+    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+
+    
+    
+    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+
+    
+
+    
+
+    
+    
+    
+
+    
+    
+<!-- rel="me" links for IndieAuth -->
+
+
+
+
+
+
+
+    
+ 
+<meta property="og:title" content="Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python" />
+<meta property="og:description"
+      content="I am very curious about Hebrew, specially the way the language is hierarchically designed. Tree letter words are commonly known as trilateral roots and the rest of the words are variation of these three letters and categorized under the same family. I am not going to get into these details since it is not the scope of this post.
+Long story short, the journey of trying to learn Hebrew started probably between 2006 to 2008 and I haven&amp;rsquo;t had much success at it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://albertdelafuente.com/posts/bhs/" />
+
+
+    
+        <meta property="article:published_time" content="2023-08-13T14:55:59-03:00"/>
+    
+    
+        <meta property="article:modified_time" content="2023-08-13T14:55:59-03:00"/>
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+     <meta name="twitter:card" content="summary"/><meta name="twitter:image" content="/android-chrome-256x256.6b6a18f438f95b928e9abdc148af28e6aa76c103838e39fed707b77799df0a55.png"/>
+<meta name="twitter:title" content="Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python"/>
+<meta name="twitter:description" content="I am very curious about Hebrew, specially the way the language is hierarchically designed. Tree letter words are commonly known as trilateral roots and the rest of the words are variation of these three letters and categorized under the same family. I am not going to get into these details since it is not the scope of this post.
+Long story short, the journey of trying to learn Hebrew started probably between 2006 to 2008 and I haven&amp;rsquo;t had much success at it."/>
+<meta name="twitter:site" content="@vonpupp"/>
+    <meta name="twitter:creator" content="@vonpupp"/>
+
+
+    
+    
+    <link rel="alternate" type="application/jf2post+json" href="https://albertdelafuente.com/posts/bhs/jf2post.json" title="Jf2post for Albert De La Fuente's site" />
+    
+     
+
+     
+
+
+
+    
+    
+    
+        
+    
+
+
+     
+        
+        <meta name="DC.Creator" content="Albert De La Fuente Vigliotti"/>
+    
+
+
+
+    
+    
+    
+    <meta name="hugo-build-date" content=""/>
+    <meta name="hugo-commit-hash" content=""/>
+    <meta name="generator" content="Hugo 0.115.4">
+</head>
+
+
+    
+        <body lang="en">
+    
+
+        
+        <div class="border" id="home"></div>
+
+        <div class="wrapper">   
+            
+<nav id="nav" class="nav-collapse opened" aria-hidden="false">
+    <ul class="navbar">
+    
+        <li>
+            <a class="" href="/about/about-me/">About</a>
+        </li>
+    
+        <li>
+            <a class="" href="/">Blog</a>
+        </li>
+    
+        <li>
+            <a class="" href="/exobrain">Exobrain</a>
+        </li>
+    
+        <li>
+            <a class="" href="/books">Books</a>
+        </li>
+    
+        <li>
+            <a class="" href="/search">Search</a>
+        </li>
+    
+    
+    </ul>
+</nav>
+
+            <div class="container">
+                
+
+                
+
+
+
+
+
+
+
+
+<article class="post h-entry posts">
+    <header>
+        
+
+        <div class="blog-title-image-opaque" style="background-image: url('/images/fm_bhsa.png');">
+        </div>
+        
+        <div class="center">
+    <div class="taxo no-text-decoration">
+         
+            
+                <ul class="no-bullets inline categories">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__scriptures__"
+                                
+                                
+                                title="See all 2 posts categorized in ‘scriptures’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/scriptures/">scriptures</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__development__"
+                                
+                                
+                                title="See all 3 posts categorized in ‘development’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/development/">development</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+         
+            
+         
+            
+                <ul class="no-bullets inline tags">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__hebrew__"
+                                
+                                
+                                title="See all 6 posts tagged with ‘hebrew’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/hebrew/">hebrew</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__python__"
+                                
+                                
+                                title="See all 3 posts tagged with ‘python’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/python/">python</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__bhsa__"
+                                
+                                
+                                title="This is the only post tagged with ‘BHSA’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/bhsa/">BHSA</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__codex__"
+                                
+                                
+                                title="See all 3 posts tagged with ‘codex’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/codex/">codex</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        
+    </div>
+
+</div>
+
+        <h1 class="post-title p-name">Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python</h1>
+
+        
+        <data class="u-url" value="https://albertdelafuente.com/posts/bhs/"></data>
+
+        <div class="date-syndication">
+            
+
+
+    
+    
+    <div class="post-date">
+        
+        <time datetime="2023-08-13T14:55:59-0300" class="dt-published">Sun Aug 13, 2023</time>
+        
+        
+    </div>
+
+
+            
+
+
+
+
+        </div>
+         
+
+     
+
+
+
+    
+    
+    
+        
+    
+
+
+    
+        
+        <span class="hide">
+            &mdash; <a href="https://albertdelafuente.com" class="u-author">Albert De La Fuente Vigliotti</a>
+        </span>
+    
+
+
+    </header>
+
+    <div class="content">
+        
+
+
+        
+
+
+
+
+
+                       
+
+
+        <div class="e-content">
+            
+
+
+
+
+<p>I am very curious about Hebrew, specially the way the language is hierarchically
+designed. Tree letter words are commonly known as trilateral roots and the rest
+of the words are variation of these three letters and categorized under the same
+family. I am not going to get into these details since it is not the scope of
+this post.</p>
+<p>Long story short, the journey of trying to learn Hebrew started probably between
+2006 to 2008 and I haven&rsquo;t had much success at it. Or lets say that the
+expectations don&rsquo;t match reality =P. So I thought that I could try to somehow
+start with the most common words in the scriptures and that is what motivated <a href="/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/">to
+parse the Aleppo codex and analyze its content in python</a>. I quickly learned
+that my approach was rather naive given the prefixes that causes variations to
+the words, even thought the meaning of the word itself is the same.</p>
+<p>This blog post is a second attempt to tackle the same problem but with a more
+sophisticated linguistic approach using Text Fabric.</p>
+<p>A corpus of ancient texts and (linguistic) annotations represents a large body
+of knowledge.</p>
+<p>Text-Fabric is a Python package for processing and access a corpus of ancient
+text and linguistic annotations. In this specific case I am using the Hebrew
+Bible Database, containing the text of the Hebrew Bible augmented with
+linguistic annotations compiled by the Eep Talstra Centre for Bible and
+Computer, VU University Amsterdam.</p>
+<p>The text is based on the Biblia Hebraica Stuttgartensia edited by Karl Elliger
+and Wilhelm Rudolph, Fifth Revised Edition, edited by Adrian Schenker, © 1977
+and 1997 Deutsche Bibelgesellschaft, Stuttgart.</p>
+<p>The text-fabric version has been prepared by Dirk Roorda Data Archiving and
+Networked Services, with thanks to Martijn Naaijer, Cody Kingham, and
+Constantijn Sikkel.</p>
+<p>It is amazing to see the work these researchers did compiling all this data and
+making it public for free. I am very thankful for it.</p>
+<p>I am using a literate programming approach with Doom Emacs and org-mode.</p>
+<h2 id="create-the-virtual-environment">Create the virtual environment&nbsp;<a class="headline-hash no-text-decoration" href="#create-the-virtual-environment">#</a> </h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">virtualenv ~/.workon-home/venv-textfabric
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/.workon-home/venv-textfabric
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ./bin/activate.fish
+</span></span><span class="line"><span class="cl">pip install text-fabric pandas requests
+</span></span></code></pre></div><h2 id="activate-the-virtual-environment">Activate the virtual environment&nbsp;<a class="headline-hash no-text-decoration" href="#activate-the-virtual-environment">#</a> </h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">pyvenv-activate</span> <span class="s">&#34;~/.workon-home/venv-textfabric&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="load-the-etcbc-bhsa-dataset">Load the ETCBC/bhsa dataset&nbsp;<a class="headline-hash no-text-decoration" href="#load-the-etcbc-bhsa-dataset">#</a> </h2>
+<p>Use <code>run-python</code> and <code>ober-eval-block-in-repl</code> to evaluate each block (<code>C-c r</code>
+at the time being). For the sake of a more practical approach to writing using
+literate programming the output of the blocks will follow the code.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">tf.app</span> <span class="kn">import</span> <span class="n">use</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">collections</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="n">use</span><span class="p">(</span><span class="s2">&#34;ETCBC/bhsa&#34;</span><span class="p">,</span> <span class="n">hoist</span><span class="o">=</span><span class="nb">globals</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;counting objects ...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">otype</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">all</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">otype</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">{:&gt;7}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">s&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">otype</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Done&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">**Locating corpus resources ...**
+</span></span><span class="line"><span class="cl">app: ~/text-fabric-data/github/ETCBC/bhsa/app
+</span></span><span class="line"><span class="cl">data: ~/text-fabric-data/github/ETCBC/bhsa/tf/2021
+</span></span><span class="line"><span class="cl">data: ~/text-fabric-data/github/ETCBC/phono/tf/2021
+</span></span><span class="line"><span class="cl">data: ~/text-fabric-data/github/ETCBC/parallels/tf/2021
+</span></span><span class="line"><span class="cl">Text-Fabric:
+</span></span><span class="line"><span class="cl">	Text-Fabric API 12.0.5 =&gt; https:/annotation.github.io/text-fabric/tf/cheatsheet.html
+</span></span><span class="line"><span class="cl">	ETCBC/bhsa/app  v3 =&gt; https:/github.com/ETCBC/bhsa/blob/master/app
+</span></span><span class="line"><span class="cl">	Search Reference =&gt; https:/annotation.github.io/text-fabric/tf/about/searchusage.html
+</span></span><span class="line"><span class="cl">Data:
+</span></span><span class="line"><span class="cl">	ETCBC - bhsa 2021 =&gt; https:/ETCBC.github.io/bhsa/
+</span></span><span class="line"><span class="cl">	Character table =&gt; https:/annotation.github.io/text-fabric/tf/writing/hebrew.html
+</span></span><span class="line"><span class="cl">	Feature docs =&gt; https:/ETCBC.github.io/bhsa/features/0_home
+</span></span><span class="line"><span class="cl">Node types:
+</span></span><span class="line"><span class="cl">book                      39 10938.21 =     100
+</span></span><span class="line"><span class="cl">chapter                  929   459.19 =     100
+</span></span><span class="line"><span class="cl">lex                     9230    46.22 =     100
+</span></span><span class="line"><span class="cl">verse                  23213    18.38 =     100
+</span></span><span class="line"><span class="cl">half_verse             45179     9.44 =     100
+</span></span><span class="line"><span class="cl">sentence               63717     6.70 =     100
+</span></span><span class="line"><span class="cl">sentence_atom          64514     6.61 =     100
+</span></span><span class="line"><span class="cl">clause                 88131     4.84 =     100
+</span></span><span class="line"><span class="cl">clause_atom            90704     4.70 =     100
+</span></span><span class="line"><span class="cl">phrase                253203     1.68 =     100
+</span></span><span class="line"><span class="cl">phrase_atom           267532     1.59 =     100
+</span></span><span class="line"><span class="cl">subphrase             113850     1.42        38
+</span></span><span class="line"><span class="cl">*word*                426590     1.00 =     100
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> Sets:
+</span></span><span class="line"><span class="cl"> Features:
+</span></span><span class="line"><span class="cl">Parallel Passages
+</span></span><span class="line"><span class="cl">	crossref             🆗 links between similar passages
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">BHSA = Biblia Hebraica Stuttgartensia Amstelodamensis
+</span></span><span class="line"><span class="cl">	book                 ✅ book name in Latin (Genesis; Numeri; Reges1; ...)
+</span></span><span class="line"><span class="cl">	book@ll              ✅ book name in amharic (ኣማርኛ)
+</span></span><span class="line"><span class="cl">	chapter              ✅ chapter number (1; 2; 3; ...)
+</span></span><span class="line"><span class="cl">	code                 ✅ identifier of a clause atom relationship (0; 74; 367; ...)
+</span></span><span class="line"><span class="cl">	det                  ✅ determinedness of phrase(atom) (det; und; NA.)
+</span></span><span class="line"><span class="cl">	domain               ✅ text type of clause (? (Unknown); N (narrative); D (discursive); Q (Quotation).)
+</span></span><span class="line"><span class="cl">	freq_lex             ✅ frequency of lexemes
+</span></span><span class="line"><span class="cl">	function             ✅ syntactic function of phrase (Cmpl; Objc; Pred; ...)
+</span></span><span class="line"><span class="cl">	g_cons               ✅ word consonantal-transliterated (B R&gt;CJT BR&gt; &gt;LHJM ...)
+</span></span><span class="line"><span class="cl">	g_cons_utf8          ✅ word consonantal-Hebrew (ב ראשׁית ברא אלהים)
+</span></span><span class="line"><span class="cl">	g_lex                ✅ lexeme pointed-transliterated (B.:- R;&gt;CIJT B.@R@&gt; &gt;:ELOH ...)
+</span></span><span class="line"><span class="cl">	g_lex_utf8           ✅ lexeme pointed-Hebrew (בְּ רֵאשִׁית בָּרָא אֱלֹה)
+</span></span><span class="line"><span class="cl">	g_word               ✅ word pointed-transliterated (B.:- R;&gt;CI73JT B.@R@74&gt; &gt;:ELOHI92JM)
+</span></span><span class="line"><span class="cl">	g_word_utf8          ✅ word pointed-Hebrew (בְּ רֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים)
+</span></span><span class="line"><span class="cl">	gloss                🆗 english translation of lexeme (beginning create god(s))
+</span></span><span class="line"><span class="cl">	gn                   ✅ grammatical gender (m; f; NA; unknown.)
+</span></span><span class="line"><span class="cl">	label                ✅ (half-)verse label (half verses: A; B; C; verses:  GEN 01,02)
+</span></span><span class="line"><span class="cl">	language             ✅ of word or lexeme (Hebrew; Aramaic.)
+</span></span><span class="line"><span class="cl">	lex                  ✅ lexeme consonantal-transliterated (B R&gt;CJT/ BR&gt;[ &gt;LHJM/)
+</span></span><span class="line"><span class="cl">	lex_utf8             ✅ lexeme consonantal-Hebrew (ב ראשׁית֜ ברא אלהים֜)
+</span></span><span class="line"><span class="cl">	ls                   ✅ lexical set, subclassification of part-of-speech (card; ques; mult)
+</span></span><span class="line"><span class="cl">	nametype             ⚠️ named entity type (pers; mens; gens; topo; ppde.)
+</span></span><span class="line"><span class="cl">	nme                  ✅ nominal ending consonantal-transliterated (absent; n/a; JM, ...)
+</span></span><span class="line"><span class="cl">	nu                   ✅ grammatical number (sg; du; pl; NA; unknown.)
+</span></span><span class="line"><span class="cl">	number               ✅ sequence number of an object within its context
+</span></span><span class="line"><span class="cl">	otype
+</span></span><span class="line"><span class="cl">	pargr                🆗 hierarchical paragraph number (1; 1.2; 1.2.3.4; ...)
+</span></span><span class="line"><span class="cl">	pdp                  ✅ phrase dependent part-of-speech (art; verb; subs; nmpr, ...)
+</span></span><span class="line"><span class="cl">	pfm                  ✅ preformative consonantal-transliterated (absent; n/a; J, ...)
+</span></span><span class="line"><span class="cl">	prs                  ✅ pronominal suffix consonantal-transliterated (absent; n/a; W; ...)
+</span></span><span class="line"><span class="cl">	prs_gn               ✅ pronominal suffix gender (m; f; NA; unknown.)
+</span></span><span class="line"><span class="cl">	prs_nu               ✅ pronominal suffix number (sg; du; pl; NA; unknown.)
+</span></span><span class="line"><span class="cl">	prs_ps               ✅ pronominal suffix person (p1; p2; p3; NA; unknown.)
+</span></span><span class="line"><span class="cl">	ps                   ✅ grammatical person (p1; p2; p3; NA; unknown.)
+</span></span><span class="line"><span class="cl">	qere                 ✅ word pointed-transliterated masoretic reading correction
+</span></span><span class="line"><span class="cl">	qere_trailer         ✅ interword material -pointed-transliterated (Masoretic correction)
+</span></span><span class="line"><span class="cl">	qere_trailer_utf8    ✅ interword material -pointed-transliterated (Masoretic correction)
+</span></span><span class="line"><span class="cl">	qere_utf8            ✅ word pointed-Hebrew masoretic reading correction
+</span></span><span class="line"><span class="cl">	rank_lex             ✅ ranking of lexemes based on freqnuecy
+</span></span><span class="line"><span class="cl">	rela                 ✅ linguistic relation between clause/(sub)phrase(atom) (ADJ; MOD; ATR; ...)
+</span></span><span class="line"><span class="cl">	sp                   ✅ part-of-speech (art; verb; subs; nmpr, ...)
+</span></span><span class="line"><span class="cl">	st                   ✅ state of a noun (a (absolute); c (construct); e (emphatic).)
+</span></span><span class="line"><span class="cl">	tab                  ✅ clause atom: its level in the linguistic embedding
+</span></span><span class="line"><span class="cl">	trailer              ✅ interword material pointed-transliterated (&amp; 00 05 00_P ...)
+</span></span><span class="line"><span class="cl">	trailer_utf8         ✅ interword material pointed-Hebrew (־ ׃)
+</span></span><span class="line"><span class="cl">	txt                  ✅ text type of clause and surrounding (repetion of ? N D Q as in feature domain)
+</span></span><span class="line"><span class="cl">	typ                  ✅ clause/phrase(atom) type (VP; NP; Ellp; Ptcp; WayX)
+</span></span><span class="line"><span class="cl">	uvf                  ✅ univalent final consonant consonantal-transliterated (absent; N; J; ...)
+</span></span><span class="line"><span class="cl">	vbe                  ✅ verbal ending consonantal-transliterated (n/a; W; ...)
+</span></span><span class="line"><span class="cl">	vbs                  ✅ root formation consonantal-transliterated (absent; n/a; H; ...)
+</span></span><span class="line"><span class="cl">	verse                ✅ verse number
+</span></span><span class="line"><span class="cl">	voc_lex              ✅ vocalized lexeme pointed-transliterated (B.: R;&gt;CIJT BR&gt; &gt;:ELOHIJM)
+</span></span><span class="line"><span class="cl">	voc_lex_utf8         ✅ vocalized lexeme pointed-Hebrew (בְּ רֵאשִׁית ברא אֱלֹהִים)
+</span></span><span class="line"><span class="cl">	vs                   ✅ verbal stem (qal; piel; hif; apel; pael)
+</span></span><span class="line"><span class="cl">	vt                   ✅ verbal tense (perf; impv; wayq; infc)
+</span></span><span class="line"><span class="cl">	mother               ✅ linguistic dependency between textual objects
+</span></span><span class="line"><span class="cl">	oslots
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Phonetic Transcriptions
+</span></span><span class="line"><span class="cl">	phono                🆗 phonological transcription (bᵊ rēšˌîṯ bārˈā ʔᵉlōhˈîm)
+</span></span><span class="line"><span class="cl">	phono_trailer        🆗 interword material in phonological transcription
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  0.00s counting objects ...
+</span></span><span class="line"><span class="cl">   |     0.00s      39 books
+</span></span><span class="line"><span class="cl">   |     0.00s     929 chapters
+</span></span><span class="line"><span class="cl">   |     0.00s    9230 lexs
+</span></span><span class="line"><span class="cl">   |     0.00s   23213 verses
+</span></span><span class="line"><span class="cl">   |     0.00s   45179 half_verses
+</span></span><span class="line"><span class="cl">   |     0.01s   63717 sentences
+</span></span><span class="line"><span class="cl">   |     0.01s   64514 sentence_atoms
+</span></span><span class="line"><span class="cl">   |     0.01s   88131 clauses
+</span></span><span class="line"><span class="cl">   |     0.01s   90704 clause_atoms
+</span></span><span class="line"><span class="cl">   |     0.03s  253203 phrases
+</span></span><span class="line"><span class="cl">   |     0.03s  267532 phrase_atoms
+</span></span><span class="line"><span class="cl">   |     0.01s  113850 subphrases
+</span></span><span class="line"><span class="cl">   |     0.04s  426590 words
+</span></span><span class="line"><span class="cl">  0.15s Done
+</span></span></code></pre></div><h2 id="defining-some-helpers-to-count-lexemes-by-type-and-printing-the-top-n-occurrences">Defining some helpers to count lexemes by type, and printing the top &ldquo;n&rdquo; occurrences&nbsp;<a class="headline-hash no-text-decoration" href="#defining-some-helpers-to-count-lexemes-by-type-and-printing-the-top-n-occurrences">#</a> </h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_lexeme_by_type</span><span class="p">(</span><span class="n">lex_type</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">verbs</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#A.info(&#34;Collecting data&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="s2">&#34;lex&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">!=</span> <span class="n">lex_type</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">        <span class="n">verbs</span><span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">lex_utf8</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">F</span><span class="o">.</span><span class="n">freq_lex</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#A.info(&#34;Done&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">(</span><span class="n">verbs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_top_n_items</span><span class="p">(</span><span class="n">items_list</span><span class="p">,</span> <span class="n">quantity</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">items_list</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">0</span><span class="p">:</span><span class="n">quantity</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_items</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">lex_type</span><span class="p">,</span> <span class="n">lex_qty</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">items</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="n">lex_type</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print_top_n_items</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">lex_qty</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"></code></pre></div><h2 id="analizing-some-lexemes">Analizing some lexemes&nbsp;<a class="headline-hash no-text-decoration" href="#analizing-some-lexemes">#</a> </h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">freqList</span><span class="p">())</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">((&#39;subs&#39;, 125583), (&#39;verb&#39;, 75451), (&#39;prep&#39;, 73298), (&#39;conj&#39;, 62737), (&#39;nmpr&#39;, 35607), (&#39;art&#39;, 30387), (&#39;adjv&#39;, 10141), (&#39;nega&#39;, 6059), (&#39;prps&#39;, 5035), (&#39;advb&#39;, 4603), (&#39;prde&#39;, 2678), (&#39;intj&#39;, 1912), (&#39;inrg&#39;, 1303), (&#39;prin&#39;, 1026))
+</span></span></code></pre></div><p>These are the &ldquo;types&rdquo; of words we can query Text Fabric. Now lets see the top 10 verbs</p>
+<h3 id="printing-the-top-10-verbs">Printing the top 10 verbs&nbsp;<a class="headline-hash no-text-decoration" href="#printing-the-top-10-verbs">#</a> </h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">lex_qty</span> <span class="o">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_items</span><span class="p">(</span><span class="s1">&#39;Verbs:&#39;</span><span class="p">,</span> <span class="s1">&#39;verb&#39;</span><span class="p">,</span> <span class="n">lex_qty</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Verbs:
+</span></span><span class="line"><span class="cl">אמר: 5379
+</span></span><span class="line"><span class="cl">היה: 3561
+</span></span><span class="line"><span class="cl">עשׂה: 2629
+</span></span><span class="line"><span class="cl">בוא: 2570
+</span></span><span class="line"><span class="cl">נתן: 2017
+</span></span><span class="line"><span class="cl">הלך: 1554
+</span></span><span class="line"><span class="cl">ראה: 1298
+</span></span><span class="line"><span class="cl">שׁמע: 1168
+</span></span><span class="line"><span class="cl">דבר: 1143
+</span></span><span class="line"><span class="cl">ישׁב: 1082
+</span></span></code></pre></div><p>For the sake of readability I am going to summarize this on a table</p>
+<!--list-separator-->
+<ul>
+<li>
+<p>Top 10 verbs</p>
+<table>
+<thead>
+<tr>
+<th>Pronun.</th>
+<th>Word</th>
+<th>Qty</th>
+<th>Meaning</th>
+<th>Strongs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lsquo;āmar</td>
+<td>אמר</td>
+<td>5379</td>
+<td>To say, speak, utter</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h559/kjv/wlc/0-1/">H559</a></td>
+</tr>
+<tr>
+<td>hāyâ</td>
+<td>היה</td>
+<td>3561</td>
+<td>to be, become, come to pass, exist, happen, fall out</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h1961/kjv/wlc/0-1/">H1961</a></td>
+</tr>
+<tr>
+<td>ʿāśâ</td>
+<td>עשׂה</td>
+<td>2629</td>
+<td>to do, fashion, accomplish, make</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h6213/kjv/wlc/0-1/">H6213</a></td>
+</tr>
+<tr>
+<td>bo</td>
+<td>בוא</td>
+<td>2570</td>
+<td>to go in, enter, come, go, come in</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h935/kjv/wlc/0-1/">H935</a></td>
+</tr>
+<tr>
+<td>naw-than&rsquo;</td>
+<td>נתן</td>
+<td>2017</td>
+<td>to give, put, set</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h5414/kjv/wlc/0-1/">H5414</a></td>
+</tr>
+<tr>
+<td>haw-lak'</td>
+<td>הלך</td>
+<td>1554</td>
+<td>to go, walk, come</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h1980/kjv/wlc/0-1/">H1980</a></td>
+</tr>
+<tr>
+<td>raw-aw'</td>
+<td>ראה</td>
+<td>1298</td>
+<td>to see, look at, inspect, perceive, consider</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h7200/kjv/wlc/0-1/">H7200</a></td>
+</tr>
+<tr>
+<td>shaw-mah'</td>
+<td>שׁמע</td>
+<td>1168</td>
+<td>to hear, listen to, obey</td>
+<td>WLC <a href="https://www.blueletterbible.org/lexicon/h8085/wlc/wlc/0-1/">H885</a></td>
+</tr>
+<tr>
+<td>daw-bar'</td>
+<td>דבר</td>
+<td>1143</td>
+<td>to speak, command, promise, warn, threaten, sing</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h1696/kjv/wlc/0-1/">H1696</a></td>
+</tr>
+<tr>
+<td>yaw-shab'</td>
+<td>ישׁב</td>
+<td>1082</td>
+<td>to dwell, remain, sit, abide</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h3427/kjv/wlc/0-1/">H3427</a></td>
+</tr>
+</tbody>
+</table>
+<p>I made this list by hand, which is not very practical for automation, so I wonder if there is a better way to achieve this. I don&rsquo;t have an answer for this at this time, but this repository looks promising: <a href="https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv">https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv</a>.</p>
+<p>I still have some work that is not documented, so this is work in progress. I am still learning how to properly use TF&rsquo;s API.</p>
+</li>
+</ul>
+
+
+        </div>
+    </div>
+</article>
+
+
+
+                <footer>
+                    
+
+
+
+
+<div class="no-text-decoration">
+    <div class="jump top"><a href="#" title="Top of this page">⮉</a></div>
+    <div class="jump bottom"><a href="#bottom" title="Bottom of this page">⮋</a></div>
+</div>
+
+
+ 
+    
+        <div class="hugotoc no-text-decoration">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#create-the-virtual-environment">Create the virtual environment</a></li>
+    <li><a href="#activate-the-virtual-environment">Activate the virtual environment</a></li>
+    <li><a href="#load-the-etcbc-bhsa-dataset">Load the ETCBC/bhsa dataset</a></li>
+    <li><a href="#defining-some-helpers-to-count-lexemes-by-type-and-printing-the-top-n-occurrences">Defining some helpers to count lexemes by type, and printing the top &ldquo;n&rdquo; occurrences</a></li>
+    <li><a href="#analizing-some-lexemes">Analizing some lexemes</a>
+      <ul>
+        <li><a href="#printing-the-top-10-verbs">Printing the top 10 verbs</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            <a href="#" class="back-to-top">Back to top</a>
+        </div>
+    
+    
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js"></script>
+
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js" as="script">
+
+<script type="application/javascript">(function() {
+     var $window = $(window);
+     if ($window.width() >= 1400) { 
+         var $toc = $('#TableOfContents');
+         if ($toc.length > 0) {
+             function onScroll(){
+                 var currentScroll = $window.scrollTop();
+                 var h = $('.content h1, .content h2, .content h3, .content h4, .content h5, .content h6, .h-feed h2');
+                 var id = "";
+                 h.each(function (i, e) {
+                     e = $(e);
+                     if (e.offset().top - 10 <= currentScroll) {
+                         id = e.attr('id');
+                     }
+                 });
+                 var current = $toc.find('a.current');
+                 if (current.length == 1 && current.eq(0).attr('href') == '#' + id) return true;
+
+                 current.each(function (i, e) {
+                     $(e).removeClass('current').siblings('ul').hide();
+                 });
+                 $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                     $(e).children('a').addClass('current').siblings('ul').show();
+                 });
+             }
+             $window.on('scroll', onScroll);
+             $(document).ready(function() {
+                 $toc.find('a').parent('li').find('ul').hide();
+                 onScroll();
+                 document.getElementsByClassName('hugotoc')[0].style.display = '';
+             });}}})();</script>
+
+
+
+
+
+
+
+
+<div class="backtotop center no-text-decoration">
+    <a href="#">back to <span class="top">top</span></a>
+</div>
+
+
+<div class="right">
+    <div class="taxo no-text-decoration">
+         
+            
+                <ul class="no-bullets inline categories">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__scriptures__"
+                                
+                                
+                                title="See all 2 posts categorized in ‘scriptures’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/scriptures/">scriptures</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__development__"
+                                
+                                
+                                title="See all 3 posts categorized in ‘development’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/development/">development</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+         
+            
+         
+            
+                <ul class="no-bullets inline tags">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__hebrew__"
+                                
+                                
+                                title="See all 6 posts tagged with ‘hebrew’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/hebrew/">hebrew</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__python__"
+                                
+                                
+                                title="See all 3 posts tagged with ‘python’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/python/">python</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__bhsa__"
+                                
+                                
+                                title="This is the only post tagged with ‘BHSA’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/bhsa/">BHSA</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__codex__"
+                                
+                                
+                                title="See all 3 posts tagged with ‘codex’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/codex/">codex</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        
+    </div>
+
+</div>
+<div class="clear-float"></div>
+
+
+
+<div class="prev-next-navigator clear-float">
+    
+    
+        <span class="next-post right no-text-decoration">
+            <a href="https://albertdelafuente.com/exobrain/20220703011205-how_to_list_all_projects_in_github/" class="nobr">How to list all projects in Github »</a>
+        </span>
+    
+</div>
+
+
+<a id="bottom"></a>
+
+
+
+
+
+
+
+
+
+                       
+
+
+
+
+
+
+
+                    <ul class="no-bullets feed right inline">
+    
+        
+        
+    
+</ul>
+<div class="clear-float"></div>
+
+                </footer>
+                <hr />
+            </div>               
+
+            <footer> 
+                
+
+<ul class="social no-text-decoration">
+    
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>
+    
+</p>
+
+
+
+
+<div class="badges no-text-decoration">
+    
+    
+
+    
+        
+        
+        <a href="https://html5.validator.nu/?doc=https://albertdelafuente.com/posts/bhs/&amp;showsource=yes">
+            
+            <img src="/images/html5-css3-semantics-badge--scaled-optimized.0f343c79b5f793c32b308b8b872fccdc6f8f10dc328d12f3f8fba203ab3ccc6e.png"
+                 width="46" height="18" class="pixelated"
+                 alt="HTML5 Powered with CSS3 / Styling, and Semantics"
+                 title="HTML5 Powered with CSS3 / Styling, and Semantics">
+        </a>
+    
+</div>
+
+
+
+
+<script type="application/javascript">var nav=responsiveNav("#nav");</script>
+
+
+
+
+<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+
+
+
+
+
+
+
+    <div class="h-card">
+        
+            
+            <img class="u-photo" alt="Photo of Albert"
+                 src="/images/me--optimized.251d1edd09c931da7a3d6edf0e82f07c6d2ceb975da0bb8ecfff347df7e75972.jpg" width="400" height="400">
+        
+        
+        <a class="p-name u-url" href="https://albertdelafuente.com">Albert</a>
+        
+            <p>
+                <a class="u-email" href="mailto:vonpupp@gmail.com" rel="me">vonpupp@gmail.com</a>
+            </p>
+        
+        
+            <p class="p-note">
+                Me, without headlines.
+            </p>
+        
+    </div>
+
+
+
+            </footer>
+        </div> 
+    </body>
+</html>
