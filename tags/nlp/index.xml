@@ -1,0 +1,782 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>
+            
+                    nlp on
+                
+            
+            Albert De La Fuente&#39;s site</title>
+        <link>https://albertdelafuente.com/tags/nlp/</link>
+        <description>Recent content  in nlp
+            on Albert De La Fuente&#39;s site</description>
+        <language>en-us</language>
+        
+                <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 12 Aug 2023 22:02:37 -0300</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+            <atom:link href="https://albertdelafuente.com/tags/nlp/index.xml" rel="self" type="application/rss&#43;xml" />
+        
+            
+            <item>
+                <title>Learning hebrew like a geek</title>
+                <link>https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/</link>
+                
+                
+                <description>&lt;div class=&#34;ox-hugo-toc toc&#34;&gt;
+&lt;div class=&#34;heading&#34;&gt;Table of Contents&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#how&#34;&gt;How?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#assumptions-and-limitations&#34;&gt;Assumptions and limitations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#interesting-findings&#34;&gt;Interesting findings&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#experiments-organized-by-sections&#34;&gt;Experiments organized by sections&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#experiments-organized-by-books&#34;&gt;Experiments organized by books&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!--endtoc--&gt;
+&lt;p&gt;The other day I was thinking about some practical way of learning hebrew,
+something dynamic that tickles my scientist curiosity. And I thought, wouldn&amp;rsquo;t
+it be cool if I could parse one of the hebrew codexes and get the top 20 most
+frequent words of a chapter or a book? Well this is an attempt to answer these
+type of questions.&lt;/p&gt;
+&lt;h2 id=&#34;how&#34;&gt;How?&lt;/h2&gt;
+&lt;p&gt;So I rolled my sleeves and I thought: I will google the Aleppo codex in plain
+text so I can download it and later use it for analysis. The problem is, I
+couldn&amp;rsquo;t find it&amp;hellip;&lt;/p&gt;
+&lt;p&gt;The next challenge then is, how can I produce a plain text version of the Aleppo
+codex? I thought about parsing a mysword module, which are in reality a sqlite
+database so that should be easy&amp;hellip; but then when I was doing something totally
+unrelated (probably around the bees or my first batch of mead) it hit me&amp;hellip; I
+have several bibles from the Sword project already installed on my notebook and
+is all OSS, so&amp;hellip; there is probably a python wrapper around diatheke or
+similar&amp;hellip; and sure it is =)&lt;/p&gt;
+&lt;p&gt;If you want the technicalities, go read my note on &lt;a href=&#34;https://albertdelafuente.com/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/&#34;&gt;How to parse the Aleppo codex
+and analyze its content in python&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;But if you are not a geekie human, you probably are interested only in the
+results rather than the bits and bytes. This is why I splitted the whole thing
+in two notes, one more IT related and one more Hebrew related. So here we go,
+brace yourselves this is probably going to be long.&lt;/p&gt;
+&lt;p&gt;I am not sure on how to &amp;ldquo;slice&amp;rdquo; the codex so the chunks makes sense for an
+analysis, for instance: per chapter? Per book? Per &amp;ldquo;stories&amp;rdquo;? Or even other
+slicing like Torah, Neviim and Ketuvim. Since it is not clear I will start
+slicing by books at first.&lt;/p&gt;
+&lt;h2 id=&#34;assumptions-and-limitations&#34;&gt;Assumptions and limitations&lt;/h2&gt;
+&lt;p&gt;Hebrew has some peculiarities one of them being the vowel pointing. This brings
+a ton of challenges. For the sake of simplicity I had to stick to a codex that
+does not include niqqud whatsoever. I am not sure if this is a good approach or
+not because two different words without niqqud can render the same writing yet
+have totally different meaning.&lt;/p&gt;
+&lt;p&gt;Another problem is that there are words that are trivially known like לא (h2834)
+or אל (h3882); or words that are not translated yet used very much like את
+(h7073). I have implemented a filter to have the possibility to skip these
+words. Not because they are not relevant, the Aleph-Tav has a ton of secrets and
+importance. But there are mixed together some irrelevant tokens considered as
+words, like opening and closing brackets and parenthesis or similar. So I
+implemented a list to ignore these words that are rather known or really
+irrelevant.&lt;/p&gt;
+&lt;h2 id=&#34;interesting-findings&#34;&gt;Interesting findings&lt;/h2&gt;
+&lt;p&gt;It was rather interesting to me how fast the repetitions decline on unfiltered
+words. For instance the most used word is the  את (h854) with 7073 occurrences.
+Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) with
+704 occurrences.&lt;/p&gt;
+&lt;h2 id=&#34;experiments-organized-by-sections&#34;&gt;Experiments organized by sections&lt;/h2&gt;
+&lt;h3 id=&#34;full-tanakh-top-20-words-unfiltered&#34;&gt;Full Tanakh - top 20 words - unfiltered&lt;/h3&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/lhlg_tanakh_nofilter.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Word&lt;/th&gt;
+&lt;th&gt;Count&lt;/th&gt;
+&lt;th&gt;Strong&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;את&lt;/td&gt;
+&lt;td&gt;7073&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/&#34;&gt;h854&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;יהוה&lt;/td&gt;
+&lt;td&gt;5611&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3068/esv/wlc/0-1/&#34;&gt;h3068&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אשר&lt;/td&gt;
+&lt;td&gt;4629&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h834/esv/wlc/0-1/&#34;&gt;h834&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אל&lt;/td&gt;
+&lt;td&gt;3882&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h410/esv/wlc/0-1/&#34;&gt;h410&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;כי&lt;/td&gt;
+&lt;td&gt;3553&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3588/esv/wlc/0-1/&#34;&gt;h3588&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;על&lt;/td&gt;
+&lt;td&gt;3140&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/&#34;&gt;h5921&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;לא&lt;/td&gt;
+&lt;td&gt;2834&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/&#34;&gt;h3809&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;כל&lt;/td&gt;
+&lt;td&gt;2757&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/&#34;&gt;h5921&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ואת&lt;/td&gt;
+&lt;td&gt;2190&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/&#34;&gt;h854&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ישראל&lt;/td&gt;
+&lt;td&gt;2085&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3479/esv/wlc/0-1/&#34;&gt;h3479&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ויאמר&lt;/td&gt;
+&lt;td&gt;2043&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/&#34;&gt;h559&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Related&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;בני&lt;/td&gt;
+&lt;td&gt;1650&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1123/esv/wlc/0-1/&#34;&gt;h1123&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;בן&lt;/td&gt;
+&lt;td&gt;1607&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1121/esv/wlc/0-1/&#34;&gt;h1121&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ולא&lt;/td&gt;
+&lt;td&gt;1447&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/&#34;&gt;h3809&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Related&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;full-tanakh-top-50-words-unfiltered&#34;&gt;Full Tanakh - Top 50 words - unfiltered&lt;/h3&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/lhlg_tanakh_top50.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;The words from above as the top 20, plus the following words&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Word&lt;/th&gt;
+&lt;th&gt;Count&lt;/th&gt;
+&lt;th&gt;Strong&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;לו&lt;/td&gt;
+&lt;td&gt;1045&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3863/esv/wlc/0-1/&#34;&gt;h3863&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;איש&lt;/td&gt;
+&lt;td&gt;1027&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h376/esv/wlc/0-1/&#34;&gt;h376&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;המלך&lt;/td&gt;
+&lt;td&gt;1014&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h4428/esv/wlc/0-1/&#34;&gt;h4428&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;בית&lt;/td&gt;
+&lt;td&gt;1003&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1004/esv/wlc/0-1/&#34;&gt;h1004&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;מלך&lt;/td&gt;
+&lt;td&gt;1000&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h4427/esv/wlc/0-1/&#34;&gt;h4427&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;הוא&lt;/td&gt;
+&lt;td&gt;910&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1931/esv/wlc/0-1/&#34;&gt;h1931&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;עד&lt;/td&gt;
+&lt;td&gt;904&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h5704/esv/wlc/0-1/&#34;&gt;h5704&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;לאמר&lt;/td&gt;
+&lt;td&gt;897&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/&#34;&gt;h559&lt;/a&gt; / &lt;a href=&#34;https://www.blueletterbible.org/lexicon/564/esv/wlc/0-1/&#34;&gt;564&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;לך&lt;/td&gt;
+&lt;td&gt;871&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;הארץ&lt;/td&gt;
+&lt;td&gt;856&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h776/esv/wlc/0-1/&#34;&gt;h776&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ויהי&lt;/td&gt;
+&lt;td&gt;808&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אמר&lt;/td&gt;
+&lt;td&gt;797&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/&#34;&gt;h559&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;דבר&lt;/td&gt;
+&lt;td&gt;787&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1697/esv/wlc/0-1/&#34;&gt;h1697&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;העם&lt;/td&gt;
+&lt;td&gt;724&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h5971/esv/wlc/0-1/&#34;&gt;h5971&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Related&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;וכל&lt;/td&gt;
+&lt;td&gt;712&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3606/esv/wlc/0-1/&#34;&gt;h3606&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Related&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;משה&lt;/td&gt;
+&lt;td&gt;704&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h4872/esv/wlc/0-1/&#34;&gt;h4872&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;שם&lt;/td&gt;
+&lt;td&gt;681&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h8043/esv/wlc/0-1/&#34;&gt;h8043&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;מן&lt;/td&gt;
+&lt;td&gt;661&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h4478/esv/wlc/0-1/&#34;&gt;h4478&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;לי&lt;/td&gt;
+&lt;td&gt;660&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;הזה&lt;/td&gt;
+&lt;td&gt;650&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1957/esv/wlc/0-1/&#34;&gt;h1957&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אני&lt;/td&gt;
+&lt;td&gt;635&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h589/esv/wlc/0-1/&#34;&gt;h589&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;יהודה&lt;/td&gt;
+&lt;td&gt;632&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3063/esv/wlc/0-1/&#34;&gt;h3063&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;לפני&lt;/td&gt;
+&lt;td&gt;615&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3942/esv/wlc/0-1/&#34;&gt;h3942&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;להם&lt;/td&gt;
+&lt;td&gt;607&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3859/esv/wlc/0-1/&#34;&gt;h3859&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אם&lt;/td&gt;
+&lt;td&gt;607&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h518/esv/wlc/0-1/&#34;&gt;h518&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אלהים&lt;/td&gt;
+&lt;td&gt;597&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h430/esv/wlc/0-1/&#34;&gt;h430&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אדני&lt;/td&gt;
+&lt;td&gt;587&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h136/esv/wlc/0-1/&#34;&gt;h136&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;דוד&lt;/td&gt;
+&lt;td&gt;583&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1730/esv/wlc/0-1/&#34;&gt;h1730&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אתה&lt;/td&gt;
+&lt;td&gt;582&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h857/esv/wlc/0-1/&#34;&gt;h857&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;עם&lt;/td&gt;
+&lt;td&gt;582&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h5973/esv/wlc/0-1/&#34;&gt;h5973&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;torah&#34;&gt;Torah&lt;/h3&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/lhlg_torah_wc.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Word&lt;/th&gt;
+&lt;th&gt;Count&lt;/th&gt;
+&lt;th&gt;Strong&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;את&lt;/td&gt;
+&lt;td&gt;2569&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אשר&lt;/td&gt;
+&lt;td&gt;1617&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;יהוה&lt;/td&gt;
+&lt;td&gt;1493&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אל&lt;/td&gt;
+&lt;td&gt;1241&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;על&lt;/td&gt;
+&lt;td&gt;949&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;כל&lt;/td&gt;
+&lt;td&gt;921&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;כי&lt;/td&gt;
+&lt;td&gt;895&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;לא&lt;/td&gt;
+&lt;td&gt;861&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ואת&lt;/td&gt;
+&lt;td&gt;809&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;בני&lt;/td&gt;
+&lt;td&gt;620&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ויאמר&lt;/td&gt;
+&lt;td&gt;619&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;משה&lt;/td&gt;
+&lt;td&gt;598&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ישראל&lt;/td&gt;
+&lt;td&gt;508&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ס&lt;/td&gt;
+&lt;td&gt;491&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;הוא&lt;/td&gt;
+&lt;td&gt;420&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;הארץ&lt;/td&gt;
+&lt;td&gt;352&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ולא&lt;/td&gt;
+&lt;td&gt;345&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;לו&lt;/td&gt;
+&lt;td&gt;330&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/&#34;&gt;h&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;experiments-organized-by-books&#34;&gt;Experiments organized by books&lt;/h2&gt;
+&lt;h3 id=&#34;genesis&#34;&gt;Genesis&lt;/h3&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/genesis.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Word&lt;/th&gt;
+&lt;th&gt;Count&lt;/th&gt;
+&lt;th&gt;Strong&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;את&lt;/td&gt;
+&lt;td&gt;658&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/&#34;&gt;h854&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אשר&lt;/td&gt;
+&lt;td&gt;351&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h834/esv/wlc/0-1/&#34;&gt;h834&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ויאמר&lt;/td&gt;
+&lt;td&gt;337&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/&#34;&gt;h559&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אל&lt;/td&gt;
+&lt;td&gt;335&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h410/esv/wlc/0-1/&#34;&gt;h410&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;כי&lt;/td&gt;
+&lt;td&gt;263&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3588/esv/wlc/0-1/&#34;&gt;h3588&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ואת&lt;/td&gt;
+&lt;td&gt;205&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/&#34;&gt;h854&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;על&lt;/td&gt;
+&lt;td&gt;203&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/&#34;&gt;h5921&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;כל&lt;/td&gt;
+&lt;td&gt;199&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3605/esv/wlc/0-1/&#34;&gt;h3605&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אלהים&lt;/td&gt;
+&lt;td&gt;150&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h430/esv/wlc/0-1/&#34;&gt;h430&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;יוסף&lt;/td&gt;
+&lt;td&gt;144&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3130/esv/wlc/0-1/&#34;&gt;h3130&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;יעקב&lt;/td&gt;
+&lt;td&gt;142&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3290/esv/wlc/0-1/&#34;&gt;h3290&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;יהוה&lt;/td&gt;
+&lt;td&gt;141&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3068/esv/wlc/0-1/&#34;&gt;h3068&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;לא&lt;/td&gt;
+&lt;td&gt;137&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/&#34;&gt;h3809&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;הארץ&lt;/td&gt;
+&lt;td&gt;126&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h776/esv/wlc/0-1/&#34;&gt;h776&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;לו&lt;/td&gt;
+&lt;td&gt;126&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3863/esv/wlc/0-1/&#34;&gt;h3863&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ויהי&lt;/td&gt;
+&lt;td&gt;125&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1961/esv/wlc/0-1/&#34;&gt;h1961&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;בני&lt;/td&gt;
+&lt;td&gt;118&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1123/esv/wlc/0-1/&#34;&gt;h1123&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;הוא&lt;/td&gt;
+&lt;td&gt;110&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1931/esv/wlc/0-1/&#34;&gt;h1931&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;אברהם&lt;/td&gt;
+&lt;td&gt;108&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h85/esv/wlc/0-1/&#34;&gt;h85&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;שנה&lt;/td&gt;
+&lt;td&gt;102&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://www.blueletterbible.org/lexicon/h8141/esv/wlc/0-1/&#34;&gt;h8141&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;The more I try to know, the less I feel I know&amp;hellip; This coding-linguistic area is
+fascinating and intreaguing. I feel like a taxonomy of this area is needed.&lt;/p&gt;
+&lt;p&gt;This will probaly take a lot of time, which I don&amp;rsquo;t have. So I want to try to
+balance between being effective and being efficient. I cannot afford to spend
+much time with this project but on the other hand the Hebrew language is really
+really apealing to me. I have yet to find a balance on how to proceed.&lt;/p&gt;
+&lt;p&gt;As part of documenting things I am going to include some very interesting
+resources that I have found.&lt;/p&gt;
+&lt;p&gt;From the time I spent researching I would probably go with the BHSA DB. This is
+a proposed roadmap:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check the ETCBC/course materials for an introduction&lt;/li&gt;
+&lt;li&gt;Check the BHSA/bigTables for Pandas examples and learn how to use it&lt;/li&gt;
+&lt;li&gt;Reevaluate then&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Also, if focus is more in learning Hebrew, check the Parabible website which
+looks really lean and straigthforward.&lt;/p&gt;
+&lt;h3 id=&#34;bible-in-hebrew-demo&#34;&gt;&lt;a href=&#34;https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10&#34;&gt;Bible in Hebrew Demo&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10&#34;&gt;https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: Bible in Hebrew Demo&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-06 Mon]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;see-hear-and-read-the-bible-in-hebrew-bibleinhebrew-dot-com&#34;&gt;&lt;a href=&#34;https://www.bibleinhebrew.com/bih/&#34;&gt;See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://www.bibleinhebrew.com/bih/&#34;&gt;https://www.bibleinhebrew.com/bih/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-06 Mon]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;parabible-genesis-1&#34;&gt;&lt;a href=&#34;https://parabible.com/Genesis/1&#34;&gt;Parabible | Genesis 1&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://parabible.com/Genesis/1&#34;&gt;https://parabible.com/Genesis/1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: Parabible | Genesis 1&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-06 Mon]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;github-jcuenod-awesome-bible-data-a-curated-list-of-generously-licensed-bible-data-dot&#34;&gt;&lt;a href=&#34;https://github.com/jcuenod/awesome-bible-data&#34;&gt;GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://github.com/jcuenod/awesome-bible-data&#34;&gt;https://github.com/jcuenod/awesome-bible-data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-05 Sun]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;text-fabric-versus-shebanq-bhsa&#34;&gt;&lt;a href=&#34;https://etcbc.github.io/bhsa/mql/&#34;&gt;Text-Fabric versus SHEBANQ - BHSA&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://etcbc.github.io/bhsa/mql/&#34;&gt;https://etcbc.github.io/bhsa/mql/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: Text-Fabric versus SHEBANQ - BHSA&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-06 Mon]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;github-etcbc-course-materials-contains-scripts-to-learn-to-work-with-the-etcbc-database&#34;&gt;&lt;a href=&#34;https://github.com/ETCBC/course_materials&#34;&gt;GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://github.com/ETCBC/course_materials&#34;&gt;https://github.com/ETCBC/course_materials&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-06 Mon]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bhsa-bigtablesp-dot-ipynb-at-master-etcbc-bhsa-github&#34;&gt;&lt;a href=&#34;https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb&#34;&gt;bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb&#34;&gt;https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-06 Mon]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;shebanq-words-words&#34;&gt;Shebanq / Words &lt;a href=&#34;https://shebanq.ancient-data.org/hebrew/words&#34;&gt;Words&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://shebanq.ancient-data.org/hebrew/words&#34;&gt;https://shebanq.ancient-data.org/hebrew/words&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: Words&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-05 Sun]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;shebanq-text-2017-genesis-30-1&#34;&gt;Shebanq / text &lt;a href=&#34;https://shebanq.ancient-data.org/hebrew/text&#34;&gt;[2017] Genesis 30:1&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://shebanq.ancient-data.org/hebrew/text&#34;&gt;https://shebanq.ancient-data.org/hebrew/text&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: [2017] Genesis 30:1&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-05 Sun]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;jupyter-notebook-viewer&#34;&gt;&lt;a href=&#34;https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb&#34;&gt;Jupyter Notebook Viewer&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb&#34;&gt;https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: Jupyter Notebook Viewer&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-06 Mon]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;oshb-read&#34;&gt;&lt;a href=&#34;https://hb.openscriptures.org/read/&#34;&gt;OSHB Read&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://hb.openscriptures.org/read/&#34;&gt;https://hb.openscriptures.org/read/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: OSHB Read&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-05 Sun]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;oshb-lexicon&#34;&gt;&lt;a href=&#34;http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html&#34;&gt;OSHB Lexicon&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html&#34;&gt;http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: OSHB Lexicon&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-05 Sun]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bible-online-learner&#34;&gt;&lt;a href=&#34;https://booge.eu/&#34;&gt;Bible Online Learner&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://booge.eu/&#34;&gt;https://booge.eu/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: Bible Online Learner&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-05 Sun]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;j-dot-ted-blakley-online-hebrew-resources&#34;&gt;&lt;a href=&#34;https://www.blakleycreative.com/jtb/HebrewOnline.htm&#34;&gt;J. Ted Blakley — Online Hebrew Resources&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://www.blakleycreative.com/jtb/HebrewOnline.htm&#34;&gt;https://www.blakleycreative.com/jtb/HebrewOnline.htm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: J. Ted Blakley — Online Hebrew Resources&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-06 Mon]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;tanach-dot-us-text-files-webservice-text-files&#34;&gt;Tanach.us text files webservice &lt;a href=&#34;https://www.tanach.us/Pages/TextFiles.html&#34;&gt;Text files&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://www.tanach.us/Pages/TextFiles.html&#34;&gt;https://www.tanach.us/Pages/TextFiles.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: Text files&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-06 Mon]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Command: wget &amp;ndash;user-agent=&amp;quot; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&amp;quot; &amp;ldquo;&lt;a href=&#34;http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;amp;layout=Text-only&amp;amp;content=Consonants&#34;&gt;http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;amp;layout=Text-only&amp;amp;content=Consonants&lt;/a&gt;&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;removing-vowels-from-hebrew-unicode-text-github&#34;&gt;&lt;a href=&#34;https://gist.github.com/yakovsh/345a71d841871cc3d375&#34;&gt;Removing Vowels from Hebrew Unicode Text · GitHub&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://gist.github.com/yakovsh/345a71d841871cc3d375&#34;&gt;https://gist.github.com/yakovsh/345a71d841871cc3d375&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: Removing Vowels from Hebrew Unicode Text · GitHub&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-05 Sun]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;shoroshim-dot-pdf&#34;&gt;&lt;a href=&#34;https://halakhah.com/rst/shoroshim.pdf&#34;&gt;shoroshim.pdf&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://halakhah.com/rst/shoroshim.pdf&#34;&gt;https://halakhah.com/rst/shoroshim.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title:&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-05 Sun]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;unfoldingword-hebrew-grammar-unfoldingword-hebrew-grammar-1-documentation&#34;&gt;&lt;a href=&#34;https://uhg.readthedocs.io/en/latest/front.html&#34;&gt;unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Source: &lt;a href=&#34;https://uhg.readthedocs.io/en/latest/front.html&#34;&gt;https://uhg.readthedocs.io/en/latest/front.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Title: unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation&lt;/li&gt;
+&lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2022-06-05 Sun]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+                
+                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
+                
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/english">english</category>
+                                
+                            
+                        
+                     
+                        
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/research">research</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/nlp">nlp</category>
+                                
+                            
+                        
+                    
+                
+                <guid>https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/</guid>
+                <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+            </item>
+        
+    </channel>
+</rss>
+
+

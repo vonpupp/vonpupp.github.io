@@ -1,0 +1,298 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>
+            
+                    digitalgardens on
+                
+            
+            Albert De La Fuente&#39;s site</title>
+        <link>https://albertdelafuente.com/tags/digitalgardens/</link>
+        <description>Recent content  in digitalgardens
+            on Albert De La Fuente&#39;s site</description>
+        <language>en-us</language>
+        
+                <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 12 Aug 2023 22:02:37 -0300</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+            <atom:link href="https://albertdelafuente.com/tags/digitalgardens/index.xml" rel="self" type="application/rss&#43;xml" />
+        
+            
+            <item>
+                <title>Exploring my [exo]brain</title>
+                <link>https://albertdelafuente.com/posts/20220612002812-exploring_my_exo_brain/</link>
+                
+                
+                <description>&lt;p&gt;I really like working with graphs. I remember a project that I worked a while
+ago where I parsed the client requirements relationships into a graph and I
+could determine the priorities of modules development based on that. Good
+souvenirs. This original idea came from an analysis I did on my social
+networks out of curiosity and I could identify and &lt;a href=&#34;https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/&#34;&gt;find communities on graphs&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Now I am using org-roam as my notes management app. It is great and it works on
+top of org-mode and of course Emacs. Not everyone feels comfortable with this
+since it requires to be okay with technical bits and bytes. I just love it&amp;hellip;&lt;/p&gt;
+&lt;p&gt;I started using v1.0 which did not supported to map org headings but only file
+top headers. This was brilliant already enough in itself. With v2.0 org-roam
+included the ability to map headers also. What was good became even better! The
+only caveat at that time is that org-roam-server stopped working. That is
+understandable. Now there is a new project called org-roam-ui which is basically
+org-roam-server for v2.0 with headings support.&lt;/p&gt;
+&lt;p&gt;Recently I trimmed my DB, I am trying to find a balance between using headings
+and not using headings. My Emacs default config used to creat UUIDs for each
+heading. This was good at first but I had to adapt this for org-roam v2.0&amp;hellip; I
+had +9000 notes, which is unpractical to be honest&amp;hellip; So I cleared the UUIDs of
+the headers of several files that were not needed and now I have +3000 notes. It
+is still too much IMO, so further trimming is needed but that cleanup needs more
+thought.&lt;/p&gt;
+&lt;p&gt;Now lets preview this thing&amp;hellip; Most screenshots have been anonimized.  At the
+time of this writing this is how my notes looks like. Keep in mind that out of
+all of my notes, only a few selected ones are shared here on my website.&lt;/p&gt;
+&lt;p&gt;I am going to show first a little video sample&lt;/p&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/YCaotPnKU5w&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:full-headings&#34;&gt;1&lt;/a&gt; is how the exobrain looks considering all notes&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:full-headings&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-full-headings.png&#34; alt=&#34;Figure 1: Exobrain with all headings and subheadings&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 1: &lt;/span&gt;Exobrain with all headings and subheadings
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:only-headers&#34;&gt;2&lt;/a&gt; is how the exobrain looks only considering the file headers and subheadings.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:only-headers&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-file-headers-only.png&#34; alt=&#34;Figure 2: Exobrain with all headings and subheadings&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 2: &lt;/span&gt;Exobrain with all headings and subheadings
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:only-headers&#34;&gt;2&lt;/a&gt; shows my Emacs configuration file cluster and how it relates to other notes.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:doom-emacs-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-doom-emacs-config-cluster.png&#34; alt=&#34;Figure 3: Exobrain highlighting Doom Emacs related notes&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 3: &lt;/span&gt;Exobrain highlighting Doom Emacs related notes
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:parashot-notes&#34;&gt;4&lt;/a&gt; shows my parashot study notes.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:parashot-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-torah-parashots-cluster.png&#34; alt=&#34;Figure 4: Exobrain highlighting the Torah parashot notes&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 4: &lt;/span&gt;Exobrain highlighting the Torah parashot notes
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:beekeeping-notes&#34;&gt;5&lt;/a&gt;
+shows my beekeeping notes and log, which is quite extensive by the way.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:beekeeping-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-beekeeping-cluster.png&#34; alt=&#34;Figure 5: Exobrain highlighting the beekeping notes and logs&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 5: &lt;/span&gt;Exobrain highlighting the beekeping notes and logs
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:trading-testing-notes&#34;&gt;6&lt;/a&gt;
+shows my testing trading notes. I developed my own tool to document my simulated tradings and tests.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:trading-testing-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-trading-testing-journal-cluster.png&#34; alt=&#34;Figure 6: Exobrain highlighting the testing version of my trading log (development purposes)&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 6: &lt;/span&gt;Exobrain highlighting the testing version of my trading log (development purposes)
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:trading-testing-notes&#34;&gt;6&lt;/a&gt; shows my simulated trading log. I integrated my
+own python tool with yasnippets, so Emacs could get all the goodies out of it.
+The result is a very detailed (and possibly overkill) simulated trade log. This
+is going to probably be decoupled from my org-roam database. I don&amp;rsquo;t really need
+to search on all of that.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:trading-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-trading-journal-cluster.png&#34; alt=&#34;Figure 7: Exobrain highlighting my trading log&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 7: &lt;/span&gt;Exobrain highlighting my trading log
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:bots-notes&#34;&gt;8&lt;/a&gt;
+shows my research notes on automated trading strategies.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:bots-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-trading-bots-research-cluster.png&#34; alt=&#34;Figure 8: Exobrain highlighting my trading bots strategies and backtesting research&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 8: &lt;/span&gt;Exobrain highlighting my trading bots strategies and backtesting research
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:agroforestry-notes&#34;&gt;9&lt;/a&gt;
+shows my research notes on agroforestry.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:agroforestry-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-agroforestry-cluster.png&#34; alt=&#34;Figure 9: Exobrain highlighting the agroforestry notes, design and log&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 9: &lt;/span&gt;Exobrain highlighting the agroforestry notes, design and log
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:journal-2022-notes&#34;&gt;10&lt;/a&gt;
+shows my journal of the current year 2022. TODO&amp;rsquo;s tasks and how they integrate with the rest of the notes.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:journal-2022-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-y2022-journal-log-cluster.png&#34; alt=&#34;Figure 10: Exobrain highlighting the 2022 journal log&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 10: &lt;/span&gt;Exobrain highlighting the 2022 journal log
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;Figure &lt;a href=&#34;#figure--fig:homestead-notes&#34;&gt;11&lt;/a&gt;
+shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;figure--fig:homestead-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/exploring-exobrain-homestead-cluster.png&#34; alt=&#34;Figure 11: Exobrain highlighting the homestead related notes&#34;/&gt; &lt;figcaption&gt;
+                
+                &lt;p&gt;
+                    &lt;span class=&#34;figure-number&#34;&gt;Figure 11: &lt;/span&gt;Exobrain highlighting the homestead related notes
+                    
+                        
+                        &lt;/p&gt;
+                
+            &lt;/figcaption&gt;&lt;/figure&gt;
+
+</description>
+                
+                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
+                
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/categories/english">english</category>
+                                
+                            
+                        
+                     
+                        
+                     
+                        
+                             
+                            
+                                
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/exobrain">exobrain</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/digitalgardens">digitalgardens</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/research">research</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/graphs">graphs</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/communities">communities</category>
+                                 
+                                    <category domain="https://albertdelafuente.com/tags/clustering">clustering</category>
+                                
+                            
+                        
+                    
+                
+                <guid>https://albertdelafuente.com/posts/20220612002812-exploring_my_exo_brain/</guid>
+                <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
+            </item>
+        
+    </channel>
+</rss>
+
+

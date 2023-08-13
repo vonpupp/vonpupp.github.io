@@ -1,0 +1,2183 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.115.4">Hugo</generator><title type="html"><![CDATA[Posts on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/posts/" rel="alternate" type="text/html" title="html" />
+            <link href="https://albertdelafuente.com/posts/index.xml" rel="alternate" type="application/rss+xml" title="rss" />
+            <link href="https://albertdelafuente.com/posts/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/posts/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2023-08-12T22:02:37-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/posts/</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Exploring my [exo]brain]]></title>
+            <link href="https://albertdelafuente.com/posts/20220612002812-exploring_my_exo_brain/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/?utm_source=atom_feed" rel="related" type="text/html" title="Finding communities on graphs" />
+                <link href="https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/?utm_source=atom_feed" rel="related" type="text/html" title="Learning hebrew like a geek" />
+            
+                <id>https://albertdelafuente.com/posts/20220612002812-exploring_my_exo_brain/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2022-06-12T00:00:00+00:00</published>
+            <updated>2022-07-02T00:50:06-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>I really like working with graphs. I remember a project that I worked a while
+ago where I parsed the client requirements relationships into a graph and I
+could determine the priorities of modules development based on that. Good
+souvenirs. This original idea came from an analysis I did on my social
+networks out of curiosity and I could identify and <a href="/posts/20220109211521-finding_communities_on_graphs/">find communities on graphs</a>.</p>
+<p>Now I am using org-roam as my notes management app. It is great and it works on
+top of org-mode and of course Emacs. Not everyone feels comfortable with this
+since it requires to be okay with technical bits and bytes. I just love it&hellip;</p>
+<p>I started using v1.0 which did not supported to map org headings but only file
+top headers. This was brilliant already enough in itself. With v2.0 org-roam
+included the ability to map headers also. What was good became even better! The
+only caveat at that time is that org-roam-server stopped working. That is
+understandable. Now there is a new project called org-roam-ui which is basically
+org-roam-server for v2.0 with headings support.</p>
+<p>Recently I trimmed my DB, I am trying to find a balance between using headings
+and not using headings. My Emacs default config used to creat UUIDs for each
+heading. This was good at first but I had to adapt this for org-roam v2.0&hellip; I
+had +9000 notes, which is unpractical to be honest&hellip; So I cleared the UUIDs of
+the headers of several files that were not needed and now I have +3000 notes. It
+is still too much IMO, so further trimming is needed but that cleanup needs more
+thought.</p>
+<p>Now lets preview this thing&hellip; Most screenshots have been anonimized.  At the
+time of this writing this is how my notes looks like. Keep in mind that out of
+all of my notes, only a few selected ones are shared here on my website.</p>
+<p>I am going to show first a little video sample</p>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/YCaotPnKU5w" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<p>Figure <a href="#figure--fig:full-headings">1</a> is how the exobrain looks considering all notes</p>
+<p><a id="figure--fig:full-headings"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-full-headings.png" alt="Figure 1: Exobrain with all headings and subheadings"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 1: </span>Exobrain with all headings and subheadings
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:only-headers">2</a> is how the exobrain looks only considering the file headers and subheadings.</p>
+<p><a id="figure--fig:only-headers"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-file-headers-only.png" alt="Figure 2: Exobrain with all headings and subheadings"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 2: </span>Exobrain with all headings and subheadings
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:only-headers">2</a> shows my Emacs configuration file cluster and how it relates to other notes.</p>
+<p><a id="figure--fig:doom-emacs-notes"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-doom-emacs-config-cluster.png" alt="Figure 3: Exobrain highlighting Doom Emacs related notes"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 3: </span>Exobrain highlighting Doom Emacs related notes
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:parashot-notes">4</a> shows my parashot study notes.</p>
+<p><a id="figure--fig:parashot-notes"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-torah-parashots-cluster.png" alt="Figure 4: Exobrain highlighting the Torah parashot notes"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 4: </span>Exobrain highlighting the Torah parashot notes
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:beekeeping-notes">5</a>
+shows my beekeeping notes and log, which is quite extensive by the way.</p>
+<p><a id="figure--fig:beekeeping-notes"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-beekeeping-cluster.png" alt="Figure 5: Exobrain highlighting the beekeping notes and logs"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 5: </span>Exobrain highlighting the beekeping notes and logs
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:trading-testing-notes">6</a>
+shows my testing trading notes. I developed my own tool to document my simulated tradings and tests.</p>
+<p><a id="figure--fig:trading-testing-notes"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-trading-testing-journal-cluster.png" alt="Figure 6: Exobrain highlighting the testing version of my trading log (development purposes)"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 6: </span>Exobrain highlighting the testing version of my trading log (development purposes)
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:trading-testing-notes">6</a> shows my simulated trading log. I integrated my
+own python tool with yasnippets, so Emacs could get all the goodies out of it.
+The result is a very detailed (and possibly overkill) simulated trade log. This
+is going to probably be decoupled from my org-roam database. I don&rsquo;t really need
+to search on all of that.</p>
+<p><a id="figure--fig:trading-notes"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-trading-journal-cluster.png" alt="Figure 7: Exobrain highlighting my trading log"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 7: </span>Exobrain highlighting my trading log
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:bots-notes">8</a>
+shows my research notes on automated trading strategies.</p>
+<p><a id="figure--fig:bots-notes"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-trading-bots-research-cluster.png" alt="Figure 8: Exobrain highlighting my trading bots strategies and backtesting research"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 8: </span>Exobrain highlighting my trading bots strategies and backtesting research
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:agroforestry-notes">9</a>
+shows my research notes on agroforestry.</p>
+<p><a id="figure--fig:agroforestry-notes"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-agroforestry-cluster.png" alt="Figure 9: Exobrain highlighting the agroforestry notes, design and log"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 9: </span>Exobrain highlighting the agroforestry notes, design and log
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:journal-2022-notes">10</a>
+shows my journal of the current year 2022. TODO&rsquo;s tasks and how they integrate with the rest of the notes.</p>
+<p><a id="figure--fig:journal-2022-notes"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-y2022-journal-log-cluster.png" alt="Figure 10: Exobrain highlighting the 2022 journal log"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 10: </span>Exobrain highlighting the 2022 journal log
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>Figure <a href="#figure--fig:homestead-notes">11</a>
+shows my homesteading notes and all the ongoing projects.</p>
+<p><a id="figure--fig:homestead-notes"></a></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/exploring-exobrain-homestead-cluster.png" alt="Figure 11: Exobrain highlighting the homestead related notes"/> <figcaption>
+                
+                <p>
+                    <span class="figure-number">Figure 11: </span>Exobrain highlighting the homestead related notes
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/english" term="english" label="english" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/exobrain" term="exobrain" label="exobrain" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/digitalgardens" term="digitalgardens" label="digitalgardens" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/research" term="research" label="research" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/graphs" term="graphs" label="graphs" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/communities" term="communities" label="communities" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/clustering" term="clustering" label="clustering" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Learning hebrew like a geek]]></title>
+            <link href="https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/?utm_source=atom_feed" rel="related" type="text/html" title="Finding communities on graphs" />
+            
+                <id>https://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2022-06-01T00:00:00+00:00</published>
+            <updated>2022-07-02T00:57:20-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<div class="ox-hugo-toc toc">
+<div class="heading">Table of Contents</div>
+<ul>
+<li><a href="#how">How?</a></li>
+<li><a href="#assumptions-and-limitations">Assumptions and limitations</a></li>
+<li><a href="#interesting-findings">Interesting findings</a></li>
+<li><a href="#experiments-organized-by-sections">Experiments organized by sections</a></li>
+<li><a href="#experiments-organized-by-books">Experiments organized by books</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</div>
+<!--endtoc-->
+<p>The other day I was thinking about some practical way of learning hebrew,
+something dynamic that tickles my scientist curiosity. And I thought, wouldn&rsquo;t
+it be cool if I could parse one of the hebrew codexes and get the top 20 most
+frequent words of a chapter or a book? Well this is an attempt to answer these
+type of questions.</p>
+<h2 id="how">How?</h2>
+<p>So I rolled my sleeves and I thought: I will google the Aleppo codex in plain
+text so I can download it and later use it for analysis. The problem is, I
+couldn&rsquo;t find it&hellip;</p>
+<p>The next challenge then is, how can I produce a plain text version of the Aleppo
+codex? I thought about parsing a mysword module, which are in reality a sqlite
+database so that should be easy&hellip; but then when I was doing something totally
+unrelated (probably around the bees or my first batch of mead) it hit me&hellip; I
+have several bibles from the Sword project already installed on my notebook and
+is all OSS, so&hellip; there is probably a python wrapper around diatheke or
+similar&hellip; and sure it is =)</p>
+<p>If you want the technicalities, go read my note on <a href="/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/">How to parse the Aleppo codex
+and analyze its content in python</a>.</p>
+<p>But if you are not a geekie human, you probably are interested only in the
+results rather than the bits and bytes. This is why I splitted the whole thing
+in two notes, one more IT related and one more Hebrew related. So here we go,
+brace yourselves this is probably going to be long.</p>
+<p>I am not sure on how to &ldquo;slice&rdquo; the codex so the chunks makes sense for an
+analysis, for instance: per chapter? Per book? Per &ldquo;stories&rdquo;? Or even other
+slicing like Torah, Neviim and Ketuvim. Since it is not clear I will start
+slicing by books at first.</p>
+<h2 id="assumptions-and-limitations">Assumptions and limitations</h2>
+<p>Hebrew has some peculiarities one of them being the vowel pointing. This brings
+a ton of challenges. For the sake of simplicity I had to stick to a codex that
+does not include niqqud whatsoever. I am not sure if this is a good approach or
+not because two different words without niqqud can render the same writing yet
+have totally different meaning.</p>
+<p>Another problem is that there are words that are trivially known like לא (h2834)
+or אל (h3882); or words that are not translated yet used very much like את
+(h7073). I have implemented a filter to have the possibility to skip these
+words. Not because they are not relevant, the Aleph-Tav has a ton of secrets and
+importance. But there are mixed together some irrelevant tokens considered as
+words, like opening and closing brackets and parenthesis or similar. So I
+implemented a list to ignore these words that are rather known or really
+irrelevant.</p>
+<h2 id="interesting-findings">Interesting findings</h2>
+<p>It was rather interesting to me how fast the repetitions decline on unfiltered
+words. For instance the most used word is the  את (h854) with 7073 occurrences.
+Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) with
+704 occurrences.</p>
+<h2 id="experiments-organized-by-sections">Experiments organized by sections</h2>
+<h3 id="full-tanakh-top-20-words-unfiltered">Full Tanakh - top 20 words - unfiltered</h3>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/lhlg_tanakh_nofilter.png"/> </figure>
+
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Count</th>
+<th>Strong</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>את</td>
+<td>7073</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
+<td></td>
+</tr>
+<tr>
+<td>יהוה</td>
+<td>5611</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3068/esv/wlc/0-1/">h3068</a></td>
+<td></td>
+</tr>
+<tr>
+<td>אשר</td>
+<td>4629</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h834/esv/wlc/0-1/">h834</a></td>
+<td></td>
+</tr>
+<tr>
+<td>אל</td>
+<td>3882</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h410/esv/wlc/0-1/">h410</a></td>
+<td></td>
+</tr>
+<tr>
+<td>כי</td>
+<td>3553</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3588/esv/wlc/0-1/">h3588</a></td>
+<td></td>
+</tr>
+<tr>
+<td>על</td>
+<td>3140</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/">h5921</a></td>
+<td></td>
+</tr>
+<tr>
+<td>לא</td>
+<td>2834</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/">h3809</a></td>
+<td></td>
+</tr>
+<tr>
+<td>כל</td>
+<td>2757</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/">h5921</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ואת</td>
+<td>2190</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ישראל</td>
+<td>2085</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3479/esv/wlc/0-1/">h3479</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ויאמר</td>
+<td>2043</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a></td>
+<td>Related</td>
+</tr>
+<tr>
+<td>בני</td>
+<td>1650</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1123/esv/wlc/0-1/">h1123</a></td>
+<td></td>
+</tr>
+<tr>
+<td>בן</td>
+<td>1607</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1121/esv/wlc/0-1/">h1121</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ולא</td>
+<td>1447</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/">h3809</a></td>
+<td>Related</td>
+</tr>
+</tbody>
+</table>
+<h3 id="full-tanakh-top-50-words-unfiltered">Full Tanakh - Top 50 words - unfiltered</h3>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/lhlg_tanakh_top50.png"/> </figure>
+
+<p>The words from above as the top 20, plus the following words</p>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Count</th>
+<th>Strong</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>לו</td>
+<td>1045</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3863/esv/wlc/0-1/">h3863</a></td>
+<td></td>
+</tr>
+<tr>
+<td>איש</td>
+<td>1027</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h376/esv/wlc/0-1/">h376</a></td>
+<td></td>
+</tr>
+<tr>
+<td>המלך</td>
+<td>1014</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h4428/esv/wlc/0-1/">h4428</a></td>
+<td></td>
+</tr>
+<tr>
+<td>בית</td>
+<td>1003</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1004/esv/wlc/0-1/">h1004</a></td>
+<td></td>
+</tr>
+<tr>
+<td>מלך</td>
+<td>1000</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h4427/esv/wlc/0-1/">h4427</a></td>
+<td></td>
+</tr>
+<tr>
+<td>הוא</td>
+<td>910</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1931/esv/wlc/0-1/">h1931</a></td>
+<td></td>
+</tr>
+<tr>
+<td>עד</td>
+<td>904</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5704/esv/wlc/0-1/">h5704</a></td>
+<td></td>
+</tr>
+<tr>
+<td>לאמר</td>
+<td>897</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a> / <a href="https://www.blueletterbible.org/lexicon/564/esv/wlc/0-1/">564</a></td>
+<td></td>
+</tr>
+<tr>
+<td>לך</td>
+<td>871</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+<td></td>
+</tr>
+<tr>
+<td>הארץ</td>
+<td>856</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h776/esv/wlc/0-1/">h776</a></td>
+<td></td>
+</tr>
+<tr>
+<td>ויהי</td>
+<td>808</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+<td></td>
+</tr>
+<tr>
+<td>אמר</td>
+<td>797</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a></td>
+<td></td>
+</tr>
+<tr>
+<td>דבר</td>
+<td>787</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1697/esv/wlc/0-1/">h1697</a></td>
+<td></td>
+</tr>
+<tr>
+<td>העם</td>
+<td>724</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5971/esv/wlc/0-1/">h5971</a></td>
+<td>Related</td>
+</tr>
+<tr>
+<td>וכל</td>
+<td>712</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3606/esv/wlc/0-1/">h3606</a></td>
+<td>Related</td>
+</tr>
+<tr>
+<td>משה</td>
+<td>704</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h4872/esv/wlc/0-1/">h4872</a></td>
+<td></td>
+</tr>
+<tr>
+<td>שם</td>
+<td>681</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h8043/esv/wlc/0-1/">h8043</a></td>
+<td></td>
+</tr>
+<tr>
+<td>מן</td>
+<td>661</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h4478/esv/wlc/0-1/">h4478</a></td>
+<td></td>
+</tr>
+<tr>
+<td>לי</td>
+<td>660</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+<td></td>
+</tr>
+<tr>
+<td>הזה</td>
+<td>650</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1957/esv/wlc/0-1/">h1957</a></td>
+<td></td>
+</tr>
+<tr>
+<td>אני</td>
+<td>635</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h589/esv/wlc/0-1/">h589</a></td>
+<td></td>
+</tr>
+<tr>
+<td>יהודה</td>
+<td>632</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3063/esv/wlc/0-1/">h3063</a></td>
+<td></td>
+</tr>
+<tr>
+<td>לפני</td>
+<td>615</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3942/esv/wlc/0-1/">h3942</a></td>
+<td></td>
+</tr>
+<tr>
+<td>להם</td>
+<td>607</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3859/esv/wlc/0-1/">h3859</a></td>
+<td></td>
+</tr>
+<tr>
+<td>אם</td>
+<td>607</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h518/esv/wlc/0-1/">h518</a></td>
+<td></td>
+</tr>
+<tr>
+<td>אלהים</td>
+<td>597</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h430/esv/wlc/0-1/">h430</a></td>
+<td></td>
+</tr>
+<tr>
+<td>אדני</td>
+<td>587</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h136/esv/wlc/0-1/">h136</a></td>
+<td></td>
+</tr>
+<tr>
+<td>דוד</td>
+<td>583</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1730/esv/wlc/0-1/">h1730</a></td>
+<td></td>
+</tr>
+<tr>
+<td>אתה</td>
+<td>582</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h857/esv/wlc/0-1/">h857</a></td>
+<td></td>
+</tr>
+<tr>
+<td>עם</td>
+<td>582</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5973/esv/wlc/0-1/">h5973</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="torah">Torah</h3>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/lhlg_torah_wc.png"/> </figure>
+
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Count</th>
+<th>Strong</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>את</td>
+<td>2569</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>אשר</td>
+<td>1617</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>יהוה</td>
+<td>1493</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>אל</td>
+<td>1241</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>על</td>
+<td>949</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>כל</td>
+<td>921</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>כי</td>
+<td>895</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>לא</td>
+<td>861</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>ואת</td>
+<td>809</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>בני</td>
+<td>620</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>ויאמר</td>
+<td>619</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>משה</td>
+<td>598</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>ישראל</td>
+<td>508</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>ס</td>
+<td>491</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>הוא</td>
+<td>420</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>הארץ</td>
+<td>352</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>ולא</td>
+<td>345</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+<tr>
+<td>לו</td>
+<td>330</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="experiments-organized-by-books">Experiments organized by books</h2>
+<h3 id="genesis">Genesis</h3>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/genesis.png"/> </figure>
+
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Count</th>
+<th>Strong</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>את</td>
+<td>658</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
+</tr>
+<tr>
+<td>אשר</td>
+<td>351</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h834/esv/wlc/0-1/">h834</a></td>
+</tr>
+<tr>
+<td>ויאמר</td>
+<td>337</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a></td>
+</tr>
+<tr>
+<td>אל</td>
+<td>335</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h410/esv/wlc/0-1/">h410</a></td>
+</tr>
+<tr>
+<td>כי</td>
+<td>263</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3588/esv/wlc/0-1/">h3588</a></td>
+</tr>
+<tr>
+<td>ואת</td>
+<td>205</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
+</tr>
+<tr>
+<td>על</td>
+<td>203</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/">h5921</a></td>
+</tr>
+<tr>
+<td>כל</td>
+<td>199</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3605/esv/wlc/0-1/">h3605</a></td>
+</tr>
+<tr>
+<td>אלהים</td>
+<td>150</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h430/esv/wlc/0-1/">h430</a></td>
+</tr>
+<tr>
+<td>יוסף</td>
+<td>144</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3130/esv/wlc/0-1/">h3130</a></td>
+</tr>
+<tr>
+<td>יעקב</td>
+<td>142</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3290/esv/wlc/0-1/">h3290</a></td>
+</tr>
+<tr>
+<td>יהוה</td>
+<td>141</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3068/esv/wlc/0-1/">h3068</a></td>
+</tr>
+<tr>
+<td>לא</td>
+<td>137</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/">h3809</a></td>
+</tr>
+<tr>
+<td>הארץ</td>
+<td>126</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h776/esv/wlc/0-1/">h776</a></td>
+</tr>
+<tr>
+<td>לו</td>
+<td>126</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3863/esv/wlc/0-1/">h3863</a></td>
+</tr>
+<tr>
+<td>ויהי</td>
+<td>125</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1961/esv/wlc/0-1/">h1961</a></td>
+</tr>
+<tr>
+<td>בני</td>
+<td>118</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1123/esv/wlc/0-1/">h1123</a></td>
+</tr>
+<tr>
+<td>הוא</td>
+<td>110</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1931/esv/wlc/0-1/">h1931</a></td>
+</tr>
+<tr>
+<td>אברהם</td>
+<td>108</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h85/esv/wlc/0-1/">h85</a></td>
+</tr>
+<tr>
+<td>שנה</td>
+<td>102</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h8141/esv/wlc/0-1/">h8141</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="conclusion">Conclusion</h2>
+<p>The more I try to know, the less I feel I know&hellip; This coding-linguistic area is
+fascinating and intreaguing. I feel like a taxonomy of this area is needed.</p>
+<p>This will probaly take a lot of time, which I don&rsquo;t have. So I want to try to
+balance between being effective and being efficient. I cannot afford to spend
+much time with this project but on the other hand the Hebrew language is really
+really apealing to me. I have yet to find a balance on how to proceed.</p>
+<p>As part of documenting things I am going to include some very interesting
+resources that I have found.</p>
+<p>From the time I spent researching I would probably go with the BHSA DB. This is
+a proposed roadmap:</p>
+<ul>
+<li>Check the ETCBC/course materials for an introduction</li>
+<li>Check the BHSA/bigTables for Pandas examples and learn how to use it</li>
+<li>Reevaluate then</li>
+</ul>
+<p>Also, if focus is more in learning Hebrew, check the Parabible website which
+looks really lean and straigthforward.</p>
+<h3 id="bible-in-hebrew-demo"><a href="https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10">Bible in Hebrew Demo</a></h3>
+<ul>
+<li>Source: <a href="https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10">https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10</a></li>
+<li>Title: Bible in Hebrew Demo</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+<h3 id="see-hear-and-read-the-bible-in-hebrew-bibleinhebrew-dot-com"><a href="https://www.bibleinhebrew.com/bih/">See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com</a></h3>
+<ul>
+<li>Source: <a href="https://www.bibleinhebrew.com/bih/">https://www.bibleinhebrew.com/bih/</a></li>
+<li>Title: See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+<h3 id="parabible-genesis-1"><a href="https://parabible.com/Genesis/1">Parabible | Genesis 1</a></h3>
+<ul>
+<li>Source: <a href="https://parabible.com/Genesis/1">https://parabible.com/Genesis/1</a></li>
+<li>Title: Parabible | Genesis 1</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+<h3 id="github-jcuenod-awesome-bible-data-a-curated-list-of-generously-licensed-bible-data-dot"><a href="https://github.com/jcuenod/awesome-bible-data">GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.</a></h3>
+<ul>
+<li>Source: <a href="https://github.com/jcuenod/awesome-bible-data">https://github.com/jcuenod/awesome-bible-data</a></li>
+<li>Title: GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+<h3 id="text-fabric-versus-shebanq-bhsa"><a href="https://etcbc.github.io/bhsa/mql/">Text-Fabric versus SHEBANQ - BHSA</a></h3>
+<ul>
+<li>Source: <a href="https://etcbc.github.io/bhsa/mql/">https://etcbc.github.io/bhsa/mql/</a></li>
+<li>Title: Text-Fabric versus SHEBANQ - BHSA</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+<h3 id="github-etcbc-course-materials-contains-scripts-to-learn-to-work-with-the-etcbc-database"><a href="https://github.com/ETCBC/course_materials">GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database</a></h3>
+<ul>
+<li>Source: <a href="https://github.com/ETCBC/course_materials">https://github.com/ETCBC/course_materials</a></li>
+<li>Title: GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+<h3 id="bhsa-bigtablesp-dot-ipynb-at-master-etcbc-bhsa-github"><a href="https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb">bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub</a></h3>
+<ul>
+<li>Source: <a href="https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb">https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb</a></li>
+<li>Title: bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+<h3 id="shebanq-words-words">Shebanq / Words <a href="https://shebanq.ancient-data.org/hebrew/words">Words</a></h3>
+<ul>
+<li>Source: <a href="https://shebanq.ancient-data.org/hebrew/words">https://shebanq.ancient-data.org/hebrew/words</a></li>
+<li>Title: Words</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+<h3 id="shebanq-text-2017-genesis-30-1">Shebanq / text <a href="https://shebanq.ancient-data.org/hebrew/text">[2017] Genesis 30:1</a></h3>
+<ul>
+<li>Source: <a href="https://shebanq.ancient-data.org/hebrew/text">https://shebanq.ancient-data.org/hebrew/text</a></li>
+<li>Title: [2017] Genesis 30:1</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+<h3 id="jupyter-notebook-viewer"><a href="https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb">Jupyter Notebook Viewer</a></h3>
+<ul>
+<li>Source: <a href="https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb">https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb</a></li>
+<li>Title: Jupyter Notebook Viewer</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+<h3 id="oshb-read"><a href="https://hb.openscriptures.org/read/">OSHB Read</a></h3>
+<ul>
+<li>Source: <a href="https://hb.openscriptures.org/read/">https://hb.openscriptures.org/read/</a></li>
+<li>Title: OSHB Read</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+<h3 id="oshb-lexicon"><a href="http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html">OSHB Lexicon</a></h3>
+<ul>
+<li>Source: <a href="http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html">http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html</a></li>
+<li>Title: OSHB Lexicon</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+<h3 id="bible-online-learner"><a href="https://booge.eu/">Bible Online Learner</a></h3>
+<ul>
+<li>Source: <a href="https://booge.eu/">https://booge.eu/</a></li>
+<li>Title: Bible Online Learner</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+<h3 id="j-dot-ted-blakley-online-hebrew-resources"><a href="https://www.blakleycreative.com/jtb/HebrewOnline.htm">J. Ted Blakley — Online Hebrew Resources</a></h3>
+<ul>
+<li>Source: <a href="https://www.blakleycreative.com/jtb/HebrewOnline.htm">https://www.blakleycreative.com/jtb/HebrewOnline.htm</a></li>
+<li>Title: J. Ted Blakley — Online Hebrew Resources</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+<h3 id="tanach-dot-us-text-files-webservice-text-files">Tanach.us text files webservice <a href="https://www.tanach.us/Pages/TextFiles.html">Text files</a></h3>
+<ul>
+<li>Source: <a href="https://www.tanach.us/Pages/TextFiles.html">https://www.tanach.us/Pages/TextFiles.html</a></li>
+<li>Title: Text files</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+<li>Command: wget &ndash;user-agent=&quot; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot; &ldquo;<a href="http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;layout=Text-only&amp;content=Consonants">http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;layout=Text-only&amp;content=Consonants</a>&rdquo;</li>
+</ul>
+<h3 id="removing-vowels-from-hebrew-unicode-text-github"><a href="https://gist.github.com/yakovsh/345a71d841871cc3d375">Removing Vowels from Hebrew Unicode Text · GitHub</a></h3>
+<ul>
+<li>Source: <a href="https://gist.github.com/yakovsh/345a71d841871cc3d375">https://gist.github.com/yakovsh/345a71d841871cc3d375</a></li>
+<li>Title: Removing Vowels from Hebrew Unicode Text · GitHub</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+<h3 id="shoroshim-dot-pdf"><a href="https://halakhah.com/rst/shoroshim.pdf">shoroshim.pdf</a></h3>
+<ul>
+<li>Source: <a href="https://halakhah.com/rst/shoroshim.pdf">https://halakhah.com/rst/shoroshim.pdf</a></li>
+<li>Title:</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+<h3 id="unfoldingword-hebrew-grammar-unfoldingword-hebrew-grammar-1-documentation"><a href="https://uhg.readthedocs.io/en/latest/front.html">unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation</a></h3>
+<ul>
+<li>Source: <a href="https://uhg.readthedocs.io/en/latest/front.html">https://uhg.readthedocs.io/en/latest/front.html</a></li>
+<li>Title: unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/english" term="english" label="english" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/research" term="research" label="research" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/nlp" term="nlp" label="nlp" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to recover a GRUB bootloader on a filesystem with LUKS and LVM]]></title>
+            <link href="https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/?utm_source=atom_feed" rel="related" type="text/html" title="How to manually boot/recover a system with LUKS and LVM" />
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+                <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="related" type="text/html" title="How to publish a GPG key via DNS" />
+            
+                <id>https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2021-08-04T00:00:00+00:00</published>
+            <updated>2022-07-02T10:38:37-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<div class="ox-hugo-toc toc">
+<div class="heading">Table of Contents</div>
+<ul>
+<li><a href="#optional--create-a-boot-flash-disk-using-android">(OPTIONAL) Create a boot flash disk using android</a>
+- <a href="#etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository">EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</a></li>
+<li><a href="#mounting-and-chrooting-the-system">Mounting and chrooting the system</a></li>
+<li><a href="#edit-the-etc-default-grub-file">Edit the /etc/default/grub file</a></li>
+<li><a href="#config-and-install-grub-and-create-the-ramdisk">Config and install GRUB and create the ramdisk</a></li>
+<li><a href="#references">References</a>
+<ul>
+<li><a href="#solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums">[SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<!--endtoc-->
+<p>Recently an upgrade on my notebook went bad and broke something. I wasn&rsquo;t sure
+what went wrong but since I had just one system at that time, I had to figure
+out how to fix it with the help of my phone. Basically what I did is install
+EtchDroid to be able to download an iso and flash it to a flash drive on my
+phone directly. Later I could boot form that flash drive, mount the LUKS/LVM
+partitions and fix the bootloader. Here is a short how to.</p>
+<h2 id="optional--create-a-boot-flash-disk-using-android">(OPTIONAL) Create a boot flash disk using android</h2>
+<h4 id="etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository"><a href="https://f-droid.org/en/packages/eu.depau.etchdroid/">EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</a></h4>
+<ul>
+<li>Source: <a href="https://f-droid.org/en/packages/eu.depau.etchdroid/">https://f-droid.org/en/packages/eu.depau.etchdroid/</a></li>
+<li>Title: EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-05 Thu]</span></span></li>
+</ul>
+<h2 id="mounting-and-chrooting-the-system">Mounting and chrooting the system</h2>
+<p>#+begin_src sh</p>
+<p>cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm</p>
+<p>mount /dev/storage/root /mnt
+mount /dev/storage/home /mnt/home</p>
+<p>mount /dev/sda1 /mnt/boot</p>
+<p>cd <em>mnt
+mount -t proc /proc proc</em>
+#mount -t sysfs <em>sys sys</em>
+#mount -o bind <em>dev dev</em>
+mount -o bind <em>run run</em></p>
+<p>arch-chroot /mnt</p>
+<p>dhcpcd eth0
+#+end_src sh</p>
+<h2 id="edit-the-etc-default-grub-file">Edit the /etc/default/grub file</h2>
+<p>#+begin_src sh</p>
+<p>GRUB_CMDLINE_LINUX=&ldquo;cryptdevice=/dev/sda2:lvm&rdquo;
+GRUB_PRELOAD_MODULES=&ldquo;part_gpt part_msdos cryptodisk luks&rdquo;
+#+end_src sh</p>
+<h2 id="config-and-install-grub-and-create-the-ramdisk">Config and install GRUB and create the ramdisk</h2>
+<p>#+begin_src sh</p>
+<p>grub-mkconfig &gt; /boot/grub/grub.cfg
+grub-install &ndash;efi-directory=/boot &ndash;target=x86_64-efi /dev/sda</p>
+<p>mkinitcpio -p linux
+#+end_src sh</p>
+<h2 id="references">References</h2>
+<h3 id="solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums"><a href="https://bbs.archlinux.org/viewtopic.php?id=246628">[SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</a></h3>
+<ul>
+<li>Source: <a href="https://bbs.archlinux.org/viewtopic.php?id=246628">https://bbs.archlinux.org/viewtopic.php?id=246628</a></li>
+<li>Title: [SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-04 Wed]</span></span></li>
+</ul>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[New blog in org-mode and Hugo]]></title>
+            <link href="https://albertdelafuente.com/posts/sandbox/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/exobrain/20220128220728-curso_de_hebreo_de_emc_shalom_colombia/?utm_source=atom_feed" rel="related" type="text/html" title="Curso de hebreo de EMC Shalom Colombia" />
+                <link href="https://albertdelafuente.com/exobrain/20200313214456-how_to_use_magit/?utm_source=atom_feed" rel="related" type="text/html" title="How to use magit" />
+            
+                <id>https://albertdelafuente.com/posts/sandbox/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2020-08-07T00:00:00+00:00</published>
+            <updated>2022-05-23T22:56:54-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>Okay this is like my fifth attempt to blog and so far, unsuccessfully.</p>
+<p>My first couple of blogs were on blogspot around 2005 or so, later I switched to
+dokuwiki, which is awesome but it didn&rsquo;t integrated well on my workflow. So I
+tried some extensions to try to write directly in markdown but it didn&rsquo;t work
+well for me. Then I moved to Hyde, which a Python static website generator. I
+invested quite some time customizing everything to my needs and while it was
+functional, I had to write in markdown (which I don&rsquo;t like&hellip;). I tried to write
+in RST at that time without success.</p>
+<p>Then I moved from Vim to <a href="https://gnu.org/software/emacs/">Emacs</a> and discovered <a href="http://orgmode.org/">org-mode</a>&hellip; And yeah, everything
+changed&hellip; I love Emacs+Org-Mode and I used quite a lot (and I still use Vim
+occasionally).</p>
+<p>I wanted to write directly in Org-Mode for my new blog to see if content flows
+this time (hopefully) and I can achieve the integration I was looking for all
+these years.</p>
+<p>The version of this blog uses plain Org-Mode and Hugo with ox-hugo as a middle
+helper. So far, so good, I just migrated my old posts which are few in number.</p>
+<p>What I am looking forward is to create a mix of a Blog and a digital garden for
+my notes (also known as second brain or exobrain).</p>
+<p>The rest of the file is actually a sandbox of general Org-Mode formatting to
+check out how it renders on Hugo itself.</p>
+<h2 id="this-is-h1">This is H1</h2>
+<p>There is paragraph under h1</p>
+<h3 id="h2">H2</h3>
+<!--list-separator-->
+<ul>
+<li>
+<p>H3</p>
+<p>Something</p>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>H3 with a tag <span class="tag"><span class="sometag">sometag</span></span></li>
+</ul>
+<h2 id="some-basic-test">Some basic test</h2>
+<p>This is <strong>bold</strong>, <em>italic</em>, <code>code</code>, <code>verbatim</code> and <del>strike</del> text.</p>
+<ul>
+<li>However <strong><em>bold and italic</em></strong> doesn&rsquo;t play well when used together like in markdown.</li>
+<li>However <em><strong>bold and italic</strong></em> doesn&rsquo;t play well when used together like in markdown.</li>
+</ul>
+<h2 id="list">List</h2>
+<ul>
+<li>Bullet</li>
+<li>Another bullet
+<ul>
+<li>child
+<ul>
+<li>deep</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="other-style">Other style</h3>
+<ul>
+<li>Bullet</li>
+<li>Another bullet
+<ul>
+<li>child
+<ul>
+<li>deep</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="other-style">Other style</h3>
+<ol>
+<li>Bullet</li>
+<li>Another bullet
+<ol>
+<li>child
+<ol>
+<li>deep</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>Style <code>*</code> isn&rsquo;t supported.</p>
+<h2 id="links">Links</h2>
+<p><a href="http://orgmode.org/">link to org mode homepage</a></p>
+<h2 id="check-list">Check List <code>[1/3]</code> <code>[33%]</code></h2>
+<ul>
+<li><input disabled="" type="checkbox"> Item</li>
+<li><input disabled="" type="checkbox"> Item</li>
+<li><input checked="" disabled="" type="checkbox"> Checked item</li>
+</ul>
+<p>Heading and has special class however <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> are plain.</p>
+<h2 id="task-list">Task List</h2>
+<h3 id="some-to-do"><span class="org-todo todo TODO">TODO</span> some to-do</h3>
+<h3 id="done-to-do"><span class="org-todo done DONE">DONE</span> done to-do</h3>
+<p>Items are added with special class.</p>
+<h2 id="tables">Tables</h2>
+<table>
+<thead>
+<tr>
+<th>number</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>looooong long name</td>
+</tr>
+<tr>
+<td>5</td>
+<td>name</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;tr&gt;</code> has <code>even</code> and <code>odd</code> classes.</p>
+<h2 id="source-code">Source Code</h2>
+<p><strong>Emacs Lisp:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">negate</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;Negate the value of x.&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">-</span> <span class="nv">x</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">print</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nv">negate</span> <span class="mi">10</span><span class="p">))</span>
+</span></span></code></pre></div><p>There are interesting classes like <code>sourceCode</code> and <code>example</code>.
+Also there html5 attributes prefixed with <code>rundoc-</code>.</p>
+<p><strong>Haskell:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">factorial</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span>
+</span></span><span class="line"><span class="cl"><span class="nf">factorial</span> <span class="mi">0</span> <span class="ow">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nf">factorial</span> <span class="n">n</span> <span class="ow">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="latex">LaTeX</h2>
+<ul>
+<li><strong>Characters:</strong> α β → ↑ \or \and \implies π ∞</li>
+<li><strong>Inline Math:</strong> \(f(x) = x^2\)</li>
+<li><strong>More complex:</strong> \(\frac{x^2}{2}\)</li>
+</ul>
+<p>LaTeX characters are wrapped in <code>&lt;em&gt;</code> and Math inside <code>&lt;span class=&quot;math inline&quot;&gt;</code>.</p>
+<h3 id="mathscr-hello">\mathscr{Hello!}</h3>
+<p>\begin{align*}
+8 * 3 &amp;= 8 + 8 \\
+&amp;= 24
+\end{align*}</p>
+<p><strong>NOTE:</strong> <em>There is standard LaTeX embeded above which is skipped during compilation to HTML.</em></p>
+<p><strong>This is using</strong> <a href="https://www.mathjax.org/">MathJax</a></p>
+<p>\[\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}\]</p>
+<h2 id="deadline">Deadline</h2>
+<h2 id="tagged">Tagged <span class="tag"><span class="tag">tag</span></span></h2>
+<p>Tags are not visible in render</p>
+<h2 id="block-quote">Block Quote</h2>
+<blockquote>
+<p>Org mode is amazing. So is Hakyll &amp; Pandoc.</p>
+</blockquote>
+<h2 id="image">Image</h2>
+<p><a href="http://media.riffsy.com/images/f8534774b678ad1932b379a03460680b/raw">http://media.riffsy.com/images/f8534774b678ad1932b379a03460680b/raw</a></p>
+<p>Images has to have extension like:</p>
+<p>then it can be loaded even from other origin..</p>
+
+
+
+<figure>
+    
+        
+            <img src="http://45.media.tumblr.com/270992d792c9899f79888a8ea6955ca5/tumblr_o0jt792qLd1r83d7lo6_540.gif"/> </figure>
+
+<h2 id="description-list">Description List</h2>
+<dl>
+<dt>Frodo</dt>
+<dd>The hobbit ringbearer</dd>
+<dt>Aragorn</dt>
+<dd>The human ranger, true kind of Gondor</dd>
+<dt>Gandalf</dt>
+<dd>The Grey Wizard</dd>
+</dl>
+<p>creddits to <a href="https://www.reddit.com/user/nihilmancer">nihilmancer</a></p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/emacs" term="emacs" label="emacs" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/org-mode" term="org-mode" label="org-mode" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/emacs" term="emacs" label="emacs" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to manually boot/recover a system with LUKS and LVM]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+                <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="related" type="text/html" title="How to publish a GPG key via DNS" />
+            
+                <id>https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/</id>
+            
+            
+                    <author>
+                        <name>Albert</name>
+                    </author>
+            <published>2016-11-22T00:00:00+00:00</published>
+            <updated>2022-06-21T21:14:20-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>I have been using LVM on top of LUKS for more than 2 years without problems.
+However since I haven&rsquo;t had the chance to troubleshoot these technologies in
+the past I was quite concerned of what would happen when I would have problems.
+Today my main computer didn&rsquo;t boot up and I had to fix it manually. This
+post shows the steps I performed to recover my system.</p>
+<p>I use Arch Linux and I prepared a repository with my custom install method
+based on archinstaller. Basically I have a custom partitioning based on LVM on
+top of LUKS and some variables to start he installing method.</p>
+<p>Here is an overview of the parts on this tutorial:</p>
+<h2 id="tutorial-overview">Tutorial overview</h2>
+<ol>
+<li>Create a bootable USB and boot the broken system with it (AKA recovery mode**</li>
+<li>Chroot into the system</li>
+<li>Fix the issue</li>
+</ol>
+<h2 id="assumptions">Assumptions</h2>
+<p>I will assume that the error is similar as mine. After opening the LUKS device,
+I had the following problem:
+<code>ERROR: device /dev/mapper/storage-root not found</code>.</p>
+<h2 id="create-a-bootable-usb">Create a bootable USB</h2>
+<p>To create a bootable USB you need to download the latest Arch Linux iso and
+then us <code>dd</code> to dump it to a flash drive.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dd <span class="nv">bs</span><span class="o">=</span>4M <span class="k">if</span><span class="o">=</span>/path/to/archlinux.iso <span class="nv">of</span><span class="o">=</span>/dev/sdx <span class="nv">status</span><span class="o">=</span>progress <span class="o">&amp;&amp;</span> sync
+</span></span></code></pre></div><p>After completion, use the same flash drive to boot the broken computer. You
+generally need to hit a key on the <code>F5</code> - <code>F6</code> range to choose the boot method.</p>
+<h2 id="chroot-into-the-system">Chroot into the system</h2>
+<p>Once the system has booted, now we need to mount everything the system would
+mount on a boot stage.  Adapt the LUKS label and LVM devices according to your
+needs.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Open the LUKS device.</span>
+</span></span><span class="line"><span class="cl">cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Mount the root partition</span>
+</span></span><span class="line"><span class="cl">mount /dev/storage/root /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Mount the boot partition</span>
+</span></span><span class="line"><span class="cl">mount /dev/sda1 /mnt/boot
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Mount proc, sys and dev</span>
+</span></span><span class="line"><span class="cl">mount -t proc proc proc/
+</span></span><span class="line"><span class="cl">mount -t sysfs sys sys/
+</span></span><span class="line"><span class="cl">mount -o <span class="nb">bind</span> /dev dev/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Switch to bash</span>
+</span></span><span class="line"><span class="cl">bash
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Chroot</span>
+</span></span><span class="line"><span class="cl">chroot /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Bring up network if needed</span>
+</span></span><span class="line"><span class="cl">dhcpcd eth0
+</span></span></code></pre></div><p>At this point you should have shell with a recovery environment set to fix the
+issue, so let&rsquo;s fix it.</p>
+<h2 id="fix-the-issue">Fix the issue</h2>
+<p>To fix the issue we basically are going to perform an upgrade an recreate the
+initial ramdisk</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Update the packages database</span>
+</span></span><span class="line"><span class="cl">pacman -Syy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Upgrade the packages</span>
+</span></span><span class="line"><span class="cl">pacman -Syu
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Update udev package</span>
+</span></span><span class="line"><span class="cl">pacman -S udev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Update mkinitcpio package</span>
+</span></span><span class="line"><span class="cl">pacman -S mkinitcpio
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Recreate the initial ramdisk</span>
+</span></span><span class="line"><span class="cl">mkinitcpio -p linux
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Exit the chroot environment</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reboot</span>
+</span></span><span class="line"><span class="cl">reboot
+</span></span></code></pre></div><p>If everything went well, you now should be able to boot the system properly.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>I was quite worried about how to solve this issue due to the several layers of
+complexity: GPT, LUKS and LVM, however everything went out quite smoothly. The
+key part is to use a USB flash drive and then mount the boot and root
+partitions to recreate the ramdisk.</p>
+<p>Thanks for reading. Spot an error or want to explain something better, feel
+free to send me a PR.</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to publish a GPG key via DNS]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+            
+                <id>https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/</id>
+            
+            
+                    <author>
+                        <name>Albert</name>
+                    </author>
+            <published>2016-11-13T00:00:00+00:00</published>
+            <updated>2022-01-09T21:49:24-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>Publishing keys is quite common. One nice way to do so is by using the Public
+Key Association (PKA) DNS record. Basically this is a record that points to a
+file that can be downloaded over the internet. This method is an alternative
+(not exclusive) to using keyservers.</p>
+<p>One of the problems of keyservers (in my opinion), is the problem of deleting
+old keys. I pretty much like the idea of PGP keyserver which verifies
+periodically by sending an email if the address is still in use and therefore
+maintain that <code>uid</code> of the key. The only problem is that the PGP server is
+centralized and it does not use FLOSS standards.</p>
+<p>I understand that deleting a key on a distributed environment is hard and
+probably maintaining a history of deletions as done actually on most of
+keyservers is still a good solution. However since I don&rsquo;t use GPG very often
+and I am not publishing my key yet, I wanted to try PKA.</p>
+<p>This tutorial is made of two basic parts, first creating a TXT DNS record and
+then verifying that the key gets downloaded properly.</p>
+<h3 id="tutorial-overview">Tutorial overview</h3>
+<ol>
+<li>Creating the TXT DNS record</li>
+<li>Testing the PKA record</li>
+</ol>
+<h2 id="assumptions">Assumptions</h2>
+<p>I assume that you have gpg installed and that you know the basic idea on how it
+works, that you know what a private and a public keys are for and how to use
+them.</p>
+<h2 id="creating-the-txt-dns-record">Creating the TXT DNS record</h2>
+<p>To create the TXT DNS record you will need to know the fingerprint of the key.
+To do so:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ gpg --list-keys vonpupp@keybase.io
+</span></span><span class="line"><span class="cl">pub   rsa2048/0x536814BF4871A220 2016-11-12 <span class="o">[</span>SC<span class="o">]</span> <span class="o">[</span>expires: 2018-11-12<span class="o">]</span>
+</span></span><span class="line"><span class="cl">      Key <span class="nv">fingerprint</span> <span class="o">=</span> F0B9 B3FB 25E9 <span class="m">1209</span> 728E  <span class="m">4844</span> <span class="m">5368</span> 14BF <span class="m">4871</span> A220
+</span></span><span class="line"><span class="cl">      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente &lt;vonpupp@keybase.io&gt;
+</span></span><span class="line"><span class="cl">      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Social email address<span class="o">)</span> &lt;vonpupp@gmail.com&gt;
+</span></span><span class="line"><span class="cl">      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Main email address<span class="o">)</span> &lt;mail@albertdelafuente.com&gt;
+</span></span><span class="line"><span class="cl">      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Haevas email address<span class="o">)</span> &lt;albert@haevas.com&gt;
+</span></span><span class="line"><span class="cl">      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Academic email address<span class="o">)</span> &lt;albert@ime.usp.br&gt;
+</span></span><span class="line"><span class="cl">      sub   rsa2048/0xE2977BF3F82AB971 2016-11-12 <span class="o">[</span>E<span class="o">]</span> <span class="o">[</span>expires: 2018-11-12<span class="o">]</span>
+</span></span></code></pre></div><p>In my case, the fingerprint is <strong>F0B9 B3FB 25E9 1209 728E  4844 5368 14BF 4871
+A220</strong>, or <strong>0x536814BF4871A220</strong> for short.</p>
+<p>Then you need to export the key with:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ gpg --export -a 0x536814BF4871A220 &gt; public-0x536814BF4871A220.asc
+</span></span></code></pre></div><p>Then create a TXT record where:</p>
+<h2 id="the-name-part">The <code>Name</code> part:</h2>
+<p>Is composed of <code>mailbox</code>._pka.albertdelafuente.com. So for
+instance if my email is <code>long-anti-spam-email-address@albertdelafuentedotcom</code>,
+then the name part should be
+<code>long-anti-spam-email-address._pka.albertdelafuente.com</code>.</p>
+<h2 id="the-text-data">The <code>Text</code> data:</h2>
+<p>Contains the <code>fingerprint</code> and the <code>URL</code> where to download the key. In my case:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">  <span class="s2">&#34;v=pka1;fpr=F0B9B3FB25E91209728E4844536814BF4871A220;uri=http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc&#34;</span>
+</span></span></code></pre></div><p>Do not forget to upload the key to match the <code>uri</code> as on the TXT record. In my case:
+<a href="http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc">http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc</a></p>
+<h2 id="testing-the-pka-record">Testing the PKA record</h2>
+<p>Once done that you can download the key (just for testing purposes) on another computer or VM as follows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="s2">&#34;Test message&#34;</span> <span class="p">|</span> gpg --auto-key-locate pka -ear mail@albertdelafuente.com
+</span></span></code></pre></div><p>In my case this will prompt you with a confirmation since my primary uid does
+not match the email. This is made in purpose because I have read that some
+spammers are using keyservers to get valid email addresses, therefore I always
+use keybase as my primary id.</p>
+<p>You will see something similar to this as the output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gpg: <span class="nv">directory</span> <span class="o">=</span>/home/vagrant/.gnupg<span class="s1">&#39; created
+</span></span></span><span class="line"><span class="cl"><span class="s1">gpg: new configuration file =/home/vagrant/.gnupg/gpg.conf&#39;</span> created
+</span></span><span class="line"><span class="cl">gpg: WARNING: options <span class="nv">in</span> <span class="o">=</span>/home/vagrant/.gnupg/gpg.conf<span class="s1">&#39; are not yet active during this run
+</span></span></span><span class="line"><span class="cl"><span class="s1">gpg: keyring =/home/vagrant/.gnupg/secring.gpg&#39;</span> created
+</span></span><span class="line"><span class="cl">gpg: <span class="nv">keyring</span> <span class="o">=</span>/home/vagrant/.gnupg/pubring.gpg<span class="s1">&#39; created
+</span></span></span><span class="line"><span class="cl"><span class="s1">gpg: requesting key 4871A220 from http server albertdelafuente.com
+</span></span></span><span class="line"><span class="cl"><span class="s1">gpg: /home/vagrant/.gnupg/trustdb.gpg: trustdb created
+</span></span></span><span class="line"><span class="cl"><span class="s1">gpg: key 4871A220: public key &#34;Albert De La Fuente &lt;vonpupp@keybase.io&gt;&#34; imported
+</span></span></span><span class="line"><span class="cl"><span class="s1">gpg: Total number processed: 1
+</span></span></span><span class="line"><span class="cl"><span class="s1">gpg:               imported: 1  (RSA: 1)
+</span></span></span><span class="line"><span class="cl"><span class="s1">gpg: automatically retrieved =mail@albertdelafuente.com&#39;</span> via PKA
+</span></span><span class="line"><span class="cl">gpg: F82AB971: There is no assurance this key belongs to the named user
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">pub  2048R/F82AB971 2016-11-12 Albert De La Fuente &lt;vonpupp@keybase.io&gt;
+</span></span><span class="line"><span class="cl"> Primary key fingerprint: F0B9 B3FB 25E9 <span class="m">1209</span> 728E  <span class="m">4844</span> <span class="m">5368</span> 14BF <span class="m">4871</span> A220
+</span></span><span class="line"><span class="cl">      Subkey fingerprint: 7A10 07B4 3F49 <span class="m">5317</span> 5DE0  52E8 E297 7BF3 F82A B971
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">It is NOT certain that the key belongs to the person named
+</span></span><span class="line"><span class="cl">in the user ID.  If you *really* know what you are doing,
+</span></span><span class="line"><span class="cl">you may answer the next question with yes.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Use this key anyway? <span class="o">(</span>y/N<span class="o">)</span> y
+</span></span><span class="line"><span class="cl">-----BEGIN PGP MESSAGE-----
+</span></span><span class="line"><span class="cl">Version: GnuPG v1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">hQEMA+KXe/P4KrlxAQf/d1yxYFBSPs0RKHJ98w+s82jK25R/IXCiFNe6BkX+oyp+
+</span></span><span class="line"><span class="cl">uh+4AObx93SuJ/ryHlthHQmnpid4BQWmhmCksiAH+xD1xrlrCDIsNQfJ5+aPQXjz
+</span></span><span class="line"><span class="cl">+Z6iKrWy8Lk13i6u3wgMZuk2eKN9Z1ppi15arXhFc93cta5p5K5tAH7CwMd5zP93
+</span></span><span class="line"><span class="cl">r7wgI2Jff+x3erN0zbkJ2PZgDrHZVLVWyOnwgRBw12N8El3L8i6JFbNY+g25AMUm
+</span></span><span class="line"><span class="cl">MMCPSTit8ILsFoPtkrJEOdq5p5aCw3dvIVSzmxflMJEsgqO+Per+KxtMehaBF5qX
+</span></span><span class="line"><span class="cl">I2TzltcgjlisSJ3rcBtjpm12rSVJrPs4BG2UKz0w6tJIAbF0FLlWXe8zMJMK1E3Q
+</span></span><span class="line"><span class="cl">BQ7y/gjTduiuuD++qyIxqWCoLCgHixvP4WiTPbbKvoXl4BP8Bf1ED9M/0Cyss2NI
+</span></span><span class="line"><span class="cl"><span class="nv">tW7vVlLcXRQb</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>gdKa
+</span></span><span class="line"><span class="cl">-----END PGP MESSAGE-----
+</span></span></code></pre></div><h2 id="conclusions">Conclusions</h2>
+<p>As you can see it is not that hard to publish a public key via DNS. You need to
+export your key to a file and upload it and then create a TXT record relating
+the fingerprint and the location of the key. You may also publish your key on a
+keyserver also since not everybody retrieve the keys over DNS.</p>
+<p>Thanks for reading. Spot an error or want to explain something better, feel
+free to send me a PR.</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/security" term="security" label="security" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Resizing lvm on luks]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+            
+                <id>https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/</id>
+            
+            
+                    <author>
+                        <name>Albert</name>
+                    </author>
+            <published>2015-11-01T00:00:00+00:00</published>
+            <updated>2022-01-09T21:49:20-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<h2 id="how-to-manually-boot-recover-a-system-with-luks-and-lvm">How to manually boot/recover a system with LUKS and LVM</h2>
+<p>I have been using LVM on top of LUKS for more than 2 years without problems. However since I haven&rsquo;t had the chance to troubleshoot these technologies in the past I was quite concerned of what would happen when I would have problems. Today my main computer didn&rsquo;t boot up and I had to fix it manually. This post shows the steps I performed to recover my system.</p>
+<h3 id="intro">Intro</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cryptsetup luksOpen /dev/sda2 cryptlvm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">e2fsck -f /dev/mapper/storage-home
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">resize2fs -p /dev/mapper/storage-home 200g
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">e2fsck -f /dev/mapper/storage-home
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">(</span>lvdisplay<span class="o">)</span>
+</span></span><span class="line"><span class="cl">lvreduce -L -15.68G /dev/storage/home
+</span></span><span class="line"><span class="cl"><span class="o">(</span>lvdisplay<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>lvresize -l +100%FREE /dev/storate/root<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">e2fsck -f /dev/mapper/storage-root
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">resize2fs /dev/mapper/storage-root
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cryptsetup luksClose /dev/sda2 cryptlvm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">### NOT NEEDED</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">(</span>pvdisplay<span class="o">)</span>
+</span></span><span class="line"><span class="cl">pvresize --sephysicalvolumesize 218G /dev/mapper/cryptlvm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/dev/mapper/cryptlvm is active and is in use
+</span></span><span class="line"><span class="cl">  type:    LUKS1
+</span></span><span class="line"><span class="cl">  cipher:  aes-xts-plain64
+</span></span><span class="line"><span class="cl">  keysize: <span class="m">256</span> bits
+</span></span><span class="line"><span class="cl">  device:  /dev/sda2
+</span></span><span class="line"><span class="cl">  offset:  <span class="m">4096</span> sectors
+</span></span><span class="line"><span class="cl">  size:    <span class="m">487981391</span> sectors
+</span></span><span class="line"><span class="cl">  mode:    read/write
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">NEW_SECTORS</span> <span class="o">=</span> EXISTING_SECTORS * NEW_SIZE_IN_GB / EXISTING_SIZE_IN_GB
+</span></span><span class="line"><span class="cl"><span class="m">487981391</span> * 200.7 / 232.7   <span class="o">=</span> <span class="m">420876085</span>
+</span></span><span class="line"><span class="cl"><span class="o">(</span><span class="m">487981391</span> - 15*1024*1024*2 <span class="o">=</span> 456524111<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cryptsetup -b <span class="m">420876085</span> resize cryptlvm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">(</span>cryptsetup status cryptlvm<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">parted /dev/sda
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">resize
+</span></span></code></pre></div><img src="![](http://xyne.archlinux.ca/etc/dyn/img/graphviz/Pacserve%5FRequest%5FFlow%5FChart.svg)">
+<p>{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Configuring pacsrv and powerpill on Arch Linux]]></title>
+            <link href="https://albertdelafuente.com/posts/post1/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+            
+                <id>https://albertdelafuente.com/posts/post1/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2015-10-21T00:00:00+00:00</published>
+            <updated>2022-05-23T23:14:54-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>On this post I will show how to configure and use <code>Pacserve</code> and <code>Powerpill</code> on
+Arch Linux. On a network of several Arch Linux boxes, it is possible to
+configure a <code>Master</code> server which will hold a copy of all the installed packages
+within that host and keep it up to date frequently.  The other hosts on the
+network can be configured as <code>Slaves</code> and they will download the packages from
+the Master whenever possible instead of the Internet directly. The objective is
+to save bandwidth and time when using the package manager.</p>
+<h2 id="configuring-pacserve-and-powerpill-on-arch-linux">Configuring Pacserve and Powerpill on Arch Linux</h2>
+<p>The documentation of <a href="http://xyne.archlinux.ca/projects/pacserve/">Pacserve</a> explains how it works. This image summarizes
+well the behavior.</p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/home/av/org-media/images/albertdelafuente.com/Pacserve_Network_Topology_Example.svg"/> </figure>
+
+<p>Pacserve by itself seems very interesting however I could not make it work
+properly. I think it has something to do my router UDP multicast forwarding
+support (see <a href="http://wiki.openwrt.org/doc/recipes/dumbap">openwrt-multicast</a>). Nevertheless, I could use it within
+<a href="http://xyne.archlinux.ca/projects/powerpill/">Powerpill</a> which is a pacman wrapper to allow parallel and segmented downloads
+through <a href="http://aria2.sourceforge.net/">Aria2</a> and <a href="http://xyne.archlinux.ca/projects/reflector/">Reflector</a>.  This combo sounds even better, so I will focus on
+how to install and use the tree tools together.</p>
+<h3 id="installation">Installation</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Just in case the testdb does not exists</span>
+</span></span><span class="line"><span class="cl">gpg --list-key
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Receive xyne gpg key</span>
+</span></span><span class="line"><span class="cl">gpg --recv-keys 1D1F0DC78F173680
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install the packages</span>
+</span></span><span class="line"><span class="cl">yaourt -Sy --noconfirm reflector pacserve powerpill
+</span></span></code></pre></div><h3 id="starting-the-services--both-the-master-and-slaves--host--s">Starting the services (both the Master and Slave(s) host(s))</h3>
+<p>After everything is installed:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Enable opening the ports</span>
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> pacserve-ports.service
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Enable pacserve</span>
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> pacserve.service
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Start pacserve</span>
+</span></span><span class="line"><span class="cl">sudo systemctl start pacserve.service
+</span></span></code></pre></div><p>For troubleshooting purposes the services can be started manually. See the
+Troubleshooting section if you have problems.</p>
+<h3 id="configuring-powerpill-to-use-the-master-server--slaves--hosts-only">Configuring Powerpill to use the Master server (Slave(s) hosts only)</h3>
+<p>Edit the file <code>/etc/powerpill/powerpill.json</code> to include the `pacserve`.`serve`
+attribute:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;aria2&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--allow-overwrite=true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--always-resume=false&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--auto-file-renaming=false&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--check-integrity=true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--conditional-get=true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--continue=true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--file-allocation=none&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--log-level=error&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--max-concurrent-downloads=100&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--max-connection-per-server=5&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--min-split-size=5M&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--remote-time=true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--show-console-readout=true&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/aria2c&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;pacman&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="s2">&#34;/etc/pacman.conf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/pacman&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;pacserve&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;server&#34;</span><span class="p">:</span> <span class="s2">&#34;http://192.168.56.6:15678&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;powerpill&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ask&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;reflect databases&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;reflector&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;args.unused&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--protocol&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--latest&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;50&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;rsync&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--no-motd&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--progress&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;db only&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/rsync&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;servers&#34;</span><span class="p">:</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>In this example I configured two VMs using Vagrant with an internal network.
+The server runs on <code>192.168.56.6</code> on port `15678` (default port).</p>
+<p>After this we can use Powerpill as a replacement of Pacman as follows</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># System upgrade</span>
+</span></span><span class="line"><span class="cl">sudo powerpill -Syu
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install a package</span>
+</span></span><span class="line"><span class="cl">sudo powerpill -S wget
+</span></span></code></pre></div><h3 id="conclusions">Conclusions</h3>
+<p>When <a href="http://xyne.archlinux.ca/projects/powerpill/">powerpill</a> is used..</p>
+<h3 id="todos">TODOs</h3>
+<ul>
+<li>Check how to have only <strong><strong>one</strong></strong> Master DB and all the Slaves also sync the DB from the master</li>
+<li>Use reflector commands within Powerpill</li>
+<li>What happens if different architectures are on the same network and UDP multicast works?</li>
+</ul>
+<h3 id="troubleshooting-pacserve--without-powerpill">Troubleshooting Pacserve (without Powerpill)</h3>
+<p>As I said before I could not make it working using multicast, so I had to
+manually start the Pacserve Master host as:</p>
+<p>Input:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pacserve --multicast
+</span></span></code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">PacserveServer
+</span></span><span class="line"><span class="cl">  PID                  <span class="m">1048</span>
+</span></span><span class="line"><span class="cl">  Addresses
+</span></span><span class="line"><span class="cl">    lo:     127.0.0.1
+</span></span><span class="line"><span class="cl">    eth0:   10.0.2.15
+</span></span><span class="line"><span class="cl">    enp0s9: 192.168.56.6
+</span></span><span class="line"><span class="cl">  Port                 <span class="m">15678</span>
+</span></span><span class="line"><span class="cl">  Multicast Address    all interfaces
+</span></span><span class="line"><span class="cl">  Multicast Port       <span class="m">15679</span>
+</span></span><span class="line"><span class="cl">  Multicast Group      224.3.45.67
+</span></span><span class="line"><span class="cl">  Multicast Interval   5m
+</span></span><span class="line"><span class="cl">  Multicast Interfaces all
+</span></span><span class="line"><span class="cl">  Filelist             None
+</span></span><span class="line"><span class="cl">  Filterlist           None
+</span></span><span class="line"><span class="cl">  MOTD                 None
+</span></span><span class="line"><span class="cl">  Upload Directory     None
+</span></span><span class="line"><span class="cl">  Paths                None
+</span></span><span class="line"><span class="cl">  Static Peers         None
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Press ctrl+C to exit.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:54:54 AEDT<span class="o">]</span> INFO: announcing presence by multicast <span class="o">(</span>group: 224.3.45.67<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:54:54 AEDT<span class="o">]</span> INFO: announcement sent via all interfaces
+</span></span></code></pre></div><p>Assuming the server is running with the IP <code>192.168.56.6</code>, you can manually
+start Pacserve on the Slave(s) hosts as:</p>
+<p>Input:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pacserve --multicast --peer <span class="s2">&#34;http://192.168.56.6:15678&#34;</span>
+</span></span></code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">PacserveServer
+</span></span><span class="line"><span class="cl">  PID                  <span class="m">1102</span>
+</span></span><span class="line"><span class="cl">  Addresses
+</span></span><span class="line"><span class="cl">    lo:     127.0.0.1
+</span></span><span class="line"><span class="cl">    eth0:   10.0.2.15
+</span></span><span class="line"><span class="cl">    enp0s9: 192.168.56.7
+</span></span><span class="line"><span class="cl">  Port                 <span class="m">15678</span>
+</span></span><span class="line"><span class="cl">  Multicast Address    all interfaces
+</span></span><span class="line"><span class="cl">  Multicast Port       <span class="m">15679</span>
+</span></span><span class="line"><span class="cl">  Multicast Group      224.3.45.67
+</span></span><span class="line"><span class="cl">  Multicast Interval   5m
+</span></span><span class="line"><span class="cl">  Multicast Interfaces all
+</span></span><span class="line"><span class="cl">  Filelist             None
+</span></span><span class="line"><span class="cl">  Filterlist           None
+</span></span><span class="line"><span class="cl">  MOTD                 None
+</span></span><span class="line"><span class="cl">  Upload Directory     None
+</span></span><span class="line"><span class="cl">  Paths                None
+</span></span><span class="line"><span class="cl">  Static Peers         http://192.168.56.6:15678
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Press ctrl+C to exit.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:00 AEDT<span class="o">]</span> INFO: announcing presence via POST to http://192.168.56.6:15678
+</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:00 AEDT<span class="o">]</span> INFO: POSTing to http://192.168.56.6:15678/ <span class="o">[</span>type: nudge<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:01 AEDT<span class="o">]</span> INFO: announcing presence by multicast <span class="o">(</span>group: 224.3.45.67<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:01 AEDT<span class="o">]</span> INFO: announcement sent via all interfaces
+</span></span></code></pre></div><p>After starting the Slave host you should get the following message on the Master console:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:00 AEDT<span class="o">]</span> INFO: added http://192.168.56.7:15678/ <span class="o">(</span>POST<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:00 AEDT<span class="o">]</span> INFO: 192.168.56.7 <span class="s2">&#34;POST / HTTP/1.1&#34;</span> <span class="m">200</span> -
+</span></span></code></pre></div>]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/emacs" term="emacs" label="emacs" />
+                             
+                                <category scheme="https://albertdelafuente.com/categories/portugues" term="portugues" label="portugues" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/arch" term="arch" label="arch" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/python" term="python" label="python" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Finding communities on graphs]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+            
+                <id>https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2013-08-25T00:00:00+00:00</published>
+            <updated>2022-07-21T21:01:59-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>Some months before I had to import a quite big list of use cases, relationships and requirements data into Enterprise Architect for a project. Of course I didn&rsquo;t do that manually, so I made a hack to do that automatically. Recently I had a new task to accomplish, to split into groups that use case list by their relationships, and once again I thought about doing it automatically since I already have the data structures available and then, I decided: let&rsquo;s play a little bit with the data 8-).</p>
+<p>Since I&rsquo;m not very familiarized with the use case data itself I looked up for a way on how to apply for the same concepts on other areas, and then I came up making some experiments with my Facebook and LinkedIn networks. I learned many things and the results were really interesting.</p>
+<p>I first started with my Facebook contacts and this was the initial result</p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb1-2.jpeg"/> </figure>
+
+<p>Afterward I applied a community detection algorithm (Louvain) with a specific parameter and I could identify 63 groups / communities.</p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb2-2.jpeg"/> </figure>
+
+<p>Can you see them? Well&hellip; neither do I&hellip; So I applied a atlas layout algorithm so it&rsquo;s visually friendly, and this is the result</p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/fb3-800.jpeg"/> </figure>
+
+<p>It&rsquo;s interesting to notice that about 46% of my contacts are within the three biggest groups (20.77%, 14.46% and 12.52%). There are also contacts (that multicolored group in the middle) that I couldn&rsquo;t retrieve their connections (probably because a privacy setting). Of course the graphics generated are anonymized, but I&rsquo;m able to identify each group, for instance the bottom middle blue group are my last job work European colleagues. The top right cyan group are some friends from FLOSS communities. Pretty cool, huh?</p>
+<p>On the other hand getting the Linkedin results wasn&rsquo;t that straightforward I had to deal with oauth and the LinkedIn API webservice directly within python. This are the results of my LinkedIn network.</p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/home/av/repos/websites/albertdelafuente.com-hugo/static/link1-800.jpeg"/> </figure>
+
+<p>Some notable groups at first were: bottom left cyan group are again my last work European colleagues, and green my last work Latin America colleagues.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>This is an amazingly powerful analytics tool that could be used in many areas, probably the most notable  (nowadays) are marketing and social networking. At the same time it&rsquo;s quite scary to see how our privacy goes away, I don&rsquo;t think it would be hard to track somebody having the right information. If I could do this by just examining the relationships imagine what could be possible with some extra data.</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/english" term="english" label="english" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/research" term="research" label="research" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/graphs" term="graphs" label="graphs" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/communities" term="communities" label="communities" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/clustering" term="clustering" label="clustering" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Software patents]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109211322-software_patents/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/exobrain/20220130183606-how_to_use_dictd/?utm_source=atom_feed" rel="related" type="text/html" title="How to use dictd with hebrew dictionaries" />
+            
+                <id>https://albertdelafuente.com/posts/20220109211322-software_patents/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2013-01-08T00:00:00+00:00</published>
+            <updated>2022-06-29T22:55:57-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[<p>Recently I&rsquo;ve been to a talk given by Richard Stallman about how software
+patents are useless for the software industry. Since software is applied
+mathematics and, it generally needs to combine several ideas to make a new one,
+by doing that you could easily infringe a software patent by using one (or more)
+of the patented ideas.</p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/steve-jobs-with-patent.jpg"/> </figure>
+
+<p>He commented that patents are like walking in a mine field, but worst because a
+mine ones it blows up it doesn&rsquo;t blows again, patents keeps blowing on and on.
+He later highlighted some different scenarios.</p>
+<h2 id="a-patent-for-your-idea-not-to-be-stolen-dot-this-is-the-worst-case-scenario">A patent for your idea not to be &ldquo;stolen&rdquo;**. This is the worst case scenario</h2>
+<p>You might think that you had a great idea and you want to patent it so no one
+will stole your idea. Later a big company comes in and develops something around
+your idea. Then something similar will happen&hellip;</p>
+<p>&gt; (You) You go there and say: Hey this idea is mine, and I have the patent so you cannot use it!</p>
+<p>&gt;&gt; (Big company) Ohh, it is a shame&hellip; But let me remind you that within your idea you used some ideas similar to these three patents of us&hellip;</p>
+<p>&gt; (oh oh)</p>
+<p>&gt;&gt; &hellip;and we can find other patents (among our thousands) of us, you might violated with your idea as well&hellip;</p>
+<p>&gt; ehmmm</p>
+<p>&gt;&gt; &hellip;so in order to no one get hurts, lets make a deal: You give us the right to use your patent and we wont sue you</p>
+<p>&gt; Well&hellip; You evaluate (in silence) and remember that they have some good lawyers and a lot of money as well&hellip; And you end by saying: Okay you can use it</p>
+<p>&gt;&gt; Great. Thanks =D</p>
+<p><strong>Conclusion: The big company wins.</strong></p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/mobile-patent-suits.png"/> </figure>
+
+<h2 id="a-patent-to-protect-yourself-from-others-attacking-you">A patent to protect yourself from others attacking you</h2>
+<p>The truth is that it won&rsquo;t protect you unless you find another infringement on the other side that is covered by your patent. A minor company wont sue you anyway since they don&rsquo;t have the resources, and a big one will have very good lawyers to do so and to also defend themselves, so it&rsquo;s a endless legal battle and unnecessary waste of money.</p>
+<p>He also pointed that in fact a patent could be also be harmful if you try to defend yourself you don&rsquo;t know how to use it properly, or something is wrong within the patent.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>A never ending legal story if someones attacks you, or in the best scenario
+nobody will attack you so you won&rsquo;t really need the patent in first place.</p>
+<p>Later he also made a symbolism about software and music which personally I found
+very interesting. &ldquo;Imagine that when Beethoven was alive the whole patent idea
+arose and somebody patented parts of musical pieces. Then some beautiful
+compositions would never been made. It&rsquo;s easier to compose for the beauty of
+doing so than composing with the worry of not getting sued&rdquo;.</p>
+<p>The whole speech makes a lot of sense while patents in software don&rsquo;t.</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/emacs" term="emacs" label="emacs" />
+                             
+                                <category scheme="https://albertdelafuente.com/categories/english" term="english" label="english" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/software" term="software" label="software" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/floss" term="floss" label="floss" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

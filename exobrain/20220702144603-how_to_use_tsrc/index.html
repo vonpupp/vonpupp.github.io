@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+    
+    
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    
+    <meta name="referrer" content="no-referrer">
+
+    <title>
+        
+            How to use tsrc to manage multiple git repositories and remotes ❚ Albert De La Fuente&#39;s site
+        
+    </title>
+
+    
+    
+    <!-- Google Analytics -->
+    <script type="application/javascript">
+     
+     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
+         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
+         ga('create', 'UA-27656036-2', 'auto');
+         ga('require', 'linkid'); 
+         ga('send', 'pageview');
+     }
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
+
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+    <style>
+     
+     
+     :root {
+         --theme-color: #f4bf75;
+         --theme-color-light: rgba(244, 191, 117, 0.2);
+     }
+     
+     html {
+         line-height: 1.5;
+     }
+    </style>
+
+    
+    
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    
+    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+
+    
+
+
+
+    
+        <style>
+         
+         /* Background */ .chroma { background-color: #ffffff }
+/* Error */ .chroma .err { color: #a61717; background-color: #e3d2d2 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+/* Keyword */ .chroma .k { color: #000000; font-weight: bold }
+/* KeywordConstant */ .chroma .kc { color: #000000; font-weight: bold }
+/* KeywordDeclaration */ .chroma .kd { color: #000000; font-weight: bold }
+/* KeywordNamespace */ .chroma .kn { color: #000000; font-weight: bold }
+/* KeywordPseudo */ .chroma .kp { color: #000000; font-weight: bold }
+/* KeywordReserved */ .chroma .kr { color: #000000; font-weight: bold }
+/* KeywordType */ .chroma .kt { color: #445588; font-weight: bold }
+/* NameAttribute */ .chroma .na { color: #008080 }
+/* NameBuiltin */ .chroma .nb { color: #0086b3 }
+/* NameBuiltinPseudo */ .chroma .bp { color: #999999 }
+/* NameClass */ .chroma .nc { color: #445588; font-weight: bold }
+/* NameConstant */ .chroma .no { color: #008080 }
+/* NameDecorator */ .chroma .nd { color: #3c5d5d; font-weight: bold }
+/* NameEntity */ .chroma .ni { color: #800080 }
+/* NameException */ .chroma .ne { color: #990000; font-weight: bold }
+/* NameFunction */ .chroma .nf { color: #990000; font-weight: bold }
+/* NameLabel */ .chroma .nl { color: #990000; font-weight: bold }
+/* NameNamespace */ .chroma .nn { color: #555555 }
+/* NameTag */ .chroma .nt { color: #000080 }
+/* NameVariable */ .chroma .nv { color: #008080 }
+/* NameVariableClass */ .chroma .vc { color: #008080 }
+/* NameVariableGlobal */ .chroma .vg { color: #008080 }
+/* NameVariableInstance */ .chroma .vi { color: #008080 }
+/* LiteralString */ .chroma .s { color: #dd1144 }
+/* LiteralStringAffix */ .chroma .sa { color: #dd1144 }
+/* LiteralStringBacktick */ .chroma .sb { color: #dd1144 }
+/* LiteralStringChar */ .chroma .sc { color: #dd1144 }
+/* LiteralStringDelimiter */ .chroma .dl { color: #dd1144 }
+/* LiteralStringDoc */ .chroma .sd { color: #dd1144 }
+/* LiteralStringDouble */ .chroma .s2 { color: #dd1144 }
+/* LiteralStringEscape */ .chroma .se { color: #dd1144 }
+/* LiteralStringHeredoc */ .chroma .sh { color: #dd1144 }
+/* LiteralStringInterpol */ .chroma .si { color: #dd1144 }
+/* LiteralStringOther */ .chroma .sx { color: #dd1144 }
+/* LiteralStringRegex */ .chroma .sr { color: #009926 }
+/* LiteralStringSingle */ .chroma .s1 { color: #dd1144 }
+/* LiteralStringSymbol */ .chroma .ss { color: #990073 }
+/* LiteralNumber */ .chroma .m { color: #009999 }
+/* LiteralNumberBin */ .chroma .mb { color: #009999 }
+/* LiteralNumberFloat */ .chroma .mf { color: #009999 }
+/* LiteralNumberHex */ .chroma .mh { color: #009999 }
+/* LiteralNumberInteger */ .chroma .mi { color: #009999 }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #009999 }
+/* LiteralNumberOct */ .chroma .mo { color: #009999 }
+/* Operator */ .chroma .o { color: #000000; font-weight: bold }
+/* OperatorWord */ .chroma .ow { color: #000000; font-weight: bold }
+/* Comment */ .chroma .c { color: #999988; font-style: italic }
+/* CommentHashbang */ .chroma .ch { color: #999988; font-style: italic }
+/* CommentMultiline */ .chroma .cm { color: #999988; font-style: italic }
+/* CommentSingle */ .chroma .c1 { color: #999988; font-style: italic }
+/* CommentSpecial */ .chroma .cs { color: #999999; font-weight: bold; font-style: italic }
+/* CommentPreproc */ .chroma .cp { color: #999999; font-weight: bold; font-style: italic }
+/* CommentPreprocFile */ .chroma .cpf { color: #999999; font-weight: bold; font-style: italic }
+/* GenericDeleted */ .chroma .gd { color: #000000; background-color: #ffdddd }
+/* GenericEmph */ .chroma .ge { color: #000000; font-style: italic }
+/* GenericError */ .chroma .gr { color: #aa0000 }
+/* GenericHeading */ .chroma .gh { color: #999999 }
+/* GenericInserted */ .chroma .gi { color: #000000; background-color: #ddffdd }
+/* GenericOutput */ .chroma .go { color: #888888 }
+/* GenericPrompt */ .chroma .gp { color: #555555 }
+/* GenericStrong */ .chroma .gs { font-weight: bold }
+/* GenericSubheading */ .chroma .gu { color: #aaaaaa }
+/* GenericTraceback */ .chroma .gt { color: #aa0000 }
+/* GenericUnderline */ .chroma .gl { text-decoration: underline }
+/* TextWhitespace */ .chroma .w { color: #bbbbbb }
+
+         
+         /* Overrides on top of the theme and Chroma CSS */
+/* Chroma-based lines highlighting in code blocks */
+.chroma .hl {
+    background-color: #e8e8e8;
+    /* Extend highlight up to 100 characters (assuming that the code blocks never have more than 100 characters in a line) */
+    min-width: 100ch;
+}
+/* GenericHeading */ .chroma .gh { color: #999999; font-weight: bold }
+/* GenericSubheading */ .chroma .gu { color: #aaaaaa; font-weight: bold }
+
+         
+        </style>
+    
+
+    
+
+    
+    
+    
+
+    
+    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    
+    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+
+    
+    
+    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+
+    
+
+    
+
+    
+    
+    
+
+    
+    
+<!-- rel="me" links for IndieAuth -->
+
+<link href="https://github.com/vonpupp/" rel="me"><link href="https://mastodon.online/@vonpupp" rel="me">
+
+
+    
+    
+    <link rel="authorization_endpoint" href="https://indieauth.com/auth" data-proofer-ignore>
+    
+    
+    <link rel="token_endpoint" href="https://tokens.indieauth.com/token">
+
+
+
+
+    
+ 
+<meta property="og:title" content="How to use tsrc to manage multiple git repositories and remotes" />
+<meta property="og:description"
+      content="Related notes How to list all projects in Gitlab, How to list all projects in Github Install the package pip install --user tsrc Create the manifest repository Create a new repository named manifest Create a file manifest.yml with the following content: repos: - dest: org branch: master remotes: - name: origin url: git@github.com:&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;.git - name: https url: https://&amp;lt;user&amp;gt;:&amp;lt;token&amp;gt;@github.com/&amp;lt;organization&amp;gt;/&amp;lt;repo&amp;gt;.git - name: nas url: ssh://&amp;lt;user&amp;gt;@&amp;lt;server&amp;gt;:&amp;lt;port&amp;gt;/&amp;lt;path&amp;gt;/&amp;lt;repo&amp;gt;.git This will create the setup for a repository that always stays in sync across all the remotes." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://albertdelafuente.com/exobrain/20220702144603-how_to_use_tsrc/" />
+
+
+    
+        <meta property="article:published_time" content="2022-07-03T01:52:57-03:00"/>
+    
+    
+        <meta property="article:modified_time" content="2022-07-03T01:52:57-03:00"/>
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+     <meta name="twitter:card" content="summary"/><meta name="twitter:image" content="/android-chrome-256x256.6b6a18f438f95b928e9abdc148af28e6aa76c103838e39fed707b77799df0a55.png"/>
+<meta name="twitter:title" content="How to use tsrc to manage multiple git repositories and remotes"/>
+<meta name="twitter:description" content="Related notes How to list all projects in Gitlab, How to list all projects in Github Install the package pip install --user tsrc Create the manifest repository Create a new repository named manifest Create a file manifest.yml with the following content: repos: - dest: org branch: master remotes: - name: origin url: git@github.com:&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;.git - name: https url: https://&amp;lt;user&amp;gt;:&amp;lt;token&amp;gt;@github.com/&amp;lt;organization&amp;gt;/&amp;lt;repo&amp;gt;.git - name: nas url: ssh://&amp;lt;user&amp;gt;@&amp;lt;server&amp;gt;:&amp;lt;port&amp;gt;/&amp;lt;path&amp;gt;/&amp;lt;repo&amp;gt;.git This will create the setup for a repository that always stays in sync across all the remotes."/>
+<meta name="twitter:site" content="@vonpupp"/>
+    <meta name="twitter:creator" content="@vonpupp"/>
+
+
+    
+    
+    <link rel="alternate" type="application/jf2post+json" href="https://albertdelafuente.com/exobrain/20220702144603-how_to_use_tsrc/jf2post.json" title="Jf2post for Albert De La Fuente's site" />
+    
+     
+
+     
+
+
+
+    
+    
+    
+        
+    
+
+
+     
+        
+        <meta name="DC.Creator" content="Albert De La Fuente Vigliotti"/>
+    
+
+
+
+    
+    
+    
+    <meta name="hugo-build-date" content=""/>
+    <meta name="hugo-commit-hash" content=""/>
+    <meta name="generator" content="Hugo 0.115.4">
+</head>
+
+
+    
+        <body lang="en">
+    
+
+        
+        <div class="border" id="home"></div>
+
+        <div class="wrapper">   
+            
+<nav id="nav" class="nav-collapse opened" aria-hidden="false">
+    <ul class="navbar">
+    
+        <li>
+            <a class="" href="/about/about-me/">About</a>
+        </li>
+    
+        <li>
+            <a class="" href="/">Blog</a>
+        </li>
+    
+        <li>
+            <a class="" href="/exobrain">Exobrain</a>
+        </li>
+    
+        <li>
+            <a class="" href="/books">Books</a>
+        </li>
+    
+        <li>
+            <a class="" href="/search">Search</a>
+        </li>
+    
+    
+    </ul>
+</nav>
+
+            <div class="container">
+                
+
+                
+
+
+
+
+
+
+
+
+<article class="post h-entry exobrain">
+    <header>
+        
+        <div class="center">
+    <div class="taxo no-text-decoration">
+         
+            
+                <ul class="no-bullets inline categories">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__arch__"
+                                
+                                
+                                title="See all 6 posts categorized in ‘arch’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/arch/">arch</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__linux__"
+                                
+                                
+                                title="See all 10 posts categorized in ‘linux’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/linux/">linux</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+         
+            
+         
+            
+                <ul class="no-bullets inline tags">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__gitlab__"
+                                
+                                
+                                title="See all 3 posts tagged with ‘gitlab’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/gitlab/">gitlab</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__cli__"
+                                
+                                
+                                title="See all 4 posts tagged with ‘cli’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/cli/">cli</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        
+    </div>
+
+</div>
+
+        <h1 class="post-title p-name">How to use tsrc to manage multiple git repositories and remotes</h1>
+
+        
+        <data class="u-url" value="https://albertdelafuente.com/exobrain/20220702144603-how_to_use_tsrc/"></data>
+
+        <div class="date-syndication">
+            
+
+
+    
+    
+    <div class="post-date">
+        
+        <time datetime="2022-07-03T01:52:57-0300" class="dt-published">Sun Jul 3, 2022</time>
+        
+        
+    </div>
+
+
+            
+
+
+
+
+        </div>
+         
+
+     
+
+
+
+    
+    
+    
+        
+    
+
+
+    
+        
+        <span class="hide">
+            &mdash; <a href="https://albertdelafuente.com" class="u-author">Albert De La Fuente Vigliotti</a>
+        </span>
+    
+
+
+    </header>
+
+    <div class="content">
+        
+
+
+        
+
+
+
+
+
+                       
+
+
+        <div class="e-content">
+            
+
+
+
+
+<dl>
+<dt>Related notes</dt>
+<dd><a href="/exobrain/20220703004228-how_to_list_all_projects_in_gitlab/">How to list all projects in Gitlab</a>, <a href="/exobrain/20220703011205-how_to_list_all_projects_in_github/">How to list all projects in Github</a></dd>
+</dl>
+<h2 id="install-the-package">Install the package&nbsp;<a class="headline-hash no-text-decoration" href="#install-the-package">#</a> </h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pip install --user tsrc
+</span></span></code></pre></div><h2 id="create-the-manifest-repository">Create the manifest repository&nbsp;<a class="headline-hash no-text-decoration" href="#create-the-manifest-repository">#</a> </h2>
+<ul>
+<li>Create a new repository named <code>manifest</code></li>
+<li>Create a file <code>manifest.yml</code> with the following content:</li>
+</ul>
+<!--listend-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">repos</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l">org</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l">master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">remotes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">origin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">git@github.com:&lt;user&gt;/&lt;repo&gt;.git</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">https://&lt;user&gt;:&lt;token&gt;@github.com/&lt;organization&gt;/&lt;repo&gt;.git</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nas</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">ssh://&lt;user&gt;@&lt;server&gt;:&lt;port&gt;/&lt;path&gt;/&lt;repo&gt;.git</span><span class="w">
+</span></span></span></code></pre></div><p>This will create the setup for a repository that always stays in sync across all
+the remotes. The cool thing about this is that it will automatically keep in
+sync the git remotes with this definition. I have been looking out for this for
+a long time, this is really cool.</p>
+<h2 id="init-the-repository-and-sync">Init the repository and sync&nbsp;<a class="headline-hash no-text-decoration" href="#init-the-repository-and-sync">#</a> </h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> ~
+</span></span><span class="line"><span class="cl">tsrc init git@github.com:&lt;user&gt;/manifest.git
+</span></span><span class="line"><span class="cl">tsrc --verbose sync
+</span></span></code></pre></div><h2 id="sync-via-https">Sync via https&nbsp;<a class="headline-hash no-text-decoration" href="#sync-via-https">#</a> </h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">tsrc --verbose sync -r https
+</span></span></code></pre></div><h2 id="migrating-from-master-to-main-branch">Migrating from master to main branch&nbsp;<a class="headline-hash no-text-decoration" href="#migrating-from-master-to-main-branch">#</a> </h2>
+<ul>
+<li>Make sure the <code>master</code> branch is clean and there is nothing to commit nor staged</li>
+<li>Change to the main branch with <code>git checkout --track origin/main</code></li>
+<li>Remove the readme if needed <code>rm README.md</code></li>
+<li>Merge with <code>git merge --allow-unrelated-histories master</code></li>
+<li>Add the changes <code>git add .</code></li>
+<li>Commit <code>git commit -m 'Merge with master branch'</code></li>
+<li>Push <code>git push</code></li>
+<li>Delete the master branch locally <code>git branch -d master</code></li>
+<li>Delete the master branch remotely <code>git push origin --delete master</code></li>
+<li>Change <code>branch: master</code> to <code>branch: main</code> in the <code>manifest.yml</code> file</li>
+<li>Commit and push the <code>manifest.yml</code> file</li>
+</ul>
+<p>Sometimes it is needed to <code>git branch --set-upstream-to=origin/master master</code></p>
+<h2 id="sync-a-group">Sync a group&nbsp;<a class="headline-hash no-text-decoration" href="#sync-a-group">#</a> </h2>
+<p>This command works and will sync the org-media content (it will create the repo
+if it doesn&rsquo;t exists). However I am not sure I understand why the <code>-r org</code> flag
+is needed. The <code>status</code> command instead of <code>sync</code> is useful for debugging.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">tsrc --verbose sync -r nas --group org-group -r org
+</span></span></code></pre></div><h2 id="resources">Resources&nbsp;<a class="headline-hash no-text-decoration" href="#resources">#</a> </h2>
+<h3 id="tsrc-documentation"><a href="https://your-tools.github.io/tsrc/#tutorial">tsrc documentation</a>&nbsp;<a class="headline-hash no-text-decoration" href="#tsrc-documentation">#</a> </h3>
+<ul>
+<li>Source: <a href="https://your-tools.github.io/tsrc/#tutorial">https://your-tools.github.io/tsrc/#tutorial</a></li>
+<li>Title: tsrc documentation</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-07-02 Sat]</span></span></li>
+</ul>
+
+
+        </div>
+    </div>
+</article>
+
+
+
+                <footer>
+                    
+
+
+
+
+<div class="no-text-decoration">
+    <div class="jump top"><a href="#" title="Top of this page">⮉</a></div>
+    <div class="jump bottom"><a href="#bottom" title="Bottom of this page">⮋</a></div>
+</div>
+
+
+ 
+    
+        <div class="hugotoc no-text-decoration">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#install-the-package">Install the package</a></li>
+    <li><a href="#create-the-manifest-repository">Create the manifest repository</a></li>
+    <li><a href="#init-the-repository-and-sync">Init the repository and sync</a></li>
+    <li><a href="#sync-via-https">Sync via https</a></li>
+    <li><a href="#migrating-from-master-to-main-branch">Migrating from master to main branch</a></li>
+    <li><a href="#sync-a-group">Sync a group</a></li>
+    <li><a href="#resources">Resources</a>
+      <ul>
+        <li><a href="#tsrc-documentation"><a href="https://your-tools.github.io/tsrc/#tutorial">tsrc documentation</a></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            <a href="#" class="back-to-top">Back to top</a>
+        </div>
+    
+    
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js"></script>
+
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js" as="script">
+
+<script type="application/javascript">(function() {
+     var $window = $(window);
+     if ($window.width() >= 1400) { 
+         var $toc = $('#TableOfContents');
+         if ($toc.length > 0) {
+             function onScroll(){
+                 var currentScroll = $window.scrollTop();
+                 var h = $('.content h1, .content h2, .content h3, .content h4, .content h5, .content h6, .h-feed h2');
+                 var id = "";
+                 h.each(function (i, e) {
+                     e = $(e);
+                     if (e.offset().top - 10 <= currentScroll) {
+                         id = e.attr('id');
+                     }
+                 });
+                 var current = $toc.find('a.current');
+                 if (current.length == 1 && current.eq(0).attr('href') == '#' + id) return true;
+
+                 current.each(function (i, e) {
+                     $(e).removeClass('current').siblings('ul').hide();
+                 });
+                 $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                     $(e).children('a').addClass('current').siblings('ul').show();
+                 });
+             }
+             $window.on('scroll', onScroll);
+             $(document).ready(function() {
+                 $toc.find('a').parent('li').find('ul').hide();
+                 onScroll();
+                 document.getElementsByClassName('hugotoc')[0].style.display = '';
+             });}}})();</script>
+
+
+
+
+
+
+
+
+<div class="backtotop center no-text-decoration">
+    <a href="#">back to <span class="top">top</span></a>
+</div>
+
+
+<div class="right">
+    <div class="taxo no-text-decoration">
+         
+            
+                <ul class="no-bullets inline categories">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__arch__"
+                                
+                                
+                                title="See all 6 posts categorized in ‘arch’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/arch/">arch</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__linux__"
+                                
+                                
+                                title="See all 10 posts categorized in ‘linux’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/linux/">linux</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+         
+            
+         
+            
+                <ul class="no-bullets inline tags">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__gitlab__"
+                                
+                                
+                                title="See all 3 posts tagged with ‘gitlab’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/gitlab/">gitlab</a>
+                            </li>
+                        
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__cli__"
+                                
+                                
+                                title="See all 4 posts tagged with ‘cli’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/cli/">cli</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        
+    </div>
+
+</div>
+<div class="clear-float"></div>
+
+
+
+<div class="prev-next-navigator clear-float">
+    
+        <span class="prev-post left no-text-decoration">
+            <a href="https://albertdelafuente.com/exobrain/20220703004228-how_to_list_all_projects_in_gitlab/" class="nobr">« How to list all projects in Gitlab</a>
+        </span>
+    
+    
+        <span class="next-post right no-text-decoration">
+            <a href="https://albertdelafuente.com/exobrain/20220701221153-analyzing_the_esv_audios/" class="nobr">Analyzing the ESV audios »</a>
+        </span>
+    
+</div>
+
+
+<a id="bottom"></a>
+
+
+
+
+
+
+
+
+
+                       
+
+
+
+
+
+
+
+                    <ul class="no-bullets feed right inline">
+    
+        
+        
+    
+</ul>
+<div class="clear-float"></div>
+
+                </footer>
+                <hr />
+            </div>               
+
+            <footer> 
+                
+
+<ul class="social no-text-decoration">
+    
+        <li>
+            <a href="https://github.com/vonpupp/" title="Github">
+                
+                
+                    
+                    
+                    
+                    <i class="fab fa-2x fa-github"></i>
+                
+            </a>
+        </li>
+    
+        <li>
+            <a href="https://gitlab.com/users/vonpupp/projects" title="Gitlab">
+                
+                
+                    
+                    
+                    
+                    <i class="fab fa-2x fa-gitlab"></i>
+                
+            </a>
+        </li>
+    
+        <li>
+            <a href="https://twitter.com/vonpupp/" title="Twitter">
+                
+                
+                    
+                    
+                    
+                    <i class="fab fa-2x fa-twitter"></i>
+                
+            </a>
+        </li>
+    
+        <li>
+            <a href="https://mastodon.online/@vonpupp" title="Mastodon">
+                
+                
+                    
+                    
+                    
+                    <i class="fab fa-2x fa-mastodon"></i>
+                
+            </a>
+        </li>
+    
+        <li>
+            <a href="https://keybase.io/vonpupp" title="Keybase.io">
+                
+                
+                    
+                    
+                    
+                    <i class="fab fa-2x fa-keybase"></i>
+                
+            </a>
+        </li>
+    
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>
+    
+</p>
+
+
+
+
+<div class="badges no-text-decoration">
+    
+    
+
+    
+        
+        
+        <a href="https://html5.validator.nu/?doc=https://albertdelafuente.com/exobrain/20220702144603-how_to_use_tsrc/&amp;showsource=yes">
+            
+            <img src="/images/html5-css3-semantics-badge--scaled-optimized.0f343c79b5f793c32b308b8b872fccdc6f8f10dc328d12f3f8fba203ab3ccc6e.png"
+                 width="46" height="18" class="pixelated"
+                 alt="HTML5 Powered with CSS3 / Styling, and Semantics"
+                 title="HTML5 Powered with CSS3 / Styling, and Semantics">
+        </a>
+    
+</div>
+
+
+
+
+<script type="application/javascript">var nav=responsiveNav("#nav");</script>
+
+
+
+
+<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+
+
+
+
+
+
+
+    <div class="h-card">
+        
+            
+            <img class="u-photo" alt="Photo of Albert"
+                 src="/images/me--optimized.251d1edd09c931da7a3d6edf0e82f07c6d2ceb975da0bb8ecfff347df7e75972.jpg" width="400" height="400">
+        
+        
+        <a class="p-name u-url" href="https://albertdelafuente.com">Albert</a>
+        
+            <p>
+                <a class="u-email" href="mailto:vonpupp@gmail.com" rel="me">vonpupp@gmail.com</a>
+            </p>
+        
+        
+            <p class="p-note">
+                Me, without headlines.
+            </p>
+        
+    </div>
+
+
+
+            </footer>
+        </div> 
+    </body>
+</html>
