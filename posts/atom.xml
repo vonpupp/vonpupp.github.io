@@ -10,7 +10,7 @@
             <link href="https://albertdelafuente.com/posts/index.xml" rel="alternate" type="application/rss+xml" title="rss" />
             <link href="https://albertdelafuente.com/posts/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
             <link href="https://albertdelafuente.com/posts/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
-    <updated>2023-08-13T15:24:12-03:00</updated>
+    <updated>2023-08-14T23:03:14-03:00</updated>
     
     
     <author>
@@ -38,12 +38,12 @@
                     <author>
                         <name>Albert De La Fuente Vigliotti</name>
                     </author>
-            <published>2023-08-13T14:55:59-03:00</published>
-            <updated>2023-08-13T14:55:59-03:00</updated>
+            <published>2023-08-14T23:02:17-03:00</published>
+            <updated>2023-08-14T23:02:17-03:00</updated>
             
             
             <content type="html"><![CDATA[<p>I am very curious about Hebrew, specially the way the language is hierarchically
-designed. Tree letter words are commonly known as trilateral roots and the rest
+designed. Three letter words are commonly known as trilateral roots and the rest
 of the words are variation of these three letters and categorized under the same
 family. I am not going to get into these details since it is not the scope of
 this post.</p>
@@ -78,6 +78,7 @@ making it public for free. I am very thankful for it.</p>
 </span></span><span class="line"><span class="cl"><span class="nb">source</span> ./bin/activate.fish
 </span></span><span class="line"><span class="cl">pip install text-fabric pandas requests
 </span></span></code></pre></div><h2 id="activate-the-virtual-environment">Activate the virtual environment</h2>
+<p>Use <code>C-c</code> here on Doom Emacs</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">pyvenv-activate</span> <span class="s">&#34;~/.workon-home/venv-textfabric&#34;</span><span class="p">)</span>
 </span></span></code></pre></div><h2 id="load-the-etcbc-bhsa-dataset">Load the ETCBC/bhsa dataset</h2>
 <p>Use <code>run-python</code> and <code>ober-eval-block-in-repl</code> to evaluate each block (<code>C-c r</code>
@@ -214,55 +215,781 @@ literate programming the output of the blocks will follow the code.</p>
 </span></span><span class="line"><span class="cl">   |     0.03s  253203 phrases
 </span></span><span class="line"><span class="cl">   |     0.03s  267532 phrase_atoms
 </span></span><span class="line"><span class="cl">   |     0.01s  113850 subphrases
-</span></span><span class="line"><span class="cl">   |     0.04s  426590 words
+</span></span><span class="line"><span class="cl">   |     0.05s  426590 words
 </span></span><span class="line"><span class="cl">  0.15s Done
-</span></span></code></pre></div><h2 id="defining-some-helpers-to-count-lexemes-by-type-and-printing-the-top-n-occurrences">Defining some helpers to count lexemes by type, and printing the top &ldquo;n&rdquo; occurrences</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_lexeme_by_type</span><span class="p">(</span><span class="n">lex_type</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">verbs</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+</span></span></code></pre></div><h2 id="analizing-some-lexemes">Analizing some lexemes</h2>
+<p>Text-Fabric allows to query the &ldquo;types&rdquo; of words. We can do this by using:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">freqList</span><span class="p">())</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">((&#39;subs&#39;, 125583), (&#39;verb&#39;, 75451), (&#39;prep&#39;, 73298), (&#39;conj&#39;, 62737), (&#39;nmpr&#39;, 35607), (&#39;art&#39;, 30387), (&#39;adjv&#39;, 10141), (&#39;nega&#39;, 6059), (&#39;prps&#39;, 5035), (&#39;advb&#39;, 4603), (&#39;prde&#39;, 2678), (&#39;intj&#39;, 1912), (&#39;inrg&#39;, 1303), (&#39;prin&#39;, 1026))
+</span></span></code></pre></div><h2 id="defining-some-help-functions">Defining some help functions</h2>
+<p>These functions will facilitate the processing of the data. The first one will
+get the occurrences of a specific type of lexeme. I am not a linguist so I am
+learning on the go and I will try to explain it easily. The most common lexeme
+verb is <code>אמר</code> (say). It appears 5307 times. We can see that Yah indeed wants to
+communicate and instruct us.</p>
+<p>A specific instance of that verb has other properties (node features) like
+morphology which contains the verbal stem (qal, piel, nif, hif), the verbal
+tense (perf, impf, wayq) and gender (m, f) among other information.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_lexeme_by_type</span><span class="p">(</span><span class="n">lex_type</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
 </span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">#A.info(&#34;Collecting data&#34;)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="s2">&#34;lex&#34;</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">!=</span> <span class="n">lex_type</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span>
-</span></span><span class="line"><span class="cl">        <span class="n">verbs</span><span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">lex_utf8</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">F</span><span class="o">.</span><span class="n">freq_lex</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="n">w</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="s1">&#39;freq_lex&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">freq_lex</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">               <span class="s1">&#39;sp&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">               <span class="s1">&#39;lex_utf8&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">lex_utf8</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;g_word_utf8&#39;: F.g_word_utf8.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="s1">&#39;gloss&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">gloss</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;gn&#39;: F.gn.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;nu&#39;: F.nu.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;ps&#39;: F.ps.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;st&#39;: F.st.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;vs&#39;: F.vs.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;vt&#39;: F.vt.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;book&#39;: F.book.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">#A.info(&#34;Done&#34;)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">(</span><span class="n">verbs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_top_n_items</span><span class="p">(</span><span class="n">items_list</span><span class="p">,</span> <span class="n">quantity</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">items_list</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">0</span><span class="p">:</span><span class="n">quantity</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">        <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_items</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">lex_type</span><span class="p">,</span> <span class="n">lex_qty</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">items</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="n">lex_type</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">print_top_n_items</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">lex_qty</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"></code></pre></div><h2 id="analizing-some-lexemes">Analizing some lexemes</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">freqList</span><span class="p">())</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">((&#39;subs&#39;, 125583), (&#39;verb&#39;, 75451), (&#39;prep&#39;, 73298), (&#39;conj&#39;, 62737), (&#39;nmpr&#39;, 35607), (&#39;art&#39;, 30387), (&#39;adjv&#39;, 10141), (&#39;nega&#39;, 6059), (&#39;prps&#39;, 5035), (&#39;advb&#39;, 4603), (&#39;prde&#39;, 2678), (&#39;intj&#39;, 1912), (&#39;inrg&#39;, 1303), (&#39;prin&#39;, 1026))
-</span></span></code></pre></div><p>These are the &ldquo;types&rdquo; of words we can query Text Fabric. Now lets see the top 10 verbs</p>
-<h3 id="printing-the-top-10-verbs">Printing the top 10 verbs</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">lex_qty</span> <span class="o">=</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="n">print_items</span><span class="p">(</span><span class="s1">&#39;Verbs:&#39;</span><span class="p">,</span> <span class="s1">&#39;verb&#39;</span><span class="p">,</span> <span class="n">lex_qty</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Verbs:
-</span></span><span class="line"><span class="cl">אמר: 5379
-</span></span><span class="line"><span class="cl">היה: 3561
-</span></span><span class="line"><span class="cl">עשׂה: 2629
-</span></span><span class="line"><span class="cl">בוא: 2570
-</span></span><span class="line"><span class="cl">נתן: 2017
-</span></span><span class="line"><span class="cl">הלך: 1554
-</span></span><span class="line"><span class="cl">ראה: 1298
-</span></span><span class="line"><span class="cl">שׁמע: 1168
-</span></span><span class="line"><span class="cl">דבר: 1143
-</span></span><span class="line"><span class="cl">ישׁב: 1082
-</span></span></code></pre></div><p>For the sake of readability I am going to summarize this on a table</p>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">pp_sorted_df</span><span class="p">(</span><span class="n">input_df</span><span class="p">,</span> <span class="n">rows_qty</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sorted_df</span> <span class="o">=</span> <span class="n">input_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">output_df</span> <span class="o">=</span> <span class="n">sorted_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">rows_qty</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">output_df</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">output_df</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"></code></pre></div><h3 id="printing-the-most-frequent-verbs--lexemes">Printing the most frequent verbs (lexemes)</h3>
+<p>Here is a list with the top 100 verbs sorted by frequency.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">verbs</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;verb&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_df</span> <span class="o">=</span> <span class="n">pp_sorted_df</span><span class="p">(</span><span class="n">sorted_verbs</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>sp</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1437621</td>
+<td>5307</td>
+<td>verb</td>
+<td>אמר</td>
+<td>say</td>
+</tr>
+<tr>
+<td>1437611</td>
+<td>3561</td>
+<td>verb</td>
+<td>היה</td>
+<td>be</td>
+</tr>
+<tr>
+<td>1437637</td>
+<td>2629</td>
+<td>verb</td>
+<td>עשׂה</td>
+<td>make</td>
+</tr>
+<tr>
+<td>1437773</td>
+<td>2570</td>
+<td>verb</td>
+<td>בוא</td>
+<td>come</td>
+</tr>
+<tr>
+<td>1437669</td>
+<td>2010</td>
+<td>verb</td>
+<td>נתן</td>
+<td>give</td>
+</tr>
+<tr>
+<td>1437760</td>
+<td>1547</td>
+<td>verb</td>
+<td>הלך</td>
+<td>walk</td>
+</tr>
+<tr>
+<td>1437623</td>
+<td>1298</td>
+<td>verb</td>
+<td>ראה</td>
+<td>see</td>
+</tr>
+<tr>
+<td>1437812</td>
+<td>1159</td>
+<td>verb</td>
+<td>שׁמע</td>
+<td>hear</td>
+</tr>
+<tr>
+<td>1438048</td>
+<td>1138</td>
+<td>verb</td>
+<td>דבר</td>
+<td>speak</td>
+</tr>
+<tr>
+<td>1437900</td>
+<td>1082</td>
+<td>verb</td>
+<td>ישׁב</td>
+<td>sit</td>
+</tr>
+<tr>
+<td>1437657</td>
+<td>1068</td>
+<td>verb</td>
+<td>יצא</td>
+<td>go out</td>
+</tr>
+<tr>
+<td>1437844</td>
+<td>1038</td>
+<td>verb</td>
+<td>שׁוב</td>
+<td>return</td>
+</tr>
+<tr>
+<td>1437764</td>
+<td>965</td>
+<td>verb</td>
+<td>לקח</td>
+<td>take</td>
+</tr>
+<tr>
+<td>1437799</td>
+<td>944</td>
+<td>verb</td>
+<td>ידע</td>
+<td>know</td>
+</tr>
+<tr>
+<td>1437724</td>
+<td>890</td>
+<td>verb</td>
+<td>עלה</td>
+<td>ascend</td>
+</tr>
+<tr>
+<td>1437851</td>
+<td>847</td>
+<td>verb</td>
+<td>שׁלח</td>
+<td>send</td>
+</tr>
+<tr>
+<td>1437769</td>
+<td>835</td>
+<td>verb</td>
+<td>מות</td>
+<td>die</td>
+</tr>
+<tr>
+<td>1437768</td>
+<td>810</td>
+<td>verb</td>
+<td>אכל</td>
+<td>eat</td>
+</tr>
+<tr>
+<td>1437628</td>
+<td>732</td>
+<td>verb</td>
+<td>קרא</td>
+<td>call</td>
+</tr>
+<tr>
+<td>1437894</td>
+<td>653</td>
+<td>verb</td>
+<td>נשׂא</td>
+<td>lift</td>
+</tr>
+<tr>
+<td>1437884</td>
+<td>629</td>
+<td>verb</td>
+<td>קום</td>
+<td>arise</td>
+</tr>
+<tr>
+<td>1437736</td>
+<td>583</td>
+<td>verb</td>
+<td>שׂים</td>
+<td>put</td>
+</tr>
+<tr>
+<td>1438023</td>
+<td>548</td>
+<td>verb</td>
+<td>עבר</td>
+<td>pass</td>
+</tr>
+<tr>
+<td>1438442</td>
+<td>521</td>
+<td>verb</td>
+<td>עמד</td>
+<td>stand</td>
+</tr>
+<tr>
+<td>1437899</td>
+<td>500</td>
+<td>verb</td>
+<td>נכה</td>
+<td>strike</td>
+</tr>
+<tr>
+<td>1437767</td>
+<td>494</td>
+<td>verb</td>
+<td>צוה</td>
+<td>command</td>
+</tr>
+<tr>
+<td>1437835</td>
+<td>492</td>
+<td>verb</td>
+<td>ילד</td>
+<td>bear</td>
+</tr>
+<tr>
+<td>1437766</td>
+<td>468</td>
+<td>verb</td>
+<td>שׁמר</td>
+<td>keep</td>
+</tr>
+<tr>
+<td>1437775</td>
+<td>453</td>
+<td>verb</td>
+<td>מצא</td>
+<td>find</td>
+</tr>
+<tr>
+<td>1437776</td>
+<td>434</td>
+<td>verb</td>
+<td>נפל</td>
+<td>fall</td>
+</tr>
+<tr>
+<td>1438193</td>
+<td>377</td>
+<td>verb</td>
+<td>ירד</td>
+<td>descend</td>
+</tr>
+<tr>
+<td>1437782</td>
+<td>376</td>
+<td>verb</td>
+<td>בנה</td>
+<td>build</td>
+</tr>
+<tr>
+<td>1437819</td>
+<td>370</td>
+<td>verb</td>
+<td>נגד</td>
+<td>report</td>
+</tr>
+<tr>
+<td>1439047</td>
+<td>347</td>
+<td>verb</td>
+<td>מלך</td>
+<td>be king</td>
+</tr>
+<tr>
+<td>1437816</td>
+<td>332</td>
+<td>verb</td>
+<td>ירא</td>
+<td>fear</td>
+</tr>
+<tr>
+<td>1437682</td>
+<td>327</td>
+<td>verb</td>
+<td>ברך</td>
+<td>bless</td>
+</tr>
+<tr>
+<td>1438467</td>
+<td>316</td>
+<td>verb</td>
+<td>ענה</td>
+<td>answer</td>
+</tr>
+<tr>
+<td>1438536</td>
+<td>303</td>
+<td>verb</td>
+<td>פקד</td>
+<td>miss</td>
+</tr>
+<tr>
+<td>1438046</td>
+<td>297</td>
+<td>verb</td>
+<td>סור</td>
+<td>turn aside</td>
+</tr>
+<tr>
+<td>1437685</td>
+<td>292</td>
+<td>verb</td>
+<td>מלא</td>
+<td>be full</td>
+</tr>
+<tr>
+<td>1438495</td>
+<td>290</td>
+<td>verb</td>
+<td>חזק</td>
+<td>be strong</td>
+</tr>
+<tr>
+<td>1438067</td>
+<td>288</td>
+<td>verb</td>
+<td>כרת</td>
+<td>cut</td>
+</tr>
+<tr>
+<td>1437722</td>
+<td>288</td>
+<td>verb</td>
+<td>עבד</td>
+<td>work, serve</td>
+</tr>
+<tr>
+<td>1437853</td>
+<td>283</td>
+<td>verb</td>
+<td>חיה</td>
+<td>be alive</td>
+</tr>
+<tr>
+<td>1438581</td>
+<td>283</td>
+<td>verb</td>
+<td>איב</td>
+<td>be hostile</td>
+</tr>
+<tr>
+<td>1438231</td>
+<td>281</td>
+<td>verb</td>
+<td>קרב</td>
+<td>approach</td>
+</tr>
+<tr>
+<td>1438522</td>
+<td>237</td>
+<td>verb</td>
+<td>חטא</td>
+<td>miss</td>
+</tr>
+<tr>
+<td>1438022</td>
+<td>231</td>
+<td>verb</td>
+<td>זכר</td>
+<td>remember</td>
+</tr>
+<tr>
+<td>1438347</td>
+<td>231</td>
+<td>verb</td>
+<td>ירשׁ</td>
+<td>trample down</td>
+</tr>
+<tr>
+<td>1438906</td>
+<td>225</td>
+<td>verb</td>
+<td>בקשׁ</td>
+<td>seek</td>
+</tr>
+<tr>
+<td>1437684</td>
+<td>224</td>
+<td>verb</td>
+<td>רבה</td>
+<td>be many</td>
+</tr>
+<tr>
+<td>1439718</td>
+<td>223</td>
+<td>verb</td>
+<td>כתב</td>
+<td>write</td>
+</tr>
+<tr>
+<td>1438074</td>
+<td>217</td>
+<td>verb</td>
+<td>שׁתה</td>
+<td>drink</td>
+</tr>
+<tr>
+<td>1439180</td>
+<td>216</td>
+<td>verb</td>
+<td>כון</td>
+<td>be firm</td>
+</tr>
+<tr>
+<td>1438225</td>
+<td>214</td>
+<td>verb</td>
+<td>נטה</td>
+<td>extend</td>
+</tr>
+<tr>
+<td>1437788</td>
+<td>214</td>
+<td>verb</td>
+<td>עזב</td>
+<td>leave</td>
+</tr>
+<tr>
+<td>1438878</td>
+<td>213</td>
+<td>verb</td>
+<td>נצל</td>
+<td>deliver</td>
+</tr>
+<tr>
+<td>1438479</td>
+<td>212</td>
+<td>verb</td>
+<td>שׁכב</td>
+<td>lie down</td>
+</tr>
+<tr>
+<td>1437866</td>
+<td>212</td>
+<td>verb</td>
+<td>יסף</td>
+<td>add</td>
+</tr>
+<tr>
+<td>1438565</td>
+<td>211</td>
+<td>verb</td>
+<td>אהב</td>
+<td>love</td>
+</tr>
+<tr>
+<td>1437706</td>
+<td>206</td>
+<td>verb</td>
+<td>כלה</td>
+<td>be complete</td>
+</tr>
+<tr>
+<td>1439443</td>
+<td>205</td>
+<td>verb</td>
+<td>ישׁע</td>
+<td>help</td>
+</tr>
+<tr>
+<td>1438002</td>
+<td>204</td>
+<td>verb</td>
+<td>אסף</td>
+<td>gather</td>
+</tr>
+<tr>
+<td>1438392</td>
+<td>202</td>
+<td>verb</td>
+<td>שׁפט</td>
+<td>judge</td>
+</tr>
+<tr>
+<td>1438251</td>
+<td>193</td>
+<td>verb</td>
+<td>יכל</td>
+<td>be able</td>
+</tr>
+<tr>
+<td>1438014</td>
+<td>188</td>
+<td>verb</td>
+<td>רום</td>
+<td>be high</td>
+</tr>
+<tr>
+<td>1438077</td>
+<td>188</td>
+<td>verb</td>
+<td>גלה</td>
+<td>uncover</td>
+</tr>
+<tr>
+<td>1439563</td>
+<td>186</td>
+<td>verb</td>
+<td>אבד</td>
+<td>perish</td>
+</tr>
+<tr>
+<td>1438554</td>
+<td>185</td>
+<td>verb</td>
+<td>שׁבע</td>
+<td>swear</td>
+</tr>
+<tr>
+<td>1439420</td>
+<td>171</td>
+<td>verb</td>
+<td>לחם</td>
+<td>fight</td>
+</tr>
+<tr>
+<td>1438643</td>
+<td>171</td>
+<td>verb</td>
+<td>שׁאל</td>
+<td>ask</td>
+</tr>
+<tr>
+<td>1437711</td>
+<td>171</td>
+<td>verb</td>
+<td>קדשׁ</td>
+<td>be holy</td>
+</tr>
+<tr>
+<td>1438427</td>
+<td>170</td>
+<td>verb</td>
+<td>חוה</td>
+<td>bow down</td>
+</tr>
+<tr>
+<td>1439181</td>
+<td>170</td>
+<td>verb</td>
+<td>בין</td>
+<td>understand</td>
+</tr>
+<tr>
+<td>1437962</td>
+<td>169</td>
+<td>verb</td>
+<td>בחר</td>
+<td>examine</td>
+</tr>
+<tr>
+<td>1437869</td>
+<td>168</td>
+<td>verb</td>
+<td>רעה</td>
+<td>pasture</td>
+</tr>
+<tr>
+<td>1437885</td>
+<td>167</td>
+<td>verb</td>
+<td>הרג</td>
+<td>kill</td>
+</tr>
+<tr>
+<td>1438064</td>
+<td>164</td>
+<td>verb</td>
+<td>דרשׁ</td>
+<td>inquire</td>
+</tr>
+<tr>
+<td>1438964</td>
+<td>162</td>
+<td>verb</td>
+<td>טמא</td>
+<td>be unclean</td>
+</tr>
+<tr>
+<td>1437750</td>
+<td>161</td>
+<td>verb</td>
+<td>סבב</td>
+<td>turn</td>
+</tr>
+<tr>
+<td>1438306</td>
+<td>159</td>
+<td>verb</td>
+<td>נוס</td>
+<td>flee</td>
+</tr>
+<tr>
+<td>1439475</td>
+<td>154</td>
+<td>verb</td>
+<td>שׂמח</td>
+<td>rejoice</td>
+</tr>
+<tr>
+<td>1438016</td>
+<td>152</td>
+<td>verb</td>
+<td>כסה</td>
+<td>cover</td>
+</tr>
+<tr>
+<td>1437797</td>
+<td>150</td>
+<td>verb</td>
+<td>נגע</td>
+<td>touch</td>
+</tr>
+<tr>
+<td>1438486</td>
+<td>147</td>
+<td>verb</td>
+<td>שׁבר</td>
+<td>break</td>
+</tr>
+<tr>
+<td>1438240</td>
+<td>146</td>
+<td>verb</td>
+<td>הלל</td>
+<td>praise</td>
+</tr>
+<tr>
+<td>1438652</td>
+<td>146</td>
+<td>verb</td>
+<td>שׂנא</td>
+<td>hate</td>
+</tr>
+<tr>
+<td>1438182</td>
+<td>146</td>
+<td>verb</td>
+<td>נסע</td>
+<td>pull out</td>
+</tr>
+<tr>
+<td>1437981</td>
+<td>145</td>
+<td>verb</td>
+<td>שׁחת</td>
+<td>destroy</td>
+</tr>
+<tr>
+<td>1438318</td>
+<td>143</td>
+<td>verb</td>
+<td>רדף</td>
+<td>pursue</td>
+</tr>
+<tr>
+<td>1438727</td>
+<td>143</td>
+<td>verb</td>
+<td>חנה</td>
+<td>encamp</td>
+</tr>
+<tr>
+<td>1437765</td>
+<td>141</td>
+<td>verb</td>
+<td>נוח</td>
+<td>settle</td>
+</tr>
+<tr>
+<td>1438323</td>
+<td>140</td>
+<td>verb</td>
+<td>קרא</td>
+<td>encounter</td>
+</tr>
+<tr>
+<td>1438461</td>
+<td>135</td>
+<td>verb</td>
+<td>פנה</td>
+<td>turn</td>
+</tr>
+<tr>
+<td>1438010</td>
+<td>135</td>
+<td>verb</td>
+<td>פתח</td>
+<td>open</td>
+</tr>
+<tr>
+<td>1437937</td>
+<td>134</td>
+<td>verb</td>
+<td>חלל</td>
+<td>defile</td>
+</tr>
+<tr>
+<td>1438923</td>
+<td>134</td>
+<td>verb</td>
+<td>זבח</td>
+<td>slaughter</td>
+</tr>
+<tr>
+<td>1438373</td>
+<td>133</td>
+<td>verb</td>
+<td>קבר</td>
+<td>bury</td>
+</tr>
+<tr>
+<td>1438020</td>
+<td>133</td>
+<td>verb</td>
+<td>שׁאר</td>
+<td>remain</td>
+</tr>
+<tr>
+<td>1437856</td>
+<td>129</td>
+<td>verb</td>
+<td>שׁכן</td>
+<td>dwell</td>
+</tr>
+</tbody>
+</table>
+<p>Here we can see the id of the lexeme (w), the frequency (freq_lex), the utf8
+representation of the word without vowel pointing and the english meaning used
+for the translation. All automatically, pretty cool isn&rsquo;t it?</p>
 <!--list-separator-->
 <ul>
 <li>
-<p>Top 10 verbs</p>
+<p>Top 12 verbs with strongs</p>
+<p>Out of those, I wanted to map also the pronunciation, Strong numbers and the
+full meaning from BLB so I created this table. Note that the strong number as
+the pronunciation are just probable, since I am working with lexemes rather than
+words.</p>
 <table>
 <thead>
 <tr>
@@ -275,21 +1002,21 @@ literate programming the output of the blocks will follow the code.</p>
 </thead>
 <tbody>
 <tr>
-<td>&lsquo;āmar</td>
+<td>aw-mar'</td>
 <td>אמר</td>
 <td>5379</td>
 <td>To say, speak, utter</td>
 <td>KJV <a href="https://www.blueletterbible.org/lexicon/h559/kjv/wlc/0-1/">H559</a></td>
 </tr>
 <tr>
-<td>hāyâ</td>
+<td>haw-yaw</td>
 <td>היה</td>
 <td>3561</td>
 <td>to be, become, come to pass, exist, happen, fall out</td>
 <td>KJV <a href="https://www.blueletterbible.org/lexicon/h1961/kjv/wlc/0-1/">H1961</a></td>
 </tr>
 <tr>
-<td>ʿāśâ</td>
+<td>aw-saw'</td>
 <td>עשׂה</td>
 <td>2629</td>
 <td>to do, fashion, accomplish, make</td>
@@ -303,7 +1030,7 @@ literate programming the output of the blocks will follow the code.</p>
 <td>KJV <a href="https://www.blueletterbible.org/lexicon/h935/kjv/wlc/0-1/">H935</a></td>
 </tr>
 <tr>
-<td>naw-than&rsquo;</td>
+<td>naw-than'</td>
 <td>נתן</td>
 <td>2017</td>
 <td>to give, put, set</td>
@@ -344,10 +1071,32 @@ literate programming the output of the blocks will follow the code.</p>
 <td>to dwell, remain, sit, abide</td>
 <td>KJV <a href="https://www.blueletterbible.org/lexicon/h3427/kjv/wlc/0-1/">H3427</a></td>
 </tr>
+<tr>
+<td>yaw-tsaw'</td>
+<td>יצא</td>
+<td>1069</td>
+<td>to go out, come out, exit, go forth</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h3318/kjv/wlc/0-1/">H3318</a></td>
+</tr>
+<tr>
+<td>shoob</td>
+<td>שׁוב</td>
+<td>1056</td>
+<td>to return, turn back</td>
+<td>KJV <a href="https://www.blueletterbible.org/lexicon/h7725/kjv/wlc/0-1/">H7725</a></td>
+</tr>
 </tbody>
 </table>
-<p>I made this list by hand, which is not very practical for automation, so I wonder if there is a better way to achieve this. I don&rsquo;t have an answer for this at this time, but this repository looks promising: <a href="https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv">https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv</a>.</p>
-<p>I still have some work that is not documented, so this is work in progress. I am still learning how to properly use TF&rsquo;s API.</p>
+<p>I made this list by hand, which is not very practical for automation, so I
+wonder if there is a better way to get the Strong numbers automatically. I don&rsquo;t
+have an answer for this at this time, but this repository looks promising:
+<a href="https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv">https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv</a>.</p>
+<p>I still have some work that is not documented, so this is work in progress. I am
+still learning how to properly use TF&rsquo;s API.</p>
+<p>As a side note I also found word by word on BHS 5th edition here:
+<a href="https://github.com/eliranwong/MP3_BHS5_word-by-word">https://github.com/eliranwong/MP3_BHS5_word-by-word</a>. I am very excited about
+this finding. Also it is worthwhile checking out this:
+<a href="https://github.com/eliranwong/UniqueBible">https://github.com/eliranwong/UniqueBible</a>.</p>
 </li>
 </ul>
 ]]></content>
