@@ -10,7 +10,7 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Mon, 14 Aug 2023 23:03:14 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Thu, 17 Aug 2023 13:39:36 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -22,26 +22,28 @@
                 
                 
                 <description>&lt;p&gt;I am very curious about Hebrew, specially the way the language is hierarchically
-designed. Three letter words are commonly known as trilateral roots and the rest
-of the words are variation of these three letters and categorized under the same
-family. I am not going to get into these details since it is not the scope of
+designed. Put very simply, three letter words are commonly known as trilateral
+roots and the rest of the words are variation of these three letters having a
+common root word and having related meaning somehow, thus creating a &amp;ldquo;family&amp;rdquo; if
+you will. I am not going to get into these details since it is not the scope of
 this post.&lt;/p&gt;
 &lt;p&gt;Long story short, the journey of trying to learn Hebrew started probably between
 2006 to 2008 and I haven&amp;rsquo;t had much success at it. Or lets say that the
-expectations don&amp;rsquo;t match reality =P. So I thought that I could try to somehow
-start with the most common words in the scriptures and that is what motivated &lt;a href=&#34;https://albertdelafuente.com/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/&#34;&gt;to
-parse the Aleppo codex and analyze its content in python&lt;/a&gt;. I quickly learned
-that my approach was rather naive given the prefixes that causes variations to
-the words, even thought the meaning of the word itself is the same.&lt;/p&gt;
+expectations don&amp;rsquo;t match reality due to lack of consistent effort on my side.&lt;/p&gt;
+&lt;p&gt;I thought that I could try to somehow start with the most common words in the
+scriptures and that is what motivated &lt;a href=&#34;https://albertdelafuente.com/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/&#34;&gt;to parse the Aleppo codex and analyze its
+content in python&lt;/a&gt;. I quickly learned that my approach was rather naive given
+the prefixes that causes variations to the words, even thought the meaning of
+the word itself is the same.&lt;/p&gt;
 &lt;p&gt;This blog post is a second attempt to tackle the same problem but with a more
-sophisticated linguistic approach using Text Fabric.&lt;/p&gt;
+sophisticated and accurate approach using Text Fabric.&lt;/p&gt;
 &lt;p&gt;A corpus of ancient texts and (linguistic) annotations represents a large body
 of knowledge.&lt;/p&gt;
 &lt;p&gt;Text-Fabric is a Python package for processing and access a corpus of ancient
 text and linguistic annotations. In this specific case I am using the Hebrew
 Bible Database, containing the text of the Hebrew Bible augmented with
 linguistic annotations compiled by the Eep Talstra Centre for Bible and
-Computer, VU University Amsterdam.&lt;/p&gt;
+Computer from the VU University Amsterdam.&lt;/p&gt;
 &lt;p&gt;The text is based on the Biblia Hebraica Stuttgartensia edited by Karl Elliger
 and Wilhelm Rudolph, Fifth Revised Edition, edited by Adrian Schenker, © 1977
 and 1997 Deutsche Bibelgesellschaft, Stuttgart.&lt;/p&gt;
@@ -50,9 +52,15 @@ Networked Services, with thanks to Martijn Naaijer, Cody Kingham, and
 Constantijn Sikkel.&lt;/p&gt;
 &lt;p&gt;It is amazing to see the work these researchers did compiling all this data and
 making it public for free. I am very thankful for it.&lt;/p&gt;
-&lt;p&gt;I am using a literate programming approach with Doom Emacs and org-mode.&lt;/p&gt;
+&lt;p&gt;I am using a literate programming approach with Doom Emacs and org-mode. This
+blog post is a bit more technical oriented. So it is okay if you pass through
+the code or if you don&amp;rsquo;t understand some of it.&lt;/p&gt;
 &lt;h2 id=&#34;create-the-virtual-environment&#34;&gt;Create the virtual environment&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;virtualenv ~/.workon-home/venv-textfabric
+&lt;p&gt;This snippet will create a virtual environment and install some libs. Due to
+some incompatibilities with the word cloud lib, I had to downgrate do Python
+3.6.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#virtualenv ~/.workon-home/venv-textfabric&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;virtualenv --python&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/usr/bin/python3.6 ~/.workon-home/venv-textfabric
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/.workon-home/venv-textfabric
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; ./bin/activate.fish
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pip install text-fabric pandas requests
@@ -85,117 +93,33 @@ literate programming the output of the blocks will follow the code.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;indent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;level&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Done&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;**Locating corpus resources ...**
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;app: ~/text-fabric-data/github/ETCBC/bhsa/app
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;data: ~/text-fabric-data/github/ETCBC/bhsa/tf/2021
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;data: ~/text-fabric-data/github/ETCBC/phono/tf/2021
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;data: ~/text-fabric-data/github/ETCBC/parallels/tf/2021
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Text-Fabric:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	Text-Fabric API 12.0.5 =&amp;gt; https:/annotation.github.io/text-fabric/tf/cheatsheet.html
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	ETCBC/bhsa/app  v3 =&amp;gt; https:/github.com/ETCBC/bhsa/blob/master/app
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	Search Reference =&amp;gt; https:/annotation.github.io/text-fabric/tf/about/searchusage.html
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Data:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	ETCBC - bhsa 2021 =&amp;gt; https:/ETCBC.github.io/bhsa/
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	Character table =&amp;gt; https:/annotation.github.io/text-fabric/tf/writing/hebrew.html
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	Feature docs =&amp;gt; https:/ETCBC.github.io/bhsa/features/0_home
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Node types:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;book                      39 10938.21 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chapter                  929   459.19 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lex                     9230    46.22 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;verse                  23213    18.38 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;half_verse             45179     9.44 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sentence               63717     6.70 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sentence_atom          64514     6.61 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clause                 88131     4.84 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clause_atom            90704     4.70 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;phrase                253203     1.68 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;phrase_atom           267532     1.59 =     100
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;subphrase             113850     1.42        38
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;*word*                426590     1.00 =     100
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;IPython.core.display.HTML object&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;IPython.core.display.HTML object&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;IPython.core.display.HTML object&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;IPython.core.display.HTML object&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;This is Text-Fabric 9.5.2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Api reference : https://annotation.github.io/text-fabric/tf/cheatsheet.html
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Sets:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Features:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Parallel Passages
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	crossref             🆗 links between similar passages
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;BHSA = Biblia Hebraica Stuttgartensia Amstelodamensis
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	book                 ✅ book name in Latin (Genesis; Numeri; Reges1; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	book@ll              ✅ book name in amharic (ኣማርኛ)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	chapter              ✅ chapter number (1; 2; 3; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	code                 ✅ identifier of a clause atom relationship (0; 74; 367; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	det                  ✅ determinedness of phrase(atom) (det; und; NA.)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	domain               ✅ text type of clause (? (Unknown); N (narrative); D (discursive); Q (Quotation).)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	freq_lex             ✅ frequency of lexemes
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	function             ✅ syntactic function of phrase (Cmpl; Objc; Pred; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_cons               ✅ word consonantal-transliterated (B R&amp;gt;CJT BR&amp;gt; &amp;gt;LHJM ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_cons_utf8          ✅ word consonantal-Hebrew (ב ראשׁית ברא אלהים)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_lex                ✅ lexeme pointed-transliterated (B.:- R;&amp;gt;CIJT B.@R@&amp;gt; &amp;gt;:ELOH ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_lex_utf8           ✅ lexeme pointed-Hebrew (בְּ רֵאשִׁית בָּרָא אֱלֹה)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_word               ✅ word pointed-transliterated (B.:- R;&amp;gt;CI73JT B.@R@74&amp;gt; &amp;gt;:ELOHI92JM)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	g_word_utf8          ✅ word pointed-Hebrew (בְּ רֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	gloss                🆗 english translation of lexeme (beginning create god(s))
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	gn                   ✅ grammatical gender (m; f; NA; unknown.)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	label                ✅ (half-)verse label (half verses: A; B; C; verses:  GEN 01,02)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	language             ✅ of word or lexeme (Hebrew; Aramaic.)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	lex                  ✅ lexeme consonantal-transliterated (B R&amp;gt;CJT/ BR&amp;gt;[ &amp;gt;LHJM/)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	lex_utf8             ✅ lexeme consonantal-Hebrew (ב ראשׁית֜ ברא אלהים֜)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	ls                   ✅ lexical set, subclassification of part-of-speech (card; ques; mult)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	nametype             ⚠️ named entity type (pers; mens; gens; topo; ppde.)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	nme                  ✅ nominal ending consonantal-transliterated (absent; n/a; JM, ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	nu                   ✅ grammatical number (sg; du; pl; NA; unknown.)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	number               ✅ sequence number of an object within its context
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	otype
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	pargr                🆗 hierarchical paragraph number (1; 1.2; 1.2.3.4; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	pdp                  ✅ phrase dependent part-of-speech (art; verb; subs; nmpr, ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	pfm                  ✅ preformative consonantal-transliterated (absent; n/a; J, ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	prs                  ✅ pronominal suffix consonantal-transliterated (absent; n/a; W; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	prs_gn               ✅ pronominal suffix gender (m; f; NA; unknown.)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	prs_nu               ✅ pronominal suffix number (sg; du; pl; NA; unknown.)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	prs_ps               ✅ pronominal suffix person (p1; p2; p3; NA; unknown.)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	ps                   ✅ grammatical person (p1; p2; p3; NA; unknown.)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	qere                 ✅ word pointed-transliterated masoretic reading correction
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	qere_trailer         ✅ interword material -pointed-transliterated (Masoretic correction)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	qere_trailer_utf8    ✅ interword material -pointed-transliterated (Masoretic correction)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	qere_utf8            ✅ word pointed-Hebrew masoretic reading correction
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	rank_lex             ✅ ranking of lexemes based on freqnuecy
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	rela                 ✅ linguistic relation between clause/(sub)phrase(atom) (ADJ; MOD; ATR; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	sp                   ✅ part-of-speech (art; verb; subs; nmpr, ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	st                   ✅ state of a noun (a (absolute); c (construct); e (emphatic).)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	tab                  ✅ clause atom: its level in the linguistic embedding
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	trailer              ✅ interword material pointed-transliterated (&amp;amp; 00 05 00_P ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	trailer_utf8         ✅ interword material pointed-Hebrew (־ ׃)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	txt                  ✅ text type of clause and surrounding (repetion of ? N D Q as in feature domain)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	typ                  ✅ clause/phrase(atom) type (VP; NP; Ellp; Ptcp; WayX)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	uvf                  ✅ univalent final consonant consonantal-transliterated (absent; N; J; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	vbe                  ✅ verbal ending consonantal-transliterated (n/a; W; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	vbs                  ✅ root formation consonantal-transliterated (absent; n/a; H; ...)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	verse                ✅ verse number
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	voc_lex              ✅ vocalized lexeme pointed-transliterated (B.: R;&amp;gt;CIJT BR&amp;gt; &amp;gt;:ELOHIJM)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	voc_lex_utf8         ✅ vocalized lexeme pointed-Hebrew (בְּ רֵאשִׁית ברא אֱלֹהִים)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	vs                   ✅ verbal stem (qal; piel; hif; apel; pael)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	vt                   ✅ verbal tense (perf; impv; wayq; infc)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	mother               ✅ linguistic dependency between textual objects
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	oslots
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Phonetic Transcriptions
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	phono                🆗 phonological transcription (bᵊ rēšˌîṯ bārˈā ʔᵉlōhˈîm)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	phono_trailer        🆗 interword material in phonological transcription
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;122 features found and 0 ignored
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;IPython.core.display.HTML object&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;IPython.core.display.HTML object&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;IPython.core.display.HTML object&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;IPython.core.display.HTML object&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0.00s counting objects ...
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s      39 books
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s     929 chapters
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s    9230 lexs
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s   23213 verses
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s   45179 half_verses
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s   63717 sentences
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s   64514 sentence_atoms
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s   88131 clauses
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s   90704 clause_atoms
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.03s  253203 phrases
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.03s  267532 phrase_atoms
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s   63717 sentences
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s   64514 sentence_atoms
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s   88131 clauses
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.00s   90704 clause_atoms
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s  253203 phrases
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s  267532 phrase_atoms
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.01s  113850 subphrases
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.05s  426590 words
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0.15s Done
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   |     0.02s  426590 words
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  0.07s Done
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;analizing-some-lexemes&#34;&gt;Analizing some lexemes&lt;/h2&gt;
 &lt;p&gt;Text-Fabric allows to query the &amp;ldquo;types&amp;rdquo; of words. We can do this by using:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;freqList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
@@ -208,7 +132,9 @@ verb is &lt;code&gt;אמר&lt;/code&gt; (say). It appears 5307 times. We can see
 communicate and instruct us.&lt;/p&gt;
 &lt;p&gt;A specific instance of that verb has other properties (node features) like
 morphology which contains the verbal stem (qal, piel, nif, hif), the verbal
-tense (perf, impf, wayq) and gender (m, f) among other information.&lt;/p&gt;
+tense (perf, impf, wayq) and gender (m, f) among other information. A lexeme is
+the representation of that word (verb in this case) in the broad aspect, i.e
+regardless of the verbal stem, tense, gender, etc.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pandas&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pd&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get_lexeme_by_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lex_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
@@ -220,9 +146,13 @@ tense (perf, impf, wayq) and gender (m, f) among other information.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;row&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;s1&#34;&gt;&amp;#39;freq_lex&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;freq_lex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;s1&#34;&gt;&amp;#39;sp&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;c1&#34;&gt;#&amp;#39;sp&amp;#39;: F.sp.v(w),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;c1&#34;&gt;#&amp;#39;lex&amp;#39;: F.lex.v(w),&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;s1&#34;&gt;&amp;#39;lex_utf8&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lex_utf8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;c1&#34;&gt;#&amp;#39;phono&amp;#39;: F.phono.v(w),&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;c1&#34;&gt;#&amp;#39;g_word_utf8&amp;#39;: F.g_word_utf8.v(w),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;c1&#34;&gt;#&amp;#39;g_lex_utf8&amp;#39;: F.g_lex_utf8.v(w),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;c1&#34;&gt;#&amp;#39;g_cons_utf8&amp;#39;: F.g_cons_utf8.v(w),&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;s1&#34;&gt;&amp;#39;gloss&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gloss&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;c1&#34;&gt;#&amp;#39;gn&amp;#39;: F.gn.v(w),&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;c1&#34;&gt;#&amp;#39;nu&amp;#39;: F.nu.v(w),&lt;/span&gt;
@@ -241,16 +171,397 @@ tense (perf, impf, wayq) and gender (m, f) among other information.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;sorted_df&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input_df&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort_values&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;by&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;freq_lex&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ascending&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;False&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;output_df&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sorted_df&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rows_qty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;output_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;output_df&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;values&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tolist&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;printing-the-most-frequent-verbs--lexemes&#34;&gt;Printing the most frequent verbs (lexemes)&lt;/h3&gt;
-&lt;p&gt;Here is a list with the top 100 verbs sorted by frequency.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;verbs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;get_lexeme_by_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;verb&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;print_df&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pp_sorted_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sorted_verbs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;most-frequent-prepositions&#34;&gt;Most frequent prepositions&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;df_preps&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;get_lexeme_by_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;prep&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;print_df&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pp_sorted_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;df_preps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;w&lt;/th&gt;
 &lt;th&gt;freq_lex&lt;/th&gt;
-&lt;th&gt;sp&lt;/th&gt;
+&lt;th&gt;lex_utf8&lt;/th&gt;
+&lt;th&gt;gloss&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1437629&lt;/td&gt;
+&lt;td&gt;20069&lt;/td&gt;
+&lt;td&gt;ל&lt;/td&gt;
+&lt;td&gt;to&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437602&lt;/td&gt;
+&lt;td&gt;15542&lt;/td&gt;
+&lt;td&gt;ב&lt;/td&gt;
+&lt;td&gt;in&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437606&lt;/td&gt;
+&lt;td&gt;10987&lt;/td&gt;
+&lt;td&gt;את&lt;/td&gt;
+&lt;td&gt;&amp;lt;object marker&amp;gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437639&lt;/td&gt;
+&lt;td&gt;7562&lt;/td&gt;
+&lt;td&gt;מן&lt;/td&gt;
+&lt;td&gt;from&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437615&lt;/td&gt;
+&lt;td&gt;5766&lt;/td&gt;
+&lt;td&gt;על&lt;/td&gt;
+&lt;td&gt;upon&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437644&lt;/td&gt;
+&lt;td&gt;5517&lt;/td&gt;
+&lt;td&gt;אל&lt;/td&gt;
+&lt;td&gt;to&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437693&lt;/td&gt;
+&lt;td&gt;2902&lt;/td&gt;
+&lt;td&gt;כ&lt;/td&gt;
+&lt;td&gt;as&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437843&lt;/td&gt;
+&lt;td&gt;1263&lt;/td&gt;
+&lt;td&gt;עד&lt;/td&gt;
+&lt;td&gt;unto&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437805&lt;/td&gt;
+&lt;td&gt;1049&lt;/td&gt;
+&lt;td&gt;עם&lt;/td&gt;
+&lt;td&gt;with&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437865&lt;/td&gt;
+&lt;td&gt;878&lt;/td&gt;
+&lt;td&gt;את&lt;/td&gt;
+&lt;td&gt;together with&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1443534&lt;/td&gt;
+&lt;td&gt;378&lt;/td&gt;
+&lt;td&gt;ל&lt;/td&gt;
+&lt;td&gt;to&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1443536&lt;/td&gt;
+&lt;td&gt;345&lt;/td&gt;
+&lt;td&gt;די&lt;/td&gt;
+&lt;td&gt;&amp;lt;relative&amp;gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438236&lt;/td&gt;
+&lt;td&gt;272&lt;/td&gt;
+&lt;td&gt;למען&lt;/td&gt;
+&lt;td&gt;because of&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1445292&lt;/td&gt;
+&lt;td&gt;226&lt;/td&gt;
+&lt;td&gt;ב&lt;/td&gt;
+&lt;td&gt;in&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438491&lt;/td&gt;
+&lt;td&gt;142&lt;/td&gt;
+&lt;td&gt;כמו&lt;/td&gt;
+&lt;td&gt;like&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1443543&lt;/td&gt;
+&lt;td&gt;119&lt;/td&gt;
+&lt;td&gt;מן&lt;/td&gt;
+&lt;td&gt;from&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1445269&lt;/td&gt;
+&lt;td&gt;104&lt;/td&gt;
+&lt;td&gt;על&lt;/td&gt;
+&lt;td&gt;upon&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1443531&lt;/td&gt;
+&lt;td&gt;63&lt;/td&gt;
+&lt;td&gt;כ&lt;/td&gt;
+&lt;td&gt;like&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1445265&lt;/td&gt;
+&lt;td&gt;35&lt;/td&gt;
+&lt;td&gt;עד&lt;/td&gt;
+&lt;td&gt;until&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1445281&lt;/td&gt;
+&lt;td&gt;22&lt;/td&gt;
+&lt;td&gt;עם&lt;/td&gt;
+&lt;td&gt;with&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438337&lt;/td&gt;
+&lt;td&gt;17&lt;/td&gt;
+&lt;td&gt;בלעדי&lt;/td&gt;
+&lt;td&gt;without&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1443082&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;במו&lt;/td&gt;
+&lt;td&gt;in&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1444752&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;למו&lt;/td&gt;
+&lt;td&gt;to&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1445487&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;ית&lt;/td&gt;
+&lt;td&gt;&amp;lt;nota accusativi&amp;gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1445919&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;לות&lt;/td&gt;
+&lt;td&gt;with&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Fair enough, this is a good starting point to learn some words.&lt;/p&gt;
+&lt;h3 id=&#34;most-frequent-names--names-and-cities&#34;&gt;Most frequent names (names and cities)&lt;/h3&gt;
+&lt;p&gt;Now lets see the 30 most cited names in scriptures&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;df_nmpr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;get_lexeme_by_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;nmpr&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;print_df&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pp_sorted_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;df_nmpr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;w&lt;/th&gt;
+&lt;th&gt;freq_lex&lt;/th&gt;
+&lt;th&gt;lex_utf8&lt;/th&gt;
+&lt;th&gt;gloss&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1437714&lt;/td&gt;
+&lt;td&gt;6828&lt;/td&gt;
+&lt;td&gt;יהוה֜&lt;/td&gt;
+&lt;td&gt;YHWH&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438941&lt;/td&gt;
+&lt;td&gt;2506&lt;/td&gt;
+&lt;td&gt;ישׂראל֜&lt;/td&gt;
+&lt;td&gt;Israel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1441856&lt;/td&gt;
+&lt;td&gt;1075&lt;/td&gt;
+&lt;td&gt;דוד֜&lt;/td&gt;
+&lt;td&gt;David&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438822&lt;/td&gt;
+&lt;td&gt;819&lt;/td&gt;
+&lt;td&gt;יהודה֜&lt;/td&gt;
+&lt;td&gt;Judah&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1439439&lt;/td&gt;
+&lt;td&gt;766&lt;/td&gt;
+&lt;td&gt;משׁה֜&lt;/td&gt;
+&lt;td&gt;Moses&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438103&lt;/td&gt;
+&lt;td&gt;681&lt;/td&gt;
+&lt;td&gt;מצרים֜&lt;/td&gt;
+&lt;td&gt;Egypt&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1441150&lt;/td&gt;
+&lt;td&gt;643&lt;/td&gt;
+&lt;td&gt;ירושׁלם֜&lt;/td&gt;
+&lt;td&gt;Jerusalem&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438343&lt;/td&gt;
+&lt;td&gt;438&lt;/td&gt;
+&lt;td&gt;אדני֜&lt;/td&gt;
+&lt;td&gt;Lord&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1439060&lt;/td&gt;
+&lt;td&gt;406&lt;/td&gt;
+&lt;td&gt;שׁאול֜&lt;/td&gt;
+&lt;td&gt;Saul&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438702&lt;/td&gt;
+&lt;td&gt;349&lt;/td&gt;
+&lt;td&gt;יעקב֜&lt;/td&gt;
+&lt;td&gt;Jacob&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1439473&lt;/td&gt;
+&lt;td&gt;347&lt;/td&gt;
+&lt;td&gt;אהרן֜&lt;/td&gt;
+&lt;td&gt;Aaron&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1442014&lt;/td&gt;
+&lt;td&gt;293&lt;/td&gt;
+&lt;td&gt;שׁלמה֜&lt;/td&gt;
+&lt;td&gt;Solomon&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438115&lt;/td&gt;
+&lt;td&gt;262&lt;/td&gt;
+&lt;td&gt;בבל֜&lt;/td&gt;
+&lt;td&gt;Babel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1439714&lt;/td&gt;
+&lt;td&gt;218&lt;/td&gt;
+&lt;td&gt;יהושׁע֜&lt;/td&gt;
+&lt;td&gt;Joshua&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438843&lt;/td&gt;
+&lt;td&gt;213&lt;/td&gt;
+&lt;td&gt;יוסף֜&lt;/td&gt;
+&lt;td&gt;Joseph&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438262&lt;/td&gt;
+&lt;td&gt;182&lt;/td&gt;
+&lt;td&gt;ירדן֜&lt;/td&gt;
+&lt;td&gt;Jordan&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1439203&lt;/td&gt;
+&lt;td&gt;180&lt;/td&gt;
+&lt;td&gt;אפרים֜&lt;/td&gt;
+&lt;td&gt;Ephraim&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438512&lt;/td&gt;
+&lt;td&gt;180&lt;/td&gt;
+&lt;td&gt;מואב֜&lt;/td&gt;
+&lt;td&gt;Moab&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438408&lt;/td&gt;
+&lt;td&gt;175&lt;/td&gt;
+&lt;td&gt;אברהם֜&lt;/td&gt;
+&lt;td&gt;Abraham&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1439001&lt;/td&gt;
+&lt;td&gt;166&lt;/td&gt;
+&lt;td&gt;בנימן֜&lt;/td&gt;
+&lt;td&gt;Benjamin&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1442009&lt;/td&gt;
+&lt;td&gt;154&lt;/td&gt;
+&lt;td&gt;ציון֜&lt;/td&gt;
+&lt;td&gt;Zion&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1437762&lt;/td&gt;
+&lt;td&gt;151&lt;/td&gt;
+&lt;td&gt;אשׁור֜&lt;/td&gt;
+&lt;td&gt;Asshur&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438157&lt;/td&gt;
+&lt;td&gt;149&lt;/td&gt;
+&lt;td&gt;ארם֜&lt;/td&gt;
+&lt;td&gt;Aram&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1439200&lt;/td&gt;
+&lt;td&gt;146&lt;/td&gt;
+&lt;td&gt;מנשׁה֜&lt;/td&gt;
+&lt;td&gt;Manasseh&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1441940&lt;/td&gt;
+&lt;td&gt;145&lt;/td&gt;
+&lt;td&gt;יואב֜&lt;/td&gt;
+&lt;td&gt;Joab&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1440774&lt;/td&gt;
+&lt;td&gt;140&lt;/td&gt;
+&lt;td&gt;שׁמואל֜&lt;/td&gt;
+&lt;td&gt;Samuel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1438890&lt;/td&gt;
+&lt;td&gt;134&lt;/td&gt;
+&lt;td&gt;גלעד֜&lt;/td&gt;
+&lt;td&gt;Gilead&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1442693&lt;/td&gt;
+&lt;td&gt;129&lt;/td&gt;
+&lt;td&gt;ירמיהו֜&lt;/td&gt;
+&lt;td&gt;Jeremiah&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1442394&lt;/td&gt;
+&lt;td&gt;109&lt;/td&gt;
+&lt;td&gt;שׁמרון֜&lt;/td&gt;
+&lt;td&gt;Samaria&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1441986&lt;/td&gt;
+&lt;td&gt;109&lt;/td&gt;
+&lt;td&gt;אבשׁלום֜&lt;/td&gt;
+&lt;td&gt;Absalom&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;And now lets generate a cloud image for in the Hebrew&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/bhs_nmpr_heb_cloud.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;And also a cloud image for the English translations of those names&lt;/p&gt;
+
+
+
+&lt;figure&gt;
+    
+        &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/bhs_nmpr_eng_cloud.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;To me this is very exciting, with just some lines of code (and of course
+standing in the shoulders of giants that made TF possible and the BHSA dataset),
+we are able to perform simple tasks like this.&lt;/p&gt;
+&lt;h3 id=&#34;most-frequent-verbs&#34;&gt;Most frequent verbs&lt;/h3&gt;
+&lt;p&gt;I want more, so lets repeat the same procedure but with verbs now. And lets increase the amount of verbs to 100 verbs sorted by frequency.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;df_verbs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;get_lexeme_by_type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;verb&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;df_cloud&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;df_verbs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort_values&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;by&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;freq_lex&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ascending&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;False&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;print_df&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pp_sorted_df&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;df_cloud&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;w&lt;/th&gt;
+&lt;th&gt;freq_lex&lt;/th&gt;
 &lt;th&gt;lex_utf8&lt;/th&gt;
 &lt;th&gt;gloss&lt;/th&gt;
 &lt;/tr&gt;
@@ -259,828 +570,684 @@ tense (perf, impf, wayq) and gender (m, f) among other information.&lt;/p&gt;
 &lt;tr&gt;
 &lt;td&gt;1437621&lt;/td&gt;
 &lt;td&gt;5307&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;אמר&lt;/td&gt;
 &lt;td&gt;say&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437611&lt;/td&gt;
 &lt;td&gt;3561&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;היה&lt;/td&gt;
 &lt;td&gt;be&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437637&lt;/td&gt;
 &lt;td&gt;2629&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;עשׂה&lt;/td&gt;
 &lt;td&gt;make&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437773&lt;/td&gt;
 &lt;td&gt;2570&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;בוא&lt;/td&gt;
 &lt;td&gt;come&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437669&lt;/td&gt;
 &lt;td&gt;2010&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נתן&lt;/td&gt;
 &lt;td&gt;give&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437760&lt;/td&gt;
 &lt;td&gt;1547&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;הלך&lt;/td&gt;
 &lt;td&gt;walk&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437623&lt;/td&gt;
 &lt;td&gt;1298&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ראה&lt;/td&gt;
 &lt;td&gt;see&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437812&lt;/td&gt;
 &lt;td&gt;1159&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁמע&lt;/td&gt;
 &lt;td&gt;hear&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438048&lt;/td&gt;
 &lt;td&gt;1138&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;דבר&lt;/td&gt;
 &lt;td&gt;speak&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437900&lt;/td&gt;
 &lt;td&gt;1082&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ישׁב&lt;/td&gt;
 &lt;td&gt;sit&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437657&lt;/td&gt;
 &lt;td&gt;1068&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;יצא&lt;/td&gt;
 &lt;td&gt;go out&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437844&lt;/td&gt;
 &lt;td&gt;1038&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁוב&lt;/td&gt;
 &lt;td&gt;return&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437764&lt;/td&gt;
 &lt;td&gt;965&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;לקח&lt;/td&gt;
 &lt;td&gt;take&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437799&lt;/td&gt;
 &lt;td&gt;944&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ידע&lt;/td&gt;
 &lt;td&gt;know&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437724&lt;/td&gt;
 &lt;td&gt;890&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;עלה&lt;/td&gt;
 &lt;td&gt;ascend&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437851&lt;/td&gt;
 &lt;td&gt;847&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁלח&lt;/td&gt;
 &lt;td&gt;send&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437769&lt;/td&gt;
 &lt;td&gt;835&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;מות&lt;/td&gt;
 &lt;td&gt;die&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437768&lt;/td&gt;
 &lt;td&gt;810&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;אכל&lt;/td&gt;
 &lt;td&gt;eat&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437628&lt;/td&gt;
 &lt;td&gt;732&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;קרא&lt;/td&gt;
 &lt;td&gt;call&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437894&lt;/td&gt;
 &lt;td&gt;653&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נשׂא&lt;/td&gt;
 &lt;td&gt;lift&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437884&lt;/td&gt;
 &lt;td&gt;629&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;קום&lt;/td&gt;
 &lt;td&gt;arise&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437736&lt;/td&gt;
 &lt;td&gt;583&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׂים&lt;/td&gt;
 &lt;td&gt;put&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438023&lt;/td&gt;
 &lt;td&gt;548&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;עבר&lt;/td&gt;
 &lt;td&gt;pass&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438442&lt;/td&gt;
 &lt;td&gt;521&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;עמד&lt;/td&gt;
 &lt;td&gt;stand&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437899&lt;/td&gt;
 &lt;td&gt;500&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נכה&lt;/td&gt;
 &lt;td&gt;strike&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437767&lt;/td&gt;
 &lt;td&gt;494&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;צוה&lt;/td&gt;
 &lt;td&gt;command&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437835&lt;/td&gt;
 &lt;td&gt;492&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ילד&lt;/td&gt;
 &lt;td&gt;bear&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437766&lt;/td&gt;
 &lt;td&gt;468&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁמר&lt;/td&gt;
 &lt;td&gt;keep&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437775&lt;/td&gt;
 &lt;td&gt;453&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;מצא&lt;/td&gt;
 &lt;td&gt;find&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437776&lt;/td&gt;
 &lt;td&gt;434&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נפל&lt;/td&gt;
 &lt;td&gt;fall&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438193&lt;/td&gt;
 &lt;td&gt;377&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ירד&lt;/td&gt;
 &lt;td&gt;descend&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437782&lt;/td&gt;
 &lt;td&gt;376&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;בנה&lt;/td&gt;
 &lt;td&gt;build&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437819&lt;/td&gt;
 &lt;td&gt;370&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נגד&lt;/td&gt;
 &lt;td&gt;report&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1439047&lt;/td&gt;
 &lt;td&gt;347&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;מלך&lt;/td&gt;
 &lt;td&gt;be king&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437816&lt;/td&gt;
 &lt;td&gt;332&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ירא&lt;/td&gt;
 &lt;td&gt;fear&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437682&lt;/td&gt;
 &lt;td&gt;327&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ברך&lt;/td&gt;
 &lt;td&gt;bless&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438467&lt;/td&gt;
 &lt;td&gt;316&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ענה&lt;/td&gt;
 &lt;td&gt;answer&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438536&lt;/td&gt;
 &lt;td&gt;303&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;פקד&lt;/td&gt;
 &lt;td&gt;miss&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438046&lt;/td&gt;
 &lt;td&gt;297&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;סור&lt;/td&gt;
 &lt;td&gt;turn aside&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437685&lt;/td&gt;
 &lt;td&gt;292&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;מלא&lt;/td&gt;
 &lt;td&gt;be full&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438495&lt;/td&gt;
 &lt;td&gt;290&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;חזק&lt;/td&gt;
 &lt;td&gt;be strong&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438067&lt;/td&gt;
 &lt;td&gt;288&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;כרת&lt;/td&gt;
 &lt;td&gt;cut&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437722&lt;/td&gt;
 &lt;td&gt;288&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;עבד&lt;/td&gt;
 &lt;td&gt;work, serve&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437853&lt;/td&gt;
 &lt;td&gt;283&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;חיה&lt;/td&gt;
 &lt;td&gt;be alive&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438581&lt;/td&gt;
 &lt;td&gt;283&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;איב&lt;/td&gt;
 &lt;td&gt;be hostile&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438231&lt;/td&gt;
 &lt;td&gt;281&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;קרב&lt;/td&gt;
 &lt;td&gt;approach&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438522&lt;/td&gt;
 &lt;td&gt;237&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;חטא&lt;/td&gt;
 &lt;td&gt;miss&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438022&lt;/td&gt;
 &lt;td&gt;231&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;זכר&lt;/td&gt;
 &lt;td&gt;remember&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438347&lt;/td&gt;
 &lt;td&gt;231&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ירשׁ&lt;/td&gt;
 &lt;td&gt;trample down&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438906&lt;/td&gt;
 &lt;td&gt;225&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;בקשׁ&lt;/td&gt;
 &lt;td&gt;seek&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437684&lt;/td&gt;
 &lt;td&gt;224&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;רבה&lt;/td&gt;
 &lt;td&gt;be many&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1439718&lt;/td&gt;
 &lt;td&gt;223&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;כתב&lt;/td&gt;
 &lt;td&gt;write&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438074&lt;/td&gt;
 &lt;td&gt;217&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁתה&lt;/td&gt;
 &lt;td&gt;drink&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1439180&lt;/td&gt;
 &lt;td&gt;216&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;כון&lt;/td&gt;
 &lt;td&gt;be firm&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438225&lt;/td&gt;
 &lt;td&gt;214&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נטה&lt;/td&gt;
 &lt;td&gt;extend&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437788&lt;/td&gt;
 &lt;td&gt;214&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;עזב&lt;/td&gt;
 &lt;td&gt;leave&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438878&lt;/td&gt;
 &lt;td&gt;213&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נצל&lt;/td&gt;
 &lt;td&gt;deliver&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438479&lt;/td&gt;
 &lt;td&gt;212&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁכב&lt;/td&gt;
 &lt;td&gt;lie down&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437866&lt;/td&gt;
 &lt;td&gt;212&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;יסף&lt;/td&gt;
 &lt;td&gt;add&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438565&lt;/td&gt;
 &lt;td&gt;211&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;אהב&lt;/td&gt;
 &lt;td&gt;love&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437706&lt;/td&gt;
 &lt;td&gt;206&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;כלה&lt;/td&gt;
 &lt;td&gt;be complete&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1439443&lt;/td&gt;
 &lt;td&gt;205&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;ישׁע&lt;/td&gt;
 &lt;td&gt;help&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438002&lt;/td&gt;
 &lt;td&gt;204&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;אסף&lt;/td&gt;
 &lt;td&gt;gather&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438392&lt;/td&gt;
 &lt;td&gt;202&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁפט&lt;/td&gt;
 &lt;td&gt;judge&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438251&lt;/td&gt;
 &lt;td&gt;193&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;יכל&lt;/td&gt;
 &lt;td&gt;be able&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438014&lt;/td&gt;
 &lt;td&gt;188&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;רום&lt;/td&gt;
 &lt;td&gt;be high&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438077&lt;/td&gt;
 &lt;td&gt;188&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;גלה&lt;/td&gt;
 &lt;td&gt;uncover&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1439563&lt;/td&gt;
 &lt;td&gt;186&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;אבד&lt;/td&gt;
 &lt;td&gt;perish&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438554&lt;/td&gt;
 &lt;td&gt;185&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁבע&lt;/td&gt;
 &lt;td&gt;swear&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1439420&lt;/td&gt;
 &lt;td&gt;171&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;לחם&lt;/td&gt;
 &lt;td&gt;fight&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438643&lt;/td&gt;
 &lt;td&gt;171&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁאל&lt;/td&gt;
 &lt;td&gt;ask&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437711&lt;/td&gt;
 &lt;td&gt;171&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;קדשׁ&lt;/td&gt;
 &lt;td&gt;be holy&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438427&lt;/td&gt;
 &lt;td&gt;170&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;חוה&lt;/td&gt;
 &lt;td&gt;bow down&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1439181&lt;/td&gt;
 &lt;td&gt;170&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;בין&lt;/td&gt;
 &lt;td&gt;understand&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437962&lt;/td&gt;
 &lt;td&gt;169&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;בחר&lt;/td&gt;
 &lt;td&gt;examine&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437869&lt;/td&gt;
 &lt;td&gt;168&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;רעה&lt;/td&gt;
 &lt;td&gt;pasture&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437885&lt;/td&gt;
 &lt;td&gt;167&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;הרג&lt;/td&gt;
 &lt;td&gt;kill&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438064&lt;/td&gt;
 &lt;td&gt;164&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;דרשׁ&lt;/td&gt;
 &lt;td&gt;inquire&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438964&lt;/td&gt;
 &lt;td&gt;162&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;טמא&lt;/td&gt;
 &lt;td&gt;be unclean&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437750&lt;/td&gt;
 &lt;td&gt;161&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;סבב&lt;/td&gt;
 &lt;td&gt;turn&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438306&lt;/td&gt;
 &lt;td&gt;159&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נוס&lt;/td&gt;
 &lt;td&gt;flee&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1439475&lt;/td&gt;
 &lt;td&gt;154&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׂמח&lt;/td&gt;
 &lt;td&gt;rejoice&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438016&lt;/td&gt;
 &lt;td&gt;152&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;כסה&lt;/td&gt;
 &lt;td&gt;cover&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437797&lt;/td&gt;
 &lt;td&gt;150&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נגע&lt;/td&gt;
 &lt;td&gt;touch&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438486&lt;/td&gt;
 &lt;td&gt;147&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁבר&lt;/td&gt;
 &lt;td&gt;break&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438240&lt;/td&gt;
 &lt;td&gt;146&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;הלל&lt;/td&gt;
 &lt;td&gt;praise&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438652&lt;/td&gt;
 &lt;td&gt;146&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׂנא&lt;/td&gt;
 &lt;td&gt;hate&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438182&lt;/td&gt;
 &lt;td&gt;146&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נסע&lt;/td&gt;
 &lt;td&gt;pull out&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437981&lt;/td&gt;
 &lt;td&gt;145&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁחת&lt;/td&gt;
 &lt;td&gt;destroy&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438318&lt;/td&gt;
 &lt;td&gt;143&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;רדף&lt;/td&gt;
 &lt;td&gt;pursue&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438727&lt;/td&gt;
 &lt;td&gt;143&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;חנה&lt;/td&gt;
 &lt;td&gt;encamp&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437765&lt;/td&gt;
 &lt;td&gt;141&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;נוח&lt;/td&gt;
 &lt;td&gt;settle&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438323&lt;/td&gt;
 &lt;td&gt;140&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;קרא&lt;/td&gt;
 &lt;td&gt;encounter&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438461&lt;/td&gt;
 &lt;td&gt;135&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;פנה&lt;/td&gt;
 &lt;td&gt;turn&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438010&lt;/td&gt;
 &lt;td&gt;135&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;פתח&lt;/td&gt;
 &lt;td&gt;open&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437937&lt;/td&gt;
 &lt;td&gt;134&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;חלל&lt;/td&gt;
 &lt;td&gt;defile&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438923&lt;/td&gt;
 &lt;td&gt;134&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;זבח&lt;/td&gt;
 &lt;td&gt;slaughter&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438373&lt;/td&gt;
 &lt;td&gt;133&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;קבר&lt;/td&gt;
 &lt;td&gt;bury&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1438020&lt;/td&gt;
 &lt;td&gt;133&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁאר&lt;/td&gt;
 &lt;td&gt;remain&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;1437856&lt;/td&gt;
 &lt;td&gt;129&lt;/td&gt;
-&lt;td&gt;verb&lt;/td&gt;
 &lt;td&gt;שׁכן&lt;/td&gt;
 &lt;td&gt;dwell&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;Here we can see the id of the lexeme (w), the frequency (freq_lex), the utf8
-representation of the word without vowel pointing and the english meaning used
+representation of the word without vowel &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; pointing and the english meaning used
 for the translation. All automatically, pretty cool isn&amp;rsquo;t it?&lt;/p&gt;
-&lt;!--list-separator--&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Top 12 verbs with strongs&lt;/p&gt;
-&lt;p&gt;Out of those, I wanted to map also the pronunciation, Strong numbers and the
-full meaning from BLB so I created this table. Note that the strong number as
-the pronunciation are just probable, since I am working with lexemes rather than
-words.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Pronun.&lt;/th&gt;
-&lt;th&gt;Word&lt;/th&gt;
-&lt;th&gt;Qty&lt;/th&gt;
-&lt;th&gt;Meaning&lt;/th&gt;
-&lt;th&gt;Strongs&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;aw-mar&#39;&lt;/td&gt;
-&lt;td&gt;אמר&lt;/td&gt;
-&lt;td&gt;5379&lt;/td&gt;
-&lt;td&gt;To say, speak, utter&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h559/kjv/wlc/0-1/&#34;&gt;H559&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;haw-yaw&lt;/td&gt;
-&lt;td&gt;היה&lt;/td&gt;
-&lt;td&gt;3561&lt;/td&gt;
-&lt;td&gt;to be, become, come to pass, exist, happen, fall out&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1961/kjv/wlc/0-1/&#34;&gt;H1961&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;aw-saw&#39;&lt;/td&gt;
-&lt;td&gt;עשׂה&lt;/td&gt;
-&lt;td&gt;2629&lt;/td&gt;
-&lt;td&gt;to do, fashion, accomplish, make&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h6213/kjv/wlc/0-1/&#34;&gt;H6213&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;bo&lt;/td&gt;
-&lt;td&gt;בוא&lt;/td&gt;
-&lt;td&gt;2570&lt;/td&gt;
-&lt;td&gt;to go in, enter, come, go, come in&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h935/kjv/wlc/0-1/&#34;&gt;H935&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;naw-than&#39;&lt;/td&gt;
-&lt;td&gt;נתן&lt;/td&gt;
-&lt;td&gt;2017&lt;/td&gt;
-&lt;td&gt;to give, put, set&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h5414/kjv/wlc/0-1/&#34;&gt;H5414&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;haw-lak&#39;&lt;/td&gt;
-&lt;td&gt;הלך&lt;/td&gt;
-&lt;td&gt;1554&lt;/td&gt;
-&lt;td&gt;to go, walk, come&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1980/kjv/wlc/0-1/&#34;&gt;H1980&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;raw-aw&#39;&lt;/td&gt;
-&lt;td&gt;ראה&lt;/td&gt;
-&lt;td&gt;1298&lt;/td&gt;
-&lt;td&gt;to see, look at, inspect, perceive, consider&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h7200/kjv/wlc/0-1/&#34;&gt;H7200&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;shaw-mah&#39;&lt;/td&gt;
-&lt;td&gt;שׁמע&lt;/td&gt;
-&lt;td&gt;1168&lt;/td&gt;
-&lt;td&gt;to hear, listen to, obey&lt;/td&gt;
-&lt;td&gt;WLC &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h8085/wlc/wlc/0-1/&#34;&gt;H885&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;daw-bar&#39;&lt;/td&gt;
-&lt;td&gt;דבר&lt;/td&gt;
-&lt;td&gt;1143&lt;/td&gt;
-&lt;td&gt;to speak, command, promise, warn, threaten, sing&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h1696/kjv/wlc/0-1/&#34;&gt;H1696&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;yaw-shab&#39;&lt;/td&gt;
-&lt;td&gt;ישׁב&lt;/td&gt;
-&lt;td&gt;1082&lt;/td&gt;
-&lt;td&gt;to dwell, remain, sit, abide&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3427/kjv/wlc/0-1/&#34;&gt;H3427&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;yaw-tsaw&#39;&lt;/td&gt;
-&lt;td&gt;יצא&lt;/td&gt;
-&lt;td&gt;1069&lt;/td&gt;
-&lt;td&gt;to go out, come out, exit, go forth&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h3318/kjv/wlc/0-1/&#34;&gt;H3318&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;shoob&lt;/td&gt;
-&lt;td&gt;שׁוב&lt;/td&gt;
-&lt;td&gt;1056&lt;/td&gt;
-&lt;td&gt;to return, turn back&lt;/td&gt;
-&lt;td&gt;KJV &lt;a href=&#34;https://www.blueletterbible.org/lexicon/h7725/kjv/wlc/0-1/&#34;&gt;H7725&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;I made this list by hand, which is not very practical for automation, so I
-wonder if there is a better way to get the Strong numbers automatically. I don&amp;rsquo;t
-have an answer for this at this time, but this repository looks promising:
-&lt;a href=&#34;https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv&#34;&gt;https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I still have some work that is not documented, so this is work in progress. I am
-still learning how to properly use TF&amp;rsquo;s API.&lt;/p&gt;
-&lt;p&gt;As a side note I also found word by word on BHS 5th edition here:
-&lt;a href=&#34;https://github.com/eliranwong/MP3_BHS5_word-by-word&#34;&gt;https://github.com/eliranwong/MP3_BHS5_word-by-word&lt;/a&gt;. I am very excited about
-this finding. Also it is worthwhile checking out this:
-&lt;a href=&#34;https://github.com/eliranwong/UniqueBible&#34;&gt;https://github.com/eliranwong/UniqueBible&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;: I will have to double check this. What I understood from the
+documentation of the API is that the lexemes do not have vowel pointing, however
+the shin/sin seems to have diacritics so I had to remove the diacritics of each
+word, because the word cloud was not properly rendered with diacritics.&lt;/p&gt;
+&lt;p&gt;Now lets create word clouds out of those verbs.&lt;/p&gt;
+&lt;p&gt;First, the top 30 verbs in Hebrew:&lt;/p&gt;
+
+    
+    
+    &lt;figure&gt;
+        
+            &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/bhs_verb_30_heb_cloud.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;Now lets try the 50 most common verbs in Hebrew:&lt;/p&gt;
+
+    
+    
+    &lt;figure&gt;
+        
+            &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/bhs_verb_50_heb_cloud.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;And now lets increase the amount to 100 verbs in Hebrew:&lt;/p&gt;
+
+    
+    
+    &lt;figure&gt;
+        
+            &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/bhs_verb_100_heb_cloud.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;Now lets generate a cloud words image for the top 30 verbs in English:&lt;/p&gt;
+
+    
+    
+    &lt;figure&gt;
+        
+            &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/bhs_verb_30_eng_cloud.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;Similarly, for the 50 top verbs in English:&lt;/p&gt;
+
+    
+    
+    &lt;figure&gt;
+        
+            &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/bhs_verb_50_eng_cloud.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;And finally, the top 100 top verbs in English:&lt;/p&gt;
+
+    
+    
+    &lt;figure&gt;
+        
+            &lt;img src=&#34;https://albertdelafuente.com/ox-hugo/bhs_verb_100_eng_cloud.png&#34;/&gt; &lt;/figure&gt;
+
+&lt;p&gt;I have noticed something &amp;ldquo;unexpected&amp;rdquo; here. The word &amp;ldquo;Turn&amp;rdquo; is the bigger one in
+english, yet is not the most frequent word in the table. Why is that? Although I
+am not completely sure about it, I believe it is due that it appears twice on
+the list, and I have not taken that into account. This doesn&amp;rsquo;t happen with the
+Hebrew words since the frequncy would already be increaced in the &lt;code&gt;freq_lex&lt;/code&gt;
+column.&lt;/p&gt;
+&lt;p&gt;To solve this, I would probably have to parse the pandas dataframe to manually
+sum the frequencies of the same word. But I won&amp;rsquo;t do that right now since I am
+more curious about exploring other words.&lt;/p&gt;
+&lt;p&gt;Furthermore, the &amp;ldquo;mistake&amp;rdquo; is rather interesting and I believe it speaks volumes
+in itself, since I truly believe that the will of the heart of our Father goes
+towards teshuva indeed, turn of our own ways. Seeing this unexpected event was
+rather interesting to me.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
 </description>
                 
-                        <author>Albert.De.La.Fuente.Vigliotti@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente Vigliotti)</author>
+                        <author>Albert.De.La.Fuente@fakeEmailToMakeValidatorHappy.com (Albert De La Fuente)</author>
                 
                      
                         
@@ -1115,7 +1282,7 @@ this finding. Also it is worthwhile checking out this:
                     
                 
                 <guid>https://albertdelafuente.com/posts/bhs/</guid>
-                <pubDate>Mon, 14 Aug 2023 23:02:17 -0300</pubDate>
+                <pubDate>Thu, 17 Aug 2023 13:39:02 -0300</pubDate>
             </item>
         
             

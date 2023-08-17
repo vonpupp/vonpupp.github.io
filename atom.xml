@@ -10,7 +10,7 @@
             <link href="https://albertdelafuente.com/index.xml" rel="alternate" type="application/rss+xml" title="rss" />
             <link href="https://albertdelafuente.com/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
             <link href="https://albertdelafuente.com/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
-    <updated>2023-08-14T23:03:14-03:00</updated>
+    <updated>2023-08-17T13:39:36-03:00</updated>
     
     
     <author>
@@ -36,33 +36,35 @@
             
             
                     <author>
-                        <name>Albert De La Fuente Vigliotti</name>
+                        <name>Albert De La Fuente</name>
                     </author>
-            <published>2023-08-14T23:02:17-03:00</published>
-            <updated>2023-08-14T23:02:17-03:00</updated>
+            <published>2023-08-17T13:39:02-03:00</published>
+            <updated>2023-08-17T13:39:02-03:00</updated>
             
             
             <content type="html"><![CDATA[<p>I am very curious about Hebrew, specially the way the language is hierarchically
-designed. Three letter words are commonly known as trilateral roots and the rest
-of the words are variation of these three letters and categorized under the same
-family. I am not going to get into these details since it is not the scope of
+designed. Put very simply, three letter words are commonly known as trilateral
+roots and the rest of the words are variation of these three letters having a
+common root word and having related meaning somehow, thus creating a &ldquo;family&rdquo; if
+you will. I am not going to get into these details since it is not the scope of
 this post.</p>
 <p>Long story short, the journey of trying to learn Hebrew started probably between
 2006 to 2008 and I haven&rsquo;t had much success at it. Or lets say that the
-expectations don&rsquo;t match reality =P. So I thought that I could try to somehow
-start with the most common words in the scriptures and that is what motivated <a href="/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/">to
-parse the Aleppo codex and analyze its content in python</a>. I quickly learned
-that my approach was rather naive given the prefixes that causes variations to
-the words, even thought the meaning of the word itself is the same.</p>
+expectations don&rsquo;t match reality due to lack of consistent effort on my side.</p>
+<p>I thought that I could try to somehow start with the most common words in the
+scriptures and that is what motivated <a href="/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/">to parse the Aleppo codex and analyze its
+content in python</a>. I quickly learned that my approach was rather naive given
+the prefixes that causes variations to the words, even thought the meaning of
+the word itself is the same.</p>
 <p>This blog post is a second attempt to tackle the same problem but with a more
-sophisticated linguistic approach using Text Fabric.</p>
+sophisticated and accurate approach using Text Fabric.</p>
 <p>A corpus of ancient texts and (linguistic) annotations represents a large body
 of knowledge.</p>
 <p>Text-Fabric is a Python package for processing and access a corpus of ancient
 text and linguistic annotations. In this specific case I am using the Hebrew
 Bible Database, containing the text of the Hebrew Bible augmented with
 linguistic annotations compiled by the Eep Talstra Centre for Bible and
-Computer, VU University Amsterdam.</p>
+Computer from the VU University Amsterdam.</p>
 <p>The text is based on the Biblia Hebraica Stuttgartensia edited by Karl Elliger
 and Wilhelm Rudolph, Fifth Revised Edition, edited by Adrian Schenker, © 1977
 and 1997 Deutsche Bibelgesellschaft, Stuttgart.</p>
@@ -71,9 +73,15 @@ Networked Services, with thanks to Martijn Naaijer, Cody Kingham, and
 Constantijn Sikkel.</p>
 <p>It is amazing to see the work these researchers did compiling all this data and
 making it public for free. I am very thankful for it.</p>
-<p>I am using a literate programming approach with Doom Emacs and org-mode.</p>
+<p>I am using a literate programming approach with Doom Emacs and org-mode. This
+blog post is a bit more technical oriented. So it is okay if you pass through
+the code or if you don&rsquo;t understand some of it.</p>
 <h2 id="create-the-virtual-environment">Create the virtual environment</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">virtualenv ~/.workon-home/venv-textfabric
+<p>This snippet will create a virtual environment and install some libs. Due to
+some incompatibilities with the word cloud lib, I had to downgrate do Python
+3.6.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#virtualenv ~/.workon-home/venv-textfabric</span>
+</span></span><span class="line"><span class="cl">virtualenv --python<span class="o">=</span>/usr/bin/python3.6 ~/.workon-home/venv-textfabric
 </span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/.workon-home/venv-textfabric
 </span></span><span class="line"><span class="cl"><span class="nb">source</span> ./bin/activate.fish
 </span></span><span class="line"><span class="cl">pip install text-fabric pandas requests
@@ -106,117 +114,33 @@ literate programming the output of the blocks will follow the code.</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Done&#34;</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">**Locating corpus resources ...**
-</span></span><span class="line"><span class="cl">app: ~/text-fabric-data/github/ETCBC/bhsa/app
-</span></span><span class="line"><span class="cl">data: ~/text-fabric-data/github/ETCBC/bhsa/tf/2021
-</span></span><span class="line"><span class="cl">data: ~/text-fabric-data/github/ETCBC/phono/tf/2021
-</span></span><span class="line"><span class="cl">data: ~/text-fabric-data/github/ETCBC/parallels/tf/2021
-</span></span><span class="line"><span class="cl">Text-Fabric:
-</span></span><span class="line"><span class="cl">	Text-Fabric API 12.0.5 =&gt; https:/annotation.github.io/text-fabric/tf/cheatsheet.html
-</span></span><span class="line"><span class="cl">	ETCBC/bhsa/app  v3 =&gt; https:/github.com/ETCBC/bhsa/blob/master/app
-</span></span><span class="line"><span class="cl">	Search Reference =&gt; https:/annotation.github.io/text-fabric/tf/about/searchusage.html
-</span></span><span class="line"><span class="cl">Data:
-</span></span><span class="line"><span class="cl">	ETCBC - bhsa 2021 =&gt; https:/ETCBC.github.io/bhsa/
-</span></span><span class="line"><span class="cl">	Character table =&gt; https:/annotation.github.io/text-fabric/tf/writing/hebrew.html
-</span></span><span class="line"><span class="cl">	Feature docs =&gt; https:/ETCBC.github.io/bhsa/features/0_home
-</span></span><span class="line"><span class="cl">Node types:
-</span></span><span class="line"><span class="cl">book                      39 10938.21 =     100
-</span></span><span class="line"><span class="cl">chapter                  929   459.19 =     100
-</span></span><span class="line"><span class="cl">lex                     9230    46.22 =     100
-</span></span><span class="line"><span class="cl">verse                  23213    18.38 =     100
-</span></span><span class="line"><span class="cl">half_verse             45179     9.44 =     100
-</span></span><span class="line"><span class="cl">sentence               63717     6.70 =     100
-</span></span><span class="line"><span class="cl">sentence_atom          64514     6.61 =     100
-</span></span><span class="line"><span class="cl">clause                 88131     4.84 =     100
-</span></span><span class="line"><span class="cl">clause_atom            90704     4.70 =     100
-</span></span><span class="line"><span class="cl">phrase                253203     1.68 =     100
-</span></span><span class="line"><span class="cl">phrase_atom           267532     1.59 =     100
-</span></span><span class="line"><span class="cl">subphrase             113850     1.42        38
-</span></span><span class="line"><span class="cl">*word*                426590     1.00 =     100
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;IPython.core.display.HTML object&gt;
+</span></span><span class="line"><span class="cl">&lt;IPython.core.display.HTML object&gt;
+</span></span><span class="line"><span class="cl">&lt;IPython.core.display.HTML object&gt;
+</span></span><span class="line"><span class="cl">&lt;IPython.core.display.HTML object&gt;
+</span></span><span class="line"><span class="cl">This is Text-Fabric 9.5.2
+</span></span><span class="line"><span class="cl">Api reference : https://annotation.github.io/text-fabric/tf/cheatsheet.html
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> Sets:
-</span></span><span class="line"><span class="cl"> Features:
-</span></span><span class="line"><span class="cl">Parallel Passages
-</span></span><span class="line"><span class="cl">	crossref             🆗 links between similar passages
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">BHSA = Biblia Hebraica Stuttgartensia Amstelodamensis
-</span></span><span class="line"><span class="cl">	book                 ✅ book name in Latin (Genesis; Numeri; Reges1; ...)
-</span></span><span class="line"><span class="cl">	book@ll              ✅ book name in amharic (ኣማርኛ)
-</span></span><span class="line"><span class="cl">	chapter              ✅ chapter number (1; 2; 3; ...)
-</span></span><span class="line"><span class="cl">	code                 ✅ identifier of a clause atom relationship (0; 74; 367; ...)
-</span></span><span class="line"><span class="cl">	det                  ✅ determinedness of phrase(atom) (det; und; NA.)
-</span></span><span class="line"><span class="cl">	domain               ✅ text type of clause (? (Unknown); N (narrative); D (discursive); Q (Quotation).)
-</span></span><span class="line"><span class="cl">	freq_lex             ✅ frequency of lexemes
-</span></span><span class="line"><span class="cl">	function             ✅ syntactic function of phrase (Cmpl; Objc; Pred; ...)
-</span></span><span class="line"><span class="cl">	g_cons               ✅ word consonantal-transliterated (B R&gt;CJT BR&gt; &gt;LHJM ...)
-</span></span><span class="line"><span class="cl">	g_cons_utf8          ✅ word consonantal-Hebrew (ב ראשׁית ברא אלהים)
-</span></span><span class="line"><span class="cl">	g_lex                ✅ lexeme pointed-transliterated (B.:- R;&gt;CIJT B.@R@&gt; &gt;:ELOH ...)
-</span></span><span class="line"><span class="cl">	g_lex_utf8           ✅ lexeme pointed-Hebrew (בְּ רֵאשִׁית בָּרָא אֱלֹה)
-</span></span><span class="line"><span class="cl">	g_word               ✅ word pointed-transliterated (B.:- R;&gt;CI73JT B.@R@74&gt; &gt;:ELOHI92JM)
-</span></span><span class="line"><span class="cl">	g_word_utf8          ✅ word pointed-Hebrew (בְּ רֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים)
-</span></span><span class="line"><span class="cl">	gloss                🆗 english translation of lexeme (beginning create god(s))
-</span></span><span class="line"><span class="cl">	gn                   ✅ grammatical gender (m; f; NA; unknown.)
-</span></span><span class="line"><span class="cl">	label                ✅ (half-)verse label (half verses: A; B; C; verses:  GEN 01,02)
-</span></span><span class="line"><span class="cl">	language             ✅ of word or lexeme (Hebrew; Aramaic.)
-</span></span><span class="line"><span class="cl">	lex                  ✅ lexeme consonantal-transliterated (B R&gt;CJT/ BR&gt;[ &gt;LHJM/)
-</span></span><span class="line"><span class="cl">	lex_utf8             ✅ lexeme consonantal-Hebrew (ב ראשׁית֜ ברא אלהים֜)
-</span></span><span class="line"><span class="cl">	ls                   ✅ lexical set, subclassification of part-of-speech (card; ques; mult)
-</span></span><span class="line"><span class="cl">	nametype             ⚠️ named entity type (pers; mens; gens; topo; ppde.)
-</span></span><span class="line"><span class="cl">	nme                  ✅ nominal ending consonantal-transliterated (absent; n/a; JM, ...)
-</span></span><span class="line"><span class="cl">	nu                   ✅ grammatical number (sg; du; pl; NA; unknown.)
-</span></span><span class="line"><span class="cl">	number               ✅ sequence number of an object within its context
-</span></span><span class="line"><span class="cl">	otype
-</span></span><span class="line"><span class="cl">	pargr                🆗 hierarchical paragraph number (1; 1.2; 1.2.3.4; ...)
-</span></span><span class="line"><span class="cl">	pdp                  ✅ phrase dependent part-of-speech (art; verb; subs; nmpr, ...)
-</span></span><span class="line"><span class="cl">	pfm                  ✅ preformative consonantal-transliterated (absent; n/a; J, ...)
-</span></span><span class="line"><span class="cl">	prs                  ✅ pronominal suffix consonantal-transliterated (absent; n/a; W; ...)
-</span></span><span class="line"><span class="cl">	prs_gn               ✅ pronominal suffix gender (m; f; NA; unknown.)
-</span></span><span class="line"><span class="cl">	prs_nu               ✅ pronominal suffix number (sg; du; pl; NA; unknown.)
-</span></span><span class="line"><span class="cl">	prs_ps               ✅ pronominal suffix person (p1; p2; p3; NA; unknown.)
-</span></span><span class="line"><span class="cl">	ps                   ✅ grammatical person (p1; p2; p3; NA; unknown.)
-</span></span><span class="line"><span class="cl">	qere                 ✅ word pointed-transliterated masoretic reading correction
-</span></span><span class="line"><span class="cl">	qere_trailer         ✅ interword material -pointed-transliterated (Masoretic correction)
-</span></span><span class="line"><span class="cl">	qere_trailer_utf8    ✅ interword material -pointed-transliterated (Masoretic correction)
-</span></span><span class="line"><span class="cl">	qere_utf8            ✅ word pointed-Hebrew masoretic reading correction
-</span></span><span class="line"><span class="cl">	rank_lex             ✅ ranking of lexemes based on freqnuecy
-</span></span><span class="line"><span class="cl">	rela                 ✅ linguistic relation between clause/(sub)phrase(atom) (ADJ; MOD; ATR; ...)
-</span></span><span class="line"><span class="cl">	sp                   ✅ part-of-speech (art; verb; subs; nmpr, ...)
-</span></span><span class="line"><span class="cl">	st                   ✅ state of a noun (a (absolute); c (construct); e (emphatic).)
-</span></span><span class="line"><span class="cl">	tab                  ✅ clause atom: its level in the linguistic embedding
-</span></span><span class="line"><span class="cl">	trailer              ✅ interword material pointed-transliterated (&amp; 00 05 00_P ...)
-</span></span><span class="line"><span class="cl">	trailer_utf8         ✅ interword material pointed-Hebrew (־ ׃)
-</span></span><span class="line"><span class="cl">	txt                  ✅ text type of clause and surrounding (repetion of ? N D Q as in feature domain)
-</span></span><span class="line"><span class="cl">	typ                  ✅ clause/phrase(atom) type (VP; NP; Ellp; Ptcp; WayX)
-</span></span><span class="line"><span class="cl">	uvf                  ✅ univalent final consonant consonantal-transliterated (absent; N; J; ...)
-</span></span><span class="line"><span class="cl">	vbe                  ✅ verbal ending consonantal-transliterated (n/a; W; ...)
-</span></span><span class="line"><span class="cl">	vbs                  ✅ root formation consonantal-transliterated (absent; n/a; H; ...)
-</span></span><span class="line"><span class="cl">	verse                ✅ verse number
-</span></span><span class="line"><span class="cl">	voc_lex              ✅ vocalized lexeme pointed-transliterated (B.: R;&gt;CIJT BR&gt; &gt;:ELOHIJM)
-</span></span><span class="line"><span class="cl">	voc_lex_utf8         ✅ vocalized lexeme pointed-Hebrew (בְּ רֵאשִׁית ברא אֱלֹהִים)
-</span></span><span class="line"><span class="cl">	vs                   ✅ verbal stem (qal; piel; hif; apel; pael)
-</span></span><span class="line"><span class="cl">	vt                   ✅ verbal tense (perf; impv; wayq; infc)
-</span></span><span class="line"><span class="cl">	mother               ✅ linguistic dependency between textual objects
-</span></span><span class="line"><span class="cl">	oslots
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Phonetic Transcriptions
-</span></span><span class="line"><span class="cl">	phono                🆗 phonological transcription (bᵊ rēšˌîṯ bārˈā ʔᵉlōhˈîm)
-</span></span><span class="line"><span class="cl">	phono_trailer        🆗 interword material in phonological transcription
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">122 features found and 0 ignored
+</span></span><span class="line"><span class="cl">&lt;IPython.core.display.HTML object&gt;
+</span></span><span class="line"><span class="cl">&lt;IPython.core.display.HTML object&gt;
+</span></span><span class="line"><span class="cl">&lt;IPython.core.display.HTML object&gt;
+</span></span><span class="line"><span class="cl">&lt;IPython.core.display.HTML object&gt;
 </span></span><span class="line"><span class="cl">  0.00s counting objects ...
 </span></span><span class="line"><span class="cl">   |     0.00s      39 books
 </span></span><span class="line"><span class="cl">   |     0.00s     929 chapters
 </span></span><span class="line"><span class="cl">   |     0.00s    9230 lexs
 </span></span><span class="line"><span class="cl">   |     0.00s   23213 verses
 </span></span><span class="line"><span class="cl">   |     0.00s   45179 half_verses
-</span></span><span class="line"><span class="cl">   |     0.01s   63717 sentences
-</span></span><span class="line"><span class="cl">   |     0.01s   64514 sentence_atoms
-</span></span><span class="line"><span class="cl">   |     0.01s   88131 clauses
-</span></span><span class="line"><span class="cl">   |     0.01s   90704 clause_atoms
-</span></span><span class="line"><span class="cl">   |     0.03s  253203 phrases
-</span></span><span class="line"><span class="cl">   |     0.03s  267532 phrase_atoms
+</span></span><span class="line"><span class="cl">   |     0.00s   63717 sentences
+</span></span><span class="line"><span class="cl">   |     0.00s   64514 sentence_atoms
+</span></span><span class="line"><span class="cl">   |     0.00s   88131 clauses
+</span></span><span class="line"><span class="cl">   |     0.00s   90704 clause_atoms
+</span></span><span class="line"><span class="cl">   |     0.01s  253203 phrases
+</span></span><span class="line"><span class="cl">   |     0.01s  267532 phrase_atoms
 </span></span><span class="line"><span class="cl">   |     0.01s  113850 subphrases
-</span></span><span class="line"><span class="cl">   |     0.05s  426590 words
-</span></span><span class="line"><span class="cl">  0.15s Done
+</span></span><span class="line"><span class="cl">   |     0.02s  426590 words
+</span></span><span class="line"><span class="cl">  0.07s Done
 </span></span></code></pre></div><h2 id="analizing-some-lexemes">Analizing some lexemes</h2>
 <p>Text-Fabric allows to query the &ldquo;types&rdquo; of words. We can do this by using:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">freqList</span><span class="p">())</span>
@@ -229,7 +153,9 @@ verb is <code>אמר</code> (say). It appears 5307 times. We can see that Yah in
 communicate and instruct us.</p>
 <p>A specific instance of that verb has other properties (node features) like
 morphology which contains the verbal stem (qal, piel, nif, hif), the verbal
-tense (perf, impf, wayq) and gender (m, f) among other information.</p>
+tense (perf, impf, wayq) and gender (m, f) among other information. A lexeme is
+the representation of that word (verb in this case) in the broad aspect, i.e
+regardless of the verbal stem, tense, gender, etc.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_lexeme_by_type</span><span class="p">(</span><span class="n">lex_type</span><span class="p">):</span>
@@ -241,9 +167,13 @@ tense (perf, impf, wayq) and gender (m, f) among other information.</p>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span>
 </span></span><span class="line"><span class="cl">        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="n">w</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">               <span class="s1">&#39;freq_lex&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">freq_lex</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">               <span class="s1">&#39;sp&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;sp&#39;: F.sp.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;lex&#39;: F.lex.v(w),</span>
 </span></span><span class="line"><span class="cl">               <span class="s1">&#39;lex_utf8&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">lex_utf8</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;phono&#39;: F.phono.v(w),</span>
 </span></span><span class="line"><span class="cl">               <span class="c1">#&#39;g_word_utf8&#39;: F.g_word_utf8.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;g_lex_utf8&#39;: F.g_lex_utf8.v(w),</span>
+</span></span><span class="line"><span class="cl">               <span class="c1">#&#39;g_cons_utf8&#39;: F.g_cons_utf8.v(w),</span>
 </span></span><span class="line"><span class="cl">               <span class="s1">&#39;gloss&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">gloss</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">               <span class="c1">#&#39;gn&#39;: F.gn.v(w),</span>
 </span></span><span class="line"><span class="cl">               <span class="c1">#&#39;nu&#39;: F.nu.v(w),</span>
@@ -262,16 +192,397 @@ tense (perf, impf, wayq) and gender (m, f) among other information.</p>
 </span></span><span class="line"><span class="cl">    <span class="n">sorted_df</span> <span class="o">=</span> <span class="n">input_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">output_df</span> <span class="o">=</span> <span class="n">sorted_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">rows_qty</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">output_df</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">output_df</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"></code></pre></div><h3 id="printing-the-most-frequent-verbs--lexemes">Printing the most frequent verbs (lexemes)</h3>
-<p>Here is a list with the top 100 verbs sorted by frequency.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">verbs</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;verb&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">print_df</span> <span class="o">=</span> <span class="n">pp_sorted_df</span><span class="p">(</span><span class="n">sorted_verbs</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"></code></pre></div><h3 id="most-frequent-prepositions">Most frequent prepositions</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df_preps</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;prep&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_df</span> <span class="o">=</span> <span class="n">pp_sorted_df</span><span class="p">(</span><span class="n">df_preps</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 </span></span></code></pre></div><table>
 <thead>
 <tr>
 <th>w</th>
 <th>freq_lex</th>
-<th>sp</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1437629</td>
+<td>20069</td>
+<td>ל</td>
+<td>to</td>
+</tr>
+<tr>
+<td>1437602</td>
+<td>15542</td>
+<td>ב</td>
+<td>in</td>
+</tr>
+<tr>
+<td>1437606</td>
+<td>10987</td>
+<td>את</td>
+<td>&lt;object marker&gt;</td>
+</tr>
+<tr>
+<td>1437639</td>
+<td>7562</td>
+<td>מן</td>
+<td>from</td>
+</tr>
+<tr>
+<td>1437615</td>
+<td>5766</td>
+<td>על</td>
+<td>upon</td>
+</tr>
+<tr>
+<td>1437644</td>
+<td>5517</td>
+<td>אל</td>
+<td>to</td>
+</tr>
+<tr>
+<td>1437693</td>
+<td>2902</td>
+<td>כ</td>
+<td>as</td>
+</tr>
+<tr>
+<td>1437843</td>
+<td>1263</td>
+<td>עד</td>
+<td>unto</td>
+</tr>
+<tr>
+<td>1437805</td>
+<td>1049</td>
+<td>עם</td>
+<td>with</td>
+</tr>
+<tr>
+<td>1437865</td>
+<td>878</td>
+<td>את</td>
+<td>together with</td>
+</tr>
+<tr>
+<td>1443534</td>
+<td>378</td>
+<td>ל</td>
+<td>to</td>
+</tr>
+<tr>
+<td>1443536</td>
+<td>345</td>
+<td>די</td>
+<td>&lt;relative&gt;</td>
+</tr>
+<tr>
+<td>1438236</td>
+<td>272</td>
+<td>למען</td>
+<td>because of</td>
+</tr>
+<tr>
+<td>1445292</td>
+<td>226</td>
+<td>ב</td>
+<td>in</td>
+</tr>
+<tr>
+<td>1438491</td>
+<td>142</td>
+<td>כמו</td>
+<td>like</td>
+</tr>
+<tr>
+<td>1443543</td>
+<td>119</td>
+<td>מן</td>
+<td>from</td>
+</tr>
+<tr>
+<td>1445269</td>
+<td>104</td>
+<td>על</td>
+<td>upon</td>
+</tr>
+<tr>
+<td>1443531</td>
+<td>63</td>
+<td>כ</td>
+<td>like</td>
+</tr>
+<tr>
+<td>1445265</td>
+<td>35</td>
+<td>עד</td>
+<td>until</td>
+</tr>
+<tr>
+<td>1445281</td>
+<td>22</td>
+<td>עם</td>
+<td>with</td>
+</tr>
+<tr>
+<td>1438337</td>
+<td>17</td>
+<td>בלעדי</td>
+<td>without</td>
+</tr>
+<tr>
+<td>1443082</td>
+<td>9</td>
+<td>במו</td>
+<td>in</td>
+</tr>
+<tr>
+<td>1444752</td>
+<td>4</td>
+<td>למו</td>
+<td>to</td>
+</tr>
+<tr>
+<td>1445487</td>
+<td>1</td>
+<td>ית</td>
+<td>&lt;nota accusativi&gt;</td>
+</tr>
+<tr>
+<td>1445919</td>
+<td>1</td>
+<td>לות</td>
+<td>with</td>
+</tr>
+</tbody>
+</table>
+<p>Fair enough, this is a good starting point to learn some words.</p>
+<h3 id="most-frequent-names--names-and-cities">Most frequent names (names and cities)</h3>
+<p>Now lets see the 30 most cited names in scriptures</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df_nmpr</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;nmpr&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_df</span> <span class="o">=</span> <span class="n">pp_sorted_df</span><span class="p">(</span><span class="n">df_nmpr</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1437714</td>
+<td>6828</td>
+<td>יהוה֜</td>
+<td>YHWH</td>
+</tr>
+<tr>
+<td>1438941</td>
+<td>2506</td>
+<td>ישׂראל֜</td>
+<td>Israel</td>
+</tr>
+<tr>
+<td>1441856</td>
+<td>1075</td>
+<td>דוד֜</td>
+<td>David</td>
+</tr>
+<tr>
+<td>1438822</td>
+<td>819</td>
+<td>יהודה֜</td>
+<td>Judah</td>
+</tr>
+<tr>
+<td>1439439</td>
+<td>766</td>
+<td>משׁה֜</td>
+<td>Moses</td>
+</tr>
+<tr>
+<td>1438103</td>
+<td>681</td>
+<td>מצרים֜</td>
+<td>Egypt</td>
+</tr>
+<tr>
+<td>1441150</td>
+<td>643</td>
+<td>ירושׁלם֜</td>
+<td>Jerusalem</td>
+</tr>
+<tr>
+<td>1438343</td>
+<td>438</td>
+<td>אדני֜</td>
+<td>Lord</td>
+</tr>
+<tr>
+<td>1439060</td>
+<td>406</td>
+<td>שׁאול֜</td>
+<td>Saul</td>
+</tr>
+<tr>
+<td>1438702</td>
+<td>349</td>
+<td>יעקב֜</td>
+<td>Jacob</td>
+</tr>
+<tr>
+<td>1439473</td>
+<td>347</td>
+<td>אהרן֜</td>
+<td>Aaron</td>
+</tr>
+<tr>
+<td>1442014</td>
+<td>293</td>
+<td>שׁלמה֜</td>
+<td>Solomon</td>
+</tr>
+<tr>
+<td>1438115</td>
+<td>262</td>
+<td>בבל֜</td>
+<td>Babel</td>
+</tr>
+<tr>
+<td>1439714</td>
+<td>218</td>
+<td>יהושׁע֜</td>
+<td>Joshua</td>
+</tr>
+<tr>
+<td>1438843</td>
+<td>213</td>
+<td>יוסף֜</td>
+<td>Joseph</td>
+</tr>
+<tr>
+<td>1438262</td>
+<td>182</td>
+<td>ירדן֜</td>
+<td>Jordan</td>
+</tr>
+<tr>
+<td>1439203</td>
+<td>180</td>
+<td>אפרים֜</td>
+<td>Ephraim</td>
+</tr>
+<tr>
+<td>1438512</td>
+<td>180</td>
+<td>מואב֜</td>
+<td>Moab</td>
+</tr>
+<tr>
+<td>1438408</td>
+<td>175</td>
+<td>אברהם֜</td>
+<td>Abraham</td>
+</tr>
+<tr>
+<td>1439001</td>
+<td>166</td>
+<td>בנימן֜</td>
+<td>Benjamin</td>
+</tr>
+<tr>
+<td>1442009</td>
+<td>154</td>
+<td>ציון֜</td>
+<td>Zion</td>
+</tr>
+<tr>
+<td>1437762</td>
+<td>151</td>
+<td>אשׁור֜</td>
+<td>Asshur</td>
+</tr>
+<tr>
+<td>1438157</td>
+<td>149</td>
+<td>ארם֜</td>
+<td>Aram</td>
+</tr>
+<tr>
+<td>1439200</td>
+<td>146</td>
+<td>מנשׁה֜</td>
+<td>Manasseh</td>
+</tr>
+<tr>
+<td>1441940</td>
+<td>145</td>
+<td>יואב֜</td>
+<td>Joab</td>
+</tr>
+<tr>
+<td>1440774</td>
+<td>140</td>
+<td>שׁמואל֜</td>
+<td>Samuel</td>
+</tr>
+<tr>
+<td>1438890</td>
+<td>134</td>
+<td>גלעד֜</td>
+<td>Gilead</td>
+</tr>
+<tr>
+<td>1442693</td>
+<td>129</td>
+<td>ירמיהו֜</td>
+<td>Jeremiah</td>
+</tr>
+<tr>
+<td>1442394</td>
+<td>109</td>
+<td>שׁמרון֜</td>
+<td>Samaria</td>
+</tr>
+<tr>
+<td>1441986</td>
+<td>109</td>
+<td>אבשׁלום֜</td>
+<td>Absalom</td>
+</tr>
+</tbody>
+</table>
+<p>And now lets generate a cloud image for in the Hebrew</p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_nmpr_heb_cloud.png"/> </figure>
+
+<p>And also a cloud image for the English translations of those names</p>
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_nmpr_eng_cloud.png"/> </figure>
+
+<p>To me this is very exciting, with just some lines of code (and of course
+standing in the shoulders of giants that made TF possible and the BHSA dataset),
+we are able to perform simple tasks like this.</p>
+<h3 id="most-frequent-verbs">Most frequent verbs</h3>
+<p>I want more, so lets repeat the same procedure but with verbs now. And lets increase the amount of verbs to 100 verbs sorted by frequency.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">df_verbs</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;verb&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df_verbs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_df</span> <span class="o">=</span> <span class="n">pp_sorted_df</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
 <th>lex_utf8</th>
 <th>gloss</th>
 </tr>
@@ -280,825 +591,681 @@ tense (perf, impf, wayq) and gender (m, f) among other information.</p>
 <tr>
 <td>1437621</td>
 <td>5307</td>
-<td>verb</td>
 <td>אמר</td>
 <td>say</td>
 </tr>
 <tr>
 <td>1437611</td>
 <td>3561</td>
-<td>verb</td>
 <td>היה</td>
 <td>be</td>
 </tr>
 <tr>
 <td>1437637</td>
 <td>2629</td>
-<td>verb</td>
 <td>עשׂה</td>
 <td>make</td>
 </tr>
 <tr>
 <td>1437773</td>
 <td>2570</td>
-<td>verb</td>
 <td>בוא</td>
 <td>come</td>
 </tr>
 <tr>
 <td>1437669</td>
 <td>2010</td>
-<td>verb</td>
 <td>נתן</td>
 <td>give</td>
 </tr>
 <tr>
 <td>1437760</td>
 <td>1547</td>
-<td>verb</td>
 <td>הלך</td>
 <td>walk</td>
 </tr>
 <tr>
 <td>1437623</td>
 <td>1298</td>
-<td>verb</td>
 <td>ראה</td>
 <td>see</td>
 </tr>
 <tr>
 <td>1437812</td>
 <td>1159</td>
-<td>verb</td>
 <td>שׁמע</td>
 <td>hear</td>
 </tr>
 <tr>
 <td>1438048</td>
 <td>1138</td>
-<td>verb</td>
 <td>דבר</td>
 <td>speak</td>
 </tr>
 <tr>
 <td>1437900</td>
 <td>1082</td>
-<td>verb</td>
 <td>ישׁב</td>
 <td>sit</td>
 </tr>
 <tr>
 <td>1437657</td>
 <td>1068</td>
-<td>verb</td>
 <td>יצא</td>
 <td>go out</td>
 </tr>
 <tr>
 <td>1437844</td>
 <td>1038</td>
-<td>verb</td>
 <td>שׁוב</td>
 <td>return</td>
 </tr>
 <tr>
 <td>1437764</td>
 <td>965</td>
-<td>verb</td>
 <td>לקח</td>
 <td>take</td>
 </tr>
 <tr>
 <td>1437799</td>
 <td>944</td>
-<td>verb</td>
 <td>ידע</td>
 <td>know</td>
 </tr>
 <tr>
 <td>1437724</td>
 <td>890</td>
-<td>verb</td>
 <td>עלה</td>
 <td>ascend</td>
 </tr>
 <tr>
 <td>1437851</td>
 <td>847</td>
-<td>verb</td>
 <td>שׁלח</td>
 <td>send</td>
 </tr>
 <tr>
 <td>1437769</td>
 <td>835</td>
-<td>verb</td>
 <td>מות</td>
 <td>die</td>
 </tr>
 <tr>
 <td>1437768</td>
 <td>810</td>
-<td>verb</td>
 <td>אכל</td>
 <td>eat</td>
 </tr>
 <tr>
 <td>1437628</td>
 <td>732</td>
-<td>verb</td>
 <td>קרא</td>
 <td>call</td>
 </tr>
 <tr>
 <td>1437894</td>
 <td>653</td>
-<td>verb</td>
 <td>נשׂא</td>
 <td>lift</td>
 </tr>
 <tr>
 <td>1437884</td>
 <td>629</td>
-<td>verb</td>
 <td>קום</td>
 <td>arise</td>
 </tr>
 <tr>
 <td>1437736</td>
 <td>583</td>
-<td>verb</td>
 <td>שׂים</td>
 <td>put</td>
 </tr>
 <tr>
 <td>1438023</td>
 <td>548</td>
-<td>verb</td>
 <td>עבר</td>
 <td>pass</td>
 </tr>
 <tr>
 <td>1438442</td>
 <td>521</td>
-<td>verb</td>
 <td>עמד</td>
 <td>stand</td>
 </tr>
 <tr>
 <td>1437899</td>
 <td>500</td>
-<td>verb</td>
 <td>נכה</td>
 <td>strike</td>
 </tr>
 <tr>
 <td>1437767</td>
 <td>494</td>
-<td>verb</td>
 <td>צוה</td>
 <td>command</td>
 </tr>
 <tr>
 <td>1437835</td>
 <td>492</td>
-<td>verb</td>
 <td>ילד</td>
 <td>bear</td>
 </tr>
 <tr>
 <td>1437766</td>
 <td>468</td>
-<td>verb</td>
 <td>שׁמר</td>
 <td>keep</td>
 </tr>
 <tr>
 <td>1437775</td>
 <td>453</td>
-<td>verb</td>
 <td>מצא</td>
 <td>find</td>
 </tr>
 <tr>
 <td>1437776</td>
 <td>434</td>
-<td>verb</td>
 <td>נפל</td>
 <td>fall</td>
 </tr>
 <tr>
 <td>1438193</td>
 <td>377</td>
-<td>verb</td>
 <td>ירד</td>
 <td>descend</td>
 </tr>
 <tr>
 <td>1437782</td>
 <td>376</td>
-<td>verb</td>
 <td>בנה</td>
 <td>build</td>
 </tr>
 <tr>
 <td>1437819</td>
 <td>370</td>
-<td>verb</td>
 <td>נגד</td>
 <td>report</td>
 </tr>
 <tr>
 <td>1439047</td>
 <td>347</td>
-<td>verb</td>
 <td>מלך</td>
 <td>be king</td>
 </tr>
 <tr>
 <td>1437816</td>
 <td>332</td>
-<td>verb</td>
 <td>ירא</td>
 <td>fear</td>
 </tr>
 <tr>
 <td>1437682</td>
 <td>327</td>
-<td>verb</td>
 <td>ברך</td>
 <td>bless</td>
 </tr>
 <tr>
 <td>1438467</td>
 <td>316</td>
-<td>verb</td>
 <td>ענה</td>
 <td>answer</td>
 </tr>
 <tr>
 <td>1438536</td>
 <td>303</td>
-<td>verb</td>
 <td>פקד</td>
 <td>miss</td>
 </tr>
 <tr>
 <td>1438046</td>
 <td>297</td>
-<td>verb</td>
 <td>סור</td>
 <td>turn aside</td>
 </tr>
 <tr>
 <td>1437685</td>
 <td>292</td>
-<td>verb</td>
 <td>מלא</td>
 <td>be full</td>
 </tr>
 <tr>
 <td>1438495</td>
 <td>290</td>
-<td>verb</td>
 <td>חזק</td>
 <td>be strong</td>
 </tr>
 <tr>
 <td>1438067</td>
 <td>288</td>
-<td>verb</td>
 <td>כרת</td>
 <td>cut</td>
 </tr>
 <tr>
 <td>1437722</td>
 <td>288</td>
-<td>verb</td>
 <td>עבד</td>
 <td>work, serve</td>
 </tr>
 <tr>
 <td>1437853</td>
 <td>283</td>
-<td>verb</td>
 <td>חיה</td>
 <td>be alive</td>
 </tr>
 <tr>
 <td>1438581</td>
 <td>283</td>
-<td>verb</td>
 <td>איב</td>
 <td>be hostile</td>
 </tr>
 <tr>
 <td>1438231</td>
 <td>281</td>
-<td>verb</td>
 <td>קרב</td>
 <td>approach</td>
 </tr>
 <tr>
 <td>1438522</td>
 <td>237</td>
-<td>verb</td>
 <td>חטא</td>
 <td>miss</td>
 </tr>
 <tr>
 <td>1438022</td>
 <td>231</td>
-<td>verb</td>
 <td>זכר</td>
 <td>remember</td>
 </tr>
 <tr>
 <td>1438347</td>
 <td>231</td>
-<td>verb</td>
 <td>ירשׁ</td>
 <td>trample down</td>
 </tr>
 <tr>
 <td>1438906</td>
 <td>225</td>
-<td>verb</td>
 <td>בקשׁ</td>
 <td>seek</td>
 </tr>
 <tr>
 <td>1437684</td>
 <td>224</td>
-<td>verb</td>
 <td>רבה</td>
 <td>be many</td>
 </tr>
 <tr>
 <td>1439718</td>
 <td>223</td>
-<td>verb</td>
 <td>כתב</td>
 <td>write</td>
 </tr>
 <tr>
 <td>1438074</td>
 <td>217</td>
-<td>verb</td>
 <td>שׁתה</td>
 <td>drink</td>
 </tr>
 <tr>
 <td>1439180</td>
 <td>216</td>
-<td>verb</td>
 <td>כון</td>
 <td>be firm</td>
 </tr>
 <tr>
 <td>1438225</td>
 <td>214</td>
-<td>verb</td>
 <td>נטה</td>
 <td>extend</td>
 </tr>
 <tr>
 <td>1437788</td>
 <td>214</td>
-<td>verb</td>
 <td>עזב</td>
 <td>leave</td>
 </tr>
 <tr>
 <td>1438878</td>
 <td>213</td>
-<td>verb</td>
 <td>נצל</td>
 <td>deliver</td>
 </tr>
 <tr>
 <td>1438479</td>
 <td>212</td>
-<td>verb</td>
 <td>שׁכב</td>
 <td>lie down</td>
 </tr>
 <tr>
 <td>1437866</td>
 <td>212</td>
-<td>verb</td>
 <td>יסף</td>
 <td>add</td>
 </tr>
 <tr>
 <td>1438565</td>
 <td>211</td>
-<td>verb</td>
 <td>אהב</td>
 <td>love</td>
 </tr>
 <tr>
 <td>1437706</td>
 <td>206</td>
-<td>verb</td>
 <td>כלה</td>
 <td>be complete</td>
 </tr>
 <tr>
 <td>1439443</td>
 <td>205</td>
-<td>verb</td>
 <td>ישׁע</td>
 <td>help</td>
 </tr>
 <tr>
 <td>1438002</td>
 <td>204</td>
-<td>verb</td>
 <td>אסף</td>
 <td>gather</td>
 </tr>
 <tr>
 <td>1438392</td>
 <td>202</td>
-<td>verb</td>
 <td>שׁפט</td>
 <td>judge</td>
 </tr>
 <tr>
 <td>1438251</td>
 <td>193</td>
-<td>verb</td>
 <td>יכל</td>
 <td>be able</td>
 </tr>
 <tr>
 <td>1438014</td>
 <td>188</td>
-<td>verb</td>
 <td>רום</td>
 <td>be high</td>
 </tr>
 <tr>
 <td>1438077</td>
 <td>188</td>
-<td>verb</td>
 <td>גלה</td>
 <td>uncover</td>
 </tr>
 <tr>
 <td>1439563</td>
 <td>186</td>
-<td>verb</td>
 <td>אבד</td>
 <td>perish</td>
 </tr>
 <tr>
 <td>1438554</td>
 <td>185</td>
-<td>verb</td>
 <td>שׁבע</td>
 <td>swear</td>
 </tr>
 <tr>
 <td>1439420</td>
 <td>171</td>
-<td>verb</td>
 <td>לחם</td>
 <td>fight</td>
 </tr>
 <tr>
 <td>1438643</td>
 <td>171</td>
-<td>verb</td>
 <td>שׁאל</td>
 <td>ask</td>
 </tr>
 <tr>
 <td>1437711</td>
 <td>171</td>
-<td>verb</td>
 <td>קדשׁ</td>
 <td>be holy</td>
 </tr>
 <tr>
 <td>1438427</td>
 <td>170</td>
-<td>verb</td>
 <td>חוה</td>
 <td>bow down</td>
 </tr>
 <tr>
 <td>1439181</td>
 <td>170</td>
-<td>verb</td>
 <td>בין</td>
 <td>understand</td>
 </tr>
 <tr>
 <td>1437962</td>
 <td>169</td>
-<td>verb</td>
 <td>בחר</td>
 <td>examine</td>
 </tr>
 <tr>
 <td>1437869</td>
 <td>168</td>
-<td>verb</td>
 <td>רעה</td>
 <td>pasture</td>
 </tr>
 <tr>
 <td>1437885</td>
 <td>167</td>
-<td>verb</td>
 <td>הרג</td>
 <td>kill</td>
 </tr>
 <tr>
 <td>1438064</td>
 <td>164</td>
-<td>verb</td>
 <td>דרשׁ</td>
 <td>inquire</td>
 </tr>
 <tr>
 <td>1438964</td>
 <td>162</td>
-<td>verb</td>
 <td>טמא</td>
 <td>be unclean</td>
 </tr>
 <tr>
 <td>1437750</td>
 <td>161</td>
-<td>verb</td>
 <td>סבב</td>
 <td>turn</td>
 </tr>
 <tr>
 <td>1438306</td>
 <td>159</td>
-<td>verb</td>
 <td>נוס</td>
 <td>flee</td>
 </tr>
 <tr>
 <td>1439475</td>
 <td>154</td>
-<td>verb</td>
 <td>שׂמח</td>
 <td>rejoice</td>
 </tr>
 <tr>
 <td>1438016</td>
 <td>152</td>
-<td>verb</td>
 <td>כסה</td>
 <td>cover</td>
 </tr>
 <tr>
 <td>1437797</td>
 <td>150</td>
-<td>verb</td>
 <td>נגע</td>
 <td>touch</td>
 </tr>
 <tr>
 <td>1438486</td>
 <td>147</td>
-<td>verb</td>
 <td>שׁבר</td>
 <td>break</td>
 </tr>
 <tr>
 <td>1438240</td>
 <td>146</td>
-<td>verb</td>
 <td>הלל</td>
 <td>praise</td>
 </tr>
 <tr>
 <td>1438652</td>
 <td>146</td>
-<td>verb</td>
 <td>שׂנא</td>
 <td>hate</td>
 </tr>
 <tr>
 <td>1438182</td>
 <td>146</td>
-<td>verb</td>
 <td>נסע</td>
 <td>pull out</td>
 </tr>
 <tr>
 <td>1437981</td>
 <td>145</td>
-<td>verb</td>
 <td>שׁחת</td>
 <td>destroy</td>
 </tr>
 <tr>
 <td>1438318</td>
 <td>143</td>
-<td>verb</td>
 <td>רדף</td>
 <td>pursue</td>
 </tr>
 <tr>
 <td>1438727</td>
 <td>143</td>
-<td>verb</td>
 <td>חנה</td>
 <td>encamp</td>
 </tr>
 <tr>
 <td>1437765</td>
 <td>141</td>
-<td>verb</td>
 <td>נוח</td>
 <td>settle</td>
 </tr>
 <tr>
 <td>1438323</td>
 <td>140</td>
-<td>verb</td>
 <td>קרא</td>
 <td>encounter</td>
 </tr>
 <tr>
 <td>1438461</td>
 <td>135</td>
-<td>verb</td>
 <td>פנה</td>
 <td>turn</td>
 </tr>
 <tr>
 <td>1438010</td>
 <td>135</td>
-<td>verb</td>
 <td>פתח</td>
 <td>open</td>
 </tr>
 <tr>
 <td>1437937</td>
 <td>134</td>
-<td>verb</td>
 <td>חלל</td>
 <td>defile</td>
 </tr>
 <tr>
 <td>1438923</td>
 <td>134</td>
-<td>verb</td>
 <td>זבח</td>
 <td>slaughter</td>
 </tr>
 <tr>
 <td>1438373</td>
 <td>133</td>
-<td>verb</td>
 <td>קבר</td>
 <td>bury</td>
 </tr>
 <tr>
 <td>1438020</td>
 <td>133</td>
-<td>verb</td>
 <td>שׁאר</td>
 <td>remain</td>
 </tr>
 <tr>
 <td>1437856</td>
 <td>129</td>
-<td>verb</td>
 <td>שׁכן</td>
 <td>dwell</td>
 </tr>
 </tbody>
 </table>
 <p>Here we can see the id of the lexeme (w), the frequency (freq_lex), the utf8
-representation of the word without vowel pointing and the english meaning used
+representation of the word without vowel <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> pointing and the english meaning used
 for the translation. All automatically, pretty cool isn&rsquo;t it?</p>
-<!--list-separator-->
-<ul>
-<li>
-<p>Top 12 verbs with strongs</p>
-<p>Out of those, I wanted to map also the pronunciation, Strong numbers and the
-full meaning from BLB so I created this table. Note that the strong number as
-the pronunciation are just probable, since I am working with lexemes rather than
-words.</p>
-<table>
-<thead>
-<tr>
-<th>Pronun.</th>
-<th>Word</th>
-<th>Qty</th>
-<th>Meaning</th>
-<th>Strongs</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>aw-mar'</td>
-<td>אמר</td>
-<td>5379</td>
-<td>To say, speak, utter</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h559/kjv/wlc/0-1/">H559</a></td>
-</tr>
-<tr>
-<td>haw-yaw</td>
-<td>היה</td>
-<td>3561</td>
-<td>to be, become, come to pass, exist, happen, fall out</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h1961/kjv/wlc/0-1/">H1961</a></td>
-</tr>
-<tr>
-<td>aw-saw'</td>
-<td>עשׂה</td>
-<td>2629</td>
-<td>to do, fashion, accomplish, make</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h6213/kjv/wlc/0-1/">H6213</a></td>
-</tr>
-<tr>
-<td>bo</td>
-<td>בוא</td>
-<td>2570</td>
-<td>to go in, enter, come, go, come in</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h935/kjv/wlc/0-1/">H935</a></td>
-</tr>
-<tr>
-<td>naw-than'</td>
-<td>נתן</td>
-<td>2017</td>
-<td>to give, put, set</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h5414/kjv/wlc/0-1/">H5414</a></td>
-</tr>
-<tr>
-<td>haw-lak'</td>
-<td>הלך</td>
-<td>1554</td>
-<td>to go, walk, come</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h1980/kjv/wlc/0-1/">H1980</a></td>
-</tr>
-<tr>
-<td>raw-aw'</td>
-<td>ראה</td>
-<td>1298</td>
-<td>to see, look at, inspect, perceive, consider</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h7200/kjv/wlc/0-1/">H7200</a></td>
-</tr>
-<tr>
-<td>shaw-mah'</td>
-<td>שׁמע</td>
-<td>1168</td>
-<td>to hear, listen to, obey</td>
-<td>WLC <a href="https://www.blueletterbible.org/lexicon/h8085/wlc/wlc/0-1/">H885</a></td>
-</tr>
-<tr>
-<td>daw-bar'</td>
-<td>דבר</td>
-<td>1143</td>
-<td>to speak, command, promise, warn, threaten, sing</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h1696/kjv/wlc/0-1/">H1696</a></td>
-</tr>
-<tr>
-<td>yaw-shab'</td>
-<td>ישׁב</td>
-<td>1082</td>
-<td>to dwell, remain, sit, abide</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h3427/kjv/wlc/0-1/">H3427</a></td>
-</tr>
-<tr>
-<td>yaw-tsaw'</td>
-<td>יצא</td>
-<td>1069</td>
-<td>to go out, come out, exit, go forth</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h3318/kjv/wlc/0-1/">H3318</a></td>
-</tr>
-<tr>
-<td>shoob</td>
-<td>שׁוב</td>
-<td>1056</td>
-<td>to return, turn back</td>
-<td>KJV <a href="https://www.blueletterbible.org/lexicon/h7725/kjv/wlc/0-1/">H7725</a></td>
-</tr>
-</tbody>
-</table>
-<p>I made this list by hand, which is not very practical for automation, so I
-wonder if there is a better way to get the Strong numbers automatically. I don&rsquo;t
-have an answer for this at this time, but this repository looks promising:
-<a href="https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv">https://github.com/eliranwong/BHS-Strong-no/blob/master/brief_info_ETCBC_lex.csv</a>.</p>
-<p>I still have some work that is not documented, so this is work in progress. I am
-still learning how to properly use TF&rsquo;s API.</p>
-<p>As a side note I also found word by word on BHS 5th edition here:
-<a href="https://github.com/eliranwong/MP3_BHS5_word-by-word">https://github.com/eliranwong/MP3_BHS5_word-by-word</a>. I am very excited about
-this finding. Also it is worthwhile checking out this:
-<a href="https://github.com/eliranwong/UniqueBible">https://github.com/eliranwong/UniqueBible</a>.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>: I will have to double check this. What I understood from the
+documentation of the API is that the lexemes do not have vowel pointing, however
+the shin/sin seems to have diacritics so I had to remove the diacritics of each
+word, because the word cloud was not properly rendered with diacritics.</p>
+<p>Now lets create word clouds out of those verbs.</p>
+<p>First, the top 30 verbs in Hebrew:</p>
+
+    
+    
+    <figure>
+        
+            <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_30_heb_cloud.png"/> </figure>
+
+<p>Now lets try the 50 most common verbs in Hebrew:</p>
+
+    
+    
+    <figure>
+        
+            <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_50_heb_cloud.png"/> </figure>
+
+<p>And now lets increase the amount to 100 verbs in Hebrew:</p>
+
+    
+    
+    <figure>
+        
+            <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_100_heb_cloud.png"/> </figure>
+
+<p>Now lets generate a cloud words image for the top 30 verbs in English:</p>
+
+    
+    
+    <figure>
+        
+            <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_30_eng_cloud.png"/> </figure>
+
+<p>Similarly, for the 50 top verbs in English:</p>
+
+    
+    
+    <figure>
+        
+            <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_50_eng_cloud.png"/> </figure>
+
+<p>And finally, the top 100 top verbs in English:</p>
+
+    
+    
+    <figure>
+        
+            <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_100_eng_cloud.png"/> </figure>
+
+<p>I have noticed something &ldquo;unexpected&rdquo; here. The word &ldquo;Turn&rdquo; is the bigger one in
+english, yet is not the most frequent word in the table. Why is that? Although I
+am not completely sure about it, I believe it is due that it appears twice on
+the list, and I have not taken that into account. This doesn&rsquo;t happen with the
+Hebrew words since the frequncy would already be increaced in the <code>freq_lex</code>
+column.</p>
+<p>To solve this, I would probably have to parse the pandas dataframe to manually
+sum the frequencies of the same word. But I won&rsquo;t do that right now since I am
+more curious about exploring other words.</p>
+<p>Furthermore, the &ldquo;mistake&rdquo; is rather interesting and I believe it speaks volumes
+in itself, since I truly believe that the will of the heart of our Father goes
+towards teshuva indeed, turn of our own ways. Seeing this unexpected event was
+rather interesting to me.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-</ul>
+</ol>
+</div>
 ]]></content>
             
                  

@@ -3,46 +3,67 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://albertdelafuente.com/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/posts/bhs/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/bhsa/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/categories/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/codex/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/categories/development/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/hebrew/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/posts/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/python/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/categories/scriptures/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/</loc>
-    <lastmod>2023-08-14T23:02:17-03:00</lastmod>
+    <lastmod>2023-08-17T13:39:02-03:00</lastmod>
+  </url><url>
+    <loc>https://albertdelafuente.com/books/20230425225014-book_notes_atomic_habits_by_james_clear/</loc>
+    <lastmod>2023-08-15T00:28:53-03:00</lastmod>
+  </url><url>
+    <loc>https://albertdelafuente.com/categories/books/</loc>
+    <lastmod>2023-08-15T00:29:34-03:00</lastmod>
+  </url><url>
+    <loc>https://albertdelafuente.com/books/</loc>
+    <lastmod>2023-08-15T00:29:34-03:00</lastmod>
+  </url><url>
+    <loc>https://albertdelafuente.com/tags/discipline/</loc>
+    <lastmod>2023-08-15T00:28:53-03:00</lastmod>
+  </url><url>
+    <loc>https://albertdelafuente.com/tags/habits/</loc>
+    <lastmod>2023-08-15T00:28:53-03:00</lastmod>
+  </url><url>
+    <loc>https://albertdelafuente.com/tags/productivity/</loc>
+    <lastmod>2023-08-15T00:28:53-03:00</lastmod>
+  </url><url>
+    <loc>https://albertdelafuente.com/books/20230111063508-book_notes_can_t_hurt_me_by_david_goggins/</loc>
+    <lastmod>2023-08-15T00:28:42-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/categories/arch/</loc>
-    <lastmod>2022-07-03T12:24:06-03:00</lastmod>
+    <lastmod>2023-08-15T00:26:41-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/cli/</loc>
-    <lastmod>2022-07-03T12:24:06-03:00</lastmod>
+    <lastmod>2023-08-15T00:26:41-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/exobrain/</loc>
-    <lastmod>2022-07-21T12:58:18-03:00</lastmod>
+    <lastmod>2023-08-15T00:26:41-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/github/</loc>
     <lastmod>2022-07-03T12:24:06-03:00</lastmod>
@@ -51,19 +72,19 @@
     <lastmod>2022-07-03T12:24:06-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/categories/linux/</loc>
-    <lastmod>2023-08-13T12:06:01-03:00</lastmod>
+    <lastmod>2023-08-15T00:26:41-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/gitlab/</loc>
-    <lastmod>2022-07-03T11:57:21-03:00</lastmod>
+    <lastmod>2023-08-15T00:26:41-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/exobrain/20220703112132-how_to_list_all_projects_in_bitbucket/</loc>
     <lastmod>2022-07-03T11:57:21-03:00</lastmod>
   </url><url>
-    <loc>https://albertdelafuente.com/exobrain/20220703004228-how_to_list_all_projects_in_gitlab/</loc>
-    <lastmod>2022-07-03T11:57:02-03:00</lastmod>
-  </url><url>
     <loc>https://albertdelafuente.com/exobrain/20220702144603-how_to_use_tsrc/</loc>
     <lastmod>2022-07-03T01:52:57-03:00</lastmod>
+  </url><url>
+    <loc>https://albertdelafuente.com/exobrain/20220703004228-how_to_list_all_projects_in_gitlab/</loc>
+    <lastmod>2023-08-15T00:26:41-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/categories/analysis/</loc>
     <lastmod>2022-07-01T22:31:32-03:00</lastmod>
@@ -234,13 +255,7 @@
     <lastmod>2022-01-11T23:02:05-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/books/</loc>
-    <lastmod>2022-05-23T23:18:15-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/categories/books/</loc>
-    <lastmod>2022-05-23T23:18:15-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/books/</loc>
-    <lastmod>2022-05-23T23:18:15-03:00</lastmod>
+    <lastmod>2022-01-12T00:19:34-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/trading/</loc>
     <lastmod>2022-01-11T23:02:05-03:00</lastmod>
@@ -377,11 +392,11 @@
     <loc>https://albertdelafuente.com/categories/knowledge/</loc>
     <lastmod>2022-01-11T23:27:22-03:00</lastmod>
   </url><url>
-    <loc>https://albertdelafuente.com/about/about-me/</loc>
-    <lastmod>2023-08-14T14:58:47-03:00</lastmod>
+    <loc>https://albertdelafuente.com/about/about/</loc>
+    <lastmod>2023-08-14T23:33:21-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/about/</loc>
-    <lastmod>2023-08-14T14:58:47-03:00</lastmod>
+    <lastmod>2023-08-14T23:33:21-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/exobrain/20200817162032-how_to_use_org_roam/</loc>
     <lastmod>2022-01-11T20:40:37-03:00</lastmod>
@@ -420,13 +435,13 @@
     <lastmod>2022-01-11T20:51:21-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/books/20220109212603-book_notes_permanent_record_by_edward_snowden/</loc>
-    <lastmod>2022-05-23T23:18:15-03:00</lastmod>
+    <lastmod>2023-08-15T00:29:34-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/privacy/</loc>
-    <lastmod>2022-05-23T23:18:15-03:00</lastmod>
+    <lastmod>2023-08-15T00:29:34-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/tags/surveillance/</loc>
-    <lastmod>2022-05-23T23:18:15-03:00</lastmod>
+    <lastmod>2023-08-15T00:29:34-03:00</lastmod>
   </url><url>
     <loc>https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/</loc>
     <lastmod>2023-08-13T11:20:59-03:00</lastmod>
