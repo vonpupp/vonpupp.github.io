@@ -12,7 +12,7 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 09 Dec 2023 22:02:06 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 10 Dec 2023 09:46:47 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/posts/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -78,9 +78,14 @@ Google maps, etc. Without gapps is the way I prefer to go personally.&lt;/p&gt;
 deep rabbit hole. As deep as you can afford to go.&lt;/p&gt;
 &lt;p&gt;Personally I have been using Lineage for years and some custom mods. Every
 single Android device that I owned, I flashed and removed the original Android
-and replace it with a custom rom without Google Play. I have been doing this
-since around 2006. I am very curious to try Calyx though. If I would be starting
-from scratch, I would go for Calyx.&lt;/p&gt;
+and replace it with a custom rom without Google Apps (nothing from Google). I
+have been doing this since around 2006. I am very curious to try Calyx though.
+If I would be starting from scratch, I would go for Calyx.&lt;/p&gt;
+&lt;p&gt;I have a Mediatek chipset on my phone and I hated it! That was definetively a
+bad purchase for this purposes. Don&amp;rsquo;t get me wrong, the phone is great, but it
+is not easier to flash a custom ROM. I would go for Qualcomm chipset instead and
+make sure that the bootloader can be changed. &lt;a href=&#34;https://www.devicespecifications.com/en/model-cpu/47075c08&#34;&gt;This Ulefone Armor 23 looks
+promising&lt;/a&gt;. Apparently the 24 will also come with a Qualcom chipset.&lt;/p&gt;
 &lt;h2 id=&#34;network&#34;&gt;Network&lt;/h2&gt;
 &lt;p&gt;When in doubt, use a VPN or TOR circuits. In this way your traffic remains more
 secure. You can get a router that has that capability already built in, so you
@@ -92,19 +97,29 @@ or go for a similar commercial solution like &lt;a href=&#34;https://www.youtube
 in any way, and I haven&amp;rsquo;t tested it personally so be cautious and do your own
 research - DYOR).&lt;/p&gt;
 &lt;h2 id=&#34;authentication&#34;&gt;Authentication&lt;/h2&gt;
-&lt;p&gt;Use 2FA (Second Factor Authentication) whenever possible. You can use OTP (One
-Time Passwords) as your 2FA. I personally don&amp;rsquo;t trust Google Authenticator nor
-Authy.&lt;/p&gt;
-&lt;p&gt;I am a fairly technical guy so I prefer to keep the secrets under my control
-having encrypted backups than &amp;ldquo;trusting&amp;rdquo; any other party.&lt;/p&gt;
-&lt;p&gt;You can use a regular OTP software offline with the secret that the website
-provides, just as you would add it to Google Authenticator or any similar
-software. You will have to handle the secrets yourself.&lt;/p&gt;
 &lt;p&gt;I prefer avoiding using SMS authentication, I don&amp;rsquo;t trust the telephony system.
 They have too much power and knowledge about their users.&lt;/p&gt;
-&lt;p&gt;I am not going to disclose what I use for security reasons. But if you know me
-personally and have questions ask me one on one and I will share more about
-this.&lt;/p&gt;
+&lt;p&gt;I also avoid the Google prompts. Those who appears when you are trying to login
+on your phone while you are trying to login on your computer. The reason is
+simple, they tie your identity on the computer with your phone, because you will
+have to &amp;ldquo;click&amp;rdquo; on your phone. All traffic will be related.&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t use Google Authenticator nor Authy, or any Android app for that matter
+unless it is opensource. Personally I use one on my computer, this brings extra
+security and inconveniences. If I am not with my computer, I cannot login
+anywhere, even with my phone. I decided to live with that inconvenience.&lt;/p&gt;
+&lt;p&gt;Use 2FA (Second Factor Authentication) whenever possible, but with OTP (One TIme
+Password) for that. I prefer free TOTP software, the caveat to this approach is
+that you will have to handle your secrets yourself in a secure way, so you don&amp;rsquo;t
+lose them and nobody else has access to them. Please don&amp;rsquo;t even think about
+putting that into Dropbox!&lt;/p&gt;
+&lt;p&gt;I am a fairly technical guy so I prefer to keep the secrets under my control
+having encrypted backups than &amp;ldquo;trusting&amp;rdquo; any other party.&lt;/p&gt;
+&lt;p&gt;I am not going to disclose publicly here what I use for security reasons. But if
+you know me personally and have questions ask me one on one and I will share
+more about this.&lt;/p&gt;
+&lt;p&gt;If you want more information, do your own research. I can point you to &lt;a href=&#34;https://www.youtube.com/watch?v=ChKpf5HjcSY&#34;&gt;this video&lt;/a&gt;,
+as a quick overview. I think the title is a bit missleading though, I trust 2FA
+with TOTP where the secrets are encrypted and properly backed up.&lt;/p&gt;
 &lt;h2 id=&#34;im-communications&#34;&gt;IM communications&lt;/h2&gt;
 &lt;p&gt;Signal or no signal&amp;hellip; that is the question&amp;hellip;&lt;/p&gt;
 &lt;p&gt;I have been a huge fan of Telegram. At the beginning, you did not needed to use
@@ -288,9 +303,10 @@ at Google&amp;rsquo;s.&lt;/p&gt;
 &lt;p&gt;In regards to usage, GPG is always preferred but of course it depends on both
 parties using it. Be mindful that RSA 2048 is no longer secure, governments can
 break into it. Probably not regular people. So I would go for 4096 bit keys.&lt;/p&gt;
-&lt;p&gt;I am not going to disclose what I use for security reasons. But if you know me
-personally and have questions ask me one on one and I will share more about
-this. I know that if you are a technical person you can find this yourself.&lt;/p&gt;
+&lt;p&gt;I am not going to disclose publicly here what I use for security reasons. But if
+you know me personally and have questions ask me one on one and I will share
+more about this. I know that if you are a technical person you can find this
+yourself.&lt;/p&gt;
 &lt;h2 id=&#34;conferences&#34;&gt;Conferences&lt;/h2&gt;
 &lt;p&gt;I don&amp;rsquo;t trust Zoom. Do your own research here. One of the founders was an
 ex-Cisco systems. Again&amp;hellip; do your own research.&lt;/p&gt;
@@ -334,13 +350,14 @@ of the block chain.&lt;/p&gt;
 But that is just my opinion.&lt;/p&gt;
 &lt;h2 id=&#34;emergency-communications&#34;&gt;Emergency communications&lt;/h2&gt;
 &lt;p&gt;This is going to be controversial also. I am still learning about radio but I
-would definitively have a Ham radio and a rapport team, otherwise the freaking
-radio is useless.&lt;/p&gt;
+would definitively have a Ham radio and a rapport team, otherwise the radio
+alone is useless. Community is extremely important.&lt;/p&gt;
 &lt;p&gt;I prefer not to touch much on this subject. Do your own research. Maybe the
-Ghost network could help.&lt;/p&gt;
-&lt;p&gt;I am not going to disclose what I use for security reasons. But if you know me
-personally and have questions ask me one on one and I will share more about
-this.&lt;/p&gt;
+Ghost network could help you. Check out &lt;a href=&#34;https://www.youtube.com/watch?v=1oaWRs2te68&#34;&gt;this video on the Lilygo T-Deck device
+with the Meshtastic software for Encrypted Comms&lt;/a&gt;. And this video on &lt;a href=&#34;https://www.youtube.com/watch?v=EAQI2ZSmxPU&#34;&gt;Meshtastic
+and LoRa devices&lt;/a&gt; for general knowledge. I am fairly new to this, so do your
+own research. Not having to use a phone would be preferred IMO, so it is not
+tied to the IMEI number, MAC address, IP address and so forth.&lt;/p&gt;
 &lt;h2 id=&#34;conclusion-and-closing-remarks&#34;&gt;Conclusion and closing remarks&lt;/h2&gt;
 &lt;p&gt;Remember, favor VPNs or TOR circuits, handle your secrets yourself in a secure
 and reliable way.&lt;/p&gt;
@@ -390,7 +407,7 @@ Edward Snowden and/or &amp;ldquo;No place to hide&amp;rdquo; by Gleen Greenwald.
                     
                 
                 <guid>https://albertdelafuente.com/posts/privacy/</guid>
-                <pubDate>Sat, 09 Dec 2023 21:58:32 -0300</pubDate>
+                <pubDate>Sun, 10 Dec 2023 09:46:33 -0300</pubDate>
             </item>
         
             
