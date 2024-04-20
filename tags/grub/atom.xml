@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[grub on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/tags/grub/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/tags/grub/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
+            <link href="https://albertdelafuente.com/tags/grub/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/tags/grub/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2024-04-20T20:58:11-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/tags/grub/</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to recover a GRUB bootloader on a filesystem with LUKS and LVM]]></title>
+            <link href="https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/?utm_source=atom_feed" rel="related" type="text/html" title="How to manually boot/recover a system with LUKS and LVM" />
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+                <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="related" type="text/html" title="How to publish a GPG key via DNS" />
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
+            
+                <id>https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2021-08-04T00:00:00-03:00</published>
+            <updated>2023-08-13T11:19:32-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<div class="ox-hugo-toc toc">
+
+<div class="heading">Table of Contents</div>
+
+<ul>
+<li><a href="#optional--create-a-boot-flash-disk-using-android">(OPTIONAL) Create a boot flash disk using android</a>
+    - <a href="#etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository">EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</a></li>
+<li><a href="#mounting-and-chrooting-the-system">Mounting and chrooting the system</a></li>
+<li><a href="#edit-the-etc-default-grub-file">Edit the /etc/default/grub file</a></li>
+<li><a href="#config-and-install-grub-and-create-the-ramdisk">Config and install GRUB and create the ramdisk</a></li>
+<li><a href="#references">References</a>
+
+<ul>
+<li><a href="#solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums">[SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</a></li>
+</ul></li>
+</ul>
+
+<p></div>
+<!--endtoc--></p>
+
+<p>Recently an upgrade on my notebook went bad and broke something. I wasn&rsquo;t sure
+what went wrong but since I had just one system at that time, I had to figure
+out how to fix it with the help of my phone. Basically what I did is install
+EtchDroid to be able to download an iso and flash it to a flash drive on my
+phone directly. Later I could boot form that flash drive, mount the LUKS/LVM
+partitions and fix the bootloader. Here is a short how to.</p>
+
+<h2 id="optional--create-a-boot-flash-disk-using-android">(OPTIONAL) Create a boot flash disk using android</h2>
+
+<h4 id="etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository"><a href="https://f-droid.org/en/packages/eu.depau.etchdroid/">EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</a></h4>
+
+<ul>
+<li>Source: <a href="https://f-droid.org/en/packages/eu.depau.etchdroid/">https://f-droid.org/en/packages/eu.depau.etchdroid/</a></li>
+<li>Title: EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-05 Thu]</span></span></li>
+</ul>
+
+<h2 id="mounting-and-chrooting-the-system">Mounting and chrooting the system</h2>
+
+<p>#+begin_src sh</p>
+
+<p>cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm</p>
+
+<p>mount /dev/storage/root /mnt
+mount /dev/storage/home /mnt/home</p>
+
+<p>mount /dev/sda1 /mnt/boot</p>
+
+<p>cd <em>mnt
+mount -t proc /proc proc</em>
+#mount -t sysfs <em>sys sys</em>
+#mount -o bind <em>dev dev</em>
+mount -o bind <em>run run</em></p>
+
+<p>arch-chroot /mnt</p>
+
+<p>dhcpcd eth0
+#+end_src sh</p>
+
+<h2 id="edit-the-etc-default-grub-file">Edit the /etc/default/grub file</h2>
+
+<p>#+begin_src sh</p>
+
+<p>GRUB_CMDLINE_LINUX=&ldquo;cryptdevice=/dev/sda2:lvm&rdquo;
+  GRUB_PRELOAD_MODULES=&ldquo;part_gpt part_msdos cryptodisk luks&rdquo;
+#+end_src sh</p>
+
+<h2 id="config-and-install-grub-and-create-the-ramdisk">Config and install GRUB and create the ramdisk</h2>
+
+<p>#+begin_src sh</p>
+
+<p>grub-mkconfig &gt; /boot/grub/grub.cfg
+grub-install &ndash;efi-directory=/boot &ndash;target=x86_64-efi /dev/sda</p>
+
+<p>mkinitcpio -p linux
+#+end_src sh</p>
+
+<h2 id="references">References</h2>
+
+<h3 id="solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums"><a href="https://bbs.archlinux.org/viewtopic.php?id=246628">[SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</a></h3>
+
+<ul>
+<li>Source: <a href="https://bbs.archlinux.org/viewtopic.php?id=246628">https://bbs.archlinux.org/viewtopic.php?id=246628</a></li>
+<li>Title: [SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-04 Wed]</span></span></li>
+</ul>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/grub" term="grub" label="grub" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

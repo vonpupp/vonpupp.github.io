@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[org-mode on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/tags/org-mode/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/tags/org-mode/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
+            <link href="https://albertdelafuente.com/tags/org-mode/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/tags/org-mode/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2024-04-20T20:58:11-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/tags/org-mode/</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[New blog in org-mode and Hugo]]></title>
+            <link href="https://albertdelafuente.com/posts/sandbox/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/exobrain/20220128220728-curso_de_hebreo_de_emc_shalom_colombia/?utm_source=atom_feed" rel="related" type="text/html" title="Curso de hebreo de EMC Shalom Colombia" />
+            
+                <id>https://albertdelafuente.com/posts/sandbox/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2020-08-07T00:00:00-03:00</published>
+            <updated>2023-08-13T11:17:28-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>Okay this is like my fifth attempt to blog and so far, unsuccessfully.</p>
+
+<p>My first couple of blogs were on blogspot around 2005 or so, later I switched to
+dokuwiki, which is awesome but it didn&rsquo;t integrated well on my workflow. So I
+tried some extensions to try to write directly in markdown but it didn&rsquo;t work
+well for me. Then I moved to Hyde, which a Python static website generator. I
+invested quite some time customizing everything to my needs and while it was
+functional, I had to write in markdown (which I don&rsquo;t like&hellip;). I tried to write
+in RST at that time without success.</p>
+
+<p>Then I moved from Vim to <a href="https://gnu.org/software/emacs/">Emacs</a> and discovered <a href="http://orgmode.org/">org-mode</a>&hellip; And yeah, everything
+changed&hellip; I love Emacs+Org-Mode and I used quite a lot (and I still use Vim
+occasionally).</p>
+
+<p>I wanted to write directly in Org-Mode for my new blog to see if content flows
+this time (hopefully) and I can achieve the integration I was looking for all
+these years.</p>
+
+<p>The version of this blog uses plain Org-Mode and Hugo with ox-hugo as a middle
+helper. So far, so good, I just migrated my old posts which are few in number.</p>
+
+<p>What I am looking forward is to create a mix of a Blog and a digital garden for
+my notes (also known as second brain or exobrain).</p>
+
+<p>The rest of the file is actually a sandbox of general Org-Mode formatting to
+check out how it renders on Hugo itself.</p>
+
+<h2 id="this-is-h1">This is H1</h2>
+
+<p>There is paragraph under h1</p>
+
+<h3 id="h2">H2</h3>
+
+<!--list-separator-->
+
+<ul>
+<li><p>H3</p>
+
+<p>Something</p></li>
+</ul>
+
+<!--list-separator-->
+
+<ul>
+<li>H3 with a tag <span class="tag"><span class="sometag">sometag</span></span></li>
+</ul>
+
+<h2 id="some-basic-test">Some basic test</h2>
+
+<p>This is <strong>bold</strong>, <em>italic</em>, <code>code</code>, <code>verbatim</code> and <del>strike</del> text.</p>
+
+<ul>
+<li>However <strong><em>bold and italic</em></strong> doesn&rsquo;t play well when used together like in markdown.</li>
+<li>However <em><strong>bold and italic</strong></em> doesn&rsquo;t play well when used together like in markdown.</li>
+</ul>
+
+<h2 id="list">List</h2>
+
+<ul>
+<li>Bullet</li>
+<li>Another bullet
+
+<ul>
+<li>child
+
+<ul>
+<li>deep</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3 id="other-style">Other style</h3>
+
+<ul>
+<li>Bullet</li>
+<li>Another bullet
+
+<ul>
+<li>child
+
+<ul>
+<li>deep</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3 id="other-style-1">Other style</h3>
+
+<ol>
+<li>Bullet</li>
+<li>Another bullet
+
+<ol>
+<li>child
+
+<ol>
+<li>deep</li>
+</ol></li>
+</ol></li>
+</ol>
+
+<p>Style <code>*</code> isn&rsquo;t supported.</p>
+
+<h2 id="links">Links</h2>
+
+<p><a href="http://orgmode.org/">link to org mode homepage</a></p>
+
+<h2 id="check-list">Check List <code>[<sup>1</sup>&frasl;<sub>3</sub>]</code> <code>[33%]</code></h2>
+
+<ul class="task-list">
+<li><label><input type="checkbox" disabled class="task-list-item"> Item</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> Item</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> Checked item</label></li>
+</ul>
+
+<p>Heading and has special class however <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> are plain.</p>
+
+<h2 id="task-list">Task List</h2>
+
+<h3 id="some-to-do"><span class="org-todo todo TODO">TODO</span> some to-do</h3>
+
+<h3 id="done-to-do"><span class="org-todo done DONE">DONE</span> done to-do</h3>
+
+<p>Items are added with special class.</p>
+
+<h2 id="tables">Tables</h2>
+
+<table>
+<thead>
+<tr>
+<th>number</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td>looooong long name</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>name</td>
+</tr>
+</tbody>
+</table>
+
+<p><code>&lt;tr&gt;</code> has <code>even</code> and <code>odd</code> classes.</p>
+
+<h2 id="source-code">Source Code</h2>
+
+<p><strong>Emacs Lisp:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nb">defun</span> <span class="nv">negate</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+    <span class="s">&#34;Negate the value of x.&#34;</span>
+    <span class="p">(</span><span class="nf">-</span> <span class="nv">x</span><span class="p">))</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nf">print</span>
+    <span class="p">(</span><span class="nv">negate</span> <span class="mi">10</span><span class="p">))</span></code></pre></div>
+<p>There are interesting classes like <code>sourceCode</code> and <code>example</code>.
+Also there html5 attributes prefixed with <code>rundoc-</code>.</p>
+
+<p><strong>Haskell:</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">factorial</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span>
+<span class="nf">factorial</span> <span class="mi">0</span> <span class="ow">=</span> <span class="mi">1</span>
+<span class="nf">factorial</span> <span class="n">n</span> <span class="ow">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span></code></pre></div>
+<h2 id="latex">LaTeX</h2>
+
+<ul>
+<li><strong>Characters:</strong> &alpha; &beta; &rarr; &uarr; \or \and \implies &pi; &infin;</li>
+<li><strong>Inline Math:</strong> \(f(x) = x^2\)</li>
+<li><strong>More complex:</strong> \(\frac{x^2}{2}\)</li>
+</ul>
+
+<p>LaTeX characters are wrapped in <code>&lt;em&gt;</code> and Math inside <code>&lt;span class=&quot;math inline&quot;&gt;</code>.</p>
+
+<h3 id="mathscr-hello">\mathscr{Hello!}</h3>
+
+<p>\begin{align*}
+  8 * 3 &amp;= 8 + 8 \<br />
+        &amp;= 24
+\end{align*}</p>
+
+<p><strong>NOTE:</strong> <em>There is standard LaTeX embeded above which is skipped during compilation to HTML.</em></p>
+
+<p><strong>This is using</strong> <a href="https://www.mathjax.org/">MathJax</a></p>
+
+<p>\[\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}\]</p>
+
+<h2 id="deadline">Deadline</h2>
+
+<h2 id="tagged">Tagged <span class="tag"><span class="tag">tag</span></span></h2>
+
+<p>Tags are not visible in render</p>
+
+<h2 id="block-quote">Block Quote</h2>
+
+<blockquote>
+<p>Org mode is amazing. So is Hakyll &amp; Pandoc.</p>
+</blockquote>
+
+<h2 id="image">Image</h2>
+
+<p><a href="http://media.riffsy.com/images/f8534774b678ad1932b379a03460680b/raw">http://media.riffsy.com/images/f8534774b678ad1932b379a03460680b/raw</a></p>
+
+<p>Images has to have extension like:</p>
+
+<p>then it can be loaded even from other origin..</p>
+
+
+
+
+<figure>
+    
+        
+            <img src="https://media.tenor.com/Vkid3xkvTAMAAAAd/dog-in-space-dog.gif"/> </figure>
+
+
+<h2 id="description-list">Description List</h2>
+
+<dl>
+<dt>Frodo</dt>
+<dd>The hobbit ringbearer</dd>
+<dt>Aragorn</dt>
+<dd>The human ranger, true kind of Gondor</dd>
+<dt>Gandalf</dt>
+<dd>The Grey Wizard</dd>
+</dl>
+
+<p>creddits to <a href="https://www.reddit.com/user/nihilmancer">nihilmancer</a></p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/emacs" term="emacs" label="emacs" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/org-mode" term="org-mode" label="org-mode" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/hugo" term="hugo" label="hugo" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

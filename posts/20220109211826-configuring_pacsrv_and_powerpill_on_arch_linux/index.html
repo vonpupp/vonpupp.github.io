@@ -22,20 +22,6 @@
 
     
     
-    <!-- Google Analytics -->
-    <script type="application/javascript">
-     
-     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
-         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
-         ga('create', 'UA-27656036-2', 'auto');
-         ga('require', 'linkid'); 
-         ga('send', 'pageview');
-     }
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
-
-
 
     
     
@@ -74,9 +60,9 @@
     
     
     
-    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    <link rel="stylesheet" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css">
     
-    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+    <link rel="preload" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css" as="style">
 
     
 
@@ -180,15 +166,15 @@
     
 
     
-    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    <script src="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js"></script>
     
-    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+    <link rel="preload" href="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js" as="script">
 
     
     
-    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    <script defer src="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js"></script>
     
-    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js" as="script">
 
     
 
@@ -218,7 +204,7 @@
 
 
     
-        <meta property="article:published_time" content="2015-10-21T00:00:00&#43;00:00"/>
+        <meta property="article:published_time" content="2015-10-21T00:00:00-02:00"/>
     
     
         <meta property="article:modified_time" content="2023-08-13T12:06:01-03:00"/>
@@ -271,9 +257,9 @@
     
     
     
-    <meta name="hugo-build-date" content=""/>
-    <meta name="hugo-commit-hash" content=""/>
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="hugo-build-date" content="2019-09-11T08:16:28-0400"/>
+    <meta name="hugo-commit-hash" content="5276f1e9:chroma-26f03cb"/>
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
 </head>
 
 
@@ -424,7 +410,7 @@
     
     <div class="post-date">
         
-        <time datetime="2015-10-21T00:00:00+0000" class="dt-published">Wed Oct 21, 2015</time>
+        <time datetime="2015-10-21T00:00:00-0200" class="dt-published">Wed Oct 21, 2015</time>
         
         
             
@@ -481,6 +467,8 @@
 
 
 
+
+
 <p>On this post I will show how to configure and use <code>Pacserve</code> and <code>Powerpill</code> on
 Arch Linux. On a network of several Arch Linux boxes, it is possible to
 configure a <code>Master</code> server which will hold a copy of all the installed packages
@@ -488,9 +476,12 @@ within that host and keep it up to date frequently.  The other hosts on the
 network can be configured as <code>Slaves</code> and they will download the packages from
 the Master whenever possible instead of the Internet directly. The objective is
 to save bandwidth and time when using the package manager.</p>
+
 <h2 id="configuring-pacserve-and-powerpill-on-arch-linux">Configuring Pacserve and Powerpill on Arch Linux&nbsp;<a class="headline-hash no-text-decoration" href="#configuring-pacserve-and-powerpill-on-arch-linux">#</a> </h2>
+
 <p>The documentation of <a href="https://xyne.dev/projects/pacserve/">Pacserve</a> explains how it works. This image summarizes
 well the behavior.</p>
+
 
 
 
@@ -498,161 +489,173 @@ well the behavior.</p>
     
         <img src="https://albertdelafuente.com/ox-hugo/Pacserve_Request_Flow_Chart.svg"/> </figure>
 
+
 <p>Pacserve by itself seems very interesting however I could not make it work
 properly. I think it has something to do my router UDP multicast forwarding
-support (see <a href="http://wiki.openwrt.org/doc/recipes/dumbap">openwrt-multicast</a>). Nevertheless, I could use it within
-<a href="http://xyne.archlinux.ca/projects/powerpill/">Powerpill</a> which is a pacman wrapper to allow parallel and segmented downloads
-through <a href="http://aria2.sourceforge.net/">Aria2</a> and <a href="http://xyne.archlinux.ca/projects/reflector/">Reflector</a>.  This combo sounds even better, so I will focus on
+support (see <a href="http://wiki.openwrt.org/doc/recipes/dumbap&gt;">openwrt-multicast</a>). Nevertheless, I could use it within
+<a href="http://xyne.archlinux.ca/projects/powerpill/&gt;">Powerpill</a> which is a pacman wrapper to allow parallel and segmented downloads
+through <a href="http://aria2.sourceforge.net/&gt;">Aria2</a> and <a href="http://xyne.archlinux.ca/projects/reflector/&gt;">Reflector</a>.  This combo sounds even better, so I will focus on
 how to install and use the tree tools together.</p>
+
 <h3 id="installation">Installation&nbsp;<a class="headline-hash no-text-decoration" href="#installation">#</a> </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Just in case the testdb does not exists</span>
-</span></span><span class="line"><span class="cl">gpg --list-key
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Receive xyne gpg key</span>
-</span></span><span class="line"><span class="cl">gpg --recv-keys 1D1F0DC78F173680
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Install the packages</span>
-</span></span><span class="line"><span class="cl">yaourt -Sy --noconfirm reflector pacserve powerpill
-</span></span></code></pre></div><h3 id="starting-the-services--both-the-master-and-slaves--host--s">Starting the services (both the Master and Slave(s) host(s))&nbsp;<a class="headline-hash no-text-decoration" href="#starting-the-services--both-the-master-and-slaves--host--s">#</a> </h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Just in case the testdb does not exists</span>
+gpg --list-key
+
+<span class="c1"># Receive xyne gpg key</span>
+gpg --recv-keys 1D1F0DC78F173680
+
+<span class="c1"># Install the packages</span>
+yaourt -Sy --noconfirm reflector pacserve powerpill</code></pre></div>
+<h3 id="starting-the-services--both-the-master-and-slaves--host--s">Starting the services (both the Master and Slave(s) host(s))&nbsp;<a class="headline-hash no-text-decoration" href="#starting-the-services--both-the-master-and-slaves--host--s">#</a> </h3>
+
 <p>After everything is installed:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Enable opening the ports</span>
-</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> pacserve-ports.service
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Enable pacserve</span>
-</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> pacserve.service
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Start pacserve</span>
-</span></span><span class="line"><span class="cl">sudo systemctl start pacserve.service
-</span></span></code></pre></div><p>For troubleshooting purposes the services can be started manually. See the
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Enable opening the ports</span>
+sudo systemctl <span class="nb">enable</span> pacserve-ports.service
+
+<span class="c1"># Enable pacserve</span>
+sudo systemctl <span class="nb">enable</span> pacserve.service
+
+<span class="c1"># Start pacserve</span>
+sudo systemctl start pacserve.service</code></pre></div>
+<p>For troubleshooting purposes the services can be started manually. See the
 Troubleshooting section if you have problems.</p>
+
 <h3 id="configuring-powerpill-to-use-the-master-server--slaves--hosts-only">Configuring Powerpill to use the Master server (Slave(s) hosts only)&nbsp;<a class="headline-hash no-text-decoration" href="#configuring-powerpill-to-use-the-master-server--slaves--hosts-only">#</a> </h3>
+
 <p>Edit the file <code>/etc/powerpill/powerpill.json</code> to include the `pacserve`.`serve`
 attribute:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;aria2&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--allow-overwrite=true&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--always-resume=false&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--auto-file-renaming=false&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--check-integrity=true&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--conditional-get=true&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--continue=true&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--file-allocation=none&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--log-level=error&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--max-concurrent-downloads=100&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--max-connection-per-server=5&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--min-split-size=5M&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--remote-time=true&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--show-console-readout=true&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">],</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/aria2c&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;pacman&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="s2">&#34;/etc/pacman.conf&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/pacman&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;pacserve&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;server&#34;</span><span class="p">:</span> <span class="s2">&#34;http://192.168.56.6:15678&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;powerpill&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ask&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;reflect databases&#34;</span><span class="p">:</span> <span class="kc">false</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;reflector&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;args.unused&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--protocol&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;http&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--latest&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;50&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;rsync&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--no-motd&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;--progress&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">],</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;db only&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/rsync&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;servers&#34;</span><span class="p">:</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>In this example I configured two VMs using Vagrant with an internal network.
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;aria2&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&#34;--allow-overwrite=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--always-resume=false&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--auto-file-renaming=false&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--check-integrity=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--conditional-get=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--continue=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--file-allocation=none&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--log-level=error&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--max-concurrent-downloads=100&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--max-connection-per-server=5&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--min-split-size=5M&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--remote-time=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--show-console-readout=true&#34;</span>
+    <span class="p">],</span>
+    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/aria2c&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;pacman&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="s2">&#34;/etc/pacman.conf&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/pacman&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;pacserve&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;server&#34;</span><span class="p">:</span> <span class="s2">&#34;http://192.168.56.6:15678&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;powerpill&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;ask&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&#34;reflect databases&#34;</span><span class="p">:</span> <span class="kc">false</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;reflector&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;args.unused&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&#34;--protocol&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--latest&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;50&#34;</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;rsync&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&#34;--no-motd&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--progress&#34;</span>
+    <span class="p">],</span>
+    <span class="nt">&#34;db only&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/rsync&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;servers&#34;</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>In this example I configured two VMs using Vagrant with an internal network.
 The server runs on <code>192.168.56.6</code> on port `15678` (default port).</p>
+
 <p>After this we can use Powerpill as a replacement of Pacman as follows</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># System upgrade</span>
-</span></span><span class="line"><span class="cl">sudo powerpill -Syu
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Install a package</span>
-</span></span><span class="line"><span class="cl">sudo powerpill -S wget
-</span></span></code></pre></div><h3 id="conclusions">Conclusions&nbsp;<a class="headline-hash no-text-decoration" href="#conclusions">#</a> </h3>
-<p>When <a href="http://xyne.archlinux.ca/projects/powerpill/">powerpill</a> is used..</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># System upgrade</span>
+sudo powerpill -Syu
+
+<span class="c1"># Install a package</span>
+sudo powerpill -S wget</code></pre></div>
+<h3 id="conclusions">Conclusions&nbsp;<a class="headline-hash no-text-decoration" href="#conclusions">#</a> </h3>
+
+<p>When <a href="http://xyne.archlinux.ca/projects/powerpill/&gt;">powerpill</a> is used..</p>
+
 <h3 id="todos">TODOs&nbsp;<a class="headline-hash no-text-decoration" href="#todos">#</a> </h3>
+
 <ul>
-<li>Check how to have only <strong><strong>one</strong></strong> Master DB and all the Slaves also sync the DB from the master</li>
+<li>Check how to have only *<strong><em>one</em></strong>* Master DB and all the Slaves also sync the DB from the master</li>
 <li>Use reflector commands within Powerpill</li>
 <li>What happens if different architectures are on the same network and UDP multicast works?</li>
 </ul>
+
 <h3 id="troubleshooting-pacserve--without-powerpill">Troubleshooting Pacserve (without Powerpill)&nbsp;<a class="headline-hash no-text-decoration" href="#troubleshooting-pacserve--without-powerpill">#</a> </h3>
+
 <p>As I said before I could not make it working using multicast, so I had to
 manually start the Pacserve Master host as:</p>
+
 <p>Input:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pacserve --multicast
-</span></span></code></pre></div><p>Output:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">PacserveServer
-</span></span><span class="line"><span class="cl">  PID                  <span class="m">1048</span>
-</span></span><span class="line"><span class="cl">  Addresses
-</span></span><span class="line"><span class="cl">    lo:     127.0.0.1
-</span></span><span class="line"><span class="cl">    eth0:   10.0.2.15
-</span></span><span class="line"><span class="cl">    enp0s9: 192.168.56.6
-</span></span><span class="line"><span class="cl">  Port                 <span class="m">15678</span>
-</span></span><span class="line"><span class="cl">  Multicast Address    all interfaces
-</span></span><span class="line"><span class="cl">  Multicast Port       <span class="m">15679</span>
-</span></span><span class="line"><span class="cl">  Multicast Group      224.3.45.67
-</span></span><span class="line"><span class="cl">  Multicast Interval   5m
-</span></span><span class="line"><span class="cl">  Multicast Interfaces all
-</span></span><span class="line"><span class="cl">  Filelist             None
-</span></span><span class="line"><span class="cl">  Filterlist           None
-</span></span><span class="line"><span class="cl">  MOTD                 None
-</span></span><span class="line"><span class="cl">  Upload Directory     None
-</span></span><span class="line"><span class="cl">  Paths                None
-</span></span><span class="line"><span class="cl">  Static Peers         None
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Press ctrl+C to exit.
-</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:54:54 AEDT<span class="o">]</span> INFO: announcing presence by multicast <span class="o">(</span>group: 224.3.45.67<span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:54:54 AEDT<span class="o">]</span> INFO: announcement sent via all interfaces
-</span></span></code></pre></div><p>Assuming the server is running with the IP <code>192.168.56.6</code>, you can manually
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">pacserve --multicast</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">PacserveServer
+  PID                  <span class="m">1048</span>
+  Addresses
+    lo:     <span class="m">127</span>.0.0.1
+    eth0:   <span class="m">10</span>.0.2.15
+    enp0s9: <span class="m">192</span>.168.56.6
+  Port                 <span class="m">15678</span>
+  Multicast Address    all interfaces
+  Multicast Port       <span class="m">15679</span>
+  Multicast Group      <span class="m">224</span>.3.45.67
+  Multicast Interval   5m
+  Multicast Interfaces all
+  Filelist             None
+  Filterlist           None
+  MOTD                 None
+  Upload Directory     None
+  Paths                None
+  Static Peers         None
+
+Press ctrl+C to exit.
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:54:54 AEDT<span class="o">]</span> INFO: announcing presence by multicast <span class="o">(</span>group: <span class="m">224</span>.3.45.67<span class="o">)</span>
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:54:54 AEDT<span class="o">]</span> INFO: announcement sent via all interfaces</code></pre></div>
+<p>Assuming the server is running with the IP <code>192.168.56.6</code>, you can manually
 start Pacserve on the Slave(s) hosts as:</p>
+
 <p>Input:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pacserve --multicast --peer <span class="s2">&#34;http://192.168.56.6:15678&#34;</span>
-</span></span></code></pre></div><p>Output:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">PacserveServer
-</span></span><span class="line"><span class="cl">  PID                  <span class="m">1102</span>
-</span></span><span class="line"><span class="cl">  Addresses
-</span></span><span class="line"><span class="cl">    lo:     127.0.0.1
-</span></span><span class="line"><span class="cl">    eth0:   10.0.2.15
-</span></span><span class="line"><span class="cl">    enp0s9: 192.168.56.7
-</span></span><span class="line"><span class="cl">  Port                 <span class="m">15678</span>
-</span></span><span class="line"><span class="cl">  Multicast Address    all interfaces
-</span></span><span class="line"><span class="cl">  Multicast Port       <span class="m">15679</span>
-</span></span><span class="line"><span class="cl">  Multicast Group      224.3.45.67
-</span></span><span class="line"><span class="cl">  Multicast Interval   5m
-</span></span><span class="line"><span class="cl">  Multicast Interfaces all
-</span></span><span class="line"><span class="cl">  Filelist             None
-</span></span><span class="line"><span class="cl">  Filterlist           None
-</span></span><span class="line"><span class="cl">  MOTD                 None
-</span></span><span class="line"><span class="cl">  Upload Directory     None
-</span></span><span class="line"><span class="cl">  Paths                None
-</span></span><span class="line"><span class="cl">  Static Peers         http://192.168.56.6:15678
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Press ctrl+C to exit.
-</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:00 AEDT<span class="o">]</span> INFO: announcing presence via POST to http://192.168.56.6:15678
-</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:00 AEDT<span class="o">]</span> INFO: POSTing to http://192.168.56.6:15678/ <span class="o">[</span>type: nudge<span class="o">]</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:01 AEDT<span class="o">]</span> INFO: announcing presence by multicast <span class="o">(</span>group: 224.3.45.67<span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:01 AEDT<span class="o">]</span> INFO: announcement sent via all interfaces
-</span></span></code></pre></div><p>After starting the Slave host you should get the following message on the Master console:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:00 AEDT<span class="o">]</span> INFO: added http://192.168.56.7:15678/ <span class="o">(</span>POST<span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>2015-10-23 05:56:00 AEDT<span class="o">]</span> INFO: 192.168.56.7 <span class="s2">&#34;POST / HTTP/1.1&#34;</span> <span class="m">200</span> -
-</span></span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">pacserve --multicast --peer <span class="s2">&#34;http://192.168.56.6:15678&#34;</span></code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">PacserveServer
+  PID                  <span class="m">1102</span>
+  Addresses
+    lo:     <span class="m">127</span>.0.0.1
+    eth0:   <span class="m">10</span>.0.2.15
+    enp0s9: <span class="m">192</span>.168.56.7
+  Port                 <span class="m">15678</span>
+  Multicast Address    all interfaces
+  Multicast Port       <span class="m">15679</span>
+  Multicast Group      <span class="m">224</span>.3.45.67
+  Multicast Interval   5m
+  Multicast Interfaces all
+  Filelist             None
+  Filterlist           None
+  MOTD                 None
+  Upload Directory     None
+  Paths                None
+  Static Peers         http://192.168.56.6:15678
+
+Press ctrl+C to exit.
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:00 AEDT<span class="o">]</span> INFO: announcing presence via POST to http://192.168.56.6:15678
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:00 AEDT<span class="o">]</span> INFO: POSTing to http://192.168.56.6:15678/ <span class="o">[</span>type: nudge<span class="o">]</span>
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:01 AEDT<span class="o">]</span> INFO: announcing presence by multicast <span class="o">(</span>group: <span class="m">224</span>.3.45.67<span class="o">)</span>
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:01 AEDT<span class="o">]</span> INFO: announcement sent via all interfaces</code></pre></div>
+<p>After starting the Slave host you should get the following message on the Master console:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:00 AEDT<span class="o">]</span> INFO: added http://192.168.56.7:15678/ <span class="o">(</span>POST<span class="o">)</span>
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:00 AEDT<span class="o">]</span> INFO: <span class="m">192</span>.168.56.7 <span class="s2">&#34;POST / HTTP/1.1&#34;</span> <span class="m">200</span> -</code></pre></div>
 
         </div>
     </div>
@@ -676,26 +679,28 @@ start Pacserve on the Slave(s) hosts as:</p>
     
         <div class="hugotoc no-text-decoration">
             <nav id="TableOfContents">
-  <ul>
-    <li><a href="#configuring-pacserve-and-powerpill-on-arch-linux">Configuring Pacserve and Powerpill on Arch Linux</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-        <li><a href="#starting-the-services--both-the-master-and-slaves--host--s">Starting the services (both the Master and Slave(s) host(s))</a></li>
-        <li><a href="#configuring-powerpill-to-use-the-master-server--slaves--hosts-only">Configuring Powerpill to use the Master server (Slave(s) hosts only)</a></li>
-        <li><a href="#conclusions">Conclusions</a></li>
-        <li><a href="#todos">TODOs</a></li>
-        <li><a href="#troubleshooting-pacserve--without-powerpill">Troubleshooting Pacserve (without Powerpill)</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#configuring-pacserve-and-powerpill-on-arch-linux">Configuring Pacserve and Powerpill on Arch Linux</a>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#starting-the-services--both-the-master-and-slaves--host--s">Starting the services (both the Master and Slave(s) host(s))</a></li>
+<li><a href="#configuring-powerpill-to-use-the-master-server--slaves--hosts-only">Configuring Powerpill to use the Master server (Slave(s) hosts only)</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+<li><a href="#todos">TODOs</a></li>
+<li><a href="#troubleshooting-pacserve--without-powerpill">Troubleshooting Pacserve (without Powerpill)</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
             <a href="#" class="back-to-top">Back to top</a>
         </div>
     
     
-<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js"></script>
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js"></script>
 
-<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js" as="script">
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js" as="script">
 
 <script type="application/javascript">(function() {
      var $window = $(window);
@@ -879,6 +884,9 @@ start Pacserve on the Slave(s) hosts as:</p>
 
 
 
+ 
+    
+    
 
 
 
@@ -916,7 +924,7 @@ start Pacserve on the Slave(s) hosts as:</p>
 
 
 
-<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+<script defer src="/js/libs/fragmentions/wrapper.min.4c511209cd3786314b251d891c8da528b47a972669aa4eea416b64d4be01eee2.js"></script>
 
 
 

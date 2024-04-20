@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[dns on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/tags/dns/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/tags/dns/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
+            <link href="https://albertdelafuente.com/tags/dns/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/tags/dns/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2024-04-20T20:58:11-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/tags/dns/</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to publish a GPG key via DNS]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+            
+                <id>https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/</id>
+            
+            
+                    <author>
+                        <name>Albert</name>
+                    </author>
+            <published>2016-11-13T00:00:00-02:00</published>
+            <updated>2023-08-13T11:22:29-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>Publishing keys is quite common. One nice way to do so is by using the Public
+Key Association (PKA) DNS record. Basically this is a record that points to a
+file that can be downloaded over the internet. This method is an alternative
+(not exclusive) to using keyservers.</p>
+
+<p>One of the problems of keyservers (in my opinion), is the problem of deleting
+old keys. I pretty much like the idea of PGP keyserver which verifies
+periodically by sending an email if the address is still in use and therefore
+maintain that <code>uid</code> of the key. The only problem is that the PGP server is
+centralized and it does not use FLOSS standards.</p>
+
+<p>I understand that deleting a key on a distributed environment is hard and
+probably maintaining a history of deletions as done actually on most of
+keyservers is still a good solution. However since I don&rsquo;t use GPG very often
+and I am not publishing my key yet, I wanted to try PKA.</p>
+
+<p>This tutorial is made of two basic parts, first creating a TXT DNS record and
+then verifying that the key gets downloaded properly.</p>
+
+<h3 id="tutorial-overview">Tutorial overview</h3>
+
+<ol>
+<li>Creating the TXT DNS record</li>
+<li>Testing the PKA record</li>
+</ol>
+
+<h2 id="assumptions">Assumptions</h2>
+
+<p>I assume that you have gpg installed and that you know the basic idea on how it
+works, that you know what a private and a public keys are for and how to use
+them.</p>
+
+<h2 id="creating-the-txt-dns-record">Creating the TXT DNS record</h2>
+
+<p>To create the TXT DNS record you will need to know the fingerprint of the key.
+To do so:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ gpg --list-keys vonpupp@keybase.io
+pub   rsa2048/0x536814BF4871A220 <span class="m">2016</span>-11-12 <span class="o">[</span>SC<span class="o">]</span> <span class="o">[</span>expires: <span class="m">2018</span>-11-12<span class="o">]</span>
+      Key <span class="nv">fingerprint</span> <span class="o">=</span> F0B9 B3FB 25E9 <span class="m">1209</span> 728E  <span class="m">4844</span> <span class="m">5368</span> 14BF <span class="m">4871</span> A220
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente &lt;vonpupp@keybase.io&gt;
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Social email address<span class="o">)</span> &lt;vonpupp@gmail.com&gt;
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Main email address<span class="o">)</span> &lt;mail@albertdelafuente.com&gt;
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Haevas email address<span class="o">)</span> &lt;albert@haevas.com&gt;
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Academic email address<span class="o">)</span> &lt;albert@ime.usp.br&gt;
+      sub   rsa2048/0xE2977BF3F82AB971 <span class="m">2016</span>-11-12 <span class="o">[</span>E<span class="o">]</span> <span class="o">[</span>expires: <span class="m">2018</span>-11-12<span class="o">]</span></code></pre></div>
+<p>In my case, the fingerprint is <strong>F0B9 B3FB 25E9 1209 728E  4844 5368 14BF 4871
+A220</strong>, or <strong>0x536814BF4871A220</strong> for short.</p>
+
+<p>Then you need to export the key with:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ gpg --export -a 0x536814BF4871A220 &gt; public-0x536814BF4871A220.asc</code></pre></div>
+<p>Then create a TXT record where:</p>
+
+<h2 id="the-name-part">The <code>Name</code> part:</h2>
+
+<p>Is composed of <code>mailbox</code>._pka.albertdelafuente.com. So for
+instance if my email is <code>long-anti-spam-email-address@albertdelafuentedotcom</code>,
+then the name part should be
+<code>long-anti-spam-email-address._pka.albertdelafuente.com</code>.</p>
+
+<h2 id="the-text-data">The <code>Text</code> data:</h2>
+
+<p>Contains the <code>fingerprint</code> and the <code>URL</code> where to download the key. In my case:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">  <span class="s2">&#34;v=pka1;fpr=F0B9B3FB25E91209728E4844536814BF4871A220;uri=http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc&#34;</span></code></pre></div>
+<p>Do not forget to upload the key to match the <code>uri</code> as on the TXT record. In my case:
+<a href="http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc">http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc</a></p>
+
+<h2 id="testing-the-pka-record">Testing the PKA record</h2>
+
+<p>Once done that you can download the key (just for testing purposes) on another computer or VM as follows:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ <span class="nb">echo</span> <span class="s2">&#34;Test message&#34;</span> <span class="p">|</span> gpg --auto-key-locate pka -ear mail@albertdelafuente.com</code></pre></div>
+<p>In my case this will prompt you with a confirmation since my primary uid does
+not match the email. This is made in purpose because I have read that some
+spammers are using keyservers to get valid email addresses, therefore I always
+use keybase as my primary id.</p>
+
+<p>You will see something similar to this as the output:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">gpg: <span class="nv">directory</span> <span class="o">=</span>/home/vagrant/.gnupg<span class="s1">&#39; created
+</span><span class="s1">gpg: new configuration file =/home/vagrant/.gnupg/gpg.conf&#39;</span> created
+gpg: WARNING: options <span class="nv">in</span> <span class="o">=</span>/home/vagrant/.gnupg/gpg.conf<span class="s1">&#39; are not yet active during this run
+</span><span class="s1">gpg: keyring =/home/vagrant/.gnupg/secring.gpg&#39;</span> created
+gpg: <span class="nv">keyring</span> <span class="o">=</span>/home/vagrant/.gnupg/pubring.gpg<span class="s1">&#39; created
+</span><span class="s1">gpg: requesting key 4871A220 from http server albertdelafuente.com
+</span><span class="s1">gpg: /home/vagrant/.gnupg/trustdb.gpg: trustdb created
+</span><span class="s1">gpg: key 4871A220: public key &#34;Albert De La Fuente &lt;vonpupp@keybase.io&gt;&#34; imported
+</span><span class="s1">gpg: Total number processed: 1
+</span><span class="s1">gpg:               imported: 1  (RSA: 1)
+</span><span class="s1">gpg: automatically retrieved =mail@albertdelafuente.com&#39;</span> via PKA
+gpg: F82AB971: There is no assurance this key belongs to the named user
+
+pub  2048R/F82AB971 <span class="m">2016</span>-11-12 Albert De La Fuente &lt;vonpupp@keybase.io&gt;
+ Primary key fingerprint: F0B9 B3FB 25E9 <span class="m">1209</span> 728E  <span class="m">4844</span> <span class="m">5368</span> 14BF <span class="m">4871</span> A220
+      Subkey fingerprint: 7A10 07B4 3F49 <span class="m">5317</span> 5DE0  52E8 E297 7BF3 F82A B971
+
+It is NOT certain that the key belongs to the person named
+in the user ID.  If you *really* know what you are doing,
+you may answer the next question with yes.
+
+Use this key anyway? <span class="o">(</span>y/N<span class="o">)</span> y
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+
+hQEMA+KXe/P4KrlxAQf/d1yxYFBSPs0RKHJ98w+s82jK25R/IXCiFNe6BkX+oyp+
+uh+4AObx93SuJ/ryHlthHQmnpid4BQWmhmCksiAH+xD1xrlrCDIsNQfJ5+aPQXjz
++Z6iKrWy8Lk13i6u3wgMZuk2eKN9Z1ppi15arXhFc93cta5p5K5tAH7CwMd5zP93
+r7wgI2Jff+x3erN0zbkJ2PZgDrHZVLVWyOnwgRBw12N8El3L8i6JFbNY+g25AMUm
+MMCPSTit8ILsFoPtkrJEOdq5p5aCw3dvIVSzmxflMJEsgqO+Per+KxtMehaBF5qX
+I2TzltcgjlisSJ3rcBtjpm12rSVJrPs4BG2UKz0w6tJIAbF0FLlWXe8zMJMK1E3Q
+BQ7y/gjTduiuuD++qyIxqWCoLCgHixvP4WiTPbbKvoXl4BP8Bf1ED9M/0Cyss2NI
+<span class="nv">tW7vVlLcXRQb</span>
+<span class="o">=</span>gdKa
+-----END PGP MESSAGE-----</code></pre></div>
+<h2 id="conclusions">Conclusions</h2>
+
+<p>As you can see it is not that hard to publish a public key via DNS. You need to
+export your key to a file and upload it and then create a TXT record relating
+the fingerprint and the location of the key. You may also publish your key on a
+keyserver also since not everybody retrieve the keys over DNS.</p>
+
+<p>Thanks for reading. Spot an error or want to explain something better, feel
+free to send me a PR.</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/gpg" term="gpg" label="gpg" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/dns" term="dns" label="dns" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

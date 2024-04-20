@@ -22,20 +22,6 @@
 
     
     
-    <!-- Google Analytics -->
-    <script type="application/javascript">
-     
-     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
-         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
-         ga('create', 'UA-27656036-2', 'auto');
-         ga('require', 'linkid'); 
-         ga('send', 'pageview');
-     }
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
-
-
 
     
     
@@ -74,9 +60,9 @@
     
     
     
-    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    <link rel="stylesheet" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css">
     
-    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+    <link rel="preload" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css" as="style">
 
     
 
@@ -180,15 +166,15 @@
     
 
     
-    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    <script src="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js"></script>
     
-    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+    <link rel="preload" href="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js" as="script">
 
     
     
-    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    <script defer src="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js"></script>
     
-    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js" as="script">
 
     
 
@@ -241,7 +227,9 @@
 
     
     
-    <link rel="alternate" type="application/rss+xml" href="https://albertdelafuente.com/categories/arch/index.xml" title="Rss for Albert De La Fuente's site" />
+    <link rel="alternate" type="application/rss+xml" href="https://albertdelafuente.com/categories/arch/index.xml" title="RSS for Albert De La Fuente's site" />
+    <link rel="alternate" type="application/atom+xml" href="https://albertdelafuente.com/categories/arch/atom.xml" title="Atom for Albert De La Fuente's site" />
+    <link rel="alternate" type="application/jf2feed+json" href="https://albertdelafuente.com/categories/arch/jf2feed.json" title="Jf2feed for Albert De La Fuente's site" />
     
      
 
@@ -260,9 +248,9 @@
     
     
     
-    <meta name="hugo-build-date" content=""/>
-    <meta name="hugo-commit-hash" content=""/>
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="hugo-build-date" content="2019-09-11T08:16:28-0400"/>
+    <meta name="hugo-commit-hash" content="5276f1e9:chroma-26f03cb"/>
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
 </head>
 
 
@@ -326,6 +314,12 @@
             
             
             
+                
+                    
+                    <span class="categories"><a href="https://albertdelafuente.com/categories/">all <span class="term">categories</span></a></span>
+                    
+                
+            
         
             
             
@@ -339,6 +333,12 @@
             
             
             
+            
+                
+                    
+                    <span class="tags"> | <a href="https://albertdelafuente.com/tags/">all <span class="term">tags</span></a></span>
+                    
+                
             
         
     </div>
@@ -506,15 +506,23 @@
     </header>
 
     <div class="post p-summary" >
-        <p> Related notes How to list all projects in Gitlab, How to list all projects in BitBucket Install the github-cli with:
+        <p>Related notes How to list all projects in Gitlab, How to list all projects in BitBucket  Install the github-cli with:
 pacaur -S github-cli Auth with:
 gh auth login Once configured, the magic line to list all the repos by LRU is:
-gh repo list -L 3000 --json nameWithOwner --jq .[].nameWithOwner </p>
+gh repo list -L 3000 --json nameWithOwner --jq .</p>
 
     </div>
 
     
     
+    
+        <div class="readmore no-text-decoration">
+            <a href='https://albertdelafuente.com/exobrain/20220703011205-how_to_list_all_projects_in_github/'
+               title="Read more about How to list all projects in Github">
+                read <span class="more"> more</span>
+                <span class="screen-readers-only" > about How to list all projects in Github</span>
+            </a>
+        </div>
     
 </article>
 
@@ -632,7 +640,7 @@ gh repo list -L 3000 --json nameWithOwner --jq .[].nameWithOwner </p>
     </header>
 
     <div class="post p-summary" >
-        <p>Related notes How to list all projects in Gitlab, How to list all projects in Github Install the bbcli with:
+        <p>Related notes How to list all projects in Gitlab, How to list all projects in Github  Install the bbcli with:
 pacaur -S bbcli Auth with:
 bb auth login At the writing of this, the tool doesn&rsquo;t seem to support oauth and bitbucket seems to be enforcing it recently. So I am abandoning this. I think I will move out of bitbucket anyway.</p>
 
@@ -757,7 +765,7 @@ bb auth login At the writing of this, the tool doesn&rsquo;t seem to support oau
     </header>
 
     <div class="post p-summary" >
-        <p>Related notes How to list all projects in Gitlab, How to list all projects in Github Install the package pip install --user tsrc Create the manifest repository Create a new repository named manifest Create a file manifest.yml with the following content: repos: - dest: org branch: master remotes: - name: origin url: git@github.com:&lt;user&gt;/&lt;repo&gt;.git - name: https url: https://&lt;user&gt;:&lt;token&gt;@github.com/&lt;organization&gt;/&lt;repo&gt;.git - name: nas url: ssh://&lt;user&gt;@&lt;server&gt;:&lt;port&gt;/&lt;path&gt;/&lt;repo&gt;.git This will create the setup for a repository that always stays in sync across all the remotes.</p>
+        <p>Related notes How to list all projects in Gitlab, How to list all projects in Github  Install the package pip install --user tsrc Create the manifest repository  Create a new repository named manifest Create a file manifest.yml with the following content:   repos:-dest:orgbranch:masterremotes:-name:originurl:git@github.com:&lt;user&gt;/&lt;repo&gt;.git-name:httpsurl:https://&lt;user&gt;:&lt;token&gt;@github.com/&lt;organization&gt;/&lt;repo&gt;.git-name:nasurl:ssh://&lt;user&gt;@&lt;server&gt;:&lt;port&gt;/&lt;path&gt;/&lt;repo&gt;.git This will create the setup for a repository that always stays in sync across all the remotes. The cool thing about this is that it will automatically keep in sync the git remotes with this definition.</p>
 
     </div>
 
@@ -878,7 +886,7 @@ bb auth login At the writing of this, the tool doesn&rsquo;t seem to support oau
     
     <div class="post-date">
         
-        <time datetime="2022-07-03T00:00:00+0000" class="dt-published">Sun Jul 3, 2022</time>
+        <time datetime="2022-07-03T00:00:00-0300" class="dt-published">Sun Jul 3, 2022</time>
         
         
             
@@ -1025,14 +1033,16 @@ Alternatively you can install the AUR package with:</p>
     <div class="post p-summary" >
         
         <p>I came up with this awesome tool to generate random names like docker. To install it use:</p>
+
 <h2 id="setup">Setup</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -sSf https://fnichol.github.io/names/install.sh <span class="p">|</span> sh
-</span></span></code></pre></div><p>This will install the <code>names</code> binary in <code>~/bin</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">curl -sSf https://fnichol.github.io/names/install.sh <span class="p">|</span> sh</code></pre></div>
+<p>This will install the <code>names</code> binary in <code>~/bin</code></p>
+
 <h2 id="how-to-generate-a-random-names">How to generate a random names</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">names
-</span></span></code></pre></div><h2 id="how-to-generate-10-random-names">How to generate 10 random names</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">names <span class="m">10</span>
-</span></span></code></pre></div><h2 id="how-to-generate-random-names-from-within-emacs">How to generate random …</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">names</code></pre></div>
+<h2 id="how-to-generate-10-random-names">How to generate 10 random names</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">names <span class="m">10</span></code></pre></div>
+<h2 id="how-to-generate-random-names-from-within-emacs">How to generate random …</h2>
 
     </div>
 
@@ -1147,16 +1157,18 @@ Alternatively you can install the AUR package with:</p>
     <div class="post p-summary" >
         
         <h2 id="install-packages">Install packages</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo pacman -S pipewire-pulse
-</span></span></code></pre></div><h2 id="enable-experimental-flag">Enable experimental flag</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo vim /etc/bluetooth/main.conf
-</span></span></code></pre></div><p><code>/Experimental =</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo pacman -S pipewire-pulse</code></pre></div>
+<h2 id="enable-experimental-flag">Enable experimental flag</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo vim /etc/bluetooth/main.conf</code></pre></div>
+<p><code>/Experimental =</code></p>
+
 <p>Change it to true</p>
+
 <p>restart the system</p>
+
 <h2 id="verify-that-pipewire-is-working">Verify that pipewire is working</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pactl info <span class="p">|</span> ag -Ui <span class="s2">&#34;server name&#34;</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Server Name: PulseAudio (on PipeWire 0.3.51)
-</span></span></code></pre></div><h2 id="find-out-the-device">Find out the device …</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">pactl info <span class="p">|</span> ag -Ui <span class="s2">&#34;server name&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Server Name: PulseAudio (on PipeWire 0.3.51)</code></pre></div>
+<h2 id="find-out-the-device">Find out the device …</h2>
 
     </div>
 
@@ -1187,6 +1199,12 @@ Alternatively you can install the AUR package with:</p>
             
             
             
+                
+                    
+                    <span class="categories"><a href="https://albertdelafuente.com/categories/">all <span class="term">categories</span></a></span>
+                    
+                
+            
         
             
             
@@ -1200,6 +1218,12 @@ Alternatively you can install the AUR package with:</p>
             
             
             
+            
+                
+                    
+                    <span class="tags"> | <a href="https://albertdelafuente.com/tags/">all <span class="term">tags</span></a></span>
+                    
+                
             
         
     </div>
@@ -1219,6 +1243,16 @@ Alternatively you can install the AUR package with:</p>
             <li class="inline no-text-decoration">
                 <a href="https://albertdelafuente.com/categories/arch/index.xml">RSS</a>
             </li>
+        
+    
+        
+        
+            <li class="inline no-text-decoration">
+                <a href="https://albertdelafuente.com/categories/arch/atom.xml">ATOM</a>
+            </li>
+        
+    
+        
         
     
 </ul>
@@ -1244,6 +1278,9 @@ Alternatively you can install the AUR package with:</p>
 
 
 
+ 
+    
+    
 
 
 
@@ -1281,7 +1318,7 @@ Alternatively you can install the AUR package with:</p>
 
 
 
-<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+<script defer src="/js/libs/fragmentions/wrapper.min.4c511209cd3786314b251d891c8da528b47a972669aa4eea416b64d4be01eee2.js"></script>
 
 
 

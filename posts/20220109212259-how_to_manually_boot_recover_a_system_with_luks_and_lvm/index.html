@@ -22,20 +22,6 @@
 
     
     
-    <!-- Google Analytics -->
-    <script type="application/javascript">
-     
-     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
-         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
-         ga('create', 'UA-27656036-2', 'auto');
-         ga('require', 'linkid'); 
-         ga('send', 'pageview');
-     }
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
-
-
 
     
     
@@ -74,9 +60,9 @@
     
     
     
-    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    <link rel="stylesheet" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css">
     
-    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+    <link rel="preload" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css" as="style">
 
     
 
@@ -180,15 +166,15 @@
     
 
     
-    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    <script src="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js"></script>
     
-    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+    <link rel="preload" href="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js" as="script">
 
     
     
-    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    <script defer src="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js"></script>
     
-    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js" as="script">
 
     
 
@@ -219,7 +205,7 @@ I use Arch Linux and I prepared a repository with my custom install method based
 
 
     
-        <meta property="article:published_time" content="2016-11-22T00:00:00&#43;00:00"/>
+        <meta property="article:published_time" content="2016-11-22T00:00:00-02:00"/>
     
     
         <meta property="article:modified_time" content="2023-08-13T11:20:59-03:00"/>
@@ -273,9 +259,9 @@ I use Arch Linux and I prepared a repository with my custom install method based
     
     
     
-    <meta name="hugo-build-date" content=""/>
-    <meta name="hugo-commit-hash" content=""/>
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="hugo-build-date" content="2019-09-11T08:16:28-0400"/>
+    <meta name="hugo-commit-hash" content="5276f1e9:chroma-26f03cb"/>
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
 </head>
 
 
@@ -462,7 +448,7 @@ I use Arch Linux and I prepared a repository with my custom install method based
     
     <div class="post-date">
         
-        <time datetime="2016-11-22T00:00:00+0000" class="dt-published">Tue Nov 22, 2016</time>
+        <time datetime="2016-11-22T00:00:00-0200" class="dt-published">Tue Nov 22, 2016</time>
         
         
             
@@ -519,88 +505,105 @@ I use Arch Linux and I prepared a repository with my custom install method based
 
 
 
+
+
 <p>I have been using LVM on top of LUKS for more than 2 years without problems.
 However since I haven&rsquo;t had the chance to troubleshoot these technologies in
 the past I was quite concerned of what would happen when I would have problems.
 Today my main computer didn&rsquo;t boot up and I had to fix it manually. This
 post shows the steps I performed to recover my system.</p>
+
 <p>I use Arch Linux and I prepared a repository with my custom install method
 based on archinstaller. Basically I have a custom partitioning based on LVM on
 top of LUKS and some variables to start he installing method.</p>
+
 <p>Here is an overview of the parts on this tutorial:</p>
+
 <h2 id="tutorial-overview">Tutorial overview&nbsp;<a class="headline-hash no-text-decoration" href="#tutorial-overview">#</a> </h2>
+
 <ol>
 <li>Create a bootable USB and boot the broken system with it (AKA recovery mode**</li>
 <li>Chroot into the system</li>
 <li>Fix the issue</li>
 </ol>
+
 <h2 id="assumptions">Assumptions&nbsp;<a class="headline-hash no-text-decoration" href="#assumptions">#</a> </h2>
+
 <p>I will assume that the error is similar as mine. After opening the LUKS device,
 I had the following problem:
 <code>ERROR: device /dev/mapper/storage-root not found</code>.</p>
+
 <h2 id="create-a-bootable-usb">Create a bootable USB&nbsp;<a class="headline-hash no-text-decoration" href="#create-a-bootable-usb">#</a> </h2>
+
 <p>To create a bootable USB you need to download the latest Arch Linux iso and
 then us <code>dd</code> to dump it to a flash drive.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dd <span class="nv">bs</span><span class="o">=</span>4M <span class="k">if</span><span class="o">=</span>/path/to/archlinux.iso <span class="nv">of</span><span class="o">=</span>/dev/sdx <span class="nv">status</span><span class="o">=</span>progress <span class="o">&amp;&amp;</span> sync
-</span></span></code></pre></div><p>After completion, use the same flash drive to boot the broken computer. You
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dd <span class="nv">bs</span><span class="o">=</span>4M <span class="k">if</span><span class="o">=</span>/path/to/archlinux.iso <span class="nv">of</span><span class="o">=</span>/dev/sdx <span class="nv">status</span><span class="o">=</span>progress <span class="o">&amp;&amp;</span> sync</code></pre></div>
+<p>After completion, use the same flash drive to boot the broken computer. You
 generally need to hit a key on the <code>F5</code> - <code>F6</code> range to choose the boot method.</p>
+
 <h2 id="chroot-into-the-system">Chroot into the system&nbsp;<a class="headline-hash no-text-decoration" href="#chroot-into-the-system">#</a> </h2>
+
 <p>Once the system has booted, now we need to mount everything the system would
 mount on a boot stage.  Adapt the LUKS label and LVM devices according to your
 needs.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Open the LUKS device.</span>
-</span></span><span class="line"><span class="cl">cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Mount the root partition</span>
-</span></span><span class="line"><span class="cl">mount /dev/storage/root /mnt
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Mount the boot partition</span>
-</span></span><span class="line"><span class="cl">mount /dev/sda1 /mnt/boot
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Mount proc, sys and dev</span>
-</span></span><span class="line"><span class="cl">mount -t proc proc proc/
-</span></span><span class="line"><span class="cl">mount -t sysfs sys sys/
-</span></span><span class="line"><span class="cl">mount -o <span class="nb">bind</span> /dev dev/
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Switch to bash</span>
-</span></span><span class="line"><span class="cl">bash
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Chroot</span>
-</span></span><span class="line"><span class="cl">chroot /mnt
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Bring up network if needed</span>
-</span></span><span class="line"><span class="cl">dhcpcd eth0
-</span></span></code></pre></div><p>At this point you should have shell with a recovery environment set to fix the
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Open the LUKS device.</span>
+cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm
+
+<span class="c1"># Mount the root partition</span>
+mount /dev/storage/root /mnt
+
+<span class="c1"># Mount the boot partition</span>
+mount /dev/sda1 /mnt/boot
+
+<span class="c1"># Mount proc, sys and dev</span>
+mount -t proc proc proc/
+mount -t sysfs sys sys/
+mount -o <span class="nb">bind</span> /dev dev/
+
+<span class="c1"># Switch to bash</span>
+bash
+
+<span class="c1"># Chroot</span>
+chroot /mnt
+
+<span class="c1"># Bring up network if needed</span>
+dhcpcd eth0</code></pre></div>
+<p>At this point you should have shell with a recovery environment set to fix the
 issue, so let&rsquo;s fix it.</p>
+
 <h2 id="fix-the-issue">Fix the issue&nbsp;<a class="headline-hash no-text-decoration" href="#fix-the-issue">#</a> </h2>
+
 <p>To fix the issue we basically are going to perform an upgrade an recreate the
 initial ramdisk</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Update the packages database</span>
-</span></span><span class="line"><span class="cl">pacman -Syy
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Upgrade the packages</span>
-</span></span><span class="line"><span class="cl">pacman -Syu
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Update udev package</span>
-</span></span><span class="line"><span class="cl">pacman -S udev
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Update mkinitcpio package</span>
-</span></span><span class="line"><span class="cl">pacman -S mkinitcpio
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Recreate the initial ramdisk</span>
-</span></span><span class="line"><span class="cl">mkinitcpio -p linux
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Exit the chroot environment</span>
-</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Reboot</span>
-</span></span><span class="line"><span class="cl">reboot
-</span></span></code></pre></div><p>If everything went well, you now should be able to boot the system properly.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Update the packages database</span>
+pacman -Syy
+
+<span class="c1"># Upgrade the packages</span>
+pacman -Syu
+
+<span class="c1"># Update udev package</span>
+pacman -S udev
+
+<span class="c1"># Update mkinitcpio package</span>
+pacman -S mkinitcpio
+
+<span class="c1"># Recreate the initial ramdisk</span>
+mkinitcpio -p linux
+
+<span class="c1"># Exit the chroot environment</span>
+<span class="nb">exit</span>
+
+<span class="c1"># Reboot</span>
+reboot</code></pre></div>
+<p>If everything went well, you now should be able to boot the system properly.</p>
+
 <h2 id="conclusions">Conclusions&nbsp;<a class="headline-hash no-text-decoration" href="#conclusions">#</a> </h2>
+
 <p>I was quite worried about how to solve this issue due to the several layers of
 complexity: GPT, LUKS and LVM, however everything went out quite smoothly. The
 key part is to use a USB flash drive and then mount the boot and root
 partitions to recreate the ramdisk.</p>
+
 <p>Thanks for reading. Spot an error or want to explain something better, feel
 free to send me a PR.</p>
 
@@ -627,22 +630,25 @@ free to send me a PR.</p>
     
         <div class="hugotoc no-text-decoration">
             <nav id="TableOfContents">
-  <ul>
-    <li><a href="#tutorial-overview">Tutorial overview</a></li>
-    <li><a href="#assumptions">Assumptions</a></li>
-    <li><a href="#create-a-bootable-usb">Create a bootable USB</a></li>
-    <li><a href="#chroot-into-the-system">Chroot into the system</a></li>
-    <li><a href="#fix-the-issue">Fix the issue</a></li>
-    <li><a href="#conclusions">Conclusions</a></li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#tutorial-overview">Tutorial overview</a></li>
+<li><a href="#assumptions">Assumptions</a></li>
+<li><a href="#create-a-bootable-usb">Create a bootable USB</a></li>
+<li><a href="#chroot-into-the-system">Chroot into the system</a></li>
+<li><a href="#fix-the-issue">Fix the issue</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul></li>
+</ul>
 </nav>
             <a href="#" class="back-to-top">Back to top</a>
         </div>
     
     
-<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js"></script>
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js"></script>
 
-<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js" as="script">
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js" as="script">
 
 <script type="application/javascript">(function() {
      var $window = $(window);
@@ -862,6 +868,9 @@ free to send me a PR.</p>
 
 
 
+ 
+    
+    
 
 
 
@@ -899,7 +908,7 @@ free to send me a PR.</p>
 
 
 
-<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+<script defer src="/js/libs/fragmentions/wrapper.min.4c511209cd3786314b251d891c8da528b47a972669aa4eea416b64d4be01eee2.js"></script>
 
 
 

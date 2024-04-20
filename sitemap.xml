@@ -1,502 +1,864 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
   <url>
     <loc>https://albertdelafuente.com/</loc>
-    <lastmod>2023-12-10T09:46:33-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:53:21-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/</loc>
-    <lastmod>2023-12-10T09:46:33-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:53:21-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/exobrain/</loc>
+    <lastmod>2024-04-20T20:53:21-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/exobrain/20240420204830-how_to_install_the_bbc_symphony_orchestra_on_arch_linux_using_yabridge_for_reaper_use/</loc>
+    <lastmod>2024-04-20T20:53:21-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/tags/linux-audio/</loc>
+    <lastmod>2024-04-20T20:53:21-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/categories/linux-audio/</loc>
+    <lastmod>2024-04-20T20:53:21-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/tags/</loc>
+    <lastmod>2024-04-20T20:53:21-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/exobrain/20231223220912-music_theory/</loc>
+    <lastmod>2024-04-20T17:14:06-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/categories/music-theory/</loc>
+    <lastmod>2024-04-20T17:14:06-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/tags/music-theory/</loc>
+    <lastmod>2024-04-20T17:14:06-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/privacy/</loc>
     <lastmod>2023-12-10T09:46:33-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/</loc>
-    <lastmod>2023-12-10T09:46:33-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/privacy/</loc>
     <lastmod>2023-12-10T09:46:33-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/privacy/</loc>
     <lastmod>2023-12-10T09:46:33-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/security/</loc>
     <lastmod>2023-12-10T09:46:33-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/tags/</loc>
-    <lastmod>2023-12-10T09:46:33-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/bhs/</loc>
     <lastmod>2023-08-26T23:33:15-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/bhsa/</loc>
     <lastmod>2023-08-26T23:33:15-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/codex/</loc>
     <lastmod>2023-08-26T23:33:15-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/development/</loc>
     <lastmod>2023-08-26T23:33:15-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/hebrew/</loc>
     <lastmod>2023-08-26T23:33:15-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/python/</loc>
     <lastmod>2023-08-26T23:33:15-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/scriptures/</loc>
     <lastmod>2023-08-26T23:33:15-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/exobrain/</loc>
-    <lastmod>2023-08-22T23:10:44-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/tags/git/</loc>
-    <lastmod>2023-08-22T23:10:44-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/tags/gource/</loc>
-    <lastmod>2023-08-22T23:10:44-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/exobrain/20230822214616-how_to_generate_a_graph_of_a_repo_s_git_history/</loc>
-    <lastmod>2023-08-22T23:10:44-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/categories/software/</loc>
-    <lastmod>2023-08-22T23:10:44-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/art/art/</loc>
     <lastmod>2023-09-19T17:10:56-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/art/</loc>
     <lastmod>2023-09-19T17:10:56-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/tags/git/</loc>
+    <lastmod>2023-08-22T23:10:44-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/tags/gource/</loc>
+    <lastmod>2023-08-22T23:10:44-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/exobrain/20230822214616-how_to_generate_a_graph_of_a_repo_s_git_history/</loc>
+    <lastmod>2023-08-22T23:10:44-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/categories/software/</loc>
+    <lastmod>2023-08-22T23:10:44-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/books/20230425225014-book_notes_atomic_habits_by_james_clear/</loc>
     <lastmod>2023-08-15T00:28:53-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/categories/books/</loc>
-    <lastmod>2023-08-15T00:29:34-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/books/</loc>
     <lastmod>2023-08-15T00:29:34-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/categories/books/</loc>
+    <lastmod>2023-08-15T00:29:34-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/discipline/</loc>
     <lastmod>2023-08-15T00:28:53-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/habits/</loc>
     <lastmod>2023-08-15T00:28:53-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/productivity/</loc>
     <lastmod>2023-08-15T00:28:53-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/books/20230111063508-book_notes_can_t_hurt_me_by_david_goggins/</loc>
     <lastmod>2023-08-15T00:28:42-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/arch/</loc>
     <lastmod>2023-08-15T00:26:41-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/cli/</loc>
     <lastmod>2023-08-15T00:26:41-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/github/</loc>
     <lastmod>2022-07-03T12:24:06-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220703011205-how_to_list_all_projects_in_github/</loc>
     <lastmod>2022-07-03T12:24:06-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/linux/</loc>
     <lastmod>2023-08-15T00:26:41-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/gitlab/</loc>
     <lastmod>2023-08-15T00:26:41-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220703112132-how_to_list_all_projects_in_bitbucket/</loc>
     <lastmod>2022-07-03T11:57:21-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220702144603-how_to_use_tsrc/</loc>
     <lastmod>2022-07-03T01:52:57-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220703004228-how_to_list_all_projects_in_gitlab/</loc>
     <lastmod>2023-08-15T00:26:41-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/analysis/</loc>
     <lastmod>2022-07-01T22:31:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220701221153-analyzing_the_esv_audios/</loc>
     <lastmod>2022-07-01T22:31:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/bible/</loc>
     <lastmod>2022-07-01T22:31:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/esv/</loc>
     <lastmod>2022-07-01T22:31:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/python/</loc>
     <lastmod>2022-07-01T22:31:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/fibra/</loc>
     <lastmod>2022-06-24T16:54:07-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/internet/</loc>
     <lastmod>2022-06-24T16:54:07-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/sette/</loc>
     <lastmod>2022-06-24T16:54:07-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220624162820-testes_de_internet_com_sette_fibra/</loc>
     <lastmod>2022-06-24T16:54:07-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/tests/</loc>
     <lastmod>2022-06-24T16:54:07-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220615180051-how_to_generate_random_names_like_docker/</loc>
     <lastmod>2022-06-15T18:20:11-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/names/</loc>
     <lastmod>2022-06-15T18:20:11-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/random/</loc>
     <lastmod>2022-06-15T18:20:11-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/clustering/</loc>
-    <lastmod>2023-08-13T11:50:29-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/communities/</loc>
-    <lastmod>2023-08-13T11:50:29-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/digitalgardens/</loc>
-    <lastmod>2023-08-13T11:05:12-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/emacs/</loc>
-    <lastmod>2023-08-13T11:17:28-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/exobrain/</loc>
-    <lastmod>2023-08-13T11:05:12-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/20220612002812-exploring_my_exo_brain/</loc>
-    <lastmod>2023-08-13T11:05:12-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/graphs/</loc>
-    <lastmod>2023-08-13T11:50:29-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/research/</loc>
-    <lastmod>2023-08-13T11:05:12-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/visualization/</loc>
-    <lastmod>2023-08-13T11:05:12-03:00</lastmod>
-  </url><url>
+    <lastmod>2024-04-20T20:35:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220611195443-how_to_generate_a_pandas_dataframe_of_the_books_of_the_bible/</loc>
     <lastmod>2022-06-11T20:52:34-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/hebrew/</loc>
     <lastmod>2022-06-11T10:50:54-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220610163147-how_to_install_intersubs_on_mpv_to_learn_hebrew/</loc>
     <lastmod>2022-06-11T10:50:54-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/mpv/</loc>
     <lastmod>2022-06-11T10:50:54-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/bluetooth/</loc>
     <lastmod>2022-06-08T21:03:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220608202728-how_to_use_bluetooth_headset_on_arch_linux/</loc>
     <lastmod>2022-06-08T21:03:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/aleppo/</loc>
     <lastmod>2023-08-13T11:28:22-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/</loc>
     <lastmod>2022-06-04T12:16:36-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/lhlg/</loc>
     <lastmod>2023-08-13T11:28:22-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220128220728-curso_de_hebreo_de_emc_shalom_colombia/</loc>
     <lastmod>2022-02-02T13:13:15-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/emacs/</loc>
     <lastmod>2022-02-02T13:13:15-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/espa%C3%B1ol/</loc>
     <lastmod>2022-02-02T13:13:15-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/org-mode/</loc>
     <lastmod>2023-08-13T11:17:28-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220129174154-how_to_configure_the_keyboard_layout_for_hebrew/</loc>
     <lastmod>2022-02-01T23:23:40-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/dictd/</loc>
     <lastmod>2022-01-31T11:14:02-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20220130183606-how_to_use_dictd/</loc>
     <lastmod>2022-01-31T11:14:02-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/software/</loc>
     <lastmod>2023-08-13T11:38:29-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/ankidecks/</loc>
     <lastmod>2022-01-11T23:33:19-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20211206220218-hebrew_root_words_parent_roots_dictionary/</loc>
     <lastmod>2022-01-11T23:32:05-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/archlinux/</loc>
     <lastmod>2023-08-13T12:06:01-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/grub/</loc>
     <lastmod>2023-08-13T11:19:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/</loc>
     <lastmod>2023-08-13T11:19:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/luks/</loc>
     <lastmod>2023-08-13T11:23:43-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/lvm/</loc>
     <lastmod>2023-08-13T11:23:43-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/system/</loc>
     <lastmod>2023-08-13T11:23:43-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/tags/android/</loc>
-    <lastmod>2022-07-21T12:58:18-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/android/</loc>
     <lastmod>2022-07-21T12:58:18-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/tags/android/</loc>
+    <lastmod>2022-07-21T12:58:18-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/device/</loc>
     <lastmod>2022-07-21T12:58:18-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/device/</loc>
     <lastmod>2022-07-21T12:58:18-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/flash/</loc>
     <lastmod>2022-07-21T12:58:18-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/flash/</loc>
     <lastmod>2022-07-21T12:58:18-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20210711120742-how_to_flash_an_android_phone/</loc>
     <lastmod>2022-07-21T12:58:18-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/books/20210629133123-book_notes_trading_in_the_zone/</loc>
     <lastmod>2022-01-11T23:02:05-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/books/</loc>
     <lastmod>2022-01-12T00:19:34-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/trading/</loc>
     <lastmod>2022-01-11T23:02:05-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/ankidecks/</loc>
     <lastmod>2022-01-11T23:33:19-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20210613180023-how_to_create_an_anki_deck_using_org_mode/</loc>
     <lastmod>2022-01-11T23:33:19-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/org-mode/</loc>
     <lastmod>2022-01-11T23:33:19-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/psych/</loc>
     <lastmod>2022-01-11T23:34:36-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/psych/</loc>
     <lastmod>2022-01-11T23:34:36-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/trauma/</loc>
     <lastmod>2022-01-11T23:34:36-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20210327145900-video_notes_8_common_patterns_in_trauma_bonded_relationships/</loc>
     <lastmod>2022-01-11T23:34:36-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/parasha/</loc>
     <lastmod>2021-01-09T15:49:02-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20210109090022-parasha_shemot/</loc>
     <lastmod>2021-01-09T15:49:02-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20210102103630-parasha_vayechi/</loc>
     <lastmod>2021-01-09T08:58:53-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/egypt/</loc>
     <lastmod>2020-12-29T00:05:31-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/joseph/</loc>
     <lastmod>2020-12-29T00:05:31-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20201228202719-parasha_miketz/</loc>
     <lastmod>2020-12-29T00:05:31-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20200831082610-a_crianca_preciosa_numa_familia_funcional_disfuncional/</loc>
     <lastmod>2020-12-28T23:35:42-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/book/</loc>
     <lastmod>2020-12-28T23:35:42-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/portuguese/</loc>
     <lastmod>2020-12-28T23:35:42-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/psychology/</loc>
     <lastmod>2022-01-11T22:53:37-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/review/</loc>
     <lastmod>2020-12-28T23:35:42-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/self-help/</loc>
     <lastmod>2020-12-28T23:35:42-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/bip38/</loc>
     <lastmod>2022-01-11T20:49:40-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/crypto/</loc>
     <lastmod>2022-01-11T20:49:40-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/crypto/</loc>
     <lastmod>2022-01-11T20:49:40-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20201225072815-how_to_generate_a_litecoin_ltc_paper_wallet_with_bip38_password_offline/</loc>
     <lastmod>2022-01-11T20:49:40-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/litecoin/</loc>
     <lastmod>2022-01-11T20:49:40-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/wallet/</loc>
     <lastmod>2022-01-11T20:49:40-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20201129083312-experimento_do_vinho_de_jabuticaba/</loc>
     <lastmod>2022-01-11T23:36:48-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/fermenting/</loc>
     <lastmod>2022-01-11T23:36:48-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/homestead/</loc>
     <lastmod>2022-01-11T23:36:48-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/jabuticaba/</loc>
     <lastmod>2022-01-11T23:36:48-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/wine/</loc>
     <lastmod>2022-01-11T23:36:48-03:00</lastmod>
-  </url><url>
-    <loc>https://albertdelafuente.com/tags/gpg/</loc>
-    <lastmod>2023-08-13T11:22:29-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/gpg/</loc>
     <lastmod>2022-01-11T20:48:53-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
+    <loc>https://albertdelafuente.com/tags/gpg/</loc>
+    <lastmod>2023-08-13T11:22:29-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20201122171430-how_to_renew_a_gpg_key/</loc>
     <lastmod>2022-01-11T20:48:53-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20201024100237-how_to_flash_tasmota_on_a_sonoff_r2_device/</loc>
     <lastmod>2022-01-11T21:13:31-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/sonoff/</loc>
     <lastmod>2022-01-11T21:13:31-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/tasmota/</loc>
     <lastmod>2022-01-11T21:13:31-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/books/20200831082610-a_crianca_preciosa_numa_familia_funcional_disfuncional/</loc>
     <lastmod>2022-01-11T22:52:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/portuguese/</loc>
     <lastmod>2022-01-11T22:52:32-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/books/20200822191804-book_boundaries_when_to_say_yes_how_to_say_no_by_henry_cloud_and_john_townsend/</loc>
     <lastmod>2022-01-11T22:53:37-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/books/20200822194657-books_to_read/</loc>
     <lastmod>2022-01-12T00:19:34-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/to-read/</loc>
     <lastmod>2022-01-12T00:19:34-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20200819134725-exobrain/</loc>
     <lastmod>2022-01-11T23:27:22-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/knowledge/</loc>
     <lastmod>2022-01-11T23:27:22-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/knowledge/</loc>
     <lastmod>2022-01-11T23:27:22-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/about/about/</loc>
     <lastmod>2023-08-14T23:33:21-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/about/</loc>
     <lastmod>2023-08-14T23:33:21-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20200817162032-how_to_use_org_roam/</loc>
     <lastmod>2022-01-11T20:40:37-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/org-roam/</loc>
     <lastmod>2022-01-11T20:40:37-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/hugo/</loc>
     <lastmod>2023-08-13T11:17:28-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/sandbox/</loc>
     <lastmod>2023-08-13T11:17:28-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/knots/</loc>
     <lastmod>2022-01-11T23:28:19-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20200618102201-my_knots_database/</loc>
     <lastmod>2022-01-11T23:28:19-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/survival/</loc>
     <lastmod>2022-01-11T23:28:19-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/survival/</loc>
     <lastmod>2022-01-11T23:28:19-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/git/</loc>
     <lastmod>2022-01-11T20:51:21-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/exobrain/20200313214456-how_to_use_magit/</loc>
     <lastmod>2022-01-11T20:51:21-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/magit/</loc>
     <lastmod>2022-01-11T20:51:21-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/books/20220109212603-book_notes_permanent_record_by_edward_snowden/</loc>
     <lastmod>2023-08-15T00:29:34-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/surveillance/</loc>
     <lastmod>2023-08-15T00:29:34-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/</loc>
     <lastmod>2023-08-13T11:20:59-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/dns/</loc>
     <lastmod>2023-08-13T11:22:29-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/</loc>
     <lastmod>2023-08-13T11:22:29-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/</loc>
     <lastmod>2023-08-13T11:23:43-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/</loc>
     <lastmod>2023-08-13T12:06:01-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/categories/experiments/</loc>
     <lastmod>2023-08-13T11:50:29-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/</loc>
     <lastmod>2023-08-13T11:50:29-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/floss/</loc>
     <lastmod>2023-08-13T11:38:29-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/tags/patents/</loc>
     <lastmod>2023-08-13T11:38:29-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/posts/20220109211322-software_patents/</loc>
     <lastmod>2023-08-13T11:38:29-03:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/search/</loc>
     <priority>0.1</priority>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://albertdelafuente.com/series/</loc>
   </url>
+  
 </urlset>

@@ -22,20 +22,6 @@
 
     
     
-    <!-- Google Analytics -->
-    <script type="application/javascript">
-     
-     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
-         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
-         ga('create', 'UA-27656036-2', 'auto');
-         ga('require', 'linkid'); 
-         ga('send', 'pageview');
-     }
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
-
-
 
     
     
@@ -74,9 +60,9 @@
     
     
     
-    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    <link rel="stylesheet" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css">
     
-    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+    <link rel="preload" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css" as="style">
 
     
 
@@ -180,15 +166,15 @@
     
 
     
-    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    <script src="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js"></script>
     
-    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+    <link rel="preload" href="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js" as="script">
 
     
     
-    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    <script defer src="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js"></script>
     
-    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js" as="script">
 
     
 
@@ -219,7 +205,7 @@ Alternatively you can install the AUR package with:" />
 
 
     
-        <meta property="article:published_time" content="2022-07-03T00:00:00&#43;00:00"/>
+        <meta property="article:published_time" content="2022-07-03T00:00:00-03:00"/>
     
     
         <meta property="article:modified_time" content="2023-08-15T00:26:41-03:00"/>
@@ -273,9 +259,9 @@ Alternatively you can install the AUR package with:"/>
     
     
     
-    <meta name="hugo-build-date" content=""/>
-    <meta name="hugo-commit-hash" content=""/>
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="hugo-build-date" content="2019-09-11T08:16:28-0400"/>
+    <meta name="hugo-commit-hash" content="5276f1e9:chroma-26f03cb"/>
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
 </head>
 
 
@@ -440,7 +426,7 @@ Alternatively you can install the AUR package with:"/>
     
     <div class="post-date">
         
-        <time datetime="2022-07-03T00:00:00+0000" class="dt-published">Sun Jul 3, 2022</time>
+        <time datetime="2022-07-03T00:00:00-0300" class="dt-published">Sun Jul 3, 2022</time>
         
         
             
@@ -497,34 +483,41 @@ Alternatively you can install the AUR package with:"/>
 
 
 
+
+
 <p>I have tested the glab tool and apparently there <a href="https://github.com/profclems/glab/issues/671">should be a way to list all
 projects</a> but I couldn&rsquo;t do it. Maybe the arch linux package is still not
 updated and there is no aur package, so&hellip; I searched for an alternative and
 luckily there is always a python tool/module to help us out&hellip; so I installed
 <a href="https://python-gitlab.readthedocs.io/en/stable/cli-usage.html">python-gitlab-cli</a>. Setup is pretty straight forward, just read the docs.</p>
+
 <p>Alternatively you can install the AUR package with:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">pacaur -S python-gitlab
-</span></span></code></pre></div><p>The only consideration are:</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">pacaur -S python-gitlab</code></pre></div>
+<p>The only consideration are:</p>
+
 <ul>
 <li>Use a pass wrapper to asymmetrically GPG decrypt the token (for security)</li>
 <li>Use a timeout higher than 5 if your connection sucks (as mine)</li>
 </ul>
+
 <p>This is how my <code>~/.python-gitlab.cfg</code> file looks like:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[global]
-</span></span><span class="line"><span class="cl">default = gitlab
-</span></span><span class="line"><span class="cl">ssl_verify = true
-</span></span><span class="line"><span class="cl">timeout = 5
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">[gitlab]
-</span></span><span class="line"><span class="cl">url = https://gitlab.com
-</span></span><span class="line"><span class="cl">private_token = helper: ~/bin/pass-python-gitlab.sh
-</span></span><span class="line"><span class="cl">api_version = 4
-</span></span><span class="line"><span class="cl">timeout = 30
-</span></span></code></pre></div><p>Once configured, the magic line to list all the repos alphabetically is:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">gitlab -o json project list --owned<span class="o">=</span><span class="m">1</span> --all <span class="p">|</span> jq .<span class="o">[]</span>.path_with_namespace
-</span></span><span class="line"><span class="cl">gitlab -o json project list --owned<span class="o">=</span><span class="m">1</span> --all --per-page <span class="m">300</span> <span class="p">|</span> jq .<span class="o">[]</span>.path_with_namespace
-</span></span></code></pre></div><h2 id="references">References&nbsp;<a class="headline-hash no-text-decoration" href="#references">#</a> </h2>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">[global]
+default = gitlab
+ssl_verify = true
+timeout = 5
+
+[gitlab]
+url = https://gitlab.com
+private_token = helper: ~/bin/pass-python-gitlab.sh
+api_version = 4
+timeout = 30</code></pre></div>
+<p>Once configured, the magic line to list all the repos alphabetically is:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">gitlab -o json project list --owned<span class="o">=</span><span class="m">1</span> --all <span class="p">|</span> jq .<span class="o">[]</span>.path_with_namespace
+gitlab -o json project list --owned<span class="o">=</span><span class="m">1</span> --all --per-page <span class="m">300</span> <span class="p">|</span> jq .<span class="o">[]</span>.path_with_namespace</code></pre></div>
+<h2 id="references">References&nbsp;<a class="headline-hash no-text-decoration" href="#references">#</a> </h2>
+
 <h3 id="how-do-i-access-gitlab-api-using-python-gitlab-stack-overflow"><a href="https://stackoverflow.com/questions/57469184/how-do-i-access-gitlab-api-using-python-gitlab">How do I access gitlab api using python-gitlab? - Stack Overflow</a>&nbsp;<a class="headline-hash no-text-decoration" href="#how-do-i-access-gitlab-api-using-python-gitlab-stack-overflow">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://stackoverflow.com/questions/57469184/how-do-i-access-gitlab-api-using-python-gitlab">https://stackoverflow.com/questions/57469184/how-do-i-access-gitlab-api-using-python-gitlab</a></li>
 <li>Title: How do I access gitlab api using python-gitlab? - Stack Overflow</li>
@@ -554,21 +547,23 @@ luckily there is always a python tool/module to help us out&hellip; so I install
     
         <div class="hugotoc no-text-decoration">
             <nav id="TableOfContents">
-  <ul>
-    <li><a href="#references">References</a>
-      <ul>
-        <li><a href="#how-do-i-access-gitlab-api-using-python-gitlab-stack-overflow"><a href="https://stackoverflow.com/questions/57469184/how-do-i-access-gitlab-api-using-python-gitlab">How do I access gitlab api using python-gitlab? - Stack Overflow</a></a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#references">References</a>
+<ul>
+<li><a href="#how-do-i-access-gitlab-api-using-python-gitlab-stack-overflow"><a href="https://stackoverflow.com/questions/57469184/how-do-i-access-gitlab-api-using-python-gitlab">How do I access gitlab api using python-gitlab? - Stack Overflow</a></a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
             <a href="#" class="back-to-top">Back to top</a>
         </div>
     
     
-<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js"></script>
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js"></script>
 
-<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js" as="script">
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js" as="script">
 
 <script type="application/javascript">(function() {
      var $window = $(window);
@@ -770,6 +765,9 @@ luckily there is always a python tool/module to help us out&hellip; so I install
 
 
 
+ 
+    
+    
 
 
 
@@ -807,7 +805,7 @@ luckily there is always a python tool/module to help us out&hellip; so I install
 
 
 
-<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+<script defer src="/js/libs/fragmentions/wrapper.min.4c511209cd3786314b251d891c8da528b47a972669aa4eea416b64d4be01eee2.js"></script>
 
 
 

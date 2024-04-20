@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+    
+    
+    
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    
+    <meta name="referrer" content="no-referrer">
+
+    <title>
+        
+            Music theory ❚ Albert De La Fuente&#39;s site
+        
+    </title>
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+    <style>
+     
+     
+     :root {
+         --theme-color: #f4bf75;
+         --theme-color-light: rgba(244, 191, 117, 0.2);
+     }
+     
+     html {
+         line-height: 1.5;
+     }
+    </style>
+
+    
+    
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css">
+    
+    <link rel="preload" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css" as="style">
+
+    
+
+
+
+    
+        <style>
+         
+         /* Background */ .chroma { background-color: #ffffff }
+/* Error */ .chroma .err { color: #a61717; background-color: #e3d2d2 }
+/* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+/* LineHighlight */ .chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+/* LineNumbersTable */ .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+/* LineNumbers */ .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; }
+/* Keyword */ .chroma .k { color: #000000; font-weight: bold }
+/* KeywordConstant */ .chroma .kc { color: #000000; font-weight: bold }
+/* KeywordDeclaration */ .chroma .kd { color: #000000; font-weight: bold }
+/* KeywordNamespace */ .chroma .kn { color: #000000; font-weight: bold }
+/* KeywordPseudo */ .chroma .kp { color: #000000; font-weight: bold }
+/* KeywordReserved */ .chroma .kr { color: #000000; font-weight: bold }
+/* KeywordType */ .chroma .kt { color: #445588; font-weight: bold }
+/* NameAttribute */ .chroma .na { color: #008080 }
+/* NameBuiltin */ .chroma .nb { color: #0086b3 }
+/* NameBuiltinPseudo */ .chroma .bp { color: #999999 }
+/* NameClass */ .chroma .nc { color: #445588; font-weight: bold }
+/* NameConstant */ .chroma .no { color: #008080 }
+/* NameDecorator */ .chroma .nd { color: #3c5d5d; font-weight: bold }
+/* NameEntity */ .chroma .ni { color: #800080 }
+/* NameException */ .chroma .ne { color: #990000; font-weight: bold }
+/* NameFunction */ .chroma .nf { color: #990000; font-weight: bold }
+/* NameLabel */ .chroma .nl { color: #990000; font-weight: bold }
+/* NameNamespace */ .chroma .nn { color: #555555 }
+/* NameTag */ .chroma .nt { color: #000080 }
+/* NameVariable */ .chroma .nv { color: #008080 }
+/* NameVariableClass */ .chroma .vc { color: #008080 }
+/* NameVariableGlobal */ .chroma .vg { color: #008080 }
+/* NameVariableInstance */ .chroma .vi { color: #008080 }
+/* LiteralString */ .chroma .s { color: #dd1144 }
+/* LiteralStringAffix */ .chroma .sa { color: #dd1144 }
+/* LiteralStringBacktick */ .chroma .sb { color: #dd1144 }
+/* LiteralStringChar */ .chroma .sc { color: #dd1144 }
+/* LiteralStringDelimiter */ .chroma .dl { color: #dd1144 }
+/* LiteralStringDoc */ .chroma .sd { color: #dd1144 }
+/* LiteralStringDouble */ .chroma .s2 { color: #dd1144 }
+/* LiteralStringEscape */ .chroma .se { color: #dd1144 }
+/* LiteralStringHeredoc */ .chroma .sh { color: #dd1144 }
+/* LiteralStringInterpol */ .chroma .si { color: #dd1144 }
+/* LiteralStringOther */ .chroma .sx { color: #dd1144 }
+/* LiteralStringRegex */ .chroma .sr { color: #009926 }
+/* LiteralStringSingle */ .chroma .s1 { color: #dd1144 }
+/* LiteralStringSymbol */ .chroma .ss { color: #990073 }
+/* LiteralNumber */ .chroma .m { color: #009999 }
+/* LiteralNumberBin */ .chroma .mb { color: #009999 }
+/* LiteralNumberFloat */ .chroma .mf { color: #009999 }
+/* LiteralNumberHex */ .chroma .mh { color: #009999 }
+/* LiteralNumberInteger */ .chroma .mi { color: #009999 }
+/* LiteralNumberIntegerLong */ .chroma .il { color: #009999 }
+/* LiteralNumberOct */ .chroma .mo { color: #009999 }
+/* Operator */ .chroma .o { color: #000000; font-weight: bold }
+/* OperatorWord */ .chroma .ow { color: #000000; font-weight: bold }
+/* Comment */ .chroma .c { color: #999988; font-style: italic }
+/* CommentHashbang */ .chroma .ch { color: #999988; font-style: italic }
+/* CommentMultiline */ .chroma .cm { color: #999988; font-style: italic }
+/* CommentSingle */ .chroma .c1 { color: #999988; font-style: italic }
+/* CommentSpecial */ .chroma .cs { color: #999999; font-weight: bold; font-style: italic }
+/* CommentPreproc */ .chroma .cp { color: #999999; font-weight: bold; font-style: italic }
+/* CommentPreprocFile */ .chroma .cpf { color: #999999; font-weight: bold; font-style: italic }
+/* GenericDeleted */ .chroma .gd { color: #000000; background-color: #ffdddd }
+/* GenericEmph */ .chroma .ge { color: #000000; font-style: italic }
+/* GenericError */ .chroma .gr { color: #aa0000 }
+/* GenericHeading */ .chroma .gh { color: #999999 }
+/* GenericInserted */ .chroma .gi { color: #000000; background-color: #ddffdd }
+/* GenericOutput */ .chroma .go { color: #888888 }
+/* GenericPrompt */ .chroma .gp { color: #555555 }
+/* GenericStrong */ .chroma .gs { font-weight: bold }
+/* GenericSubheading */ .chroma .gu { color: #aaaaaa }
+/* GenericTraceback */ .chroma .gt { color: #aa0000 }
+/* GenericUnderline */ .chroma .gl { text-decoration: underline }
+/* TextWhitespace */ .chroma .w { color: #bbbbbb }
+
+         
+         /* Overrides on top of the theme and Chroma CSS */
+/* Chroma-based lines highlighting in code blocks */
+.chroma .hl {
+    background-color: #e8e8e8;
+    /* Extend highlight up to 100 characters (assuming that the code blocks never have more than 100 characters in a line) */
+    min-width: 100ch;
+}
+/* GenericHeading */ .chroma .gh { color: #999999; font-weight: bold }
+/* GenericSubheading */ .chroma .gu { color: #aaaaaa; font-weight: bold }
+
+         
+        </style>
+    
+
+    
+
+    
+    
+    
+
+    
+    <script src="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js"></script>
+    
+    <link rel="preload" href="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js" as="script">
+
+    
+    
+    <script defer src="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js"></script>
+    
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js" as="script">
+
+    
+
+    
+
+    
+    
+    
+
+    
+    
+<!-- rel="me" links for IndieAuth -->
+
+
+
+
+
+
+
+    
+ 
+<meta property="og:title" content="Music theory" />
+<meta property="og:description"
+      content=" &amp;lt;h2 id=&amp;quot;music-theory&amp;quot;&amp;gt;Music theory&amp;lt;/h2&amp;gt;  How to build scales and triads C Major scale In Linux you can visualize and play a virtual midi keyboard using vmpk.
+The major scales are based on the distance steps between semitones structure from C considering only the white keys (whole tones). For instance:
+ C to D equals 2 … " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://albertdelafuente.com/exobrain/20231223220912-music_theory/" />
+
+
+    
+        <meta property="article:published_time" content="2024-04-20T17:14:06-03:00"/>
+    
+    
+        <meta property="article:modified_time" content="2024-04-20T17:14:06-03:00"/>
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+     <meta name="twitter:card" content="summary"/><meta name="twitter:image" content="/android-chrome-256x256.6b6a18f438f95b928e9abdc148af28e6aa76c103838e39fed707b77799df0a55.png"/>
+<meta name="twitter:title" content="Music theory"/>
+<meta name="twitter:description" content=" &amp;lt;h2 id=&amp;quot;music-theory&amp;quot;&amp;gt;Music theory&amp;lt;/h2&amp;gt;  How to build scales and triads C Major scale In Linux you can visualize and play a virtual midi keyboard using vmpk.
+The major scales are based on the distance steps between semitones structure from C considering only the white keys (whole tones). For instance:
+ C to D equals 2 … "/>
+<meta name="twitter:site" content="@vonpupp"/>
+    <meta name="twitter:creator" content="@vonpupp"/>
+
+
+    
+    
+    <link rel="alternate" type="application/jf2post+json" href="https://albertdelafuente.com/exobrain/20231223220912-music_theory/jf2post.json" title="Jf2post for Albert De La Fuente's site" />
+    
+     
+
+     
+
+
+
+    
+    
+    
+        
+    
+
+
+     
+        
+        <meta name="DC.Creator" content="Albert De La Fuente Vigliotti"/>
+    
+
+
+
+    
+    
+    
+    <meta name="hugo-build-date" content="2019-09-11T08:16:28-0400"/>
+    <meta name="hugo-commit-hash" content="5276f1e9:chroma-26f03cb"/>
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+</head>
+
+
+    
+        <body lang="en">
+    
+
+        
+        <div class="border" id="home"></div>
+
+        <div class="wrapper">   
+            
+<nav id="nav" class="nav-collapse opened" aria-hidden="false">
+    <ul class="navbar">
+    
+        <li>
+            <a class="" href="/about/about/">About</a>
+        </li>
+    
+        <li>
+            <a class="" href="/">Blog</a>
+        </li>
+    
+        <li>
+            <a class="" href="/exobrain">Exobrain</a>
+        </li>
+    
+        <li>
+            <a class="" href="/books">Books</a>
+        </li>
+    
+        <li>
+            <a class="" href="/art/art/">Art</a>
+        </li>
+    
+        <li>
+            <a class="" href="/search">Search</a>
+        </li>
+    
+    
+    </ul>
+</nav>
+
+            <div class="container">
+                
+
+                
+
+
+
+
+
+
+
+
+<article class="post h-entry exobrain">
+    <header>
+        
+        <div class="center">
+    <div class="taxo no-text-decoration">
+         
+            
+                <ul class="no-bullets inline categories">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__music-theory__"
+                                
+                                
+                                title="This is the only post categorized in ‘music theory’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/music-theory/">music theory</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+         
+            
+         
+            
+                <ul class="no-bullets inline tags">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__music-theory__"
+                                
+                                
+                                title="This is the only post tagged with ‘music theory’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/music-theory/">music theory</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        
+    </div>
+
+</div>
+
+        <h1 class="post-title p-name">Music theory</h1>
+
+        
+        <data class="u-url" value="https://albertdelafuente.com/exobrain/20231223220912-music_theory/"></data>
+
+        <div class="date-syndication">
+            
+
+
+    
+    
+    <div class="post-date">
+        
+        <time datetime="2024-04-20T17:14:06-0300" class="dt-published">Sat Apr 20, 2024</time>
+        
+        
+    </div>
+
+
+            
+
+
+
+
+        </div>
+         
+
+     
+
+
+
+    
+    
+    
+        
+    
+
+
+    
+        
+        <span class="hide">
+            &mdash; <a href="https://albertdelafuente.com" class="u-author">Albert De La Fuente Vigliotti</a>
+        </span>
+    
+
+
+    </header>
+
+    <div class="content">
+        
+
+
+        
+
+
+
+
+
+                       
+
+
+        <div class="e-content">
+            
+
+
+
+
+
+
+<div class="ox-hugo-toc toc">
+
+<div class="heading">Table of Contents</div>
+
+<ul>
+<li><a href="#music-theory">Music theory</a>
+
+<ul>
+<li><a href="#how-to-build-scales-and-triads">How to build scales and triads</a>
+
+<ul>
+<li><a href="#c-major-scale">C Major scale</a></li>
+<li><a href="#c-minor-scale">C Minor scale</a></li>
+<li><a href="#g-minor-scale">G minor scale</a></li>
+</ul></li>
+<li><a href="#questions">Questions</a>
+
+<ul>
+<li><a href="#scales">Scales</a></li>
+<li><a href="#chords">Chords</a></li>
+</ul></li>
+<li><a href="#intervals">Intervals</a></li>
+<li><a href="#ancient-jewish-hebrew-scales">Ancient Jewish/Hebrew scales</a></li>
+<li><a href="#modes">Modes</a></li>
+<li><a href="#poly-rhythms-and-euclidean-rhythms">Poly-rhythms and Euclidean rhythms</a></li>
+<li><a href="#coltrane">Coltrane</a>
+
+<ul>
+<li><a href="#c-major-scale">C Major scale</a></li>
+<li><a href="#d-major-scale">D Major scale</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#links">Links</a>
+
+<ul>
+<li><a href="#music-theory-websites">Music theory websites</a>
+
+<ul>
+<li><a href="#music-theory-cheat-sheet-keys-scales-chords-notes-and-intervals">Music Theory Cheat Sheet: Keys, Scales, Chords, Notes &amp; Intervals</a></li>
+<li><a href="#musescore-online-music-courses-learn-how-to-play-read-and-compose-music-with-the-world-s-largest-sheet-music-catalog">Musescore: online music courses | Learn how to play, read and compose music with the world&rsquo;s largest sheet music catalog</a></li>
+<li><a href="#harmonagon">Harmonagon™</a></li>
+</ul></li>
+<li><a href="#ear-training">Ear training</a>
+
+<ul>
+<li><a href="#intervals-ear-training--mp3s--piano-ology">Intervals: Ear Training (MP3s) - Piano-ology</a></li>
+</ul></li>
+<li><a href="#music-theory-in-the-terminal-or-libraries">Music theory in the terminal or libraries</a>
+
+<ul>
+<li><a href="#github-gciruelos-musthe-music-theory-implemented-in-python-dot-notes-intervals-scales-and-chords-dot">GitHub - gciruelos/musthe: Music theory implemented in Python. Notes, intervals, scales and chords.</a>:python:</li>
+<li><a href="#github-synestematic-kord-a-music-theory-development-framework-in-python">GitHub - synestematic/kord: a music theory development framework in python</a>:python:</li>
+<li><a href="#https-github-dot-com-yuma-m-pychord">https://github.com/yuma-m/pychord</a></li>
+<li><a href="#github-pedrozath-coltrane-a-music-theory-library-with-a-command-line-interface">GitHub - pedrozath/coltrane: 🎹🎸A music theory library with a command-line interface</a>:ruby:</li>
+<li><a href="#github-rainbow-dreamer-musicpy-musicpy-is-a-music-programming-language-in-python-designed-to-write-music-in-very-handy-syntax-through-music-theory-and-algorithms-dot">GitHub - Rainbow-Dreamer/musicpy: Musicpy is a music programming language in Python designed to write music in very handy syntax through music theory and algorithms.</a>:composition:</li>
+</ul></li>
+<li><a href="#music-analysis">Music analysis</a>
+
+<ul>
+<li><a href="#tabs-that-show-the-theory-behind-songs-hooktheory">Tabs that show the theory behind songs - Hooktheory</a></li>
+<li><a href="#example-1">Example 1:</a></li>
+</ul></li>
+<li><a href="#making-music-diagrams--fretboard-piano-etc">Making music diagrams (fretboard, piano, etc)</a>
+
+<ul>
+<li><a href="#fretboard-diagram-creator">Fretboard Diagram Creator</a></li>
+</ul></li>
+<li><a href="#music-theory-visualization-systems">Music theory visualization systems</a>
+
+<ul>
+<li><a href="#keyboard">Keyboard</a></li>
+<li><a href="#guitar">Guitar</a></li>
+</ul></li>
+<li><a href="#music-theory-software-to-practice">Music theory software to practice</a>
+
+<ul>
+<li><a href="#pianobooster">PianoBooster</a></li>
+<li><a href="#polymeilex-neothesia-flashy-synthesia-like-software-for-linux-windows-and-macos">PolyMeilex/Neothesia: Flashy Synthesia Like Software For Linux,Windows and MacOs</a></li>
+</ul></li>
+<li><a href="#music-production-software-on-linux">Music production software on linux</a>
+
+<ul>
+<li><a href="#daw-comparison-for-linux--lmms-qtractor-ardour--youtube">DAW Comparison for Linux (LMMS, Qtractor, Ardour) - YouTube</a></li>
+<li><a href="#5-free-and-open-music-making-tools-opensource-dot-com">5 free and open music-making tools | Opensource.com</a></li>
+<li><a href="#aaron-wolf-music-lessons-in-portland-and-oregon-city-guitar-music-science-and-more">“Aaron Wolf | Music Lessons in Portland &amp; Oregon City: Guitar, Music Science, and more</a></li>
+</ul></li>
+<li><a href="#music-app-websites">Music app websites</a>
+
+<ul>
+<li><a href="#beatscratch-funk-at-your-fingertips">BeatScratch: funk at your fingertips</a></li>
+</ul></li>
+<li><a href="#plugins">Plugins</a>
+
+<ul>
+<li><a href="#linux-audio-plugin-options-youtube">Linux Audio Plugin Options - YouTube</a></li>
+<li><a href="#bbc-so">BBC SO</a></li>
+<li><a href="#more-plugins">More plugins</a></li>
+</ul></li>
+<li><a href="#devices">Devices</a>
+
+<ul>
+<li><a href="#audio-is-coming-to-linux-youtube">Audio is Coming To Linux! - YouTube</a></li>
+</ul></li>
+<li><a href="#scale-degrees">Scale degrees</a></li>
+<li><a href="#diatonic-scales">Diatonic scales</a></li>
+<li><a href="#things-to-organize">Things to organize</a></li>
+</ul></li>
+</ul>
+
+<p></div>
+<!--endtoc--></p>
+
+<h2 id="music-theory">Music theory&nbsp;<a class="headline-hash no-text-decoration" href="#music-theory">#</a> </h2>
+
+<h3 id="how-to-build-scales-and-triads">How to build scales and triads&nbsp;<a class="headline-hash no-text-decoration" href="#how-to-build-scales-and-triads">#</a> </h3>
+
+<h4 id="c-major-scale">C Major scale&nbsp;<a class="headline-hash no-text-decoration" href="#c-major-scale">#</a> </h4>
+
+<p>In Linux you can visualize and play a virtual midi keyboard using <code>vmpk</code>.</p>
+
+<p>The major scales are based on the distance steps between semitones structure from C considering only the white keys (whole tones). For instance:</p>
+
+<ul>
+<li>C to D equals 2 semitones</li>
+<li>D to E equals 2 semitones</li>
+<li>E to F equals 1 semitone</li>
+<li>F to G equals 2 semitones</li>
+<li>G to A equals 2 semitones</li>
+<li>A to B equals 2 semitones</li>
+<li>B to C equals 1 semitones</li>
+</ul>
+
+<p>So the formula is: 2, 2, 1, 2, 2, 2, 1.</p>
+
+<p>Once you have the scale, each note builds a triad. Triads can be major or minor.
+A major triad has 4 steps until the second note and 3 more steps until the third
+note. For example, C would form a triad with E and G. C and add 4 semitones (C#,
+D, D#, E), and from there add 3 semitones (F, F#, G).</p>
+
+<p>There is just one detail to remember. Major scales have this pattern: MmmMMmd
+(<code>M</code> being major, <code>m</code> being minor and <code>d</code> being diminished). A major chord adds
+4 semitones and then 3. A minor chord adds 3 and then 4. A diminished chord adds
+3 and then 3 semitones.</p>
+
+<p>Now let&rsquo;s visualize that&hellip;</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/c_major_scale_and_triads.png"/> </figure>
+
+
+<p>I also like to represent this on a short table like this:</p>
+
+<table>
+<thead>
+<tr>
+<th>C Major</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>root</td>
+<td>C</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Major/minor</td>
+<td>M</td>
+<td>m</td>
+<td>m</td>
+<td>M</td>
+<td>M</td>
+<td>m</td>
+<td>d</td>
+</tr>
+
+<tr>
+<td>major formula</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>1st triad note</td>
+<td>C</td>
+<td>D</td>
+<td>E</td>
+<td>F</td>
+<td>G</td>
+<td>A</td>
+<td>B</td>
+</tr>
+
+<tr>
+<td>+</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+</tr>
+
+<tr>
+<td>2nd triad note</td>
+<td>E</td>
+<td>F</td>
+<td>G</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+
+<tr>
+<td>+</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+</tr>
+
+<tr>
+<td>3rd triad note</td>
+<td>G</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>E</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+
+<p>I love to code and often I use the computer to teach myself, in this case I am
+going to use the <code>musthe</code> python lib to generate the same scale and all the
+triads so I can check my answers. I will use this snippet:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">musthe</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="k">def</span> <span class="nf">build_triads_df</span><span class="p">(</span><span class="n">key_note</span><span class="p">,</span> <span class="n">scale_type</span><span class="p">,</span> <span class="n">modes</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">Scale</span><span class="p">(</span><span class="n">key_note</span><span class="p">,</span> <span class="n">scale_type</span><span class="p">)</span>
+    <span class="n">result_lst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scale</span><span class="p">)):</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">triad</span> <span class="o">=</span> <span class="n">Chord</span><span class="p">(</span><span class="n">scale</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">scale</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">triad</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">triad</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">triad</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scale_note&#39;</span><span class="p">,</span> <span class="s1">&#39;triad_1st&#39;</span><span class="p">,</span> <span class="s1">&#39;triad_2nd&#39;</span><span class="p">,</span> <span class="s1">&#39;triad_3rd&#39;</span><span class="p">])</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">key_note</span> <span class="o">=</span> <span class="n">Note</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="n">scale_type</span> <span class="o">=</span> <span class="s1">&#39;major&#39;</span>
+
+<span class="n">df</span><span class="p">,</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">build_triads_df</span><span class="p">(</span><span class="n">key_note</span><span class="p">,</span> <span class="n">scale_type</span><span class="p">,</span> <span class="s1">&#39;MmmMMm°&#39;</span><span class="p">)</span>
+<span class="n">df</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">  scale_note triad_1st triad_2nd triad_3rd
+0          C         C         E         G
+1          D         D         F         A
+2          E         E         G         B
+3          F         F         A         C
+4          G         G         B         D
+5          A         A         C         E
+6          B         B         D         F</code></pre></div>
+<p>Note that the pandas table is transposed compared to the one I did manually.</p>
+
+<p>Again, I like using software to help me to teach myself new things. I found a
+Ruby gem called Coltrane that allows to print in the terminal a scale
+represented in piano and guitar. Here is an example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">┌─┬─┬┬─┬─╥─┬─┬┬─┬┬─┬─╥─┬─┬┬─┬─╥─┬─┬┬─┬┬─┬─┐
+│ │ ││ │ ║ │ ││ ││ │ ║ │ ││ │ ║ │ ││ ││ │ │
+│ │ ││ │ ║ │ ││ ││ │ ║ │ ││ │ ║ │ ││ ││ │ │
+│ │ ││ │ ║ │ ││ ││ │ ║ │ ││ │ ║ │ ││ ││ │ │
+│ ┕╥┙┕╥┙ ║ ┕╥┙┕╥┙┕╥┙ ║ ┕╥┙┕╥┙ ║ ┕╥┙┕╥┙┕╥┙ │
+│  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  │
+│C ║D ║E ║F ║G ║A ║B ║C ║D ║E ║F ║G ║A ║B │
+└──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──┘</code></pre></div>
+<h4 id="c-minor-scale">C Minor scale&nbsp;<a class="headline-hash no-text-decoration" href="#c-minor-scale">#</a> </h4>
+
+<p>Now I am going to generate the C Minor scale. It is generated in the same way as
+C Major but based as starting in A (only white keys in the piano).</p>
+
+<p>The formula is: 2, 1, 2, 2, 1, 2, 2.</p>
+
+<table>
+<thead>
+<tr>
+<th>C minor</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>root</td>
+<td>C</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Major/minor</td>
+<td>m</td>
+<td>d</td>
+<td>M</td>
+<td>m</td>
+<td>m</td>
+<td>M</td>
+<td>M</td>
+</tr>
+
+<tr>
+<td>minor formula</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+
+<tr>
+<td>1st triad note</td>
+<td>C</td>
+<td>D</td>
+<td>Eb</td>
+<td>F</td>
+<td>G</td>
+<td>Ab</td>
+<td>Bb</td>
+</tr>
+
+<tr>
+<td>+</td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+</tr>
+
+<tr>
+<td>2nd triad note</td>
+<td>Eb</td>
+<td>F</td>
+<td>G</td>
+<td>Ab</td>
+<td>Bb</td>
+<td>C</td>
+<td>D</td>
+</tr>
+
+<tr>
+<td>+</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+</tr>
+
+<tr>
+<td>3rd triad note</td>
+<td>G</td>
+<td>Ab</td>
+<td>Bb</td>
+<td>C</td>
+<td>D</td>
+<td>Eb</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+
+<p>Now I am going to double check my work using <code>musthe</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">key_note</span> <span class="o">=</span> <span class="n">Note</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="n">scale_type</span> <span class="o">=</span> <span class="s1">&#39;natural_minor&#39;</span>
+
+<span class="n">df</span><span class="p">,</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">build_triads_df</span><span class="p">(</span><span class="n">key_note</span><span class="p">,</span> <span class="n">scale_type</span><span class="p">,</span> <span class="s1">&#39;m°MmmMM&#39;</span><span class="p">)</span>
+<span class="n">df</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">  scale_note triad_1st triad_2nd triad_3rd
+0          C         C        Eb         G
+1          D         D         F        Ab
+2         Eb        Eb         G        Bb
+3          F         F        Ab         C
+4          G         G        Bb         D
+5         Ab        Ab         C        Eb
+6         Bb        Bb         D         F</code></pre></div>
+<p>And finally render that scale on <code>coltrane</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">┌─┬─┬┬─┬─╥─┬─┬┬─┬┬─┬─╥─┬─┬┬─┬─╥─┬─┬┬─┬┬─┬─┐
+│ │ ││ │ ║ │ ││ ││ │ ║ │ ││ │ ║ │ ││ ││ │ │
+│ │ ││D│ ║ │ ││G││A│ ║ │ ││D│ ║ │ ││G││A│ │
+│ │ ││♯│ ║ │ ││♯││♯│ ║ │ ││♯│ ║ │ ││♯││♯│ │
+│ ┕╥┙┕╥┙ ║ ┕╥┙┕╥┙┕╥┙ ║ ┕╥┙┕╥┙ ║ ┕╥┙┕╥┙┕╥┙ │
+│  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  │
+│C ║D ║  ║F ║G ║  ║  ║C ║D ║  ║F ║G ║  ║  │
+└──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──┘</code></pre></div>
+<p>How cool is that, huh?</p>
+
+<h4 id="g-minor-scale">G minor scale&nbsp;<a class="headline-hash no-text-decoration" href="#g-minor-scale">#</a> </h4>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">key_note</span> <span class="o">=</span> <span class="n">Note</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">)</span>
+<span class="n">scale_type</span> <span class="o">=</span> <span class="s1">&#39;natural_minor&#39;</span>
+
+<span class="n">df</span><span class="p">,</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">build_triads_df</span><span class="p">(</span><span class="n">key_note</span><span class="p">,</span> <span class="n">scale_type</span><span class="p">,</span> <span class="s1">&#39;m°MmmMM&#39;</span><span class="p">)</span>
+<span class="n">df</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">  scale_note triad_1st triad_2nd triad_3rd
+0          G         G        Bb         D
+1          A         A         C        Eb
+2         Bb        Bb         D         F
+3          C         C        Eb         G
+4          D         D         F         A
+5         Eb        Eb         G        Bb
+6          F         F         A         C</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">┌─┬─┬┬─┬─╥─┬─┬┬─┬┬─┬─╥─┬─┬┬─┬─╥─┬─┬┬─┬┬─┬─┐
+│ │ ││ │ ║ │ ││ ││ │ ║ │ ││ │ ║ │ ││ ││ │ │
+│ │ ││D│ ║ │ ││ ││A│ ║ │ ││D│ ║ │ ││ ││A│ │
+│ │ ││♯│ ║ │ ││ ││♯│ ║ │ ││♯│ ║ │ ││ ││♯│ │
+│ ┕╥┙┕╥┙ ║ ┕╥┙┕╥┙┕╥┙ ║ ┕╥┙┕╥┙ ║ ┕╥┙┕╥┙┕╥┙ │
+│  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  │
+│C ║D ║  ║F ║G ║A ║  ║C ║D ║  ║F ║G ║A ║  │
+└──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──┘</code></pre></div>
+<h3 id="questions">Questions&nbsp;<a class="headline-hash no-text-decoration" href="#questions">#</a> </h3>
+
+<p>The book <a href="https://hackmusictheory.com/books">Hack Music Theory, Part 1</a> has helped me tremendously and I would highly
+recommend it. It is easy to follow. Here I have answered the questions.</p>
+
+<h4 id="scales">Scales&nbsp;<a class="headline-hash no-text-decoration" href="#scales">#</a> </h4>
+
+<p>Q1. The enharmonic of D# is: [OK]
+A: Eb</p>
+
+<p>Q2. The enharmonic of Gb is: [OK]
+A: F#</p>
+
+<p>Q3. Write one octave of the E major scale: [OK]
+Formula: 2212221 (based on C)
+A: E F# G# A B C# D# E</p>
+
+<p>Q4. Write one octave of the Db major scale: [OK]
+Formula: 2212221 (based on C)
+A: Db Eb F Gb Ab Bb C Db</p>
+
+<p>Q5. Write one octave of the G natural minor scale: [OK]
+Formula: 2122122 (based on A, or 9 semi-tones from C)
+A: G A Bb C D Eb F G</p>
+
+<p>Q6. Write one octave of the F# natural minor scale: [OK]
+Formula: 2122122 (based on A, or 9 semi-tones from C)
+A: F# G# A B C# D E F#</p>
+
+<p>Q7. What is Bb major’s relative minor scale? [FAIL]
+Explanation: Add 9 semi-tones (or the equivalent of 5 tones from C)
+A: G minor</p>
+
+<p>Explanation: counted poorly</p>
+
+<p>Q8. What is E natural minor’s relative major scale? [OK]
+Explanation: Subtract 9 semi-tones (or the equivalent of 5 tones from C)
+A: G major</p>
+
+<p>Q9. Which scale has the following scale spelling: 1 2 3 4 5 6 7 8? [FAIL]
+A: Major scale</p>
+
+<p>Explanation: I thought it was C, but it is the major scale.</p>
+
+<p>Q10. Write the scale spelling of the natural minor scale: [FAIL]
+A: 1 2 b3 4 b5 b6 7</p>
+
+<p>Explanation: It is the difference between the intervals of the major and minor, example:</p>
+
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+</tr>
+
+<tr>
+<td>2212221</td>
+<td>C</td>
+<td>D</td>
+<td>E</td>
+<td>F</td>
+<td>G</td>
+<td>A</td>
+<td>B</td>
+</tr>
+
+<tr>
+<td>2122122</td>
+<td>C</td>
+<td>D</td>
+<td>Eb</td>
+<td>F</td>
+<td>G</td>
+<td>Ab</td>
+<td>Bb</td>
+</tr>
+
+<tr>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>b3</td>
+<td>4</td>
+<td>5</td>
+<td>b6</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="chords">Chords&nbsp;<a class="headline-hash no-text-decoration" href="#chords">#</a> </h4>
+
+<p>Q1. Write the notes of the Eb major triad: [OK]
+A: Eb G Bb</p>
+
+<p>Q2. Write the notes of the B major triad: [OK]
+A: B D# F#</p>
+
+<p>Q3. Write the notes of the B minor triad: [OK]
+A: B D F#</p>
+
+<p>Q4. Write the notes of the F minor triad: [FAIL]
+A: F Ab C</p>
+
+<p>Reason: counted poorly</p>
+
+<p>Q5. Name the following triad: Gb Bb Db [OK]
+A: Gb major</p>
+
+<p>Q6. Name the following triad: E G B [OK]
+A: E minor</p>
+
+<p>Q7. What is the interval between the root note and the note C in the Ab maj triad? [FAIL]
+A: 4 (major 3rd)</p>
+
+<p>Q8. What is the interval between the root note and the note D in the G# dim triad? [FAIL]
+A: 6 (dim 5th)</p>
+
+<p>Q9. Using chord symbols, write the triads that are built from each degree of the F major scale: [OK]
+A: F-maj G-min A-min Bb-maj C-maj D-min E-dim</p>
+
+<table>
+<thead>
+<tr>
+<th>Major fm</th>
+<th>2</th>
+<th>2</th>
+<th>1</th>
+<th>2</th>
+<th>2</th>
+<th>2</th>
+<th>1</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Deg fm</td>
+<td>M</td>
+<td>m</td>
+<td>m</td>
+<td>M</td>
+<td>M</td>
+<td>m</td>
+<td>d</td>
+</tr>
+
+<tr>
+<td>F Major scale</td>
+<td>F</td>
+<td>G</td>
+<td>A</td>
+<td>Bb</td>
+<td>C</td>
+<td>D</td>
+<td>E</td>
+</tr>
+
+<tr>
+<td>Triad 2nd</td>
+<td>A</td>
+<td>Bb</td>
+<td>C</td>
+<td>D</td>
+<td>E</td>
+<td>F</td>
+<td>G</td>
+</tr>
+
+<tr>
+<td>Triad 3rd</td>
+<td>C</td>
+<td>D</td>
+<td>E</td>
+<td>F</td>
+<td>G</td>
+<td>A</td>
+<td>Bb</td>
+</tr>
+</tbody>
+</table>
+
+<p>Q10. Using chord symbols, write the triads that are built from each degree of the E natural minor scale: [OK]
+A: E-min F#-dim G-maj A-min B-min C-maj D-maj</p>
+
+<table>
+<thead>
+<tr>
+<th>2</th>
+<th>1</th>
+<th>2</th>
+<th>2</th>
+<th>1</th>
+<th>2</th>
+<th>2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>m</td>
+<td>d</td>
+<td>M</td>
+<td>n</td>
+<td>n</td>
+<td>M</td>
+<td>M</td>
+</tr>
+
+<tr>
+<td>E</td>
+<td>F#</td>
+<td>G</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="intervals">Intervals&nbsp;<a class="headline-hash no-text-decoration" href="#intervals">#</a> </h3>
+
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>b</th>
+<th>2</th>
+<th>b</th>
+<th>3</th>
+<th>4</th>
+<th>b</th>
+<th>5</th>
+<th>b</th>
+<th>6</th>
+<th>b</th>
+<th>7</th>
+<th>8</th>
+<th>Blocks</th>
+<th></th>
+<th>S</th>
+<th>Name</th>
+<th>Not.</th>
+<th>Repr</th>
+<th>Example</th>
+<th>Character</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td>0</td>
+<td>Perfect Unison</td>
+<td>P1 / d2</td>
+<td>1-1</td>
+<td>C-C</td>
+<td>Perfect consonance</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td>b2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+<td>1</td>
+<td>Minor 2nd</td>
+<td>m2 / A1</td>
+<td>1-b2</td>
+<td>C-Db</td>
+<td>Extreme dissonance</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>3</td>
+<td></td>
+<td>2</td>
+<td>Major 2nd</td>
+<td>M2 / d3</td>
+<td>1-2</td>
+<td>C-D</td>
+<td>Moderately dissonant</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td>b3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>4</td>
+<td></td>
+<td>3</td>
+<td>Minor 3rd</td>
+<td>m3 / A2</td>
+<td>1-b3</td>
+<td>C-D-Eb</td>
+<td>Dark consonance</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>5</td>
+<td></td>
+<td>4</td>
+<td>Major 3rd</td>
+<td>M3 / d4</td>
+<td>1-3</td>
+<td>C-D-E</td>
+<td>Consonant and bright</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>6</td>
+<td></td>
+<td>5</td>
+<td>Perfect 4th</td>
+<td>P4 / A3</td>
+<td>1-4</td>
+<td>C-D-E-F</td>
+<td>Consonant but unstable</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>b5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>7</td>
+<td></td>
+<td>6</td>
+<td>Diminished 5th (tritone)</td>
+<td>d5 / A4</td>
+<td>1-b5</td>
+<td>C-D-E-Gb/F#</td>
+<td>Extreme dissonance</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>8</td>
+<td></td>
+<td>7</td>
+<td>Perfect 5th</td>
+<td>P5 / d6</td>
+<td>1-5</td>
+<td>C-D-E-F-G</td>
+<td>Highly consonant</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>b6</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>9</td>
+<td></td>
+<td>8</td>
+<td>Minor 6th</td>
+<td>m6 / A5</td>
+<td>1-b6</td>
+<td>C-D-E-F-G-Ab</td>
+<td>Consonant</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>6</td>
+<td></td>
+<td></td>
+<td></td>
+<td>10</td>
+<td></td>
+<td>9</td>
+<td>Major 6th</td>
+<td>M6 / d7</td>
+<td>1-6</td>
+<td>C-D-E-F-G-A</td>
+<td>Consonant</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>b7</td>
+<td></td>
+<td></td>
+<td>11</td>
+<td></td>
+<td>10</td>
+<td>Minor 7th</td>
+<td>m7 / A6</td>
+<td>1-b7</td>
+<td>C-D-E-F-G-A-Bb</td>
+<td>Dissonant</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>7</td>
+<td></td>
+<td>12</td>
+<td></td>
+<td>11</td>
+<td>Major 7th</td>
+<td>M7 / d8</td>
+<td>1-7</td>
+<td>C-D-E-F-G-A-B</td>
+<td>Dissonant</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>8</td>
+<td>13</td>
+<td></td>
+<td>12</td>
+<td>Perfect 8th</td>
+<td>P8 / A7</td>
+<td>1-8</td>
+<td>C-D-E-F-G-A-B-C</td>
+<td>Extreme consonant</td>
+</tr>
+</tbody>
+</table>
+
+<p>In order to get the number you need to count from the first note up until the second note. For example: From C to A it is a 6th, because, C(1), D(2),E(3), F(4), G(5), A(6)</p>
+
+<ul>
+<li>2nds, 3rds, 6ths may be major or minor</li>
+<li>4ths and 5ths may be perfect, diminished or augmented</li>
+<li>7ths may be diminished, minor and major</li>
+</ul>
+
+<h3 id="ancient-jewish-hebrew-scales">Ancient Jewish/Hebrew scales&nbsp;<a class="headline-hash no-text-decoration" href="#ancient-jewish-hebrew-scales">#</a> </h3>
+
+<p>Ahava Raba mode: E F G# A B C D E
+misharamash mode: D E F G# A B C D</p>
+
+<p>Tunning: D E F G# A B C D E</p>
+
+<p><a href="https://www.youtube.com/watch?v=0_X3z4p95wg">https://www.youtube.com/watch?v=0_X3z4p95wg</a></p>
+
+<p>he traditional klezmer &lsquo;Ahava Raba&rsquo; mode is indeed identical to the Maqam Hijaz&hellip;even more circumstantial evidence of the antiquity of this musical mode throughout the Middle East?</p>
+
+<p>The really fascinating thing, is that if a 10 string lyre is tuned to this mode, starting on the 2nd string, (equivalent  intervals as EFG#ABCDE) the other main traditional klezmer mode with the equivalent intervals as DEFG#ABCD, is simultaneously created by starting on the 1st string.</p>
+
+<hr />
+
+<p>scales missing</p>
+
+<p>C Jewish (Adonai Malakh)
+intervals: 1,b2,2,b3,4,5,6,b7
+half-steps: 1-1-1-2-2-2-1-2
+notes: C,Db,D,Eb,F,G,A,Bb</p>
+
+<p>C Jewish (Ahaba Rabba)
+intervals: 1,b2,3,4,5,b6,b7
+half-steps: 1-3-1-2-1-2-2
+notes: C,Db,E,F,G,Ab,Bb</p>
+
+<p>could be called something else though!</p>
+
+<hr />
+
+<p>Adonai Malakh - Two versions in 8 Not Scales</p>
+
+<p>Jewish Ahaba Rabba - look for Mixolydian b9 b13</p>
+
+<h3 id="modes">Modes&nbsp;<a class="headline-hash no-text-decoration" href="#modes">#</a> </h3>
+
+<p><a href="https://www.youtube.com/watch?v=DFFqVFNVcYM">https://www.youtube.com/watch?v=DFFqVFNVcYM</a>
+<a href="https://www.youtube.com/watch?v=c3RjlkENz6M">https://www.youtube.com/watch?v=c3RjlkENz6M</a></p>
+
+<p>Modes on C</p>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th></th>
+<th>Degree</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Lydian</td>
+<td><img src="/ox-hugo/diatonic_c.png" alt="" /></td>
+<td>IV</td>
+<td>1#</td>
+<td>F#</td>
+</tr>
+
+<tr>
+<td>Ionian</td>
+<td>Natural major</td>
+<td>I</td>
+<td>0</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Mixolydian</td>
+<td></td>
+<td>V</td>
+<td>1b</td>
+<td>Bb</td>
+</tr>
+
+<tr>
+<td>Dorian</td>
+<td></td>
+<td>II</td>
+<td>2b</td>
+<td>Eb, Eb</td>
+</tr>
+
+<tr>
+<td>Aeolian</td>
+<td>Natural minor</td>
+<td>VI</td>
+<td>3b</td>
+<td>Bb, Eb, Ab</td>
+</tr>
+
+<tr>
+<td>Phrygian</td>
+<td></td>
+<td>III</td>
+<td>4b</td>
+<td>Bb, Eb, Ab, Db</td>
+</tr>
+
+<tr>
+<td>Locrian</td>
+<td></td>
+<td>VII</td>
+<td>5b</td>
+<td>Eb, Eb, Ab, Db, Gb</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="poly-rhythms-and-euclidean-rhythms">Poly-rhythms and Euclidean rhythms&nbsp;<a class="headline-hash no-text-decoration" href="#poly-rhythms-and-euclidean-rhythms">#</a> </h3>
+
+<p><a href="https://www.youtube.com/watch?v=6oVuOT4sSiw">https://www.youtube.com/watch?v=6oVuOT4sSiw</a>
+<a href="https://www.youtube.com/watch?v=bKazVnHh2w4">https://www.youtube.com/watch?v=bKazVnHh2w4</a></p>
+
+<h3 id="coltrane">Coltrane&nbsp;<a class="headline-hash no-text-decoration" href="#coltrane">#</a> </h3>
+
+<style>
+  .katex {
+    *{font-family: monospace; font-size: x-large}
+  }
+  .language-text {
+    font-family:  "Lucida Console", Monaco, monospace;
+    font-size: x-large;
+  }
+  .c1 {
+    font-family:  "Lucida Console", Monaco, monospace;
+    font-size: x-large;
+    font-size: 2.0vw;
+  }
+</style>
+
+<h4 id="c-major-scale-1">C Major scale&nbsp;<a class="headline-hash no-text-decoration" href="#c-major-scale-1">#</a> </h4>
+
+<h4 id="d-major-scale">D Major scale&nbsp;<a class="headline-hash no-text-decoration" href="#d-major-scale">#</a> </h4>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">┌─┬─┬┬─┬─╥─┬─┬┬─┬┬─┬─╥─┬─┬┬─┬─╥─┬─┬┬─┬┬─┬─┐
+│ │ ││ │ ║ │ ││ ││ │ ║ │ ││ │ ║ │ ││ ││ │ │
+│ │C││ │ ║ │F││ ││ │ ║ │C││ │ ║ │F││ ││ │ │
+│ │♯││ │ ║ │♯││ ││ │ ║ │♯││ │ ║ │♯││ ││ │ │
+│ ┕╥┙┕╥┙ ║ ┕╥┙┕╥┙┕╥┙ ║ ┕╥┙┕╥┙ ║ ┕╥┙┕╥┙┕╥┙ │
+│  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  ║  │
+│  ║D ║E ║  ║G ║A ║B ║  ║D ║E ║  ║G ║A ║B │
+└──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──╨──┘</code></pre></div>
+<div class="coltrane">
+
+This is a coltrane\\
+test 1\\
+test 2
+block
+
+</div>
+
+<h2 id="links">Links&nbsp;<a class="headline-hash no-text-decoration" href="#links">#</a> </h2>
+
+<h3 id="music-theory-websites">Music theory websites&nbsp;<a class="headline-hash no-text-decoration" href="#music-theory-websites">#</a> </h3>
+
+<h4 id="music-theory-cheat-sheet-keys-scales-chords-notes-and-intervals"><a href="https://muted.io/cheat-sheet/">Music Theory Cheat Sheet: Keys, Scales, Chords, Notes &amp; Intervals</a>&nbsp;<a class="headline-hash no-text-decoration" href="#music-theory-cheat-sheet-keys-scales-chords-notes-and-intervals">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://muted.io/cheat-sheet/">https://muted.io/cheat-sheet/</a></li>
+<li>Title: Music Theory Cheat Sheet: Keys, Scales, Chords, Notes &amp; Intervals</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul>
+
+<h4 id="musescore-online-music-courses-learn-how-to-play-read-and-compose-music-with-the-world-s-largest-sheet-music-catalog"><a href="https://musescore.com/courses">Musescore: online music courses | Learn how to play, read and compose music with the world&rsquo;s largest sheet music catalog</a>&nbsp;<a class="headline-hash no-text-decoration" href="#musescore-online-music-courses-learn-how-to-play-read-and-compose-music-with-the-world-s-largest-sheet-music-catalog">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://musescore.com/courses">https://musescore.com/courses</a></li>
+<li>Title: Musescore: online music courses | Learn how to play, read and compose music with the world&rsquo;s largest sheet music catalog</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-26 Mon]</span></span></li>
+</ul>
+
+<!--list-separator-->
+
+<ul>
+<li><p>(winter promotion on the yearly plan) <a href="https://musescore.com/pro/landing/winter?feature=banner">MuseScore PRO+</a></p>
+
+<ul>
+<li>Source: <a href="https://musescore.com/pro/landing/winter?feature=banner">https://musescore.com/pro/landing/winter?feature=banner</a></li>
+<li>Title: MuseScore PRO+</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-26 Mon]</span></span></li>
+</ul></li>
+</ul>
+
+<!--list-separator-->
+
+<ul>
+<li><p>(sound lib) <a href="https://musescore.org/en/node/353503">Installing Muse Hub on Arch-based Linux Distributions | MuseScore</a></p>
+
+<ul>
+<li>Source: <a href="https://musescore.org/en/node/353503">https://musescore.org/en/node/353503</a></li>
+<li>Title: Installing Muse Hub on Arch-based Linux Distributions | MuseScore</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-27 Tue]</span></span></li>
+</ul></li>
+</ul>
+
+<h4 id="harmonagon"><a href="http://harmonagon.com/">Harmonagon™</a>&nbsp;<a class="headline-hash no-text-decoration" href="#harmonagon">#</a> </h4>
+
+<ul>
+<li>Source: <a href="http://harmonagon.com/">http://harmonagon.com/</a></li>
+<li>Title: Harmonagon™</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-03-16 Sat]</span></span></li>
+</ul>
+
+<p><a href="https://www.youtube.com/playlist?list=PLFKcevgRavAcrEcYSYv7Y-BEY5pyOH_Rf">https://www.youtube.com/playlist?list=PLFKcevgRavAcrEcYSYv7Y-BEY5pyOH_Rf</a></p>
+
+<h3 id="ear-training">Ear training&nbsp;<a class="headline-hash no-text-decoration" href="#ear-training">#</a> </h3>
+
+<h4 id="intervals-ear-training--mp3s--piano-ology"><a href="https://piano-ology.com/chords/intervals-ear-training-mp3s/">Intervals: Ear Training (MP3s) - Piano-ology</a>&nbsp;<a class="headline-hash no-text-decoration" href="#intervals-ear-training--mp3s--piano-ology">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://piano-ology.com/chords/intervals-ear-training-mp3s/">https://piano-ology.com/chords/intervals-ear-training-mp3s/</a></li>
+<li>Title: Intervals: Ear Training (MP3s) - Piano-ology</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-03-16 Sat]</span></span></li>
+</ul>
+
+<h3 id="music-theory-in-the-terminal-or-libraries">Music theory in the terminal or libraries&nbsp;<a class="headline-hash no-text-decoration" href="#music-theory-in-the-terminal-or-libraries">#</a> </h3>
+
+<h4 id="github-gciruelos-musthe-music-theory-implemented-in-python-dot-notes-intervals-scales-and-chords-dot"><a href="https://github.com/gciruelos/musthe">GitHub - gciruelos/musthe: Music theory implemented in Python. Notes, intervals, scales and chords.</a> <span class="tag"><span class="python">python</span></span>&nbsp;<a class="headline-hash no-text-decoration" href="#github-gciruelos-musthe-music-theory-implemented-in-python-dot-notes-intervals-scales-and-chords-dot">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://github.com/gciruelos/musthe">https://github.com/gciruelos/musthe</a></li>
+<li>Title: GitHub - gciruelos/musthe: Music theory implemented in Python. Notes, intervals, scales and chords.</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul>
+
+<h4 id="github-synestematic-kord-a-music-theory-development-framework-in-python"><a href="https://github.com/synestematic/kord">GitHub - synestematic/kord: a music theory development framework in python</a> <span class="tag"><span class="python">python</span></span>&nbsp;<a class="headline-hash no-text-decoration" href="#github-synestematic-kord-a-music-theory-development-framework-in-python">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://github.com/synestematic/kord">https://github.com/synestematic/kord</a></li>
+<li>Title: GitHub - synestematic/kord: a music theory development framework in python</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul>
+
+<h4 id="https-github-dot-com-yuma-m-pychord"><a href="https://github.com/yuma-m/pychord">https://github.com/yuma-m/pychord</a>&nbsp;<a class="headline-hash no-text-decoration" href="#https-github-dot-com-yuma-m-pychord">#</a> </h4>
+
+<h4 id="github-pedrozath-coltrane-a-music-theory-library-with-a-command-line-interface"><a href="https://github.com/pedrozath/coltrane">GitHub - pedrozath/coltrane: 🎹🎸A music theory library with a command-line interface</a> <span class="tag"><span class="ruby">ruby</span></span>&nbsp;<a class="headline-hash no-text-decoration" href="#github-pedrozath-coltrane-a-music-theory-library-with-a-command-line-interface">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://github.com/pedrozath/coltrane">https://github.com/pedrozath/coltrane</a></li>
+<li>Title: GitHub - pedrozath/coltrane: 🎹🎸A music theory library with a command-line interface</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul>
+
+<h4 id="github-rainbow-dreamer-musicpy-musicpy-is-a-music-programming-language-in-python-designed-to-write-music-in-very-handy-syntax-through-music-theory-and-algorithms-dot"><a href="https://github.com/Rainbow-Dreamer/musicpy">GitHub - Rainbow-Dreamer/musicpy: Musicpy is a music programming language in Python designed to write music in very handy syntax through music theory and algorithms.</a> <span class="tag"><span class="composition">composition</span></span>&nbsp;<a class="headline-hash no-text-decoration" href="#github-rainbow-dreamer-musicpy-musicpy-is-a-music-programming-language-in-python-designed-to-write-music-in-very-handy-syntax-through-music-theory-and-algorithms-dot">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://github.com/Rainbow-Dreamer/musicpy">https://github.com/Rainbow-Dreamer/musicpy</a></li>
+<li>Title: GitHub - Rainbow-Dreamer/musicpy: Musicpy is a music programming language in Python designed to write music in very handy syntax through music theory and algorithms.</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul>
+
+<h3 id="music-analysis">Music analysis&nbsp;<a class="headline-hash no-text-decoration" href="#music-analysis">#</a> </h3>
+
+<h4 id="tabs-that-show-the-theory-behind-songs-hooktheory"><a href="https://www.hooktheory.com/theorytab">Tabs that show the theory behind songs - Hooktheory</a>&nbsp;<a class="headline-hash no-text-decoration" href="#tabs-that-show-the-theory-behind-songs-hooktheory">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://www.hooktheory.com/theorytab">https://www.hooktheory.com/theorytab</a></li>
+<li>Title: Tabs that show the theory behind songs - Hooktheory</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-03-16 Sat]</span></span></li>
+</ul>
+
+<h4 id="example-1">Example 1:&nbsp;<a class="headline-hash no-text-decoration" href="#example-1">#</a> </h4>
+
+<p><a href="https://vm.tiktok.com/ZMMFdBrmN/">https://vm.tiktok.com/ZMMFdBrmN/</a></p>
+
+<p>D minor scale</p>
+
+<p>2122122 - <sup>2</sup>&frasl;<sub>5</sub></p>
+
+<p>1 D
+2 E
+3 F
+4 G
+5 A
+6 Bb
+7 C
+8 D</p>
+
+<p>i(Dm) - VI(Bb) - VII&copy; - i(Dm)
+i(Dm) - III(F) - VII&copy; - i(Dm)</p>
+
+<h3 id="making-music-diagrams--fretboard-piano-etc">Making music diagrams (fretboard, piano, etc)&nbsp;<a class="headline-hash no-text-decoration" href="#making-music-diagrams--fretboard-piano-etc">#</a> </h3>
+
+<h4 id="fretboard-diagram-creator"><a href="https://verzettelung.com/20/12/22/">Fretboard Diagram Creator</a>&nbsp;<a class="headline-hash no-text-decoration" href="#fretboard-diagram-creator">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://verzettelung.com/20/12/22/">https://verzettelung.com/20/12/22/</a></li>
+<li>Title: Fretboard Diagram Creator</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul>
+
+<!--list-separator-->
+
+<ul>
+<li><p>(example) <a href="https://verzettelung.com/20/12/22/modes.html">Exploring Modes on the Guitar</a></p>
+
+<ul>
+<li>Source: <a href="https://verzettelung.com/20/12/22/modes.html">https://verzettelung.com/20/12/22/modes.html</a></li>
+<li>Title: Exploring Modes on the Guitar</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul></li>
+</ul>
+
+<h3 id="music-theory-visualization-systems">Music theory visualization systems&nbsp;<a class="headline-hash no-text-decoration" href="#music-theory-visualization-systems">#</a> </h3>
+
+<h4 id="keyboard">Keyboard&nbsp;<a class="headline-hash no-text-decoration" href="#keyboard">#</a> </h4>
+
+<!--list-separator-->
+
+<ul>
+<li><p><a href="https://www.youtube.com/watch?v=RTDjplRWxI4">VISUALIZE Chords, Forget Memorizing - YouTube</a></p>
+
+<ul>
+<li>Source: <a href="https://www.youtube.com/watch?v=RTDjplRWxI4">https://www.youtube.com/watch?v=RTDjplRWxI4</a></li>
+<li>Title: VISUALIZE Chords, Forget Memorizing - YouTube</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul></li>
+</ul>
+
+<!--list-separator-->
+
+<ul>
+<li><p><a href="https://cifkao.github.io/tonnetz-viz/">TonnetzViz | Online MIDI Visualization</a></p>
+
+<ul>
+<li>Source: <a href="https://cifkao.github.io/tonnetz-viz/">https://cifkao.github.io/tonnetz-viz/</a></li>
+<li>Title: TonnetzViz | Online MIDI Visualization</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul></li>
+</ul>
+
+<h4 id="guitar">Guitar&nbsp;<a class="headline-hash no-text-decoration" href="#guitar">#</a> </h4>
+
+<!--list-separator-->
+
+<ul>
+<li><p><a href="https://www.youtube.com/watch?v=sPT5mr4UFAk">Chairworks 1-Major Chairs - YouTube</a></p>
+
+<ul>
+<li>Source: <a href="https://www.youtube.com/watch?v=sPT5mr4UFAk">https://www.youtube.com/watch?v=sPT5mr4UFAk</a></li>
+<li>Title: Chairworks 1-Major Chairs - YouTube</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul></li>
+</ul>
+
+<!--list-separator-->
+
+<ul>
+<li><p><a href="https://www.youtube.com/watch?v=O4XlpBCi2J8">Chairworks 2-Minor Chairs - YouTube</a></p>
+
+<ul>
+<li>Source: <a href="https://www.youtube.com/watch?v=O4XlpBCi2J8">https://www.youtube.com/watch?v=O4XlpBCi2J8</a></li>
+<li>Title: Chairworks 2-Minor Chairs - YouTube</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul></li>
+</ul>
+
+<!--list-separator-->
+
+<ul>
+<li><p><a href="https://www.youtube.com/watch?v=PwrWCsHbE40">Chairworks 3-The Whole Fretboard (Pentetonic notes) - YouTube</a></p>
+
+<ul>
+<li>Source: <a href="https://www.youtube.com/watch?v=PwrWCsHbE40">https://www.youtube.com/watch?v=PwrWCsHbE40</a></li>
+<li>Title: Chairworks 3-The Whole Fretboard (Pentetonic notes) - YouTube</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul></li>
+</ul>
+
+<!--list-separator-->
+
+<ul>
+<li><p><a href="https://www.youtube.com/watch?v=TErJhRZX8kI">Visual Triads (Extended) - YouTube</a></p>
+
+<ul>
+<li>Source: <a href="https://www.youtube.com/watch?v=TErJhRZX8kI">https://www.youtube.com/watch?v=TErJhRZX8kI</a></li>
+<li>Title: Visual Triads (Extended) - YouTube</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul></li>
+</ul>
+
+<h3 id="music-theory-software-to-practice">Music theory software to practice&nbsp;<a class="headline-hash no-text-decoration" href="#music-theory-software-to-practice">#</a> </h3>
+
+<h4 id="pianobooster"><a href="https://www.pianobooster.org/index.html">PianoBooster</a>&nbsp;<a class="headline-hash no-text-decoration" href="#pianobooster">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://www.pianobooster.org/index.html">https://www.pianobooster.org/index.html</a></li>
+<li>Title: PianoBooster</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-04-17 Wed]</span></span></li>
+</ul>
+
+<h4 id="polymeilex-neothesia-flashy-synthesia-like-software-for-linux-windows-and-macos"><a href="https://github.com/PolyMeilex/Neothesia">PolyMeilex/Neothesia: Flashy Synthesia Like Software For Linux,Windows and MacOs</a>&nbsp;<a class="headline-hash no-text-decoration" href="#polymeilex-neothesia-flashy-synthesia-like-software-for-linux-windows-and-macos">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://github.com/PolyMeilex/Neothesia">https://github.com/PolyMeilex/Neothesia</a></li>
+<li>Title: PolyMeilex/Neothesia: Flashy Synthesia Like Software For Linux,Windows and MacOs</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-04-17 Wed]</span></span></li>
+</ul>
+
+<h3 id="music-production-software-on-linux">Music production software on linux&nbsp;<a class="headline-hash no-text-decoration" href="#music-production-software-on-linux">#</a> </h3>
+
+<ul>
+<li>Reaper</li>
+<li>Ardour</li>
+<li>Musescore</li>
+<li>Q tractor</li>
+<li>LLMS</li>
+<li>Rosegarden</li>
+<li>Lilypond</li>
+<li>Frescobaldy</li>
+<li>Denemo</li>
+<li>Audacity</li>
+<li>Hydrogen (drum machine)</li>
+<li>Guitarix</li>
+<li>Tux Guitar</li>
+</ul>
+
+<h4 id="daw-comparison-for-linux--lmms-qtractor-ardour--youtube"><a href="https://www.youtube.com/watch?v=OkwOxWnwPeI">DAW Comparison for Linux (LMMS, Qtractor, Ardour) - YouTube</a>&nbsp;<a class="headline-hash no-text-decoration" href="#daw-comparison-for-linux--lmms-qtractor-ardour--youtube">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://www.youtube.com/watch?v=OkwOxWnwPeI">https://www.youtube.com/watch?v=OkwOxWnwPeI</a></li>
+<li>Title: DAW Comparison for Linux (LMMS, Qtractor, Ardour) - YouTube</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-27 Tue]</span></span></li>
+</ul>
+
+<h4 id="5-free-and-open-music-making-tools-opensource-dot-com"><a href="https://opensource.com/life/16/2/5-music-making-tools">5 free and open music-making tools | Opensource.com</a>&nbsp;<a class="headline-hash no-text-decoration" href="#5-free-and-open-music-making-tools-opensource-dot-com">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://opensource.com/life/16/2/5-music-making-tools">https://opensource.com/life/16/2/5-music-making-tools</a></li>
+<li>Title: 5 free and open music-making tools | Opensource.com</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul>
+
+<h4 id="aaron-wolf-music-lessons-in-portland-and-oregon-city-guitar-music-science-and-more"><a href="https://blog.wolftune.com/p/software-recommendations-and-more.html">“Aaron Wolf | Music Lessons in Portland &amp; Oregon City: Guitar, Music Science, and more</a>&nbsp;<a class="headline-hash no-text-decoration" href="#aaron-wolf-music-lessons-in-portland-and-oregon-city-guitar-music-science-and-more">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://blog.wolftune.com/p/software-recommendations-and-more.html">https://blog.wolftune.com/p/software-recommendations-and-more.html</a></li>
+<li>Title: “Aaron Wolf | Music Lessons in Portland &amp; Oregon City: Guitar, Music Science, and more</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-25 Sun]</span></span></li>
+</ul>
+
+<h3 id="music-app-websites">Music app websites&nbsp;<a class="headline-hash no-text-decoration" href="#music-app-websites">#</a> </h3>
+
+<h4 id="beatscratch-funk-at-your-fingertips"><a href="https://beatscratch.io/">BeatScratch: funk at your fingertips</a>&nbsp;<a class="headline-hash no-text-decoration" href="#beatscratch-funk-at-your-fingertips">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://beatscratch.io/">https://beatscratch.io/</a></li>
+<li>Title: BeatScratch: funk at your fingertips</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-03-16 Sat]</span></span></li>
+</ul>
+
+<h3 id="plugins">Plugins&nbsp;<a class="headline-hash no-text-decoration" href="#plugins">#</a> </h3>
+
+<h4 id="linux-audio-plugin-options-youtube"><a href="https://www.youtube.com/watch?v=IaDoRa5n8nQ">Linux Audio Plugin Options - YouTube</a>&nbsp;<a class="headline-hash no-text-decoration" href="#linux-audio-plugin-options-youtube">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://www.youtube.com/watch?v=IaDoRa5n8nQ">https://www.youtube.com/watch?v=IaDoRa5n8nQ</a></li>
+<li>Title: Linux Audio Plugin Options - YouTube</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-27 Tue]</span></span></li>
+</ul>
+
+<h4 id="bbc-so">BBC SO&nbsp;<a class="headline-hash no-text-decoration" href="#bbc-so">#</a> </h4>
+
+<p>Howto Reaper + BBC SO <a href="https://linuxmusicians.com/viewtopic.php?t=22480">https://linuxmusicians.com/viewtopic.php?t=22480</a>
+<a href="https://www.reddit.com/r/linuxaudio/comments/vj9gmw/how_to_run_spitfire_labs_on_linux/">https://www.reddit.com/r/linuxaudio/comments/vj9gmw/how_to_run_spitfire_labs_on_linux/</a></p>
+
+<h4 id="more-plugins">More plugins&nbsp;<a class="headline-hash no-text-decoration" href="#more-plugins">#</a> </h4>
+
+<p><a href="https://www.youtube.com/watch?v=OCzf38fCqB4">https://www.youtube.com/watch?v=OCzf38fCqB4</a></p>
+
+<h3 id="devices">Devices&nbsp;<a class="headline-hash no-text-decoration" href="#devices">#</a> </h3>
+
+<h4 id="audio-is-coming-to-linux-youtube"><a href="https://www.youtube.com/watch?v=YyUbnGWktek">Audio is Coming To Linux! - YouTube</a>&nbsp;<a class="headline-hash no-text-decoration" href="#audio-is-coming-to-linux-youtube">#</a> </h4>
+
+<ul>
+<li>Source: <a href="https://www.youtube.com/watch?v=YyUbnGWktek">https://www.youtube.com/watch?v=YyUbnGWktek</a></li>
+<li>Title: Audio is Coming To Linux! - YouTube</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-02-27 Tue]</span></span></li>
+</ul>
+
+<h3 id="scale-degrees">Scale degrees&nbsp;<a class="headline-hash no-text-decoration" href="#scale-degrees">#</a> </h3>
+
+<p>Names and symbols used in harmonic analysis to denote tones of the
+scale as roots of chords.  The most important are degrees I = tonic
+(T), IV = subdominant (S) and V = dominant (D).</p>
+<div class="highlight"><pre class="chroma"><code class="language-lilypond" data-lang="lilypond">\relative c&#39; {
+  {
+    c1 d e f g a b c
+  }
+  \lyrics { I II III IV V VI VII I }
+  \lyrics { T &#34;&#34; &#34;&#34;  S  D }
+}</code></pre></div>
+<h3 id="diatonic-scales">Diatonic scales&nbsp;<a class="headline-hash no-text-decoration" href="#diatonic-scales">#</a> </h3>
+
+<p>A scale consisting of 5 whole tones and 2 semitones (S).  Scales
+played on the white keys of a piano keyboard are diatonic.</p>
+<div class="highlight"><pre class="chroma"><code class="language-lilypond" data-lang="lilypond">\relative c&#39; {
+  {
+    c1 d
+    e^&#34;~~ S&#34; f g a b^&#34;~~ S&#34; c
+  }
+  \lyrics {
+    Ionian
+  }
+}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-lilypond" data-lang="lilypond">\relative c&#39; {
+  {
+    d1
+    e^&#34;~~ S&#34; f g a b^&#34;~~ S&#34; c d
+  }
+  \lyrics {
+    Dorian
+  }
+}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-lilypond" data-lang="lilypond">\relative c&#39; {
+  {
+    e1^&#34;~~ S&#34; f g a b^&#34;~~ S&#34; c d e
+  }
+  \lyrics {
+    Phrygian
+  }
+}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-lilypond" data-lang="lilypond">\relative c&#39; {
+  {
+    f1 g a
+    b^&#34;~~ S&#34; c d e^&#34;~~ S&#34; f
+  }
+  \lyrics {
+    Lydian
+  }
+}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-lilypond" data-lang="lilypond">\relative g&#39; {
+  {
+    g1 a
+    b^&#34;~~ S&#34; c d e^&#34;~~ S&#34; f g
+  }
+  \lyrics {
+    Mixolydian
+  }
+}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-lilypond" data-lang="lilypond">\relative a&#39; {
+  {
+    a1
+    b^&#34;~~ S&#34; c d e^&#34;~~ S&#34; f g a
+  }
+  \lyrics {
+    Aeolian
+  }
+}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-lilypond" data-lang="lilypond">\relative g&#39; {
+  {
+    b1^&#34;~~ S&#34; c d e^&#34;~~ S&#34; f g a b
+  }
+  \lyrics {
+    Locrian
+  }
+}</code></pre></div>
+<h3 id="things-to-organize">Things to organize&nbsp;<a class="headline-hash no-text-decoration" href="#things-to-organize">#</a> </h3>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/2023-12-23_22-17-15_Circle-of-fifths-768x753.png"/> </figure>
+
+<div class="highlight"><pre class="chroma"><code class="language-lilypond" data-lang="lilypond">\header{ tagline=&#34;&#34; }
+\relative c&#39; {
+  f e d c
+  b a g a
+  b c d e
+  f g f e
+  d c b a
+  g1
+}</code></pre></div>
+
+        </div>
+    </div>
+</article>
+
+
+
+                <footer>
+                    
+
+
+
+
+<div class="no-text-decoration">
+    <div class="jump top"><a href="#" title="Top of this page">⮉</a></div>
+    <div class="jump bottom"><a href="#bottom" title="Bottom of this page">⮋</a></div>
+</div>
+
+
+ 
+    
+        <div class="hugotoc no-text-decoration">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#music-theory">Music theory</a>
+<ul>
+<li><a href="#how-to-build-scales-and-triads">How to build scales and triads</a>
+<ul>
+<li><a href="#c-major-scale">C Major scale</a></li>
+<li><a href="#c-minor-scale">C Minor scale</a></li>
+<li><a href="#g-minor-scale">G minor scale</a></li>
+</ul></li>
+<li><a href="#questions">Questions</a>
+<ul>
+<li><a href="#scales">Scales</a></li>
+<li><a href="#chords">Chords</a></li>
+</ul></li>
+<li><a href="#intervals">Intervals</a></li>
+<li><a href="#ancient-jewish-hebrew-scales">Ancient Jewish/Hebrew scales</a></li>
+<li><a href="#modes">Modes</a></li>
+<li><a href="#poly-rhythms-and-euclidean-rhythms">Poly-rhythms and Euclidean rhythms</a></li>
+<li><a href="#coltrane">Coltrane</a>
+<ul>
+<li><a href="#c-major-scale-1">C Major scale</a></li>
+<li><a href="#d-major-scale">D Major scale</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#links">Links</a>
+<ul>
+<li><a href="#music-theory-websites">Music theory websites</a>
+<ul>
+<li><a href="#music-theory-cheat-sheet-keys-scales-chords-notes-and-intervals"><a href="https://muted.io/cheat-sheet/">Music Theory Cheat Sheet: Keys, Scales, Chords, Notes &amp; Intervals</a></a></li>
+<li><a href="#musescore-online-music-courses-learn-how-to-play-read-and-compose-music-with-the-world-s-largest-sheet-music-catalog"><a href="https://musescore.com/courses">Musescore: online music courses | Learn how to play, read and compose music with the world&rsquo;s largest sheet music catalog</a></a></li>
+<li><a href="#harmonagon"><a href="http://harmonagon.com/">Harmonagon™</a></a></li>
+</ul></li>
+<li><a href="#ear-training">Ear training</a>
+<ul>
+<li><a href="#intervals-ear-training--mp3s--piano-ology"><a href="https://piano-ology.com/chords/intervals-ear-training-mp3s/">Intervals: Ear Training (MP3s) - Piano-ology</a></a></li>
+</ul></li>
+<li><a href="#music-theory-in-the-terminal-or-libraries">Music theory in the terminal or libraries</a>
+<ul>
+<li><a href="#github-gciruelos-musthe-music-theory-implemented-in-python-dot-notes-intervals-scales-and-chords-dot"><a href="https://github.com/gciruelos/musthe">GitHub - gciruelos/musthe: Music theory implemented in Python. Notes, intervals, scales and chords.</a> <span class="tag"><span class="python">python</span></span></a></li>
+<li><a href="#github-synestematic-kord-a-music-theory-development-framework-in-python"><a href="https://github.com/synestematic/kord">GitHub - synestematic/kord: a music theory development framework in python</a> <span class="tag"><span class="python">python</span></span></a></li>
+<li><a href="#https-github-dot-com-yuma-m-pychord"><a href="https://github.com/yuma-m/pychord">https://github.com/yuma-m/pychord</a></a></li>
+<li><a href="#github-pedrozath-coltrane-a-music-theory-library-with-a-command-line-interface"><a href="https://github.com/pedrozath/coltrane">GitHub - pedrozath/coltrane: 🎹🎸A music theory library with a command-line interface</a> <span class="tag"><span class="ruby">ruby</span></span></a></li>
+<li><a href="#github-rainbow-dreamer-musicpy-musicpy-is-a-music-programming-language-in-python-designed-to-write-music-in-very-handy-syntax-through-music-theory-and-algorithms-dot"><a href="https://github.com/Rainbow-Dreamer/musicpy">GitHub - Rainbow-Dreamer/musicpy: Musicpy is a music programming language in Python designed to write music in very handy syntax through music theory and algorithms.</a> <span class="tag"><span class="composition">composition</span></span></a></li>
+</ul></li>
+<li><a href="#music-analysis">Music analysis</a>
+<ul>
+<li><a href="#tabs-that-show-the-theory-behind-songs-hooktheory"><a href="https://www.hooktheory.com/theorytab">Tabs that show the theory behind songs - Hooktheory</a></a></li>
+<li><a href="#example-1">Example 1:</a></li>
+</ul></li>
+<li><a href="#making-music-diagrams--fretboard-piano-etc">Making music diagrams (fretboard, piano, etc)</a>
+<ul>
+<li><a href="#fretboard-diagram-creator"><a href="https://verzettelung.com/20/12/22/">Fretboard Diagram Creator</a></a></li>
+</ul></li>
+<li><a href="#music-theory-visualization-systems">Music theory visualization systems</a>
+<ul>
+<li><a href="#keyboard">Keyboard</a></li>
+<li><a href="#guitar">Guitar</a></li>
+</ul></li>
+<li><a href="#music-theory-software-to-practice">Music theory software to practice</a>
+<ul>
+<li><a href="#pianobooster"><a href="https://www.pianobooster.org/index.html">PianoBooster</a></a></li>
+<li><a href="#polymeilex-neothesia-flashy-synthesia-like-software-for-linux-windows-and-macos"><a href="https://github.com/PolyMeilex/Neothesia">PolyMeilex/Neothesia: Flashy Synthesia Like Software For Linux,Windows and MacOs</a></a></li>
+</ul></li>
+<li><a href="#music-production-software-on-linux">Music production software on linux</a>
+<ul>
+<li><a href="#daw-comparison-for-linux--lmms-qtractor-ardour--youtube"><a href="https://www.youtube.com/watch?v=OkwOxWnwPeI">DAW Comparison for Linux (LMMS, Qtractor, Ardour) - YouTube</a></a></li>
+<li><a href="#5-free-and-open-music-making-tools-opensource-dot-com"><a href="https://opensource.com/life/16/2/5-music-making-tools">5 free and open music-making tools | Opensource.com</a></a></li>
+<li><a href="#aaron-wolf-music-lessons-in-portland-and-oregon-city-guitar-music-science-and-more"><a href="https://blog.wolftune.com/p/software-recommendations-and-more.html">“Aaron Wolf | Music Lessons in Portland &amp; Oregon City: Guitar, Music Science, and more</a></a></li>
+</ul></li>
+<li><a href="#music-app-websites">Music app websites</a>
+<ul>
+<li><a href="#beatscratch-funk-at-your-fingertips"><a href="https://beatscratch.io/">BeatScratch: funk at your fingertips</a></a></li>
+</ul></li>
+<li><a href="#plugins">Plugins</a>
+<ul>
+<li><a href="#linux-audio-plugin-options-youtube"><a href="https://www.youtube.com/watch?v=IaDoRa5n8nQ">Linux Audio Plugin Options - YouTube</a></a></li>
+<li><a href="#bbc-so">BBC SO</a></li>
+<li><a href="#more-plugins">More plugins</a></li>
+</ul></li>
+<li><a href="#devices">Devices</a>
+<ul>
+<li><a href="#audio-is-coming-to-linux-youtube"><a href="https://www.youtube.com/watch?v=YyUbnGWktek">Audio is Coming To Linux! - YouTube</a></a></li>
+</ul></li>
+<li><a href="#scale-degrees">Scale degrees</a></li>
+<li><a href="#diatonic-scales">Diatonic scales</a></li>
+<li><a href="#things-to-organize">Things to organize</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+            <a href="#" class="back-to-top">Back to top</a>
+        </div>
+    
+    
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js"></script>
+
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js" as="script">
+
+<script type="application/javascript">(function() {
+     var $window = $(window);
+     if ($window.width() >= 1400) { 
+         var $toc = $('#TableOfContents');
+         if ($toc.length > 0) {
+             function onScroll(){
+                 var currentScroll = $window.scrollTop();
+                 var h = $('.content h1, .content h2, .content h3, .content h4, .content h5, .content h6, .h-feed h2');
+                 var id = "";
+                 h.each(function (i, e) {
+                     e = $(e);
+                     if (e.offset().top - 10 <= currentScroll) {
+                         id = e.attr('id');
+                     }
+                 });
+                 var current = $toc.find('a.current');
+                 if (current.length == 1 && current.eq(0).attr('href') == '#' + id) return true;
+
+                 current.each(function (i, e) {
+                     $(e).removeClass('current').siblings('ul').hide();
+                 });
+                 $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                     $(e).children('a').addClass('current').siblings('ul').show();
+                 });
+             }
+             $window.on('scroll', onScroll);
+             $(document).ready(function() {
+                 $toc.find('a').parent('li').find('ul').hide();
+                 onScroll();
+                 document.getElementsByClassName('hugotoc')[0].style.display = '';
+             });}}})();</script>
+
+
+
+
+
+
+
+
+<div class="backtotop center no-text-decoration">
+    <a href="#">back to <span class="top">top</span></a>
+</div>
+
+
+<div class="right">
+    <div class="taxo no-text-decoration">
+         
+            
+                <ul class="no-bullets inline categories">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__music-theory__"
+                                
+                                
+                                title="This is the only post categorized in ‘music theory’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/categories/music-theory/">music theory</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+         
+            
+         
+            
+                <ul class="no-bullets inline tags">
+                    
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                            
+                            <li class="__music-theory__"
+                                
+                                
+                                title="This is the only post tagged with ‘music theory’"
+                                
+                            >
+                                <a class="p-category" href="https://albertdelafuente.com/tags/music-theory/">music theory</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        
+    </div>
+
+</div>
+<div class="clear-float"></div>
+
+
+
+<div class="prev-next-navigator clear-float">
+    
+        <span class="prev-post left no-text-decoration">
+            <a href="https://albertdelafuente.com/exobrain/20240420204830-how_to_install_the_bbc_symphony_orchestra_on_arch_linux_using_yabridge_for_reaper_use/" class="nobr">« How to install the BBC Symphony Orchestra on Arch Linux using Yabridge for Reaper use</a>
+        </span>
+    
+    
+        <span class="next-post right no-text-decoration">
+            <a href="https://albertdelafuente.com/posts/privacy/" class="nobr">My thoughts on privacy and security »</a>
+        </span>
+    
+</div>
+
+
+<a id="bottom"></a>
+
+
+
+
+
+
+
+
+
+                       
+
+
+
+
+
+
+
+                    <ul class="no-bullets feed right inline">
+    
+        
+        
+    
+</ul>
+<div class="clear-float"></div>
+
+                </footer>
+                <hr />
+            </div>               
+
+            <footer> 
+                
+
+<ul class="social no-text-decoration">
+    
+</ul>
+
+
+
+
+
+
+
+
+
+
+ 
+    
+    
+
+
+
+
+
+<p>
+    
+</p>
+
+
+
+
+<div class="badges no-text-decoration">
+    
+    
+
+    
+        
+        
+        <a href="https://html5.validator.nu/?doc=https://albertdelafuente.com/exobrain/20231223220912-music_theory/&amp;showsource=yes">
+            
+            <img src="/images/html5-css3-semantics-badge--scaled-optimized.0f343c79b5f793c32b308b8b872fccdc6f8f10dc328d12f3f8fba203ab3ccc6e.png"
+                 width="46" height="18" class="pixelated"
+                 alt="HTML5 Powered with CSS3 / Styling, and Semantics"
+                 title="HTML5 Powered with CSS3 / Styling, and Semantics">
+        </a>
+    
+</div>
+
+
+
+
+<script type="application/javascript">var nav=responsiveNav("#nav");</script>
+
+
+
+
+<script defer src="/js/libs/fragmentions/wrapper.min.4c511209cd3786314b251d891c8da528b47a972669aa4eea416b64d4be01eee2.js"></script>
+
+
+
+
+
+
+
+    <div class="h-card">
+        
+            
+            <img class="u-photo" alt="Photo of Albert"
+                 src="/images/me--optimized.251d1edd09c931da7a3d6edf0e82f07c6d2ceb975da0bb8ecfff347df7e75972.jpg" width="400" height="400">
+        
+        
+        <a class="p-name u-url" href="https://albertdelafuente.com">Albert</a>
+        
+            <p>
+                <a class="u-email" href="mailto:vonpupp@gmail.com" rel="me">vonpupp@gmail.com</a>
+            </p>
+        
+        
+            <p class="p-note">
+                Me, without headlines.
+            </p>
+        
+    </div>
+
+
+
+            </footer>
+        </div> 
+    </body>
+</html>

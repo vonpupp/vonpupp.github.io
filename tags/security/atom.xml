@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[security on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/tags/security/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/tags/security/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
+            <link href="https://albertdelafuente.com/tags/security/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/tags/security/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2024-04-20T20:58:11-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/tags/security/</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[My thoughts on privacy and security]]></title>
+            <link href="https://albertdelafuente.com/posts/privacy/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/books/20220109212603-book_notes_permanent_record_by_edward_snowden/?utm_source=atom_feed" rel="related" type="text/html" title="Book notes: Permanent record by Edward Snowden" />
+            
+                <id>https://albertdelafuente.com/posts/privacy/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2023-12-10T09:46:33-03:00</published>
+            <updated>2023-12-10T09:46:33-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>A good friend of mine motivated me to write down this post. I am not sure how I
+am going to address this in a &ldquo;short&rdquo; way since security and privacy is such a
+vast topic. It can be taken to several levels also, so it is a matter of how you
+actually compromise in favor of being usable and practical, since the power in
+place make it difficult on purpose to have open alternatives that work.</p>
+
+<p>I am going to do my best to divide this in different topics, <strong>keep it short and
+non-technical</strong>. It is going to be challenging.</p>
+
+<h2 id="desktop">Desktop</h2>
+
+<p>GNU/Linux is definitively the way to go. Personally I don&rsquo;t trust Microsoft nor
+Apple. In general I am an advocate of open source.</p>
+
+<p>Personally I have been using GNU/Linux since around 2000, and I am extremely
+comfortable with it. I understand that it could be a challenge where we still
+don&rsquo;t have alternatives (or high quality tools) to some specific software like
+CAD. But at the same time Linux have better tools in many other aspects.</p>
+
+<p>There are different &ldquo;distros&rdquo; of GNU/Linux. A distro (or distribution) is the
+mixture of the tools from GNU, the Linux kernel and a way to manage packages.
+This is a very simplistic definition, but I don&rsquo;t want to get too technical
+here.</p>
+
+<p>Distributions for the beginners:</p>
+
+<ul>
+<li><a href="https://ubuntu.com/">Ubuntu</a></li>
+<li><a href="https://www.opensuse.org/">OpenSuSE</a></li>
+<li><a href="https://fedoraproject.org/">Fedora</a></li>
+<li><a href="https://linuxmint.com/">Linux Mint</a> (never tried it)</li>
+<li><a href="https://manjaro.org/">Manjaro</a> (never tried it)</li>
+</ul>
+
+<p>Distributions for more mature users:</p>
+
+<ul>
+<li><a href="https://www.debian.org/">Debian</a></li>
+<li><a href="https://archlinux.org/">Arch Linux</a></li>
+<li><a href="https://www.gentoo.org/">Gentoo</a> (never tried it)</li>
+</ul>
+
+<h2 id="mobile">Mobile</h2>
+
+<p>Between IPhone and Android, I will always chose Android. The reason being that
+Android has a hybrid open/close source development model. It is possible to get
+the Vanilla version of Android without google play (actually nothing from
+google) and then you can install an alternative to google play like F-Droid or
+Aurora Store.</p>
+
+<p>I don&rsquo;t completely trust Aurora Store because it is a front end of Google Play
+itself, and software could have backdoors but I still think it could be a better
+alternative than have a phone that you paid for but Google owns.</p>
+
+<p>Just like GNU/Linux, there are several distros. These can com &ldquo;with gapps&rdquo; or
+&ldquo;without gapps&rdquo;. Gapps being &ldquo;Google Apps&rdquo;, in other words, Google Play, Gmail,
+Google maps, etc. Without gapps is the way I prefer to go personally.</p>
+
+<p>There are several custom roms like:</p>
+
+<ul>
+<li>Lineage</li>
+<li>Resurrection Remix</li>
+<li><a href="https://calyxos.org/features/">CalyxOS</a></li>
+<li><a href="https://grapheneos.org/features">GrapheneOS</a></li>
+</ul>
+
+<p>The most secure focus are Graphene and Calyx. Again, privacy and security is a
+deep rabbit hole. As deep as you can afford to go.</p>
+
+<p>Personally I have been using Lineage for years and some custom mods. Every
+single Android device that I owned, I flashed and removed the original Android
+and replace it with a custom rom without Google Apps (nothing from Google). I
+have been doing this since around 2006. I am very curious to try Calyx though.
+If I would be starting from scratch, I would go for Calyx.</p>
+
+<p>I have a Mediatek chipset on my phone and I hated it! That was definetively a
+bad purchase for this purposes. Don&rsquo;t get me wrong, the phone is great, but it
+is not easier to flash a custom ROM. I would go for Qualcomm chipset instead and
+make sure that the bootloader can be changed. <a href="https://www.devicespecifications.com/en/model-cpu/47075c08">This Ulefone Armor 23 looks
+promising</a>. Apparently the 24 will also come with a Qualcom chipset.</p>
+
+<h2 id="network">Network</h2>
+
+<p>When in doubt, use a VPN or TOR circuits. In this way your traffic remains more
+secure. You can get a router that has that capability already built in, so you
+can route everything through that device.</p>
+
+<p>Always use a firewall and disable the services you don&rsquo;t use. Use strong passwords.</p>
+
+<p>If you are looking for an appliance that can do all of that you will need
+DD-WRT, pfSense or similar if you want a DIY approach and you are techie enough
+or go for a similar commercial solution like <a href="https://www.youtube.com/watch?v=pdS1n_F11Dk">the BraxRouter</a> (I am not affiliated
+in any way, and I haven&rsquo;t tested it personally so be cautious and do your own
+research - DYOR).</p>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>I prefer avoiding using SMS authentication, I don&rsquo;t trust the telephony system.
+They have too much power and knowledge about their users.</p>
+
+<p>I also avoid the Google prompts. Those who appears when you are trying to login
+on your phone while you are trying to login on your computer. The reason is
+simple, they tie your identity on the computer with your phone, because you will
+have to &ldquo;click&rdquo; on your phone. All traffic will be related.</p>
+
+<p>I don&rsquo;t use Google Authenticator nor Authy, or any Android app for that matter
+unless it is opensource. Personally I use one on my computer, this brings extra
+security and inconveniences. If I am not with my computer, I cannot login
+anywhere, even with my phone. I decided to live with that inconvenience.</p>
+
+<p>Use 2FA (Second Factor Authentication) whenever possible, but with OTP (One TIme
+Password) for that. I prefer free TOTP software, the caveat to this approach is
+that you will have to handle your secrets yourself in a secure way, so you don&rsquo;t
+lose them and nobody else has access to them. Please don&rsquo;t even think about
+putting that into Dropbox!</p>
+
+<p>I am a fairly technical guy so I prefer to keep the secrets under my control
+having encrypted backups than &ldquo;trusting&rdquo; any other party.</p>
+
+<p>I am not going to disclose publicly here what I use for security reasons. But if
+you know me personally and have questions ask me one on one and I will share
+more about this.</p>
+
+<p>If you want more information, do your own research. I can point you to <a href="https://www.youtube.com/watch?v=ChKpf5HjcSY">this video</a>,
+as a quick overview. I think the title is a bit missleading though, I trust 2FA
+with TOTP where the secrets are encrypted and properly backed up.</p>
+
+<h2 id="im-communications">IM communications</h2>
+
+<p>Signal or no signal&hellip; that is the question&hellip;</p>
+
+<p>I have been a huge fan of Telegram. At the beginning, you did not needed to use
+a phone number, it was just an account you created (and you could create as many
+as you wanted) and that was it. No verification and no ties to your identity.
+Sadly, now they &ldquo;require&rdquo; a phone number, which is by design IMO. So I no longer
+trust Telegram. The same argument goes for Signal.</p>
+
+<p>I am aware of Signal&rsquo;s history, even before it was signal and the original
+developers, but again&hellip; I don&rsquo;t trust supplying my phone number to any app for
+any reason. There is no need for that, none.</p>
+
+<p>I have always hated Whatsapp, security is crappy, it belongs to Meta. Huge user
+base&hellip; So many reasons that I wont even go there&hellip;</p>
+
+<p>My preferred method for IM is XMPP which is federated in nature, so &ldquo;no central
+points&rdquo; (again, loosely said). I would prefer to pick up a server that is not
+crowded, it is in a country outside of <a href="https://en.wikipedia.org/wiki/Five_Eyes">the 5 eyes</a>&nbsp;<sup class="footnote-ref" id="fnref:fn-1"><a href="#fn:fn-1">1</a></sup>.</p>
+
+<p>In terms of privacy, OMEMO would be preferred, or asymmetric cryptography with
+GPG/PGP, or OTR (Off The Record) to say the least.</p>
+
+<h2 id="email-communications">Email communications</h2>
+
+<p>This is a topic that I struggled with for some time.</p>
+
+<p>Bottom line is I don&rsquo;t trust large providers, because they are an easy target. Out</p>
+
+<p>I wrote a note, which is not publicly available analyzing the email providers by
+April of 2022. Before that I was using a really old google apps account that I
+created around 2005. It was very convenient, I am not going to lie, but I never
+felt good about it so it was good that Google decided to kick me out by charging
+me. If I have to pay, I prefer to pay for something more friendly towards
+privacy than to them.</p>
+
+<p>Here is a table with a summary of some of the criteria that I used to analyze
+those providers.</p>
+
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Domains</th>
+<th>IMAP</th>
+<th>Location</th>
+<th>EAR</th>
+<th>Crypto pay</th>
+<th>App</th>
+<th>Alias</th>
+<th>Storage</th>
+<th>Price/m</th>
+<th>2FA</th>
+<th>Cons</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>CounterMail</td>
+<td>15$</td>
+<td>yes</td>
+<td><strong>Sweden</strong></td>
+<td>yes</td>
+<td>BTC</td>
+<td>no</td>
+<td>inf</td>
+<td>4G</td>
+<td>~5</td>
+<td>yes</td>
+<td><strong>sweden</strong></td>
+</tr>
+
+<tr>
+<td>Mailbox.org</td>
+<td>50?</td>
+<td>yes</td>
+<td><strong>Germany</strong></td>
+<td>yes</td>
+<td>no?</td>
+<td>no</td>
+<td><sup>25</sup>&frasl;<sub>50</sub></td>
+<td>10G</td>
+<td>3</td>
+<td>yes</td>
+<td><strong>meta exposed, tracking</strong></td>
+</tr>
+
+<tr>
+<td>Runbox - Mini</td>
+<td>5</td>
+<td>yes</td>
+<td><span class="underline">Norway</span></td>
+<td><strong>no</strong></td>
+<td>BTC</td>
+<td>no</td>
+<td>100</td>
+<td>10G</td>
+<td>2.91</td>
+<td></td>
+<td><strong>no EAR</strong></td>
+</tr>
+
+<tr>
+<td>Protonmail - Plus/Pro</td>
+<td>10/*1*</td>
+<td>bridge</td>
+<td><span class="underline">Switzerland</span></td>
+<td>yes</td>
+<td></td>
+<td>yes</td>
+<td>5</td>
+<td>5G/5G</td>
+<td><sup>8</sup>&frasl;<sub>5</sub></td>
+<td></td>
+<td><strong>visibility, suspicious</strong></td>
+</tr>
+
+<tr>
+<td>Mailfence - Pro/Entry</td>
+<td><sup>5</sup>&frasl;<sub>1</sub></td>
+<td>yes</td>
+<td><strong>Belgium</strong></td>
+<td><strong>no</strong></td>
+<td>BTC/ <span class="underline">LTC</span></td>
+<td>yes?</td>
+<td><sup>50</sup>&frasl;<sub>10</sub></td>
+<td>20G/5G</td>
+<td>7.<sup>5</sup>&frasl;<sub>2</sub>.5</td>
+<td></td>
+<td><strong>not EAR</strong></td>
+</tr>
+
+<tr>
+<td>Posteo+</td>
+<td>0</td>
+<td>yes</td>
+<td><strong>Germany</strong></td>
+<td>yes</td>
+<td>no</td>
+<td>?</td>
+<td>?</td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>no domains</strong></td>
+</tr>
+
+<tr>
+<td>Ctemplar - Knight</td>
+<td>5</td>
+<td><strong>no</strong></td>
+<td><span class="underline">Iceland</span></td>
+<td>yes</td>
+<td><span class="underline">XMR</span> /BTC</td>
+<td>yes?</td>
+<td>30</td>
+<td>10G</td>
+<td><strong>12</strong></td>
+<td>yes</td>
+<td><strong>no IMAP</strong></td>
+</tr>
+
+<tr>
+<td>Tutanota</td>
+<td></td>
+<td><strong>no</strong></td>
+<td><strong>Germany</strong></td>
+<td>yes</td>
+<td>no</td>
+<td>yes</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>own encryption, no IMAP</strong></td>
+</tr>
+
+<tr>
+<td>Fastmail Standard</td>
+<td>100</td>
+<td></td>
+<td><strong>Australia</strong></td>
+<td></td>
+<td>no?</td>
+<td></td>
+<td></td>
+<td>30G</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>Personally I liked Ctemplar, but I wanted IMAP since I use Emacs/mu4e for email
+management and the possibility of keeping a local copy of my emails if needed.
+I also use my phone to read emails when needed. So I had to discard them.
+Depending on your use you may not need IMAP.</p>
+
+<p>Honestly I am still not comfortable with my email provider, but I am better than
+at Google&rsquo;s.</p>
+
+<p>In regards to usage, GPG is always preferred but of course it depends on both
+parties using it. Be mindful that RSA 2048 is no longer secure, governments can
+break into it. Probably not regular people. So I would go for 4096 bit keys.</p>
+
+<p>I am not going to disclose publicly here what I use for security reasons. But if
+you know me personally and have questions ask me one on one and I will share
+more about this. I know that if you are a technical person you can find this
+yourself.</p>
+
+<h2 id="conferences">Conferences</h2>
+
+<p>I don&rsquo;t trust Zoom. Do your own research here. One of the founders was an
+ex-Cisco systems. Again&hellip; do your own research.</p>
+
+<p>I would go for Jitsi or something is open source. Of course a case could be done
+that there is always a server as middle man, to which yes, I agree. At this
+point I don&rsquo;t know of any better alternatives, Jitsi is the way I would go or
+Signal&rsquo;s video chat feature. Even though I don&rsquo;t trust much Signal either.</p>
+
+<h2 id="browsing">Browsing</h2>
+
+<p>I don&rsquo;t use Google Chrome, even less Microsoft Edge. I prefer the old Firefox.</p>
+
+<p>As part of my setup I don&rsquo;t save cookies when I close the browser nor history. I
+always prefer private mode when possible and I use a bunch of extensions to make
+my unique fingerprint not so obvious.</p>
+
+<p>I avoid using google whenever possible. I don&rsquo;t trust much Duckduck go either.
+Search engines are the gate keepers of the internet, sadly there is no integrity
+in this business. I have read good things about Qwant.</p>
+
+<p>I would advice to also disable Javascript by default by using No Script or
+similar. As using other extensions to make your tracking less obvious, even
+though I don&rsquo;t think there is much to do here. Try to always use VPNs or TOR
+circuits. Be aware that having a high level of privacy/security could make your
+browsing experience miserable!</p>
+
+<h2 id="money">Money</h2>
+
+<p>Well, this is going to be controversial. We don&rsquo;t use money, we use fiat
+currency which is controlled by the governments and manipulated via inflation
+and taxes as they want. It is hard to get out of that. Cash is always preferred
+but it is not convenient, so balancing things out is up to the reader.</p>
+
+<p>Precious metals could be an alternative but probably everything is going to get
+digitized in the future, even precious metals probably with certificates on the
+blockchain as Colombia is already issuing for real estate. So I don&rsquo;t have good
+news here.</p>
+
+<p>Probably having some money in a private crypto currency like ZCash, Monero,
+Verge or others could be a good idea. Be mindful of the fluctuations and the
+risks about it as the tax compliance.</p>
+
+<p>Also be mindful that you should aim for a peer to peer market and that could be
+dangerous also, so you will have to &ldquo;trust&rdquo; the network somehow. If you use an
+exchange it defeats the purpose of privacy.</p>
+
+<p>If you go for a private crypto, it is highly likely that you can run a local
+node. You can use a small device for such like a Raspberry Pi or a refurbished
+mini-desktop or notebook. You will have to setup the service and get a full copy
+of the block chain.</p>
+
+<p>Honestly I would hedge for land, food security and water rather than save money.
+But that is just my opinion.</p>
+
+<h2 id="emergency-communications">Emergency communications</h2>
+
+<p>This is going to be controversial also. I am still learning about radio but I
+would definitively have a Ham radio and a rapport team, otherwise the radio
+alone is useless. Community is extremely important.</p>
+
+<p>I prefer not to touch much on this subject. Do your own research. Maybe the
+Ghost network could help you. Check out <a href="https://www.youtube.com/watch?v=1oaWRs2te68">this video on the Lilygo T-Deck device
+with the Meshtastic software for Encrypted Comms</a>. And this video on <a href="https://www.youtube.com/watch?v=EAQI2ZSmxPU">Meshtastic
+and LoRa devices</a> for general knowledge. I am fairly new to this, so do your
+own research. Not having to use a phone would be preferred IMO, so it is not
+tied to the IMEI number, MAC address, IP address and so forth.</p>
+
+<h2 id="conclusion-and-closing-remarks">Conclusion and closing remarks</h2>
+
+<p>Remember, favor VPNs or TOR circuits, handle your secrets yourself in a secure
+and reliable way.</p>
+
+<p>Don&rsquo;t trust services where you need to supply personal data. Prefer services
+that offer alternative payment methods in crypto also.</p>
+
+<p>As I said in the beginning, privacy and security is a rabbit hole that can go
+very deep, even for the technical guy. So I am trying to just give an overview.</p>
+
+<p>If there is a category that I forgot about that you would like to see here, send
+me a message.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:fn-1"><p>For more on these &ldquo;eyes&rdquo; I suggest you to read: &ldquo;Permanent record&rdquo; by
+Edward Snowden and/or &ldquo;No place to hide&rdquo; by Gleen Greenwald.</p>
+ <a class="footnote-return" href="#fnref:fn-1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/privacy" term="privacy" label="privacy" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/privacy" term="privacy" label="privacy" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/security" term="security" label="security" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

@@ -22,20 +22,6 @@
 
     
     
-    <!-- Google Analytics -->
-    <script type="application/javascript">
-     
-     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
-         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
-         ga('create', 'UA-27656036-2', 'auto');
-         ga('require', 'linkid'); 
-         ga('send', 'pageview');
-     }
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
-
-
 
     
     
@@ -74,9 +60,9 @@
     
     
     
-    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    <link rel="stylesheet" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css">
     
-    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+    <link rel="preload" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css" as="style">
 
     
 
@@ -180,15 +166,15 @@
     
 
     
-    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    <script src="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js"></script>
     
-    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+    <link rel="preload" href="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js" as="script">
 
     
     
-    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    <script defer src="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js"></script>
     
-    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js" as="script">
 
     
 
@@ -219,7 +205,7 @@ How? So I rolled my sleeves and I thought: I will google the Aleppo codex in pla
 
 
     
-        <meta property="article:published_time" content="2022-06-01T00:00:00&#43;00:00"/>
+        <meta property="article:published_time" content="2022-06-01T00:00:00-03:00"/>
     
     
         <meta property="article:modified_time" content="2023-08-13T11:28:22-03:00"/>
@@ -273,9 +259,9 @@ How? So I rolled my sleeves and I thought: I will google the Aleppo codex in pla
     
     
     
-    <meta name="hugo-build-date" content=""/>
-    <meta name="hugo-commit-hash" content=""/>
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="hugo-build-date" content="2019-09-11T08:16:28-0400"/>
+    <meta name="hugo-commit-hash" content="5276f1e9:chroma-26f03cb"/>
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
 </head>
 
 
@@ -480,7 +466,7 @@ How? So I rolled my sleeves and I thought: I will google the Aleppo codex in pla
     
     <div class="post-date">
         
-        <time datetime="2022-06-01T00:00:00+0000" class="dt-published">Wed Jun 1, 2022</time>
+        <time datetime="2022-06-01T00:00:00-0300" class="dt-published">Wed Jun 1, 2022</time>
         
         
             
@@ -537,15 +523,20 @@ How? So I rolled my sleeves and I thought: I will google the Aleppo codex in pla
 
 
 
+
+
 <p>The other day I was thinking about some practical way of learning hebrew,
 something dynamic that tickles my scientist curiosity. And I thought, wouldn&rsquo;t
 it be cool if I could parse one of the hebrew codexes and get the top 20 most
 frequent words of a chapter or a book? Well this is an attempt to answer these
 type of questions.</p>
+
 <h2 id="how">How?&nbsp;<a class="headline-hash no-text-decoration" href="#how">#</a> </h2>
+
 <p>So I rolled my sleeves and I thought: I will google the Aleppo codex in plain
 text so I can download it and later use it for analysis. The problem is, I
 couldn&rsquo;t find it&hellip;</p>
+
 <p>The next challenge then is, how can I produce a plain text version of the Aleppo
 codex? I thought about parsing a mysword module, which are in reality a sqlite
 database so that should be easy&hellip; but then when I was doing something totally
@@ -553,22 +544,28 @@ unrelated (probably around the bees or my first batch of mead) it hit me&hellip;
 have several bibles from the Sword project already installed on my notebook and
 is all OSS, so&hellip; there is probably a python wrapper around diatheke or
 similar&hellip; and sure it is =)</p>
+
 <p>If you want the technicalities, go read my note on <a href="/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/">How to parse the Aleppo codex
 and analyze its content in python</a>.</p>
+
 <p>But if you are not a geekie human, you probably are interested only in the
 results rather than the bits and bytes. This is why I splitted the whole thing
 in two notes, one more IT related and one more Hebrew related. So here we go,
 brace yourselves this is probably going to be long.</p>
+
 <p>I am not sure on how to &ldquo;slice&rdquo; the codex so the chunks makes sense for an
 analysis, for instance: per chapter? Per book? Per &ldquo;stories&rdquo;? Or even other
 slicing like Torah, Neviim and Ketuvim. Since it is not clear I will start
 slicing by books at first.</p>
+
 <h2 id="assumptions-and-limitations">Assumptions and limitations&nbsp;<a class="headline-hash no-text-decoration" href="#assumptions-and-limitations">#</a> </h2>
+
 <p>Hebrew has some peculiarities one of them being the vowel pointing. This brings
 a ton of challenges. For the sake of simplicity I had to stick to a codex that
 does not include niqqud whatsoever. I am not sure if this is a good approach or
 not because two different words without niqqud can render the same writing yet
 have totally different meaning.</p>
+
 <p>Another problem is that there are words that are trivially known like לא (h2834)
 or אל (h3882); or words that are not translated yet used very much like את
 (h7073). I have implemented a filter to have the possibility to skip these
@@ -577,19 +574,25 @@ importance. But there are mixed together some irrelevant tokens considered as
 words, like opening and closing brackets and parenthesis or similar. So I
 implemented a list to ignore these words that are rather known or really
 irrelevant.</p>
+
 <h2 id="interesting-findings">Interesting findings&nbsp;<a class="headline-hash no-text-decoration" href="#interesting-findings">#</a> </h2>
+
 <p>It was rather interesting to me how fast the repetitions decline on unfiltered
 words. For instance the most used word is the  את (h854) with 7073 occurrences.
 Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) with
 704 occurrences.</p>
+
 <h2 id="experiments-organized-by-sections">Experiments organized by sections&nbsp;<a class="headline-hash no-text-decoration" href="#experiments-organized-by-sections">#</a> </h2>
+
 <h3 id="full-tanakh-top-20-words-unfiltered">Full Tanakh - top 20 words - unfiltered&nbsp;<a class="headline-hash no-text-decoration" href="#full-tanakh-top-20-words-unfiltered">#</a> </h3>
+
 
 
 
 <figure>
     
         <img src="https://albertdelafuente.com/ox-hugo/lhlg_tanakh_nofilter.png"/> </figure>
+
 
 <table>
 <thead>
@@ -600,6 +603,7 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 <th></th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td>את</td>
@@ -607,78 +611,91 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 <td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>יהוה</td>
 <td>5611</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3068/esv/wlc/0-1/">h3068</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>אשר</td>
 <td>4629</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h834/esv/wlc/0-1/">h834</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>אל</td>
 <td>3882</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h410/esv/wlc/0-1/">h410</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>כי</td>
 <td>3553</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3588/esv/wlc/0-1/">h3588</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>על</td>
 <td>3140</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/">h5921</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>לא</td>
 <td>2834</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/">h3809</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>כל</td>
 <td>2757</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/">h5921</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>ואת</td>
 <td>2190</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>ישראל</td>
 <td>2085</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3479/esv/wlc/0-1/">h3479</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>ויאמר</td>
 <td>2043</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a></td>
 <td>Related</td>
 </tr>
+
 <tr>
 <td>בני</td>
 <td>1650</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1123/esv/wlc/0-1/">h1123</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>בן</td>
 <td>1607</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1121/esv/wlc/0-1/">h1121</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>ולא</td>
 <td>1447</td>
@@ -687,7 +704,9 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 </tr>
 </tbody>
 </table>
+
 <h3 id="full-tanakh-top-50-words-unfiltered">Full Tanakh - Top 50 words - unfiltered&nbsp;<a class="headline-hash no-text-decoration" href="#full-tanakh-top-50-words-unfiltered">#</a> </h3>
+
 
 
 
@@ -695,7 +714,9 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
     
         <img src="https://albertdelafuente.com/ox-hugo/lhlg_tanakh_top50.png"/> </figure>
 
+
 <p>The words from above as the top 20, plus the following words</p>
+
 <table>
 <thead>
 <tr>
@@ -705,6 +726,7 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 <th></th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td>לו</td>
@@ -712,174 +734,203 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 <td><a href="https://www.blueletterbible.org/lexicon/h3863/esv/wlc/0-1/">h3863</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>איש</td>
 <td>1027</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h376/esv/wlc/0-1/">h376</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>המלך</td>
 <td>1014</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h4428/esv/wlc/0-1/">h4428</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>בית</td>
 <td>1003</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1004/esv/wlc/0-1/">h1004</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>מלך</td>
 <td>1000</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h4427/esv/wlc/0-1/">h4427</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>הוא</td>
 <td>910</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1931/esv/wlc/0-1/">h1931</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>עד</td>
 <td>904</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h5704/esv/wlc/0-1/">h5704</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>לאמר</td>
 <td>897</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a> / <a href="https://www.blueletterbible.org/lexicon/564/esv/wlc/0-1/">564</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>לך</td>
 <td>871</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>הארץ</td>
 <td>856</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h776/esv/wlc/0-1/">h776</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>ויהי</td>
 <td>808</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>אמר</td>
 <td>797</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>דבר</td>
 <td>787</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1697/esv/wlc/0-1/">h1697</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>העם</td>
 <td>724</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h5971/esv/wlc/0-1/">h5971</a></td>
 <td>Related</td>
 </tr>
+
 <tr>
 <td>וכל</td>
 <td>712</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3606/esv/wlc/0-1/">h3606</a></td>
 <td>Related</td>
 </tr>
+
 <tr>
 <td>משה</td>
 <td>704</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h4872/esv/wlc/0-1/">h4872</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>שם</td>
 <td>681</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h8043/esv/wlc/0-1/">h8043</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>מן</td>
 <td>661</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h4478/esv/wlc/0-1/">h4478</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>לי</td>
 <td>660</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>הזה</td>
 <td>650</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1957/esv/wlc/0-1/">h1957</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>אני</td>
 <td>635</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h589/esv/wlc/0-1/">h589</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>יהודה</td>
 <td>632</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3063/esv/wlc/0-1/">h3063</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>לפני</td>
 <td>615</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3942/esv/wlc/0-1/">h3942</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>להם</td>
 <td>607</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3859/esv/wlc/0-1/">h3859</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>אם</td>
 <td>607</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h518/esv/wlc/0-1/">h518</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>אלהים</td>
 <td>597</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h430/esv/wlc/0-1/">h430</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>אדני</td>
 <td>587</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h136/esv/wlc/0-1/">h136</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>דוד</td>
 <td>583</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1730/esv/wlc/0-1/">h1730</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>אתה</td>
 <td>582</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h857/esv/wlc/0-1/">h857</a></td>
 <td></td>
 </tr>
+
 <tr>
 <td>עם</td>
 <td>582</td>
@@ -888,7 +939,9 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 </tr>
 </tbody>
 </table>
+
 <h3 id="torah">Torah&nbsp;<a class="headline-hash no-text-decoration" href="#torah">#</a> </h3>
+
 
 
 
@@ -896,6 +949,7 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
     
         <img src="https://albertdelafuente.com/ox-hugo/lhlg_torah_wc.png"/> </figure>
 
+
 <table>
 <thead>
 <tr>
@@ -904,92 +958,110 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 <th>Strong</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td>את</td>
 <td>2569</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>אשר</td>
 <td>1617</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>יהוה</td>
 <td>1493</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>אל</td>
 <td>1241</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>על</td>
 <td>949</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>כל</td>
 <td>921</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>כי</td>
 <td>895</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>לא</td>
 <td>861</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>ואת</td>
 <td>809</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>בני</td>
 <td>620</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>ויאמר</td>
 <td>619</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>משה</td>
 <td>598</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>ישראל</td>
 <td>508</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>ס</td>
 <td>491</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>הוא</td>
 <td>420</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>הארץ</td>
 <td>352</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>ולא</td>
 <td>345</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
 </tr>
+
 <tr>
 <td>לו</td>
 <td>330</td>
@@ -997,14 +1069,18 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 </tr>
 </tbody>
 </table>
+
 <h2 id="experiments-organized-by-books">Experiments organized by books&nbsp;<a class="headline-hash no-text-decoration" href="#experiments-organized-by-books">#</a> </h2>
+
 <h3 id="genesis">Genesis&nbsp;<a class="headline-hash no-text-decoration" href="#genesis">#</a> </h3>
+
 
 
 
 <figure>
     
         <img src="https://albertdelafuente.com/ox-hugo/genesis.png"/> </figure>
+
 
 <table>
 <thead>
@@ -1014,102 +1090,122 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 <th>Strong</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <td>את</td>
 <td>658</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
 </tr>
+
 <tr>
 <td>אשר</td>
 <td>351</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h834/esv/wlc/0-1/">h834</a></td>
 </tr>
+
 <tr>
 <td>ויאמר</td>
 <td>337</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a></td>
 </tr>
+
 <tr>
 <td>אל</td>
 <td>335</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h410/esv/wlc/0-1/">h410</a></td>
 </tr>
+
 <tr>
 <td>כי</td>
 <td>263</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3588/esv/wlc/0-1/">h3588</a></td>
 </tr>
+
 <tr>
 <td>ואת</td>
 <td>205</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
 </tr>
+
 <tr>
 <td>על</td>
 <td>203</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/">h5921</a></td>
 </tr>
+
 <tr>
 <td>כל</td>
 <td>199</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3605/esv/wlc/0-1/">h3605</a></td>
 </tr>
+
 <tr>
 <td>אלהים</td>
 <td>150</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h430/esv/wlc/0-1/">h430</a></td>
 </tr>
+
 <tr>
 <td>יוסף</td>
 <td>144</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3130/esv/wlc/0-1/">h3130</a></td>
 </tr>
+
 <tr>
 <td>יעקב</td>
 <td>142</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3290/esv/wlc/0-1/">h3290</a></td>
 </tr>
+
 <tr>
 <td>יהוה</td>
 <td>141</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3068/esv/wlc/0-1/">h3068</a></td>
 </tr>
+
 <tr>
 <td>לא</td>
 <td>137</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/">h3809</a></td>
 </tr>
+
 <tr>
 <td>הארץ</td>
 <td>126</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h776/esv/wlc/0-1/">h776</a></td>
 </tr>
+
 <tr>
 <td>לו</td>
 <td>126</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h3863/esv/wlc/0-1/">h3863</a></td>
 </tr>
+
 <tr>
 <td>ויהי</td>
 <td>125</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1961/esv/wlc/0-1/">h1961</a></td>
 </tr>
+
 <tr>
 <td>בני</td>
 <td>118</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1123/esv/wlc/0-1/">h1123</a></td>
 </tr>
+
 <tr>
 <td>הוא</td>
 <td>110</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h1931/esv/wlc/0-1/">h1931</a></td>
 </tr>
+
 <tr>
 <td>אברהם</td>
 <td>108</td>
 <td><a href="https://www.blueletterbible.org/lexicon/h85/esv/wlc/0-1/">h85</a></td>
 </tr>
+
 <tr>
 <td>שנה</td>
 <td>102</td>
@@ -1117,128 +1213,171 @@ Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) w
 </tr>
 </tbody>
 </table>
+
 <h2 id="conclusion">Conclusion&nbsp;<a class="headline-hash no-text-decoration" href="#conclusion">#</a> </h2>
+
 <p>The more I try to know, the less I feel I know&hellip; This coding-linguistic area is
 fascinating and intreaguing. I feel like a taxonomy of this area is needed.</p>
+
 <p>This will probaly take a lot of time, which I don&rsquo;t have. So I want to try to
 balance between being effective and being efficient. I cannot afford to spend
 much time with this project but on the other hand the Hebrew language is really
 really apealing to me. I have yet to find a balance on how to proceed.</p>
+
 <p>As part of documenting things I am going to include some very interesting
 resources that I have found.</p>
+
 <p>From the time I spent researching I would probably go with the BHSA DB. This is
 a proposed roadmap:</p>
+
 <ul>
 <li>Check the ETCBC/course materials for an introduction</li>
 <li>Check the BHSA/bigTables for Pandas examples and learn how to use it</li>
 <li>Reevaluate then</li>
 </ul>
+
 <p>Also, if focus is more in learning Hebrew, check the Parabible website which
 looks really lean and straigthforward.</p>
+
 <h3 id="bible-in-hebrew-demo"><a href="https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10">Bible in Hebrew Demo</a>&nbsp;<a class="headline-hash no-text-decoration" href="#bible-in-hebrew-demo">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10">https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10</a></li>
 <li>Title: Bible in Hebrew Demo</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
 </ul>
+
 <h3 id="see-hear-and-read-the-bible-in-hebrew-bibleinhebrew-dot-com"><a href="https://www.bibleinhebrew.com/bih/">See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com</a>&nbsp;<a class="headline-hash no-text-decoration" href="#see-hear-and-read-the-bible-in-hebrew-bibleinhebrew-dot-com">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://www.bibleinhebrew.com/bih/">https://www.bibleinhebrew.com/bih/</a></li>
 <li>Title: See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
 </ul>
+
 <h3 id="parabible-genesis-1"><a href="https://parabible.com/Genesis/1">Parabible | Genesis 1</a>&nbsp;<a class="headline-hash no-text-decoration" href="#parabible-genesis-1">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://parabible.com/Genesis/1">https://parabible.com/Genesis/1</a></li>
 <li>Title: Parabible | Genesis 1</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
 </ul>
+
 <h3 id="github-jcuenod-awesome-bible-data-a-curated-list-of-generously-licensed-bible-data-dot"><a href="https://github.com/jcuenod/awesome-bible-data">GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.</a>&nbsp;<a class="headline-hash no-text-decoration" href="#github-jcuenod-awesome-bible-data-a-curated-list-of-generously-licensed-bible-data-dot">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://github.com/jcuenod/awesome-bible-data">https://github.com/jcuenod/awesome-bible-data</a></li>
 <li>Title: GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
 </ul>
+
 <h3 id="text-fabric-versus-shebanq-bhsa"><a href="https://etcbc.github.io/bhsa/mql/">Text-Fabric versus SHEBANQ - BHSA</a>&nbsp;<a class="headline-hash no-text-decoration" href="#text-fabric-versus-shebanq-bhsa">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://etcbc.github.io/bhsa/mql/">https://etcbc.github.io/bhsa/mql/</a></li>
 <li>Title: Text-Fabric versus SHEBANQ - BHSA</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
 </ul>
+
 <h3 id="github-etcbc-course-materials-contains-scripts-to-learn-to-work-with-the-etcbc-database"><a href="https://github.com/ETCBC/course_materials">GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database</a>&nbsp;<a class="headline-hash no-text-decoration" href="#github-etcbc-course-materials-contains-scripts-to-learn-to-work-with-the-etcbc-database">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://github.com/ETCBC/course_materials">https://github.com/ETCBC/course_materials</a></li>
 <li>Title: GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
 </ul>
+
 <h3 id="bhsa-bigtablesp-dot-ipynb-at-master-etcbc-bhsa-github"><a href="https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb">bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub</a>&nbsp;<a class="headline-hash no-text-decoration" href="#bhsa-bigtablesp-dot-ipynb-at-master-etcbc-bhsa-github">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb">https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb</a></li>
 <li>Title: bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
 </ul>
+
 <h3 id="shebanq-words-words">Shebanq / Words <a href="https://shebanq.ancient-data.org/hebrew/words">Words</a>&nbsp;<a class="headline-hash no-text-decoration" href="#shebanq-words-words">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://shebanq.ancient-data.org/hebrew/words">https://shebanq.ancient-data.org/hebrew/words</a></li>
 <li>Title: Words</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
 </ul>
+
 <h3 id="shebanq-text-2017-genesis-30-1">Shebanq / text <a href="https://shebanq.ancient-data.org/hebrew/text">[2017] Genesis 30:1</a>&nbsp;<a class="headline-hash no-text-decoration" href="#shebanq-text-2017-genesis-30-1">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://shebanq.ancient-data.org/hebrew/text">https://shebanq.ancient-data.org/hebrew/text</a></li>
 <li>Title: [2017] Genesis 30:1</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
 </ul>
+
 <h3 id="jupyter-notebook-viewer"><a href="https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb">Jupyter Notebook Viewer</a>&nbsp;<a class="headline-hash no-text-decoration" href="#jupyter-notebook-viewer">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb">https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb</a></li>
 <li>Title: Jupyter Notebook Viewer</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
 </ul>
+
 <h3 id="oshb-read"><a href="https://hb.openscriptures.org/read/">OSHB Read</a>&nbsp;<a class="headline-hash no-text-decoration" href="#oshb-read">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://hb.openscriptures.org/read/">https://hb.openscriptures.org/read/</a></li>
 <li>Title: OSHB Read</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
 </ul>
+
 <h3 id="oshb-lexicon"><a href="http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html">OSHB Lexicon</a>&nbsp;<a class="headline-hash no-text-decoration" href="#oshb-lexicon">#</a> </h3>
+
 <ul>
 <li>Source: <a href="http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html">http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html</a></li>
 <li>Title: OSHB Lexicon</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
 </ul>
+
 <h3 id="bible-online-learner"><a href="https://booge.eu/">Bible Online Learner</a>&nbsp;<a class="headline-hash no-text-decoration" href="#bible-online-learner">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://booge.eu/">https://booge.eu/</a></li>
 <li>Title: Bible Online Learner</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
 </ul>
+
 <h3 id="j-dot-ted-blakley-online-hebrew-resources"><a href="https://www.blakleycreative.com/jtb/HebrewOnline.htm">J. Ted Blakley — Online Hebrew Resources</a>&nbsp;<a class="headline-hash no-text-decoration" href="#j-dot-ted-blakley-online-hebrew-resources">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://www.blakleycreative.com/jtb/HebrewOnline.htm">https://www.blakleycreative.com/jtb/HebrewOnline.htm</a></li>
 <li>Title: J. Ted Blakley — Online Hebrew Resources</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
 </ul>
+
 <h3 id="tanach-dot-us-text-files-webservice-text-files">Tanach.us text files webservice <a href="https://www.tanach.us/Pages/TextFiles.html">Text files</a>&nbsp;<a class="headline-hash no-text-decoration" href="#tanach-dot-us-text-files-webservice-text-files">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://www.tanach.us/Pages/TextFiles.html">https://www.tanach.us/Pages/TextFiles.html</a></li>
 <li>Title: Text files</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
-<li>Command: wget &ndash;user-agent=&quot; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot; &ldquo;<a href="http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;layout=Text-only&amp;content=Consonants">http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;layout=Text-only&amp;content=Consonants</a>&rdquo;</li>
+<li>Command: wget &ndash;user-agent=&rdquo; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&rdquo; &ldquo;<a href="http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;layout=Text-only&amp;content=Consonants">http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;layout=Text-only&amp;content=Consonants</a>&ldquo;</li>
 </ul>
+
 <h3 id="removing-vowels-from-hebrew-unicode-text-github"><a href="https://gist.github.com/yakovsh/345a71d841871cc3d375">Removing Vowels from Hebrew Unicode Text · GitHub</a>&nbsp;<a class="headline-hash no-text-decoration" href="#removing-vowels-from-hebrew-unicode-text-github">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://gist.github.com/yakovsh/345a71d841871cc3d375">https://gist.github.com/yakovsh/345a71d841871cc3d375</a></li>
 <li>Title: Removing Vowels from Hebrew Unicode Text · GitHub</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
 </ul>
+
 <h3 id="shoroshim-dot-pdf"><a href="https://halakhah.com/rst/shoroshim.pdf">shoroshim.pdf</a>&nbsp;<a class="headline-hash no-text-decoration" href="#shoroshim-dot-pdf">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://halakhah.com/rst/shoroshim.pdf">https://halakhah.com/rst/shoroshim.pdf</a></li>
 <li>Title:</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
 </ul>
+
 <h3 id="unfoldingword-hebrew-grammar-unfoldingword-hebrew-grammar-1-documentation"><a href="https://uhg.readthedocs.io/en/latest/front.html">unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation</a>&nbsp;<a class="headline-hash no-text-decoration" href="#unfoldingword-hebrew-grammar-unfoldingword-hebrew-grammar-1-documentation">#</a> </h3>
+
 <ul>
 <li>Source: <a href="https://uhg.readthedocs.io/en/latest/front.html">https://uhg.readthedocs.io/en/latest/front.html</a></li>
 <li>Title: unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation</li>
@@ -1268,53 +1407,53 @@ looks really lean and straigthforward.</p>
     
         <div class="hugotoc no-text-decoration">
             <nav id="TableOfContents">
-  <ul>
-    <li><a href="#how">How?</a></li>
-    <li><a href="#assumptions-and-limitations">Assumptions and limitations</a></li>
-    <li><a href="#interesting-findings">Interesting findings</a></li>
-    <li><a href="#experiments-organized-by-sections">Experiments organized by sections</a>
-      <ul>
-        <li><a href="#full-tanakh-top-20-words-unfiltered">Full Tanakh - top 20 words - unfiltered</a></li>
-        <li><a href="#full-tanakh-top-50-words-unfiltered">Full Tanakh - Top 50 words - unfiltered</a></li>
-        <li><a href="#torah">Torah</a></li>
-      </ul>
-    </li>
-    <li><a href="#experiments-organized-by-books">Experiments organized by books</a>
-      <ul>
-        <li><a href="#genesis">Genesis</a></li>
-      </ul>
-    </li>
-    <li><a href="#conclusion">Conclusion</a>
-      <ul>
-        <li><a href="#bible-in-hebrew-demo"><a href="https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10">Bible in Hebrew Demo</a></a></li>
-        <li><a href="#see-hear-and-read-the-bible-in-hebrew-bibleinhebrew-dot-com"><a href="https://www.bibleinhebrew.com/bih/">See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com</a></a></li>
-        <li><a href="#parabible-genesis-1"><a href="https://parabible.com/Genesis/1">Parabible | Genesis 1</a></a></li>
-        <li><a href="#github-jcuenod-awesome-bible-data-a-curated-list-of-generously-licensed-bible-data-dot"><a href="https://github.com/jcuenod/awesome-bible-data">GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.</a></a></li>
-        <li><a href="#text-fabric-versus-shebanq-bhsa"><a href="https://etcbc.github.io/bhsa/mql/">Text-Fabric versus SHEBANQ - BHSA</a></a></li>
-        <li><a href="#github-etcbc-course-materials-contains-scripts-to-learn-to-work-with-the-etcbc-database"><a href="https://github.com/ETCBC/course_materials">GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database</a></a></li>
-        <li><a href="#bhsa-bigtablesp-dot-ipynb-at-master-etcbc-bhsa-github"><a href="https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb">bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub</a></a></li>
-        <li><a href="#shebanq-words-words">Shebanq / Words <a href="https://shebanq.ancient-data.org/hebrew/words">Words</a></a></li>
-        <li><a href="#shebanq-text-2017-genesis-30-1">Shebanq / text <a href="https://shebanq.ancient-data.org/hebrew/text">[2017] Genesis 30:1</a></a></li>
-        <li><a href="#jupyter-notebook-viewer"><a href="https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb">Jupyter Notebook Viewer</a></a></li>
-        <li><a href="#oshb-read"><a href="https://hb.openscriptures.org/read/">OSHB Read</a></a></li>
-        <li><a href="#oshb-lexicon"><a href="http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html">OSHB Lexicon</a></a></li>
-        <li><a href="#bible-online-learner"><a href="https://booge.eu/">Bible Online Learner</a></a></li>
-        <li><a href="#j-dot-ted-blakley-online-hebrew-resources"><a href="https://www.blakleycreative.com/jtb/HebrewOnline.htm">J. Ted Blakley — Online Hebrew Resources</a></a></li>
-        <li><a href="#tanach-dot-us-text-files-webservice-text-files">Tanach.us text files webservice <a href="https://www.tanach.us/Pages/TextFiles.html">Text files</a></a></li>
-        <li><a href="#removing-vowels-from-hebrew-unicode-text-github"><a href="https://gist.github.com/yakovsh/345a71d841871cc3d375">Removing Vowels from Hebrew Unicode Text · GitHub</a></a></li>
-        <li><a href="#shoroshim-dot-pdf"><a href="https://halakhah.com/rst/shoroshim.pdf">shoroshim.pdf</a></a></li>
-        <li><a href="#unfoldingword-hebrew-grammar-unfoldingword-hebrew-grammar-1-documentation"><a href="https://uhg.readthedocs.io/en/latest/front.html">unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation</a></a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#how">How?</a></li>
+<li><a href="#assumptions-and-limitations">Assumptions and limitations</a></li>
+<li><a href="#interesting-findings">Interesting findings</a></li>
+<li><a href="#experiments-organized-by-sections">Experiments organized by sections</a>
+<ul>
+<li><a href="#full-tanakh-top-20-words-unfiltered">Full Tanakh - top 20 words - unfiltered</a></li>
+<li><a href="#full-tanakh-top-50-words-unfiltered">Full Tanakh - Top 50 words - unfiltered</a></li>
+<li><a href="#torah">Torah</a></li>
+</ul></li>
+<li><a href="#experiments-organized-by-books">Experiments organized by books</a>
+<ul>
+<li><a href="#genesis">Genesis</a></li>
+</ul></li>
+<li><a href="#conclusion">Conclusion</a>
+<ul>
+<li><a href="#bible-in-hebrew-demo"><a href="https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10">Bible in Hebrew Demo</a></a></li>
+<li><a href="#see-hear-and-read-the-bible-in-hebrew-bibleinhebrew-dot-com"><a href="https://www.bibleinhebrew.com/bih/">See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com</a></a></li>
+<li><a href="#parabible-genesis-1"><a href="https://parabible.com/Genesis/1">Parabible | Genesis 1</a></a></li>
+<li><a href="#github-jcuenod-awesome-bible-data-a-curated-list-of-generously-licensed-bible-data-dot"><a href="https://github.com/jcuenod/awesome-bible-data">GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.</a></a></li>
+<li><a href="#text-fabric-versus-shebanq-bhsa"><a href="https://etcbc.github.io/bhsa/mql/">Text-Fabric versus SHEBANQ - BHSA</a></a></li>
+<li><a href="#github-etcbc-course-materials-contains-scripts-to-learn-to-work-with-the-etcbc-database"><a href="https://github.com/ETCBC/course_materials">GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database</a></a></li>
+<li><a href="#bhsa-bigtablesp-dot-ipynb-at-master-etcbc-bhsa-github"><a href="https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb">bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub</a></a></li>
+<li><a href="#shebanq-words-words">Shebanq / Words <a href="https://shebanq.ancient-data.org/hebrew/words">Words</a></a></li>
+<li><a href="#shebanq-text-2017-genesis-30-1">Shebanq / text <a href="https://shebanq.ancient-data.org/hebrew/text">[2017] Genesis 30:1</a></a></li>
+<li><a href="#jupyter-notebook-viewer"><a href="https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb">Jupyter Notebook Viewer</a></a></li>
+<li><a href="#oshb-read"><a href="https://hb.openscriptures.org/read/">OSHB Read</a></a></li>
+<li><a href="#oshb-lexicon"><a href="http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html">OSHB Lexicon</a></a></li>
+<li><a href="#bible-online-learner"><a href="https://booge.eu/">Bible Online Learner</a></a></li>
+<li><a href="#j-dot-ted-blakley-online-hebrew-resources"><a href="https://www.blakleycreative.com/jtb/HebrewOnline.htm">J. Ted Blakley — Online Hebrew Resources</a></a></li>
+<li><a href="#tanach-dot-us-text-files-webservice-text-files">Tanach.us text files webservice <a href="https://www.tanach.us/Pages/TextFiles.html">Text files</a></a></li>
+<li><a href="#removing-vowels-from-hebrew-unicode-text-github"><a href="https://gist.github.com/yakovsh/345a71d841871cc3d375">Removing Vowels from Hebrew Unicode Text · GitHub</a></a></li>
+<li><a href="#shoroshim-dot-pdf"><a href="https://halakhah.com/rst/shoroshim.pdf">shoroshim.pdf</a></a></li>
+<li><a href="#unfoldingword-hebrew-grammar-unfoldingword-hebrew-grammar-1-documentation"><a href="https://uhg.readthedocs.io/en/latest/front.html">unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation</a></a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
             <a href="#" class="back-to-top">Back to top</a>
         </div>
     
     
-<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js"></script>
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js"></script>
 
-<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js" as="script">
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js" as="script">
 
 <script type="application/javascript">(function() {
      var $window = $(window);
@@ -1552,6 +1691,9 @@ looks really lean and straigthforward.</p>
 
 
 
+ 
+    
+    
 
 
 
@@ -1589,7 +1731,7 @@ looks really lean and straigthforward.</p>
 
 
 
-<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+<script defer src="/js/libs/fragmentions/wrapper.min.4c511209cd3786314b251d891c8da528b47a972669aa4eea416b64d4be01eee2.js"></script>
 
 
 

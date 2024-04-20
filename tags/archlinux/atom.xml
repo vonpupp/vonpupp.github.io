@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[archlinux on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/tags/archlinux/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/tags/archlinux/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
+            <link href="https://albertdelafuente.com/tags/archlinux/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/tags/archlinux/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2024-04-20T20:58:11-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/tags/archlinux/</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to recover a GRUB bootloader on a filesystem with LUKS and LVM]]></title>
+            <link href="https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/?utm_source=atom_feed" rel="related" type="text/html" title="How to manually boot/recover a system with LUKS and LVM" />
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+                <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="related" type="text/html" title="How to publish a GPG key via DNS" />
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
+            
+                <id>https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2021-08-04T00:00:00-03:00</published>
+            <updated>2023-08-13T11:19:32-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<div class="ox-hugo-toc toc">
+
+<div class="heading">Table of Contents</div>
+
+<ul>
+<li><a href="#optional--create-a-boot-flash-disk-using-android">(OPTIONAL) Create a boot flash disk using android</a>
+    - <a href="#etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository">EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</a></li>
+<li><a href="#mounting-and-chrooting-the-system">Mounting and chrooting the system</a></li>
+<li><a href="#edit-the-etc-default-grub-file">Edit the /etc/default/grub file</a></li>
+<li><a href="#config-and-install-grub-and-create-the-ramdisk">Config and install GRUB and create the ramdisk</a></li>
+<li><a href="#references">References</a>
+
+<ul>
+<li><a href="#solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums">[SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</a></li>
+</ul></li>
+</ul>
+
+<p></div>
+<!--endtoc--></p>
+
+<p>Recently an upgrade on my notebook went bad and broke something. I wasn&rsquo;t sure
+what went wrong but since I had just one system at that time, I had to figure
+out how to fix it with the help of my phone. Basically what I did is install
+EtchDroid to be able to download an iso and flash it to a flash drive on my
+phone directly. Later I could boot form that flash drive, mount the LUKS/LVM
+partitions and fix the bootloader. Here is a short how to.</p>
+
+<h2 id="optional--create-a-boot-flash-disk-using-android">(OPTIONAL) Create a boot flash disk using android</h2>
+
+<h4 id="etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository"><a href="https://f-droid.org/en/packages/eu.depau.etchdroid/">EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</a></h4>
+
+<ul>
+<li>Source: <a href="https://f-droid.org/en/packages/eu.depau.etchdroid/">https://f-droid.org/en/packages/eu.depau.etchdroid/</a></li>
+<li>Title: EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-05 Thu]</span></span></li>
+</ul>
+
+<h2 id="mounting-and-chrooting-the-system">Mounting and chrooting the system</h2>
+
+<p>#+begin_src sh</p>
+
+<p>cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm</p>
+
+<p>mount /dev/storage/root /mnt
+mount /dev/storage/home /mnt/home</p>
+
+<p>mount /dev/sda1 /mnt/boot</p>
+
+<p>cd <em>mnt
+mount -t proc /proc proc</em>
+#mount -t sysfs <em>sys sys</em>
+#mount -o bind <em>dev dev</em>
+mount -o bind <em>run run</em></p>
+
+<p>arch-chroot /mnt</p>
+
+<p>dhcpcd eth0
+#+end_src sh</p>
+
+<h2 id="edit-the-etc-default-grub-file">Edit the /etc/default/grub file</h2>
+
+<p>#+begin_src sh</p>
+
+<p>GRUB_CMDLINE_LINUX=&ldquo;cryptdevice=/dev/sda2:lvm&rdquo;
+  GRUB_PRELOAD_MODULES=&ldquo;part_gpt part_msdos cryptodisk luks&rdquo;
+#+end_src sh</p>
+
+<h2 id="config-and-install-grub-and-create-the-ramdisk">Config and install GRUB and create the ramdisk</h2>
+
+<p>#+begin_src sh</p>
+
+<p>grub-mkconfig &gt; /boot/grub/grub.cfg
+grub-install &ndash;efi-directory=/boot &ndash;target=x86_64-efi /dev/sda</p>
+
+<p>mkinitcpio -p linux
+#+end_src sh</p>
+
+<h2 id="references">References</h2>
+
+<h3 id="solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums"><a href="https://bbs.archlinux.org/viewtopic.php?id=246628">[SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</a></h3>
+
+<ul>
+<li>Source: <a href="https://bbs.archlinux.org/viewtopic.php?id=246628">https://bbs.archlinux.org/viewtopic.php?id=246628</a></li>
+<li>Title: [SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-04 Wed]</span></span></li>
+</ul>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/grub" term="grub" label="grub" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to manually boot/recover a system with LUKS and LVM]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+                <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="related" type="text/html" title="How to publish a GPG key via DNS" />
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
+            
+                <id>https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2016-11-22T00:00:00-02:00</published>
+            <updated>2023-08-13T11:20:59-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>I have been using LVM on top of LUKS for more than 2 years without problems.
+However since I haven&rsquo;t had the chance to troubleshoot these technologies in
+the past I was quite concerned of what would happen when I would have problems.
+Today my main computer didn&rsquo;t boot up and I had to fix it manually. This
+post shows the steps I performed to recover my system.</p>
+
+<p>I use Arch Linux and I prepared a repository with my custom install method
+based on archinstaller. Basically I have a custom partitioning based on LVM on
+top of LUKS and some variables to start he installing method.</p>
+
+<p>Here is an overview of the parts on this tutorial:</p>
+
+<h2 id="tutorial-overview">Tutorial overview</h2>
+
+<ol>
+<li>Create a bootable USB and boot the broken system with it (AKA recovery mode**</li>
+<li>Chroot into the system</li>
+<li>Fix the issue</li>
+</ol>
+
+<h2 id="assumptions">Assumptions</h2>
+
+<p>I will assume that the error is similar as mine. After opening the LUKS device,
+I had the following problem:
+<code>ERROR: device /dev/mapper/storage-root not found</code>.</p>
+
+<h2 id="create-a-bootable-usb">Create a bootable USB</h2>
+
+<p>To create a bootable USB you need to download the latest Arch Linux iso and
+then us <code>dd</code> to dump it to a flash drive.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dd <span class="nv">bs</span><span class="o">=</span>4M <span class="k">if</span><span class="o">=</span>/path/to/archlinux.iso <span class="nv">of</span><span class="o">=</span>/dev/sdx <span class="nv">status</span><span class="o">=</span>progress <span class="o">&amp;&amp;</span> sync</code></pre></div>
+<p>After completion, use the same flash drive to boot the broken computer. You
+generally need to hit a key on the <code>F5</code> - <code>F6</code> range to choose the boot method.</p>
+
+<h2 id="chroot-into-the-system">Chroot into the system</h2>
+
+<p>Once the system has booted, now we need to mount everything the system would
+mount on a boot stage.  Adapt the LUKS label and LVM devices according to your
+needs.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Open the LUKS device.</span>
+cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm
+
+<span class="c1"># Mount the root partition</span>
+mount /dev/storage/root /mnt
+
+<span class="c1"># Mount the boot partition</span>
+mount /dev/sda1 /mnt/boot
+
+<span class="c1"># Mount proc, sys and dev</span>
+mount -t proc proc proc/
+mount -t sysfs sys sys/
+mount -o <span class="nb">bind</span> /dev dev/
+
+<span class="c1"># Switch to bash</span>
+bash
+
+<span class="c1"># Chroot</span>
+chroot /mnt
+
+<span class="c1"># Bring up network if needed</span>
+dhcpcd eth0</code></pre></div>
+<p>At this point you should have shell with a recovery environment set to fix the
+issue, so let&rsquo;s fix it.</p>
+
+<h2 id="fix-the-issue">Fix the issue</h2>
+
+<p>To fix the issue we basically are going to perform an upgrade an recreate the
+initial ramdisk</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Update the packages database</span>
+pacman -Syy
+
+<span class="c1"># Upgrade the packages</span>
+pacman -Syu
+
+<span class="c1"># Update udev package</span>
+pacman -S udev
+
+<span class="c1"># Update mkinitcpio package</span>
+pacman -S mkinitcpio
+
+<span class="c1"># Recreate the initial ramdisk</span>
+mkinitcpio -p linux
+
+<span class="c1"># Exit the chroot environment</span>
+<span class="nb">exit</span>
+
+<span class="c1"># Reboot</span>
+reboot</code></pre></div>
+<p>If everything went well, you now should be able to boot the system properly.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>I was quite worried about how to solve this issue due to the several layers of
+complexity: GPT, LUKS and LVM, however everything went out quite smoothly. The
+key part is to use a USB flash drive and then mount the boot and root
+partitions to recreate the ramdisk.</p>
+
+<p>Thanks for reading. Spot an error or want to explain something better, feel
+free to send me a PR.</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Resizing lvm on luks]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
+            
+                <id>https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2015-11-01T00:00:00-02:00</published>
+            <updated>2023-08-13T11:23:43-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<h2 id="how-to-manually-boot-recover-a-system-with-luks-and-lvm">How to manually boot/recover a system with LUKS and LVM</h2>
+
+<p>I have been using LVM on top of LUKS for more than 2 years without problems. However since I haven&rsquo;t had the chance to troubleshoot these technologies in the past I was quite concerned of what would happen when I would have problems. Today my main computer didn&rsquo;t boot up and I had to fix it manually. This post shows the steps I performed to recover my system.</p>
+
+<h3 id="intro">Intro</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">cryptsetup luksOpen /dev/sda2 cryptlvm
+
+e2fsck -f /dev/mapper/storage-home
+
+resize2fs -p /dev/mapper/storage-home 200g
+
+e2fsck -f /dev/mapper/storage-home
+
+<span class="o">(</span>lvdisplay<span class="o">)</span>
+lvreduce -L -15.68G /dev/storage/home
+<span class="o">(</span>lvdisplay<span class="o">)</span>
+
+<span class="o">[</span>lvresize -l +100%FREE /dev/storate/root<span class="o">]</span>
+
+e2fsck -f /dev/mapper/storage-root
+
+resize2fs /dev/mapper/storage-root
+
+cryptsetup luksClose /dev/sda2 cryptlvm
+
+
+<span class="c1">### NOT NEEDED</span>
+
+<span class="o">(</span>pvdisplay<span class="o">)</span>
+pvresize --sephysicalvolumesize 218G /dev/mapper/cryptlvm
+
+/dev/mapper/cryptlvm is active and is in use
+  type:    LUKS1
+  cipher:  aes-xts-plain64
+  keysize: <span class="m">256</span> bits
+  device:  /dev/sda2
+  offset:  <span class="m">4096</span> sectors
+  size:    <span class="m">487981391</span> sectors
+  mode:    read/write
+
+<span class="nv">NEW_SECTORS</span> <span class="o">=</span> EXISTING_SECTORS * NEW_SIZE_IN_GB / EXISTING_SIZE_IN_GB
+<span class="m">487981391</span> * <span class="m">200</span>.7 / <span class="m">232</span>.7   <span class="o">=</span> <span class="m">420876085</span>
+<span class="o">(</span><span class="m">487981391</span> - <span class="m">15</span>*1024*1024*2 <span class="o">=</span> <span class="m">456524111</span><span class="o">)</span>
+
+cryptsetup -b <span class="m">420876085</span> resize cryptlvm
+
+<span class="o">(</span>cryptsetup status cryptlvm<span class="o">)</span>
+
+parted /dev/sda
+
+resize</code></pre></div>]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Configuring pacsrv and powerpill on Arch Linux]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/bhs/?utm_source=atom_feed" rel="related" type="text/html" title="Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python" />
+            
+                <id>https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2015-10-21T00:00:00-02:00</published>
+            <updated>2023-08-13T12:06:01-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>On this post I will show how to configure and use <code>Pacserve</code> and <code>Powerpill</code> on
+Arch Linux. On a network of several Arch Linux boxes, it is possible to
+configure a <code>Master</code> server which will hold a copy of all the installed packages
+within that host and keep it up to date frequently.  The other hosts on the
+network can be configured as <code>Slaves</code> and they will download the packages from
+the Master whenever possible instead of the Internet directly. The objective is
+to save bandwidth and time when using the package manager.</p>
+
+<h2 id="configuring-pacserve-and-powerpill-on-arch-linux">Configuring Pacserve and Powerpill on Arch Linux</h2>
+
+<p>The documentation of <a href="https://xyne.dev/projects/pacserve/">Pacserve</a> explains how it works. This image summarizes
+well the behavior.</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/Pacserve_Request_Flow_Chart.svg"/> </figure>
+
+
+<p>Pacserve by itself seems very interesting however I could not make it work
+properly. I think it has something to do my router UDP multicast forwarding
+support (see <a href="http://wiki.openwrt.org/doc/recipes/dumbap&gt;">openwrt-multicast</a>). Nevertheless, I could use it within
+<a href="http://xyne.archlinux.ca/projects/powerpill/&gt;">Powerpill</a> which is a pacman wrapper to allow parallel and segmented downloads
+through <a href="http://aria2.sourceforge.net/&gt;">Aria2</a> and <a href="http://xyne.archlinux.ca/projects/reflector/&gt;">Reflector</a>.  This combo sounds even better, so I will focus on
+how to install and use the tree tools together.</p>
+
+<h3 id="installation">Installation</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Just in case the testdb does not exists</span>
+gpg --list-key
+
+<span class="c1"># Receive xyne gpg key</span>
+gpg --recv-keys 1D1F0DC78F173680
+
+<span class="c1"># Install the packages</span>
+yaourt -Sy --noconfirm reflector pacserve powerpill</code></pre></div>
+<h3 id="starting-the-services--both-the-master-and-slaves--host--s">Starting the services (both the Master and Slave(s) host(s))</h3>
+
+<p>After everything is installed:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Enable opening the ports</span>
+sudo systemctl <span class="nb">enable</span> pacserve-ports.service
+
+<span class="c1"># Enable pacserve</span>
+sudo systemctl <span class="nb">enable</span> pacserve.service
+
+<span class="c1"># Start pacserve</span>
+sudo systemctl start pacserve.service</code></pre></div>
+<p>For troubleshooting purposes the services can be started manually. See the
+Troubleshooting section if you have problems.</p>
+
+<h3 id="configuring-powerpill-to-use-the-master-server--slaves--hosts-only">Configuring Powerpill to use the Master server (Slave(s) hosts only)</h3>
+
+<p>Edit the file <code>/etc/powerpill/powerpill.json</code> to include the `pacserve`.`serve`
+attribute:</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;aria2&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&#34;--allow-overwrite=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--always-resume=false&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--auto-file-renaming=false&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--check-integrity=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--conditional-get=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--continue=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--file-allocation=none&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--log-level=error&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--max-concurrent-downloads=100&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--max-connection-per-server=5&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--min-split-size=5M&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--remote-time=true&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--show-console-readout=true&#34;</span>
+    <span class="p">],</span>
+    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/aria2c&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;pacman&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="s2">&#34;/etc/pacman.conf&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/pacman&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;pacserve&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;server&#34;</span><span class="p">:</span> <span class="s2">&#34;http://192.168.56.6:15678&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;powerpill&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;ask&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&#34;reflect databases&#34;</span><span class="p">:</span> <span class="kc">false</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;reflector&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;args.unused&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&#34;--protocol&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;http&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--latest&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;50&#34;</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;rsync&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;args&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&#34;--no-motd&#34;</span><span class="p">,</span>
+      <span class="s2">&#34;--progress&#34;</span>
+    <span class="p">],</span>
+    <span class="nt">&#34;db only&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;/usr/bin/rsync&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;servers&#34;</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>In this example I configured two VMs using Vagrant with an internal network.
+The server runs on <code>192.168.56.6</code> on port `15678` (default port).</p>
+
+<p>After this we can use Powerpill as a replacement of Pacman as follows</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># System upgrade</span>
+sudo powerpill -Syu
+
+<span class="c1"># Install a package</span>
+sudo powerpill -S wget</code></pre></div>
+<h3 id="conclusions">Conclusions</h3>
+
+<p>When <a href="http://xyne.archlinux.ca/projects/powerpill/&gt;">powerpill</a> is used..</p>
+
+<h3 id="todos">TODOs</h3>
+
+<ul>
+<li>Check how to have only *<strong><em>one</em></strong>* Master DB and all the Slaves also sync the DB from the master</li>
+<li>Use reflector commands within Powerpill</li>
+<li>What happens if different architectures are on the same network and UDP multicast works?</li>
+</ul>
+
+<h3 id="troubleshooting-pacserve--without-powerpill">Troubleshooting Pacserve (without Powerpill)</h3>
+
+<p>As I said before I could not make it working using multicast, so I had to
+manually start the Pacserve Master host as:</p>
+
+<p>Input:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">pacserve --multicast</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">PacserveServer
+  PID                  <span class="m">1048</span>
+  Addresses
+    lo:     <span class="m">127</span>.0.0.1
+    eth0:   <span class="m">10</span>.0.2.15
+    enp0s9: <span class="m">192</span>.168.56.6
+  Port                 <span class="m">15678</span>
+  Multicast Address    all interfaces
+  Multicast Port       <span class="m">15679</span>
+  Multicast Group      <span class="m">224</span>.3.45.67
+  Multicast Interval   5m
+  Multicast Interfaces all
+  Filelist             None
+  Filterlist           None
+  MOTD                 None
+  Upload Directory     None
+  Paths                None
+  Static Peers         None
+
+Press ctrl+C to exit.
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:54:54 AEDT<span class="o">]</span> INFO: announcing presence by multicast <span class="o">(</span>group: <span class="m">224</span>.3.45.67<span class="o">)</span>
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:54:54 AEDT<span class="o">]</span> INFO: announcement sent via all interfaces</code></pre></div>
+<p>Assuming the server is running with the IP <code>192.168.56.6</code>, you can manually
+start Pacserve on the Slave(s) hosts as:</p>
+
+<p>Input:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">pacserve --multicast --peer <span class="s2">&#34;http://192.168.56.6:15678&#34;</span></code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">PacserveServer
+  PID                  <span class="m">1102</span>
+  Addresses
+    lo:     <span class="m">127</span>.0.0.1
+    eth0:   <span class="m">10</span>.0.2.15
+    enp0s9: <span class="m">192</span>.168.56.7
+  Port                 <span class="m">15678</span>
+  Multicast Address    all interfaces
+  Multicast Port       <span class="m">15679</span>
+  Multicast Group      <span class="m">224</span>.3.45.67
+  Multicast Interval   5m
+  Multicast Interfaces all
+  Filelist             None
+  Filterlist           None
+  MOTD                 None
+  Upload Directory     None
+  Paths                None
+  Static Peers         http://192.168.56.6:15678
+
+Press ctrl+C to exit.
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:00 AEDT<span class="o">]</span> INFO: announcing presence via POST to http://192.168.56.6:15678
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:00 AEDT<span class="o">]</span> INFO: POSTing to http://192.168.56.6:15678/ <span class="o">[</span>type: nudge<span class="o">]</span>
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:01 AEDT<span class="o">]</span> INFO: announcing presence by multicast <span class="o">(</span>group: <span class="m">224</span>.3.45.67<span class="o">)</span>
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:01 AEDT<span class="o">]</span> INFO: announcement sent via all interfaces</code></pre></div>
+<p>After starting the Slave host you should get the following message on the Master console:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:00 AEDT<span class="o">]</span> INFO: added http://192.168.56.7:15678/ <span class="o">(</span>POST<span class="o">)</span>
+<span class="o">[</span><span class="m">2015</span>-10-23 <span class="m">05</span>:56:00 AEDT<span class="o">]</span> INFO: <span class="m">192</span>.168.56.7 <span class="s2">&#34;POST / HTTP/1.1&#34;</span> <span class="m">200</span> -</code></pre></div>]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/python" term="python" label="python" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

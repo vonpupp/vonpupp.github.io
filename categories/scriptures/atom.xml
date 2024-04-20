@@ -1,0 +1,4839 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[scriptures on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/categories/scriptures/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/categories/scriptures/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
+            <link href="https://albertdelafuente.com/categories/scriptures/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/categories/scriptures/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2024-04-20T20:58:11-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/categories/scriptures/</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python]]></title>
+            <link href="https://albertdelafuente.com/posts/bhs/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/lhlg/?utm_source=atom_feed" rel="related" type="text/html" title="Learning hebrew like a geek" />
+                <link href="https://albertdelafuente.com/exobrain/20211206220218-hebrew_root_words_parent_roots_dictionary/?utm_source=atom_feed" rel="related" type="text/html" title="Hebrew root words - parent roots dictionary" />
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
+                <link href="https://albertdelafuente.com/exobrain/20220128220728-curso_de_hebreo_de_emc_shalom_colombia/?utm_source=atom_feed" rel="related" type="text/html" title="Curso de hebreo de EMC Shalom Colombia" />
+                <link href="https://albertdelafuente.com/exobrain/20220129174154-how_to_configure_the_keyboard_layout_for_hebrew/?utm_source=atom_feed" rel="related" type="text/html" title="How to configure the keyboard layout for Hebrew (biblicalSIL, phonetic, etc)" />
+            
+                <id>https://albertdelafuente.com/posts/bhs/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente</name>
+                    </author>
+            <published>2023-08-26T23:33:15-03:00</published>
+            <updated>2023-08-26T23:33:15-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>I am very curious about Hebrew, specially the way the language is hierarchically
+designed. Put very simply, three letter words are commonly known as trilateral
+roots and the rest of the words are variation of these three letters having a
+common root word and having related meaning somehow, thus creating a &ldquo;family&rdquo; if
+you will. I am not going to get into these details since it is not the scope of
+this post.</p>
+
+<p>Long story short, the journey of trying to learn Hebrew started probably between
+2006 to 2008 and I haven&rsquo;t had much success at it. Or lets say that the
+expectations don&rsquo;t match reality due to lack of consistent effort on my side.</p>
+
+<p>I thought that I could try to somehow start with the most common words in the
+scriptures and that is what motivated <a href="/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/">to parse the Aleppo codex and analyze its
+content in python</a>. I quickly learned that my approach was rather naive given
+the prefixes that causes variations to the words, even thought the meaning of
+the word itself is the same.</p>
+
+<p>This blog post is a second attempt to tackle the same problem but with a more
+sophisticated and accurate approach using Text Fabric.</p>
+
+<p>A corpus of ancient texts and (linguistic) annotations represents a large body
+of knowledge.</p>
+
+<p>Text-Fabric is a Python package for processing and access a corpus of ancient
+text and linguistic annotations. In this specific case I am using the Hebrew
+Bible Database, containing the text of the Hebrew Bible augmented with
+linguistic annotations compiled by the Eep Talstra Centre for Bible and
+Computer from the VU University Amsterdam.</p>
+
+<p>The text is based on the Biblia Hebraica Stuttgartensia edited by Karl Elliger
+and Wilhelm Rudolph, Fifth Revised Edition, edited by Adrian Schenker, © 1977
+and 1997 Deutsche Bibelgesellschaft, Stuttgart.</p>
+
+<p>The text-fabric version has been prepared by Dirk Roorda Data Archiving and
+Networked Services, with thanks to Martijn Naaijer, Cody Kingham, and
+Constantijn Sikkel.</p>
+
+<p>It is amazing to see the work these researchers did compiling all this data and
+making it public for free. I am very thankful for it.</p>
+
+<p>I am using a literate programming approach with Doom Emacs and org-mode. This
+blog post is a bit more technical oriented. So it is okay if you pass through
+the code or if you don&rsquo;t understand some of it.</p>
+
+<h2 id="create-the-virtual-environment">Create the virtual environment</h2>
+
+<p>This snippet will create a virtual environment and install some libs. Due to
+some incompatibilities with the word cloud lib, I had to downgrate do Python
+3.6.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#virtualenv ~/.workon-home/venv-textfabric</span>
+virtualenv --python<span class="o">=</span>/usr/bin/python3.6 ~/.workon-home/venv-textfabric
+<span class="nb">cd</span> ~/.workon-home/venv-textfabric
+<span class="nb">source</span> ./bin/activate.fish
+pip install text-fabric pandas requests</code></pre></div>
+<h2 id="activate-the-virtual-environment">Activate the virtual environment</h2>
+
+<p>Use <code>C-c</code> here on Doom Emacs</p>
+<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nv">pyvenv-activate</span> <span class="s">&#34;~/.workon-home/venv-textfabric&#34;</span><span class="p">)</span></code></pre></div>
+<h2 id="load-the-etcbc-bhsa-dataset">Load the ETCBC/bhsa dataset</h2>
+
+<p>Use <code>run-python</code> and <code>ober-eval-block-in-repl</code> to evaluate each block (<code>C-c r</code>
+at the time being). For the sake of a more practical approach to writing using
+literate programming the output of the blocks will follow the code. The
+documentation of the BHSA dataset can be found <a href="https://etcbc.github.io/bhsa/">here</a>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">tf.app</span> <span class="kn">import</span> <span class="n">use</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">use</span><span class="p">(</span><span class="s2">&#34;ETCBC/bhsa&#34;</span><span class="p">,</span> <span class="n">hoist</span><span class="o">=</span><span class="nb">globals</span><span class="p">())</span>
+
+<span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;counting objects ...&#34;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">otype</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">all</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">otype</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;{:&gt;7} {}s&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">otype</span><span class="p">))</span>
+
+<span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">A</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Done&#34;</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">&lt;IPython.core.display.HTML object&gt;
+&lt;IPython.core.display.HTML object&gt;
+&lt;IPython.core.display.HTML object&gt;
+&lt;IPython.core.display.HTML object&gt;
+This is Text-Fabric 9.5.2
+Api reference : https://annotation.github.io/text-fabric/tf/cheatsheet.html
+
+122 features found and 0 ignored
+&lt;IPython.core.display.HTML object&gt;
+&lt;IPython.core.display.HTML object&gt;
+&lt;IPython.core.display.HTML object&gt;
+&lt;IPython.core.display.HTML object&gt;
+  0.00s counting objects ...
+   |     0.00s      39 books
+   |     0.00s     929 chapters
+   |     0.00s    9230 lexs
+   |     0.00s   23213 verses
+   |     0.00s   45179 half_verses
+   |     0.00s   63717 sentences
+   |     0.00s   64514 sentence_atoms
+   |     0.00s   88131 clauses
+   |     0.00s   90704 clause_atoms
+   |     0.01s  253203 phrases
+   |     0.01s  267532 phrase_atoms
+   |     0.01s  113850 subphrases
+   |     0.02s  426590 words
+  0.07s Done</code></pre></div>
+<h2 id="analyzing-the-type-of-word-structures-available">Analyzing the type of word structures available</h2>
+
+<p>Text-Fabric allows to query the &ldquo;types&rdquo; of words. We can do this by using:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">freqList</span><span class="p">())</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">((&#39;subs&#39;, 125583), (&#39;verb&#39;, 75451), (&#39;prep&#39;, 73298), (&#39;conj&#39;, 62737), (&#39;nmpr&#39;, 35607), (&#39;art&#39;, 30387), (&#39;adjv&#39;, 10141), (&#39;nega&#39;, 6059), (&#39;prps&#39;, 5035), (&#39;advb&#39;, 4603), (&#39;prde&#39;, 2678), (&#39;intj&#39;, 1912), (&#39;inrg&#39;, 1303), (&#39;prin&#39;, 1026))</code></pre></div>
+<h2 id="defining-some-help-functions">Defining some help functions</h2>
+
+<p>These functions will facilitate the processing of the data. The first one will
+get the occurrences of a specific type of lexeme. I am not a linguist so I am
+learning on the go and I will try to explain it easily. The most common lexeme
+verb is <code>אמר</code> (say). It appears 5307 times. We can see that Yah indeed wants to
+communicate and instruct us.</p>
+
+<p>A specific instance of that verb has other properties (node features) like
+morphology which contains the verbal stem (qal, piel, nif, hif), the verbal
+tense (perf, impf, wayq) and gender (m, f) among other information. A lexeme is
+the representation of that word (verb in this case) in the broad aspect, i.e
+regardless of the verbal stem, tense, gender, etc.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="k">def</span> <span class="nf">get_lexeme_by_type</span><span class="p">(</span><span class="n">lex_type</span><span class="p">):</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">F</span><span class="o">.</span><span class="n">otype</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="s2">&#34;lex&#34;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">F</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">!=</span> <span class="n">lex_type</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="n">w</span><span class="p">,</span>
+               <span class="s1">&#39;freq_lex&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">freq_lex</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
+               <span class="c1">#&#39;sp&#39;: F.sp.v(w),</span>
+               <span class="s1">&#39;lex_utf8&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">lex_utf8</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
+               <span class="s1">&#39;gloss&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">gloss</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="n">w</span><span class="p">),</span>
+               <span class="c1">#&#39;phono&#39;: F.phono.v(w),</span>
+               <span class="c1">#&#39;g_word_utf8&#39;: F.g_word_utf8.v(w),</span>
+               <span class="c1">#&#39;g_lex_utf8&#39;: F.g_lex_utf8.v(w),</span>
+               <span class="c1">#&#39;g_cons_utf8&#39;: F.g_cons_utf8.v(w),</span>
+               <span class="c1">#&#39;gn&#39;: F.gn.v(w),</span>
+               <span class="c1">#&#39;nu&#39;: F.nu.v(w),</span>
+               <span class="c1">#&#39;ps&#39;: F.ps.v(w),</span>
+               <span class="c1">#&#39;st&#39;: F.st.v(w),</span>
+               <span class="c1">#&#39;vs&#39;: F.vs.v(w),</span>
+               <span class="c1">#&#39;vt&#39;: F.vt.v(w),</span>
+               <span class="c1">#&#39;book&#39;: F.book.v(w),</span>
+               <span class="p">}</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">export_df_to_org_table</span><span class="p">(</span><span class="n">input_df</span><span class="p">,</span> <span class="n">rows_qty</span><span class="p">):</span>
+    <span class="n">input_df</span><span class="p">[</span><span class="s2">&#34;lex_utf8&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">remove_diacritics</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&#34;lex_utf8&#34;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">output_df</span> <span class="o">=</span> <span class="n">input_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">rows_qty</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">output_df</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">output_df</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text"></code></pre></div>
+<h2 id="most-frequent-prepositions">Most frequent prepositions</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_preps</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;prep&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df_preps</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437629</td>
+<td>20069</td>
+<td>ל</td>
+<td>to</td>
+</tr>
+
+<tr>
+<td>1437602</td>
+<td>15542</td>
+<td>ב</td>
+<td>in</td>
+</tr>
+
+<tr>
+<td>1437606</td>
+<td>10987</td>
+<td>את</td>
+<td>&lt;object marker&gt;</td>
+</tr>
+
+<tr>
+<td>1437639</td>
+<td>7562</td>
+<td>מן</td>
+<td>from</td>
+</tr>
+
+<tr>
+<td>1437615</td>
+<td>5766</td>
+<td>על</td>
+<td>upon</td>
+</tr>
+
+<tr>
+<td>1437644</td>
+<td>5517</td>
+<td>אל</td>
+<td>to</td>
+</tr>
+
+<tr>
+<td>1437693</td>
+<td>2902</td>
+<td>כ</td>
+<td>as</td>
+</tr>
+
+<tr>
+<td>1437843</td>
+<td>1263</td>
+<td>עד</td>
+<td>unto</td>
+</tr>
+
+<tr>
+<td>1437805</td>
+<td>1049</td>
+<td>עם</td>
+<td>with</td>
+</tr>
+
+<tr>
+<td>1437865</td>
+<td>878</td>
+<td>את</td>
+<td>together with</td>
+</tr>
+
+<tr>
+<td>1443534</td>
+<td>378</td>
+<td>ל</td>
+<td>to</td>
+</tr>
+
+<tr>
+<td>1443536</td>
+<td>345</td>
+<td>די</td>
+<td>&lt;relative&gt;</td>
+</tr>
+
+<tr>
+<td>1438236</td>
+<td>272</td>
+<td>למען</td>
+<td>because of</td>
+</tr>
+
+<tr>
+<td>1445292</td>
+<td>226</td>
+<td>ב</td>
+<td>in</td>
+</tr>
+
+<tr>
+<td>1438491</td>
+<td>142</td>
+<td>כמו</td>
+<td>like</td>
+</tr>
+
+<tr>
+<td>1443543</td>
+<td>119</td>
+<td>מן</td>
+<td>from</td>
+</tr>
+
+<tr>
+<td>1445269</td>
+<td>104</td>
+<td>על</td>
+<td>upon</td>
+</tr>
+
+<tr>
+<td>1443531</td>
+<td>63</td>
+<td>כ</td>
+<td>like</td>
+</tr>
+
+<tr>
+<td>1445265</td>
+<td>35</td>
+<td>עד</td>
+<td>until</td>
+</tr>
+
+<tr>
+<td>1445281</td>
+<td>22</td>
+<td>עם</td>
+<td>with</td>
+</tr>
+
+<tr>
+<td>1438337</td>
+<td>17</td>
+<td>בלעדי</td>
+<td>without</td>
+</tr>
+
+<tr>
+<td>1443082</td>
+<td>9</td>
+<td>במו</td>
+<td>in</td>
+</tr>
+
+<tr>
+<td>1444752</td>
+<td>4</td>
+<td>למו</td>
+<td>to</td>
+</tr>
+
+<tr>
+<td>1445487</td>
+<td>1</td>
+<td>ית</td>
+<td>&lt;nota accusativi&gt;</td>
+</tr>
+
+<tr>
+<td>1445919</td>
+<td>1</td>
+<td>לות</td>
+<td>with</td>
+</tr>
+</tbody>
+</table>
+
+<p>Fair enough, this is a good starting point to learn some words.</p>
+
+<h2 id="most-frequent-names--people-and-places">Most frequent names (people and places)</h2>
+
+<p>Now lets see the 30 most cited names in scriptures</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_nmpr</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;nmpr&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df_nmpr</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437714</td>
+<td>6828</td>
+<td>יהוה</td>
+<td>YHWH</td>
+</tr>
+
+<tr>
+<td>1438941</td>
+<td>2506</td>
+<td>ישראל</td>
+<td>Israel</td>
+</tr>
+
+<tr>
+<td>1441856</td>
+<td>1075</td>
+<td>דוד</td>
+<td>David</td>
+</tr>
+
+<tr>
+<td>1438822</td>
+<td>819</td>
+<td>יהודה</td>
+<td>Judah</td>
+</tr>
+
+<tr>
+<td>1439439</td>
+<td>766</td>
+<td>משה</td>
+<td>Moses</td>
+</tr>
+
+<tr>
+<td>1438103</td>
+<td>681</td>
+<td>מצרים</td>
+<td>Egypt</td>
+</tr>
+
+<tr>
+<td>1441150</td>
+<td>643</td>
+<td>ירושלם</td>
+<td>Jerusalem</td>
+</tr>
+
+<tr>
+<td>1438343</td>
+<td>438</td>
+<td>אדני</td>
+<td>Lord</td>
+</tr>
+
+<tr>
+<td>1439060</td>
+<td>406</td>
+<td>שאול</td>
+<td>Saul</td>
+</tr>
+
+<tr>
+<td>1438702</td>
+<td>349</td>
+<td>יעקב</td>
+<td>Jacob</td>
+</tr>
+
+<tr>
+<td>1439473</td>
+<td>347</td>
+<td>אהרן</td>
+<td>Aaron</td>
+</tr>
+
+<tr>
+<td>1442014</td>
+<td>293</td>
+<td>שלמה</td>
+<td>Solomon</td>
+</tr>
+
+<tr>
+<td>1438115</td>
+<td>262</td>
+<td>בבל</td>
+<td>Babel</td>
+</tr>
+
+<tr>
+<td>1439714</td>
+<td>218</td>
+<td>יהושע</td>
+<td>Joshua</td>
+</tr>
+
+<tr>
+<td>1438843</td>
+<td>213</td>
+<td>יוסף</td>
+<td>Joseph</td>
+</tr>
+
+<tr>
+<td>1438262</td>
+<td>182</td>
+<td>ירדן</td>
+<td>Jordan</td>
+</tr>
+
+<tr>
+<td>1439203</td>
+<td>180</td>
+<td>אפרים</td>
+<td>Ephraim</td>
+</tr>
+
+<tr>
+<td>1438512</td>
+<td>180</td>
+<td>מואב</td>
+<td>Moab</td>
+</tr>
+
+<tr>
+<td>1438408</td>
+<td>175</td>
+<td>אברהם</td>
+<td>Abraham</td>
+</tr>
+
+<tr>
+<td>1439001</td>
+<td>166</td>
+<td>בנימן</td>
+<td>Benjamin</td>
+</tr>
+
+<tr>
+<td>1442009</td>
+<td>154</td>
+<td>ציון</td>
+<td>Zion</td>
+</tr>
+
+<tr>
+<td>1437762</td>
+<td>151</td>
+<td>אשור</td>
+<td>Asshur</td>
+</tr>
+
+<tr>
+<td>1438157</td>
+<td>149</td>
+<td>ארם</td>
+<td>Aram</td>
+</tr>
+
+<tr>
+<td>1439200</td>
+<td>146</td>
+<td>מנשה</td>
+<td>Manasseh</td>
+</tr>
+
+<tr>
+<td>1441940</td>
+<td>145</td>
+<td>יואב</td>
+<td>Joab</td>
+</tr>
+
+<tr>
+<td>1440774</td>
+<td>140</td>
+<td>שמואל</td>
+<td>Samuel</td>
+</tr>
+
+<tr>
+<td>1438890</td>
+<td>134</td>
+<td>גלעד</td>
+<td>Gilead</td>
+</tr>
+
+<tr>
+<td>1442693</td>
+<td>129</td>
+<td>ירמיהו</td>
+<td>Jeremiah</td>
+</tr>
+
+<tr>
+<td>1442394</td>
+<td>109</td>
+<td>שמרון</td>
+<td>Samaria</td>
+</tr>
+
+<tr>
+<td>1441986</td>
+<td>109</td>
+<td>אבשלום</td>
+<td>Absalom</td>
+</tr>
+</tbody>
+</table>
+
+<p>And now lets generate a cloud image for in the Hebrew</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_nmpr_heb_cloud.png"/> </figure>
+
+
+<p>And also a cloud image for the English translations of those names</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_nmpr_eng_cloud.png"/> </figure>
+
+
+<p>To me this is very exciting, with just some lines of code (and of course
+standing in the shoulders of giants that made TF possible and the BHSA dataset),
+we are able to perform simple tasks like this.</p>
+
+<h2 id="most-frequent-verbs">Most frequent verbs</h2>
+
+<p>I want more, so lets repeat the same procedure but with verbs now. And lets increase the amount of verbs to 100 verbs sorted by frequency.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_verbs</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;verb&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df_verbs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437621</td>
+<td>5307</td>
+<td>אמר</td>
+<td>say</td>
+</tr>
+
+<tr>
+<td>1437611</td>
+<td>3561</td>
+<td>היה</td>
+<td>be</td>
+</tr>
+
+<tr>
+<td>1437637</td>
+<td>2629</td>
+<td>עשה</td>
+<td>make</td>
+</tr>
+
+<tr>
+<td>1437773</td>
+<td>2570</td>
+<td>בוא</td>
+<td>come</td>
+</tr>
+
+<tr>
+<td>1437669</td>
+<td>2010</td>
+<td>נתן</td>
+<td>give</td>
+</tr>
+
+<tr>
+<td>1437760</td>
+<td>1547</td>
+<td>הלך</td>
+<td>walk</td>
+</tr>
+
+<tr>
+<td>1437623</td>
+<td>1298</td>
+<td>ראה</td>
+<td>see</td>
+</tr>
+
+<tr>
+<td>1437812</td>
+<td>1159</td>
+<td>שמע</td>
+<td>hear</td>
+</tr>
+
+<tr>
+<td>1438048</td>
+<td>1138</td>
+<td>דבר</td>
+<td>speak</td>
+</tr>
+
+<tr>
+<td>1437900</td>
+<td>1082</td>
+<td>ישב</td>
+<td>sit</td>
+</tr>
+
+<tr>
+<td>1437657</td>
+<td>1068</td>
+<td>יצא</td>
+<td>go out</td>
+</tr>
+
+<tr>
+<td>1437844</td>
+<td>1038</td>
+<td>שוב</td>
+<td>return</td>
+</tr>
+
+<tr>
+<td>1437764</td>
+<td>965</td>
+<td>לקח</td>
+<td>take</td>
+</tr>
+
+<tr>
+<td>1437799</td>
+<td>944</td>
+<td>ידע</td>
+<td>know</td>
+</tr>
+
+<tr>
+<td>1437724</td>
+<td>890</td>
+<td>עלה</td>
+<td>ascend</td>
+</tr>
+
+<tr>
+<td>1437851</td>
+<td>847</td>
+<td>שלח</td>
+<td>send</td>
+</tr>
+
+<tr>
+<td>1437769</td>
+<td>835</td>
+<td>מות</td>
+<td>die</td>
+</tr>
+
+<tr>
+<td>1437768</td>
+<td>810</td>
+<td>אכל</td>
+<td>eat</td>
+</tr>
+
+<tr>
+<td>1437628</td>
+<td>732</td>
+<td>קרא</td>
+<td>call</td>
+</tr>
+
+<tr>
+<td>1437894</td>
+<td>653</td>
+<td>נשא</td>
+<td>lift</td>
+</tr>
+
+<tr>
+<td>1437884</td>
+<td>629</td>
+<td>קום</td>
+<td>arise</td>
+</tr>
+
+<tr>
+<td>1437736</td>
+<td>583</td>
+<td>שים</td>
+<td>put</td>
+</tr>
+
+<tr>
+<td>1438023</td>
+<td>548</td>
+<td>עבר</td>
+<td>pass</td>
+</tr>
+
+<tr>
+<td>1438442</td>
+<td>521</td>
+<td>עמד</td>
+<td>stand</td>
+</tr>
+
+<tr>
+<td>1437899</td>
+<td>500</td>
+<td>נכה</td>
+<td>strike</td>
+</tr>
+
+<tr>
+<td>1437767</td>
+<td>494</td>
+<td>צוה</td>
+<td>command</td>
+</tr>
+
+<tr>
+<td>1437835</td>
+<td>492</td>
+<td>ילד</td>
+<td>bear</td>
+</tr>
+
+<tr>
+<td>1437766</td>
+<td>468</td>
+<td>שמר</td>
+<td>keep</td>
+</tr>
+
+<tr>
+<td>1437775</td>
+<td>453</td>
+<td>מצא</td>
+<td>find</td>
+</tr>
+
+<tr>
+<td>1437776</td>
+<td>434</td>
+<td>נפל</td>
+<td>fall</td>
+</tr>
+
+<tr>
+<td>1438193</td>
+<td>377</td>
+<td>ירד</td>
+<td>descend</td>
+</tr>
+
+<tr>
+<td>1437782</td>
+<td>376</td>
+<td>בנה</td>
+<td>build</td>
+</tr>
+
+<tr>
+<td>1437819</td>
+<td>370</td>
+<td>נגד</td>
+<td>report</td>
+</tr>
+
+<tr>
+<td>1439047</td>
+<td>347</td>
+<td>מלך</td>
+<td>be king</td>
+</tr>
+
+<tr>
+<td>1437816</td>
+<td>332</td>
+<td>ירא</td>
+<td>fear</td>
+</tr>
+
+<tr>
+<td>1437682</td>
+<td>327</td>
+<td>ברך</td>
+<td>bless</td>
+</tr>
+
+<tr>
+<td>1438467</td>
+<td>316</td>
+<td>ענה</td>
+<td>answer</td>
+</tr>
+
+<tr>
+<td>1438536</td>
+<td>303</td>
+<td>פקד</td>
+<td>miss</td>
+</tr>
+
+<tr>
+<td>1438046</td>
+<td>297</td>
+<td>סור</td>
+<td>turn aside</td>
+</tr>
+
+<tr>
+<td>1437685</td>
+<td>292</td>
+<td>מלא</td>
+<td>be full</td>
+</tr>
+
+<tr>
+<td>1438495</td>
+<td>290</td>
+<td>חזק</td>
+<td>be strong</td>
+</tr>
+
+<tr>
+<td>1437722</td>
+<td>288</td>
+<td>עבד</td>
+<td>work, serve</td>
+</tr>
+
+<tr>
+<td>1438067</td>
+<td>288</td>
+<td>כרת</td>
+<td>cut</td>
+</tr>
+
+<tr>
+<td>1437853</td>
+<td>283</td>
+<td>חיה</td>
+<td>be alive</td>
+</tr>
+
+<tr>
+<td>1438581</td>
+<td>283</td>
+<td>איב</td>
+<td>be hostile</td>
+</tr>
+
+<tr>
+<td>1438231</td>
+<td>281</td>
+<td>קרב</td>
+<td>approach</td>
+</tr>
+
+<tr>
+<td>1438522</td>
+<td>237</td>
+<td>חטא</td>
+<td>miss</td>
+</tr>
+
+<tr>
+<td>1438022</td>
+<td>231</td>
+<td>זכר</td>
+<td>remember</td>
+</tr>
+
+<tr>
+<td>1438347</td>
+<td>231</td>
+<td>ירש</td>
+<td>trample down</td>
+</tr>
+
+<tr>
+<td>1438906</td>
+<td>225</td>
+<td>בקש</td>
+<td>seek</td>
+</tr>
+
+<tr>
+<td>1437684</td>
+<td>224</td>
+<td>רבה</td>
+<td>be many</td>
+</tr>
+
+<tr>
+<td>1439718</td>
+<td>223</td>
+<td>כתב</td>
+<td>write</td>
+</tr>
+
+<tr>
+<td>1438074</td>
+<td>217</td>
+<td>שתה</td>
+<td>drink</td>
+</tr>
+
+<tr>
+<td>1439180</td>
+<td>216</td>
+<td>כון</td>
+<td>be firm</td>
+</tr>
+
+<tr>
+<td>1437788</td>
+<td>214</td>
+<td>עזב</td>
+<td>leave</td>
+</tr>
+
+<tr>
+<td>1438225</td>
+<td>214</td>
+<td>נטה</td>
+<td>extend</td>
+</tr>
+
+<tr>
+<td>1438878</td>
+<td>213</td>
+<td>נצל</td>
+<td>deliver</td>
+</tr>
+
+<tr>
+<td>1438479</td>
+<td>212</td>
+<td>שכב</td>
+<td>lie down</td>
+</tr>
+
+<tr>
+<td>1437866</td>
+<td>212</td>
+<td>יסף</td>
+<td>add</td>
+</tr>
+
+<tr>
+<td>1438565</td>
+<td>211</td>
+<td>אהב</td>
+<td>love</td>
+</tr>
+
+<tr>
+<td>1437706</td>
+<td>206</td>
+<td>כלה</td>
+<td>be complete</td>
+</tr>
+
+<tr>
+<td>1439443</td>
+<td>205</td>
+<td>ישע</td>
+<td>help</td>
+</tr>
+
+<tr>
+<td>1438002</td>
+<td>204</td>
+<td>אסף</td>
+<td>gather</td>
+</tr>
+
+<tr>
+<td>1438392</td>
+<td>202</td>
+<td>שפט</td>
+<td>judge</td>
+</tr>
+
+<tr>
+<td>1438251</td>
+<td>193</td>
+<td>יכל</td>
+<td>be able</td>
+</tr>
+
+<tr>
+<td>1438014</td>
+<td>188</td>
+<td>רום</td>
+<td>be high</td>
+</tr>
+
+<tr>
+<td>1438077</td>
+<td>188</td>
+<td>גלה</td>
+<td>uncover</td>
+</tr>
+
+<tr>
+<td>1439563</td>
+<td>186</td>
+<td>אבד</td>
+<td>perish</td>
+</tr>
+
+<tr>
+<td>1438554</td>
+<td>185</td>
+<td>שבע</td>
+<td>swear</td>
+</tr>
+
+<tr>
+<td>1438643</td>
+<td>171</td>
+<td>שאל</td>
+<td>ask</td>
+</tr>
+
+<tr>
+<td>1437711</td>
+<td>171</td>
+<td>קדש</td>
+<td>be holy</td>
+</tr>
+
+<tr>
+<td>1439420</td>
+<td>171</td>
+<td>לחם</td>
+<td>fight</td>
+</tr>
+
+<tr>
+<td>1438427</td>
+<td>170</td>
+<td>חוה</td>
+<td>bow down</td>
+</tr>
+
+<tr>
+<td>1439181</td>
+<td>170</td>
+<td>בין</td>
+<td>understand</td>
+</tr>
+
+<tr>
+<td>1437962</td>
+<td>169</td>
+<td>בחר</td>
+<td>examine</td>
+</tr>
+
+<tr>
+<td>1437869</td>
+<td>168</td>
+<td>רעה</td>
+<td>pasture</td>
+</tr>
+
+<tr>
+<td>1437885</td>
+<td>167</td>
+<td>הרג</td>
+<td>kill</td>
+</tr>
+
+<tr>
+<td>1438064</td>
+<td>164</td>
+<td>דרש</td>
+<td>inquire</td>
+</tr>
+
+<tr>
+<td>1438964</td>
+<td>162</td>
+<td>טמא</td>
+<td>be unclean</td>
+</tr>
+
+<tr>
+<td>1437750</td>
+<td>161</td>
+<td>סבב</td>
+<td>turn</td>
+</tr>
+
+<tr>
+<td>1438306</td>
+<td>159</td>
+<td>נוס</td>
+<td>flee</td>
+</tr>
+
+<tr>
+<td>1439475</td>
+<td>154</td>
+<td>שמח</td>
+<td>rejoice</td>
+</tr>
+
+<tr>
+<td>1438016</td>
+<td>152</td>
+<td>כסה</td>
+<td>cover</td>
+</tr>
+
+<tr>
+<td>1437797</td>
+<td>150</td>
+<td>נגע</td>
+<td>touch</td>
+</tr>
+
+<tr>
+<td>1438486</td>
+<td>147</td>
+<td>שבר</td>
+<td>break</td>
+</tr>
+
+<tr>
+<td>1438182</td>
+<td>146</td>
+<td>נסע</td>
+<td>pull out</td>
+</tr>
+
+<tr>
+<td>1438240</td>
+<td>146</td>
+<td>הלל</td>
+<td>praise</td>
+</tr>
+
+<tr>
+<td>1438652</td>
+<td>146</td>
+<td>שנא</td>
+<td>hate</td>
+</tr>
+
+<tr>
+<td>1437981</td>
+<td>145</td>
+<td>שחת</td>
+<td>destroy</td>
+</tr>
+
+<tr>
+<td>1438318</td>
+<td>143</td>
+<td>רדף</td>
+<td>pursue</td>
+</tr>
+
+<tr>
+<td>1438727</td>
+<td>143</td>
+<td>חנה</td>
+<td>encamp</td>
+</tr>
+
+<tr>
+<td>1437765</td>
+<td>141</td>
+<td>נוח</td>
+<td>settle</td>
+</tr>
+
+<tr>
+<td>1438323</td>
+<td>140</td>
+<td>קרא</td>
+<td>encounter</td>
+</tr>
+
+<tr>
+<td>1438461</td>
+<td>135</td>
+<td>פנה</td>
+<td>turn</td>
+</tr>
+
+<tr>
+<td>1438010</td>
+<td>135</td>
+<td>פתח</td>
+<td>open</td>
+</tr>
+
+<tr>
+<td>1437937</td>
+<td>134</td>
+<td>חלל</td>
+<td>defile</td>
+</tr>
+
+<tr>
+<td>1438923</td>
+<td>134</td>
+<td>זבח</td>
+<td>slaughter</td>
+</tr>
+
+<tr>
+<td>1438020</td>
+<td>133</td>
+<td>שאר</td>
+<td>remain</td>
+</tr>
+
+<tr>
+<td>1438373</td>
+<td>133</td>
+<td>קבר</td>
+<td>bury</td>
+</tr>
+
+<tr>
+<td>1437856</td>
+<td>129</td>
+<td>שכן</td>
+<td>dwell</td>
+</tr>
+</tbody>
+</table>
+
+<p>Here we can see the id of the lexeme (w), the frequency (freq_lex), the utf8
+representation of the word without vowel pointing and the english meaning used
+for the translation. All automatically, pretty cool isn&rsquo;t it?</p>
+
+<p>Now lets create word clouds out of those verbs.</p>
+
+<p>First, the top 30 verbs in Hebrew:</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_30_heb_cloud.png"/> </figure>
+
+
+<p>Now lets try the 50 most common verbs in Hebrew:</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_50_heb_cloud.png"/> </figure>
+
+
+<p>And now lets increase the amount to 100 verbs in Hebrew:</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_100_heb_cloud.png"/> </figure>
+
+
+<p>Now lets generate a cloud words image for the top 30 verbs in English:</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_30_eng_cloud.png"/> </figure>
+
+
+<p>Similarly, for the 50 top verbs in English:</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_50_eng_cloud.png"/> </figure>
+
+
+<p>And finally, the top 100 top verbs in English:</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/bhs_verb_100_eng_cloud.png"/> </figure>
+
+
+<p>I have noticed something &ldquo;unexpected&rdquo; here with vowel pointing<sup class="footnote-ref" id="fnref:fn-1"><a href="#fn:fn-1">1</a></sup>. The word
+&ldquo;Turn&rdquo; is the bigger one in english, yet is not the most frequent word in the
+table. Why is that? Although I am not completely sure about it, I believe it is
+due that it appears twice on the list since there are two Hebrew words
+translated as turn with different amount of frequencies. I have not taken that
+into account in the code. This doesn&rsquo;t happen with the Hebrew words since the
+frequency would already be increased in the <code>freq_lex</code> column.</p>
+
+<p>To solve this, I would probably have to parse the pandas dataframe to manually
+sum the frequencies of the same english word. But I won&rsquo;t do that right now
+since I am more curious about exploring other words.</p>
+
+<p>Furthermore, the &ldquo;mistake&rdquo; is rather interesting and I believe it speaks volumes
+in itself, since I truly believe that the will of the heart of our Father goes
+towards teshuva indeed, turn of our own ways. Seeing this unexpected event was
+rather interesting to me.</p>
+
+<h2 id="most-frequent-substantives">Most frequent substantives</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;subs&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437679</td>
+<td>5412</td>
+<td>כל</td>
+<td>whole</td>
+</tr>
+
+<tr>
+<td>1437836</td>
+<td>4937</td>
+<td>בן</td>
+<td>son</td>
+</tr>
+
+<tr>
+<td>1437605</td>
+<td>2601</td>
+<td>אלהים</td>
+<td>god(s)</td>
+</tr>
+
+<tr>
+<td>1438272</td>
+<td>2523</td>
+<td>מלך</td>
+<td>king</td>
+</tr>
+
+<tr>
+<td>1437610</td>
+<td>2504</td>
+<td>ארץ</td>
+<td>earth</td>
+</tr>
+
+<tr>
+<td>1437630</td>
+<td>2304</td>
+<td>יום</td>
+<td>day</td>
+</tr>
+
+<tr>
+<td>1437787</td>
+<td>2186</td>
+<td>איש</td>
+<td>man</td>
+</tr>
+
+<tr>
+<td>1437616</td>
+<td>2127</td>
+<td>פנה</td>
+<td>face</td>
+</tr>
+
+<tr>
+<td>1437987</td>
+<td>2063</td>
+<td>בית</td>
+<td>house</td>
+</tr>
+
+<tr>
+<td>1438194</td>
+<td>1866</td>
+<td>עם</td>
+<td>people</td>
+</tr>
+
+<tr>
+<td>1437852</td>
+<td>1618</td>
+<td>יד</td>
+<td>hand</td>
+</tr>
+
+<tr>
+<td>1438181</td>
+<td>1441</td>
+<td>דבר</td>
+<td>word</td>
+</tr>
+
+<tr>
+<td>1437789</td>
+<td>1217</td>
+<td>אב</td>
+<td>father</td>
+</tr>
+
+<tr>
+<td>1437903</td>
+<td>1090</td>
+<td>עיר</td>
+<td>town</td>
+</tr>
+
+<tr>
+<td>1437634</td>
+<td>970</td>
+<td>אחד</td>
+<td>one</td>
+</tr>
+
+<tr>
+<td>1437801</td>
+<td>887</td>
+<td>עין</td>
+<td>eye</td>
+</tr>
+
+<tr>
+<td>1437662</td>
+<td>876</td>
+<td>שנה</td>
+<td>year</td>
+</tr>
+
+<tr>
+<td>1437747</td>
+<td>864</td>
+<td>שם</td>
+<td>name</td>
+</tr>
+
+<tr>
+<td>1438084</td>
+<td>800</td>
+<td>עבד</td>
+<td>servant</td>
+</tr>
+
+<tr>
+<td>1437721</td>
+<td>788</td>
+<td>אין</td>
+<td>&lt;NEG&gt;</td>
+</tr>
+
+<tr>
+<td>1437783</td>
+<td>781</td>
+<td>אשה</td>
+<td>woman</td>
+</tr>
+
+<tr>
+<td>1437664</td>
+<td>768</td>
+<td>שנים</td>
+<td>two</td>
+</tr>
+
+<tr>
+<td>1437674</td>
+<td>754</td>
+<td>נפש</td>
+<td>soul</td>
+</tr>
+
+<tr>
+<td>1438327</td>
+<td>750</td>
+<td>כהן</td>
+<td>priest</td>
+</tr>
+
+<tr>
+<td>1437942</td>
+<td>715</td>
+<td>אחר</td>
+<td>after</td>
+</tr>
+
+<tr>
+<td>1437861</td>
+<td>706</td>
+<td>דרך</td>
+<td>way</td>
+</tr>
+
+<tr>
+<td>1437867</td>
+<td>629</td>
+<td>אח</td>
+<td>brother</td>
+</tr>
+
+<tr>
+<td>1437940</td>
+<td>602</td>
+<td>שלש</td>
+<td>three</td>
+</tr>
+
+<tr>
+<td>1437973</td>
+<td>601</td>
+<td>לב</td>
+<td>heart</td>
+</tr>
+
+<tr>
+<td>1437746</td>
+<td>599</td>
+<td>ראש</td>
+<td>head</td>
+</tr>
+
+<tr>
+<td>1437944</td>
+<td>588</td>
+<td>בת</td>
+<td>daughter</td>
+</tr>
+
+<tr>
+<td>1437620</td>
+<td>582</td>
+<td>מים</td>
+<td>water</td>
+</tr>
+
+<tr>
+<td>1437941</td>
+<td>579</td>
+<td>מאה</td>
+<td>hundred</td>
+</tr>
+
+<tr>
+<td>1438017</td>
+<td>558</td>
+<td>הר</td>
+<td>mountain</td>
+</tr>
+
+<tr>
+<td>1438101</td>
+<td>555</td>
+<td>גוי</td>
+<td>people</td>
+</tr>
+
+<tr>
+<td>1437691</td>
+<td>553</td>
+<td>אדם</td>
+<td>human, mankind</td>
+</tr>
+
+<tr>
+<td>1437946</td>
+<td>506</td>
+<td>חמש</td>
+<td>five</td>
+</tr>
+
+<tr>
+<td>1437640</td>
+<td>505</td>
+<td>תחת</td>
+<td>under part</td>
+</tr>
+
+<tr>
+<td>1437813</td>
+<td>505</td>
+<td>קול</td>
+<td>sound</td>
+</tr>
+
+<tr>
+<td>1437889</td>
+<td>498</td>
+<td>פה</td>
+<td>mouth</td>
+</tr>
+
+<tr>
+<td>1438530</td>
+<td>492</td>
+<td>אלף</td>
+<td>thousand</td>
+</tr>
+
+<tr>
+<td>1437897</td>
+<td>490</td>
+<td>שבע</td>
+<td>seven</td>
+</tr>
+
+<tr>
+<td>1437932</td>
+<td>490</td>
+<td>עוד</td>
+<td>duration</td>
+</tr>
+
+<tr>
+<td>1437707</td>
+<td>486</td>
+<td>צבא</td>
+<td>service</td>
+</tr>
+
+<tr>
+<td>1439456</td>
+<td>469</td>
+<td>קדש</td>
+<td>holiness</td>
+</tr>
+
+<tr>
+<td>1437745</td>
+<td>454</td>
+<td>ארבע</td>
+<td>four</td>
+</tr>
+
+<tr>
+<td>1437854</td>
+<td>438</td>
+<td>עולם</td>
+<td>eternity</td>
+</tr>
+
+<tr>
+<td>1438456</td>
+<td>422</td>
+<td>משפט</td>
+<td>justice</td>
+</tr>
+
+<tr>
+<td>1437608</td>
+<td>421</td>
+<td>שמים</td>
+<td>heavens</td>
+</tr>
+
+<tr>
+<td>1438238</td>
+<td>421</td>
+<td>שר</td>
+<td>chief</td>
+</tr>
+
+<tr>
+<td>1437636</td>
+<td>418</td>
+<td>תוך</td>
+<td>midst</td>
+</tr>
+
+<tr>
+<td>1437859</td>
+<td>412</td>
+<td>חרב</td>
+<td>dagger</td>
+</tr>
+
+<tr>
+<td>1437627</td>
+<td>407</td>
+<td>בין</td>
+<td>interval</td>
+</tr>
+
+<tr>
+<td>1438247</td>
+<td>403</td>
+<td>כסף</td>
+<td>silver</td>
+</tr>
+
+<tr>
+<td>1437645</td>
+<td>401</td>
+<td>מקום</td>
+<td>place</td>
+</tr>
+
+<tr>
+<td>1438050</td>
+<td>401</td>
+<td>מזבח</td>
+<td>altar</td>
+</tr>
+
+<tr>
+<td>1437648</td>
+<td>396</td>
+<td>ים</td>
+<td>sea</td>
+</tr>
+
+<tr>
+<td>1437752</td>
+<td>389</td>
+<td>זהב</td>
+<td>gold</td>
+</tr>
+
+<tr>
+<td>1437618</td>
+<td>378</td>
+<td>רוח</td>
+<td>wind</td>
+</tr>
+
+<tr>
+<td>1438381</td>
+<td>378</td>
+<td>אש</td>
+<td>fire</td>
+</tr>
+
+<tr>
+<td>1438578</td>
+<td>376</td>
+<td>נאם</td>
+<td>speech</td>
+</tr>
+
+<tr>
+<td>1438471</td>
+<td>374</td>
+<td>שער</td>
+<td>gate</td>
+</tr>
+
+<tr>
+<td>1437886</td>
+<td>360</td>
+<td>דם</td>
+<td>blood</td>
+</tr>
+
+<tr>
+<td>1437913</td>
+<td>345</td>
+<td>אהל</td>
+<td>tent</td>
+</tr>
+
+<tr>
+<td>1438610</td>
+<td>336</td>
+<td>סביב</td>
+<td>surrounding</td>
+</tr>
+
+<tr>
+<td>1438449</td>
+<td>335</td>
+<td>אדון</td>
+<td>lord</td>
+</tr>
+
+<tr>
+<td>1437654</td>
+<td>330</td>
+<td>עץ</td>
+<td>tree</td>
+</tr>
+
+<tr>
+<td>1438645</td>
+<td>325</td>
+<td>כלי</td>
+<td>tool</td>
+</tr>
+
+<tr>
+<td>1437716</td>
+<td>320</td>
+<td>שדה</td>
+<td>open field</td>
+</tr>
+
+<tr>
+<td>1437965</td>
+<td>315</td>
+<td>עשרים</td>
+<td>twenty</td>
+</tr>
+
+<tr>
+<td>1438523</td>
+<td>315</td>
+<td>נביא</td>
+<td>prophet</td>
+</tr>
+
+<tr>
+<td>1437970</td>
+<td>313</td>
+<td>רעה</td>
+<td>evil</td>
+</tr>
+
+<tr>
+<td>1438278</td>
+<td>308</td>
+<td>מלחמה</td>
+<td>war</td>
+</tr>
+
+<tr>
+<td>1437704</td>
+<td>300</td>
+<td>מאד</td>
+<td>might</td>
+</tr>
+
+<tr>
+<td>1437842</td>
+<td>298</td>
+<td>לחם</td>
+<td>bread</td>
+</tr>
+
+<tr>
+<td>1438040</td>
+<td>297</td>
+<td>עת</td>
+<td>time</td>
+</tr>
+
+<tr>
+<td>1437882</td>
+<td>293</td>
+<td>חטאת</td>
+<td>sin</td>
+</tr>
+
+<tr>
+<td>1438051</td>
+<td>286</td>
+<td>עלה</td>
+<td>burnt-offering</td>
+</tr>
+
+<tr>
+<td>1438001</td>
+<td>284</td>
+<td>ברית</td>
+<td>covenant</td>
+</tr>
+
+<tr>
+<td>1438005</td>
+<td>284</td>
+<td>חדש</td>
+<td>month</td>
+</tr>
+
+<tr>
+<td>1437729</td>
+<td>277</td>
+<td>אף</td>
+<td>nose</td>
+</tr>
+
+<tr>
+<td>1438239</td>
+<td>274</td>
+<td>פרעה</td>
+<td>pharaoh</td>
+</tr>
+
+<tr>
+<td>1437951</td>
+<td>274</td>
+<td>שש</td>
+<td>six</td>
+</tr>
+
+<tr>
+<td>1437870</td>
+<td>274</td>
+<td>צאן</td>
+<td>cattle</td>
+</tr>
+
+<tr>
+<td>1437755</td>
+<td>273</td>
+<td>אבן</td>
+<td>stone</td>
+</tr>
+
+<tr>
+<td>1438299</td>
+<td>270</td>
+<td>מדבר</td>
+<td>desert</td>
+</tr>
+
+<tr>
+<td>1437781</td>
+<td>270</td>
+<td>בשר</td>
+<td>flesh</td>
+</tr>
+
+<tr>
+<td>1439127</td>
+<td>252</td>
+<td>מטה</td>
+<td>staff</td>
+</tr>
+
+<tr>
+<td>1438519</td>
+<td>252</td>
+<td>לבב</td>
+<td>heart</td>
+</tr>
+
+<tr>
+<td>1437990</td>
+<td>247</td>
+<td>אמה</td>
+<td>cubit</td>
+</tr>
+
+<tr>
+<td>1438038</td>
+<td>247</td>
+<td>רגל</td>
+<td>foot</td>
+</tr>
+
+<tr>
+<td>1438498</td>
+<td>245</td>
+<td>חסד</td>
+<td>loyalty</td>
+</tr>
+
+<tr>
+<td>1438977</td>
+<td>244</td>
+<td>חיל</td>
+<td>power</td>
+</tr>
+
+<tr>
+<td>1438338</td>
+<td>240</td>
+<td>נער</td>
+<td>boy</td>
+</tr>
+
+<tr>
+<td>1438145</td>
+<td>240</td>
+<td>גבול</td>
+<td>boundary</td>
+</tr>
+
+<tr>
+<td>1438372</td>
+<td>237</td>
+<td>שלום</td>
+<td>peace</td>
+</tr>
+
+<tr>
+<td>1438328</td>
+<td>235</td>
+<td>אל</td>
+<td>god</td>
+</tr>
+
+<tr>
+<td>1437956</td>
+<td>235</td>
+<td>מעשה</td>
+<td>deed</td>
+</tr>
+
+<tr>
+<td>1437893</td>
+<td>231</td>
+<td>עון</td>
+<td>sin</td>
+</tr>
+
+<tr>
+<td>1437653</td>
+<td>229</td>
+<td>זרע</td>
+<td>seed</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="most-frequent-conjunctions">Most frequent conjunctions</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;conj&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437609</td>
+<td>50272</td>
+<td>ו</td>
+<td>and</td>
+</tr>
+
+<tr>
+<td>1437638</td>
+<td>5500</td>
+<td>אשר</td>
+<td>&lt;relative&gt;</td>
+</tr>
+
+<tr>
+<td>1437624</td>
+<td>4483</td>
+<td>כי</td>
+<td>that</td>
+</tr>
+
+<tr>
+<td>1437878</td>
+<td>1068</td>
+<td>אם</td>
+<td>if</td>
+</tr>
+
+<tr>
+<td>1443538</td>
+<td>731</td>
+<td>ו</td>
+<td>and</td>
+</tr>
+
+<tr>
+<td>1438644</td>
+<td>320</td>
+<td>או</td>
+<td>or</td>
+</tr>
+
+<tr>
+<td>1437964</td>
+<td>138</td>
+<td>ש</td>
+<td>&lt;relative&gt;</td>
+</tr>
+
+<tr>
+<td>1437798</td>
+<td>133</td>
+<td>פן</td>
+<td>lest</td>
+</tr>
+
+<tr>
+<td>1438420</td>
+<td>22</td>
+<td>לו</td>
+<td>if only</td>
+</tr>
+
+<tr>
+<td>1445238</td>
+<td>16</td>
+<td>הן</td>
+<td>if</td>
+</tr>
+
+<tr>
+<td>1439657</td>
+<td>15</td>
+<td>זו</td>
+<td>&lt;relative&gt;</td>
+</tr>
+
+<tr>
+<td>1438910</td>
+<td>14</td>
+<td>לולא</td>
+<td>unless</td>
+</tr>
+
+<tr>
+<td>1445279</td>
+<td>7</td>
+<td>להן</td>
+<td>but</td>
+</tr>
+
+<tr>
+<td>1445073</td>
+<td>2</td>
+<td>אלו</td>
+<td>if</td>
+</tr>
+
+<tr>
+<td>1441905</td>
+<td>1</td>
+<td>אין</td>
+<td>if</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="most-frequent-adjectives">Most frequent adjectives</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;adjv&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437665</td>
+<td>526</td>
+<td>גדול</td>
+<td>great</td>
+</tr>
+
+<tr>
+<td>1437703</td>
+<td>469</td>
+<td>טוב</td>
+<td>good</td>
+</tr>
+
+<tr>
+<td>1437969</td>
+<td>424</td>
+<td>רב</td>
+<td>much</td>
+</tr>
+
+<tr>
+<td>1437742</td>
+<td>347</td>
+<td>רע</td>
+<td>evil</td>
+</tr>
+
+<tr>
+<td>1439474</td>
+<td>292</td>
+<td>לוי</td>
+<td>Levite</td>
+</tr>
+
+<tr>
+<td>1438130</td>
+<td>288</td>
+<td>פלשתי</td>
+<td>Philistine</td>
+</tr>
+
+<tr>
+<td>1438464</td>
+<td>262</td>
+<td>רשע</td>
+<td>guilty</td>
+</tr>
+
+<tr>
+<td>1437675</td>
+<td>239</td>
+<td>חי</td>
+<td>alive</td>
+</tr>
+
+<tr>
+<td>1437978</td>
+<td>206</td>
+<td>צדיק</td>
+<td>just</td>
+</tr>
+
+<tr>
+<td>1438044</td>
+<td>182</td>
+<td>ראשון</td>
+<td>first</td>
+</tr>
+
+<tr>
+<td>1438444</td>
+<td>181</td>
+<td>זקן</td>
+<td>old</td>
+</tr>
+
+<tr>
+<td>1437934</td>
+<td>166</td>
+<td>אחר</td>
+<td>other</td>
+</tr>
+
+<tr>
+<td>1437642</td>
+<td>156</td>
+<td>שני</td>
+<td>second</td>
+</tr>
+
+<tr>
+<td>1439171</td>
+<td>138</td>
+<td>חכם</td>
+<td>wise</td>
+</tr>
+
+<tr>
+<td>1439676</td>
+<td>119</td>
+<td>ישר</td>
+<td>right</td>
+</tr>
+
+<tr>
+<td>1439730</td>
+<td>116</td>
+<td>קדוש</td>
+<td>holy</td>
+</tr>
+
+<tr>
+<td>1437708</td>
+<td>98</td>
+<td>שביעי</td>
+<td>seventh</td>
+</tr>
+
+<tr>
+<td>1438003</td>
+<td>96</td>
+<td>טהר</td>
+<td>pure</td>
+</tr>
+
+<tr>
+<td>1438975</td>
+<td>94</td>
+<td>חלל</td>
+<td>pierced</td>
+</tr>
+
+<tr>
+<td>1437979</td>
+<td>91</td>
+<td>תמים</td>
+<td>complete</td>
+</tr>
+
+<tr>
+<td>1440077</td>
+<td>88</td>
+<td>טמא</td>
+<td>unclean</td>
+</tr>
+
+<tr>
+<td>1438135</td>
+<td>87</td>
+<td>אמרי</td>
+<td>Amorite</td>
+</tr>
+
+<tr>
+<td>1438568</td>
+<td>85</td>
+<td>רחוק</td>
+<td>remote</td>
+</tr>
+
+<tr>
+<td>1437658</td>
+<td>83</td>
+<td>שלישי</td>
+<td>third</td>
+</tr>
+
+<tr>
+<td>1442586</td>
+<td>82</td>
+<td>יהודי</td>
+<td>Jewish</td>
+</tr>
+
+<tr>
+<td>1437697</td>
+<td>82</td>
+<td>זכר</td>
+<td>male</td>
+</tr>
+
+<tr>
+<td>1438499</td>
+<td>76</td>
+<td>קרוב</td>
+<td>near</td>
+</tr>
+
+<tr>
+<td>1439788</td>
+<td>75</td>
+<td>עני</td>
+<td>humble</td>
+</tr>
+
+<tr>
+<td>1438144</td>
+<td>73</td>
+<td>כנעני</td>
+<td>Canaanite</td>
+</tr>
+
+<tr>
+<td>1444427</td>
+<td>70</td>
+<td>כסיל</td>
+<td>insolent</td>
+</tr>
+
+<tr>
+<td>1439969</td>
+<td>70</td>
+<td>זר</td>
+<td>strange</td>
+</tr>
+
+<tr>
+<td>1442699</td>
+<td>64</td>
+<td>כשדי</td>
+<td>Chaldean</td>
+</tr>
+
+<tr>
+<td>1439798</td>
+<td>61</td>
+<td>אביון</td>
+<td>poor</td>
+</tr>
+
+<tr>
+<td>1439463</td>
+<td>56</td>
+<td>חזק</td>
+<td>strong</td>
+</tr>
+
+<tr>
+<td>1437671</td>
+<td>56</td>
+<td>רביעי</td>
+<td>fourth</td>
+</tr>
+
+<tr>
+<td>1437667</td>
+<td>54</td>
+<td>קטן</td>
+<td>small</td>
+</tr>
+
+<tr>
+<td>1438329</td>
+<td>53</td>
+<td>עליון</td>
+<td>upper</td>
+</tr>
+
+<tr>
+<td>1439418</td>
+<td>52</td>
+<td>חדש</td>
+<td>new</td>
+</tr>
+
+<tr>
+<td>1438949</td>
+<td>51</td>
+<td>אחרון</td>
+<td>at the back</td>
+</tr>
+
+<tr>
+<td>1438574</td>
+<td>49</td>
+<td>ירא</td>
+<td>afraid</td>
+</tr>
+
+<tr>
+<td>1439174</td>
+<td>48</td>
+<td>דל</td>
+<td>poor</td>
+</tr>
+
+<tr>
+<td>1438386</td>
+<td>48</td>
+<td>חתי</td>
+<td>Hittite</td>
+</tr>
+
+<tr>
+<td>1438083</td>
+<td>47</td>
+<td>קטן</td>
+<td>small</td>
+</tr>
+
+<tr>
+<td>1438883</td>
+<td>45</td>
+<td>נכרי</td>
+<td>foreign</td>
+</tr>
+
+<tr>
+<td>1438233</td>
+<td>43</td>
+<td>יפה</td>
+<td>beautiful</td>
+</tr>
+
+<tr>
+<td>1438641</td>
+<td>43</td>
+<td>נקי</td>
+<td>innocent</td>
+</tr>
+
+<tr>
+<td>1438230</td>
+<td>41</td>
+<td>כבד</td>
+<td>heavy</td>
+</tr>
+
+<tr>
+<td>1438134</td>
+<td>41</td>
+<td>יבוסי</td>
+<td>Jebusite</td>
+</tr>
+
+<tr>
+<td>1438018</td>
+<td>37</td>
+<td>גבה</td>
+<td>high</td>
+</tr>
+
+<tr>
+<td>1438770</td>
+<td>37</td>
+<td>מר</td>
+<td>bitter</td>
+</tr>
+
+<tr>
+<td>1439209</td>
+<td>36</td>
+<td>קשה</td>
+<td>hard</td>
+</tr>
+
+<tr>
+<td>1441758</td>
+<td>35</td>
+<td>יקר</td>
+<td>rare</td>
+</tr>
+
+<tr>
+<td>1438416</td>
+<td>35</td>
+<td>ערל</td>
+<td>uncircumcised</td>
+</tr>
+
+<tr>
+<td>1438309</td>
+<td>34</td>
+<td>עברי</td>
+<td>Hebrew</td>
+</tr>
+
+<tr>
+<td>1437686</td>
+<td>34</td>
+<td>חמישי</td>
+<td>fifth</td>
+</tr>
+
+<tr>
+<td>1439960</td>
+<td>33</td>
+<td>ימני</td>
+<td>right-hand</td>
+</tr>
+
+<tr>
+<td>1441098</td>
+<td>32</td>
+<td>חסיד</td>
+<td>loyal</td>
+</tr>
+
+<tr>
+<td>1442307</td>
+<td>32</td>
+<td>פנימי</td>
+<td>inner</td>
+</tr>
+
+<tr>
+<td>1440562</td>
+<td>31</td>
+<td>צר</td>
+<td>narrow</td>
+</tr>
+
+<tr>
+<td>1438455</td>
+<td>31</td>
+<td>עצום</td>
+<td>mighty</td>
+</tr>
+
+<tr>
+<td>1439795</td>
+<td>31</td>
+<td>שמיני</td>
+<td>eighth</td>
+</tr>
+
+<tr>
+<td>1438235</td>
+<td>30</td>
+<td>מצרי</td>
+<td>Egyptian</td>
+</tr>
+
+<tr>
+<td>1438855</td>
+<td>29</td>
+<td>לבן</td>
+<td>white</td>
+</tr>
+
+<tr>
+<td>1438030</td>
+<td>29</td>
+<td>עשירי</td>
+<td>tenth</td>
+</tr>
+
+<tr>
+<td>1438376</td>
+<td>28</td>
+<td>שלם</td>
+<td>complete</td>
+</tr>
+
+<tr>
+<td>1437705</td>
+<td>28</td>
+<td>ששי</td>
+<td>sixth</td>
+</tr>
+
+<tr>
+<td>1439654</td>
+<td>27</td>
+<td>אדיר</td>
+<td>mighty</td>
+</tr>
+
+<tr>
+<td>1440033</td>
+<td>27</td>
+<td>נדיב</td>
+<td>willing</td>
+</tr>
+
+<tr>
+<td>1439212</td>
+<td>26</td>
+<td>כן</td>
+<td>correct</td>
+</tr>
+
+<tr>
+<td>1443017</td>
+<td>26</td>
+<td>אויל</td>
+<td>foolish</td>
+</tr>
+
+<tr>
+<td>1439472</td>
+<td>26</td>
+<td>עור</td>
+<td>blind</td>
+</tr>
+
+<tr>
+<td>1442311</td>
+<td>25</td>
+<td>חיצון</td>
+<td>external</td>
+</tr>
+
+<tr>
+<td>1440433</td>
+<td>25</td>
+<td>כשי</td>
+<td>Ethiopian</td>
+</tr>
+
+<tr>
+<td>1440474</td>
+<td>25</td>
+<td>בצור</td>
+<td>fortified</td>
+</tr>
+
+<tr>
+<td>1438137</td>
+<td>25</td>
+<td>חוי</td>
+<td>Hivite</td>
+</tr>
+
+<tr>
+<td>1438253</td>
+<td>23</td>
+<td>פרזי</td>
+<td>Perizzite</td>
+</tr>
+
+<tr>
+<td>1439979</td>
+<td>23</td>
+<td>עשיר</td>
+<td>rich</td>
+</tr>
+
+<tr>
+<td>1438509</td>
+<td>22</td>
+<td>צעיר</td>
+<td>little</td>
+</tr>
+
+<tr>
+<td>1439345</td>
+<td>22</td>
+<td>עז</td>
+<td>strong</td>
+</tr>
+
+<tr>
+<td>1438606</td>
+<td>21</td>
+<td>מלא</td>
+<td>full</td>
+</tr>
+
+<tr>
+<td>1440818</td>
+<td>21</td>
+<td>עמוני</td>
+<td>Ammonite</td>
+</tr>
+
+<tr>
+<td>1440434</td>
+<td>21</td>
+<td>ענו</td>
+<td>humble</td>
+</tr>
+
+<tr>
+<td>1440919</td>
+<td>21</td>
+<td>שמח</td>
+<td>joyful</td>
+</tr>
+
+<tr>
+<td>1438972</td>
+<td>21</td>
+<td>רחב</td>
+<td>wide</td>
+</tr>
+
+<tr>
+<td>1442916</td>
+<td>20</td>
+<td>עריץ</td>
+<td>ruthless</td>
+</tr>
+
+<tr>
+<td>1441742</td>
+<td>20</td>
+<td>רעב</td>
+<td>hungry</td>
+</tr>
+
+<tr>
+<td>1438266</td>
+<td>19</td>
+<td>חטא</td>
+<td>sinful</td>
+</tr>
+
+<tr>
+<td>1445272</td>
+<td>19</td>
+<td>רב</td>
+<td>great</td>
+</tr>
+
+<tr>
+<td>1440889</td>
+<td>19</td>
+<td>רענן</td>
+<td>luxuriant</td>
+</tr>
+
+<tr>
+<td>1437997</td>
+<td>19</td>
+<td>תחתי</td>
+<td>lower</td>
+</tr>
+
+<tr>
+<td>1440295</td>
+<td>18</td>
+<td>תשיעי</td>
+<td>ninth</td>
+</tr>
+
+<tr>
+<td>1439610</td>
+<td>18</td>
+<td>שכיר</td>
+<td>hired</td>
+</tr>
+
+<tr>
+<td>1441042</td>
+<td>18</td>
+<td>נבל</td>
+<td>stupid</td>
+</tr>
+
+<tr>
+<td>1440613</td>
+<td>18</td>
+<td>ראובני</td>
+<td>Reubenite</td>
+</tr>
+
+<tr>
+<td>1440162</td>
+<td>17</td>
+<td>עמק</td>
+<td>deep</td>
+</tr>
+
+<tr>
+<td>1439751</td>
+<td>17</td>
+<td>חפשי</td>
+<td>free</td>
+</tr>
+
+<tr>
+<td>1438706</td>
+<td>17</td>
+<td>עיף</td>
+<td>faint</td>
+</tr>
+
+<tr>
+<td>1440167</td>
+<td>17</td>
+<td>שפל</td>
+<td>low</td>
+</tr>
+
+<tr>
+<td>1441912</td>
+<td>16</td>
+<td>חסר</td>
+<td>lacking</td>
+</tr>
+
+<tr>
+<td>1441561</td>
+<td>16</td>
+<td>אביר</td>
+<td>strong</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="most-frequent-pronouns">Most frequent pronouns</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;prps&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437749</td>
+<td>1394</td>
+<td>הוא</td>
+<td>he</td>
+</tr>
+
+<tr>
+<td>1437998</td>
+<td>874</td>
+<td>אני</td>
+<td>i</td>
+</tr>
+
+<tr>
+<td>1437820</td>
+<td>747</td>
+<td>אתה</td>
+<td>you</td>
+</tr>
+
+<tr>
+<td>1437753</td>
+<td>485</td>
+<td>היא</td>
+<td>she</td>
+</tr>
+
+<tr>
+<td>1437817</td>
+<td>359</td>
+<td>אנכי</td>
+<td>i</td>
+</tr>
+
+<tr>
+<td>1437967</td>
+<td>291</td>
+<td>המה</td>
+<td>they</td>
+</tr>
+
+<tr>
+<td>1438066</td>
+<td>283</td>
+<td>אתם</td>
+<td>you</td>
+</tr>
+
+<tr>
+<td>1437807</td>
+<td>269</td>
+<td>הם</td>
+<td>they</td>
+</tr>
+
+<tr>
+<td>1438256</td>
+<td>120</td>
+<td>אנחנו</td>
+<td>we</td>
+</tr>
+
+<tr>
+<td>1438234</td>
+<td>57</td>
+<td>את</td>
+<td>you</td>
+</tr>
+
+<tr>
+<td>1437961</td>
+<td>48</td>
+<td>הנה</td>
+<td>they</td>
+</tr>
+
+<tr>
+<td>1445253</td>
+<td>16</td>
+<td>אנה</td>
+<td>I</td>
+</tr>
+
+<tr>
+<td>1445354</td>
+<td>15</td>
+<td>אנתה</td>
+<td>you</td>
+</tr>
+
+<tr>
+<td>1445320</td>
+<td>15</td>
+<td>הוא</td>
+<td>he</td>
+</tr>
+
+<tr>
+<td>1445913</td>
+<td>9</td>
+<td>המו</td>
+<td>they</td>
+</tr>
+
+<tr>
+<td>1445260</td>
+<td>7</td>
+<td>היא</td>
+<td>she</td>
+</tr>
+
+<tr>
+<td>1439211</td>
+<td>5</td>
+<td>נחנו</td>
+<td>we</td>
+</tr>
+
+<tr>
+<td>1438874</td>
+<td>4</td>
+<td>אתנה</td>
+<td>you</td>
+</tr>
+
+<tr>
+<td>1445496</td>
+<td>4</td>
+<td>אנחנא</td>
+<td>we</td>
+</tr>
+
+<tr>
+<td>1445384</td>
+<td>3</td>
+<td>המון</td>
+<td>they</td>
+</tr>
+
+<tr>
+<td>1445421</td>
+<td>3</td>
+<td>אנון</td>
+<td>they</td>
+</tr>
+
+<tr>
+<td>1445255</td>
+<td>1</td>
+<td>אנתון</td>
+<td>you</td>
+</tr>
+
+<tr>
+<td>1443994</td>
+<td>1</td>
+<td>אתן</td>
+<td>you</td>
+</tr>
+
+<tr>
+<td>1445760</td>
+<td>1</td>
+<td>אנין</td>
+<td>they</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="most-frequent-adverbs">Most frequent adverbs</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;advb&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437737</td>
+<td>834</td>
+<td>שם</td>
+<td>there</td>
+</tr>
+
+<tr>
+<td>1437804</td>
+<td>769</td>
+<td>גם</td>
+<td>even</td>
+</tr>
+
+<tr>
+<td>1438351</td>
+<td>577</td>
+<td>כה</td>
+<td>thus</td>
+</tr>
+
+<tr>
+<td>1437641</td>
+<td>546</td>
+<td>כן</td>
+<td>thus</td>
+</tr>
+
+<tr>
+<td>1437850</td>
+<td>433</td>
+<td>עתה</td>
+<td>now</td>
+</tr>
+
+<tr>
+<td>1437896</td>
+<td>200</td>
+<td>לכן</td>
+<td>therefore</td>
+</tr>
+
+<tr>
+<td>1438021</td>
+<td>161</td>
+<td>אך</td>
+<td>only</td>
+</tr>
+
+<tr>
+<td>1437936</td>
+<td>141</td>
+<td>אז</td>
+<td>then</td>
+</tr>
+
+<tr>
+<td>1437796</td>
+<td>133</td>
+<td>אף</td>
+<td>even</td>
+</tr>
+
+<tr>
+<td>1437974</td>
+<td>109</td>
+<td>רק</td>
+<td>only</td>
+</tr>
+
+<tr>
+<td>1438250</td>
+<td>96</td>
+<td>יחדו</td>
+<td>together</td>
+</tr>
+
+<tr>
+<td>1438489</td>
+<td>82</td>
+<td>פה</td>
+<td>here</td>
+</tr>
+
+<tr>
+<td>1445293</td>
+<td>57</td>
+<td>אדין</td>
+<td>then</td>
+</tr>
+
+<tr>
+<td>1438375</td>
+<td>50</td>
+<td>הנה</td>
+<td>here</td>
+</tr>
+
+<tr>
+<td>1439618</td>
+<td>50</td>
+<td>יומם</td>
+<td>by day</td>
+</tr>
+
+<tr>
+<td>1438389</td>
+<td>45</td>
+<td>אולי</td>
+<td>perhaps</td>
+</tr>
+
+<tr>
+<td>1439587</td>
+<td>37</td>
+<td>ככה</td>
+<td>thus</td>
+</tr>
+
+<tr>
+<td>1438807</td>
+<td>32</td>
+<td>חנם</td>
+<td>in vain</td>
+</tr>
+
+<tr>
+<td>1440400</td>
+<td>25</td>
+<td>פתאם</td>
+<td>suddenly</td>
+</tr>
+
+<tr>
+<td>1438796</td>
+<td>19</td>
+<td>אולם</td>
+<td>but</td>
+</tr>
+
+<tr>
+<td>1438485</td>
+<td>16</td>
+<td>הלאה</td>
+<td>further</td>
+</tr>
+
+<tr>
+<td>1438912</td>
+<td>16</td>
+<td>ריקם</td>
+<td>with empty hands</td>
+</tr>
+
+<tr>
+<td>1440112</td>
+<td>13</td>
+<td>פנימה</td>
+<td>within</td>
+</tr>
+
+<tr>
+<td>1445334</td>
+<td>13</td>
+<td>כען</td>
+<td>now</td>
+</tr>
+
+<tr>
+<td>1438403</td>
+<td>12</td>
+<td>הלם</td>
+<td>hither</td>
+</tr>
+
+<tr>
+<td>1442642</td>
+<td>9</td>
+<td>אמנם</td>
+<td>really</td>
+</tr>
+
+<tr>
+<td>1445336</td>
+<td>8</td>
+<td>כן</td>
+<td>thus</td>
+</tr>
+
+<tr>
+<td>1445965</td>
+<td>7</td>
+<td>אספרנא</td>
+<td>exactly</td>
+</tr>
+
+<tr>
+<td>1438081</td>
+<td>7</td>
+<td>אחרנית</td>
+<td>backwards</td>
+</tr>
+
+<tr>
+<td>1445901</td>
+<td>5</td>
+<td>כנמא</td>
+<td>thus</td>
+</tr>
+
+<tr>
+<td>1438451</td>
+<td>5</td>
+<td>אמנם</td>
+<td>really</td>
+</tr>
+
+<tr>
+<td>1445348</td>
+<td>5</td>
+<td>ברם</td>
+<td>but</td>
+</tr>
+
+<tr>
+<td>1445714</td>
+<td>4</td>
+<td>אף</td>
+<td>also</td>
+</tr>
+
+<tr>
+<td>1445973</td>
+<td>4</td>
+<td>תמה</td>
+<td>there</td>
+</tr>
+
+<tr>
+<td>1445250</td>
+<td>3</td>
+<td>להן</td>
+<td>therefore</td>
+</tr>
+
+<tr>
+<td>1445917</td>
+<td>3</td>
+<td>כענת</td>
+<td>now</td>
+</tr>
+
+<tr>
+<td>1443334</td>
+<td>3</td>
+<td>דומם</td>
+<td>silently</td>
+</tr>
+
+<tr>
+<td>1444590</td>
+<td>3</td>
+<td>אזי</td>
+<td>then</td>
+</tr>
+
+<tr>
+<td>1445237</td>
+<td>2</td>
+<td>אזדא</td>
+<td>publicly known</td>
+</tr>
+
+<tr>
+<td>1444976</td>
+<td>2</td>
+<td>להן</td>
+<td>therefore</td>
+</tr>
+
+<tr>
+<td>1438528</td>
+<td>2</td>
+<td>אמנה</td>
+<td>indeed</td>
+</tr>
+
+<tr>
+<td>1445939</td>
+<td>1</td>
+<td>כעת</td>
+<td>now</td>
+</tr>
+
+<tr>
+<td>1445703</td>
+<td>1</td>
+<td>טות</td>
+<td>fastingly</td>
+</tr>
+
+<tr>
+<td>1445771</td>
+<td>1</td>
+<td>כה</td>
+<td>here</td>
+</tr>
+
+<tr>
+<td>1442542</td>
+<td>1</td>
+<td>מסח</td>
+<td>alternatively</td>
+</tr>
+
+<tr>
+<td>1445670</td>
+<td>1</td>
+<td>עלא</td>
+<td>above</td>
+</tr>
+
+<tr>
+<td>1445537</td>
+<td>1</td>
+<td>אחרין</td>
+<td>at last</td>
+</tr>
+
+<tr>
+<td>1445492</td>
+<td>1</td>
+<td>צדא</td>
+<td>really</td>
+</tr>
+
+<tr>
+<td>1445251</td>
+<td>1</td>
+<td>תנינות</td>
+<td>again</td>
+</tr>
+
+<tr>
+<td>1445069</td>
+<td>1</td>
+<td>עדן</td>
+<td>hitherto</td>
+</tr>
+
+<tr>
+<td>1445068</td>
+<td>1</td>
+<td>עדנה</td>
+<td>hitherto</td>
+</tr>
+
+<tr>
+<td>1444323</td>
+<td>1</td>
+<td>קדרנית</td>
+<td>mourningly</td>
+</tr>
+
+<tr>
+<td>1446033</td>
+<td>1</td>
+<td>אדרזדא</td>
+<td>with zeal</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="most-frequent-demonstrative-pronouns">Most frequent demonstrative pronouns</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;prde&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437938</td>
+<td>1177</td>
+<td>זה</td>
+<td>this</td>
+</tr>
+
+<tr>
+<td>1437712</td>
+<td>746</td>
+<td>אלה</td>
+<td>these</td>
+</tr>
+
+<tr>
+<td>1437784</td>
+<td>604</td>
+<td>זאת</td>
+<td>this</td>
+</tr>
+
+<tr>
+<td>1443532</td>
+<td>58</td>
+<td>דנה</td>
+<td>this</td>
+</tr>
+
+<tr>
+<td>1445488</td>
+<td>14</td>
+<td>אלך</td>
+<td>these</td>
+</tr>
+
+<tr>
+<td>1441693</td>
+<td>11</td>
+<td>זה</td>
+<td>this</td>
+</tr>
+
+<tr>
+<td>1438482</td>
+<td>9</td>
+<td>אל</td>
+<td>these</td>
+</tr>
+
+<tr>
+<td>1445926</td>
+<td>7</td>
+<td>דך</td>
+<td>that</td>
+</tr>
+
+<tr>
+<td>1441583</td>
+<td>7</td>
+<td>לז</td>
+<td>this there</td>
+</tr>
+
+<tr>
+<td>1445595</td>
+<td>6</td>
+<td>דא</td>
+<td>this</td>
+</tr>
+
+<tr>
+<td>1445971</td>
+<td>6</td>
+<td>דך</td>
+<td>that</td>
+</tr>
+
+<tr>
+<td>1445409</td>
+<td>5</td>
+<td>אלין</td>
+<td>these</td>
+</tr>
+
+<tr>
+<td>1445363</td>
+<td>3</td>
+<td>דכן</td>
+<td>that</td>
+</tr>
+
+<tr>
+<td>1444075</td>
+<td>2</td>
+<td>זו</td>
+<td>this</td>
+</tr>
+
+<tr>
+<td>1438655</td>
+<td>2</td>
+<td>לזה</td>
+<td>this there</td>
+</tr>
+
+<tr>
+<td>1443546</td>
+<td>1</td>
+<td>אלה</td>
+<td>these</td>
+</tr>
+
+<tr>
+<td>1445970</td>
+<td>1</td>
+<td>אל</td>
+<td>these</td>
+</tr>
+
+<tr>
+<td>1443998</td>
+<td>1</td>
+<td>לזו</td>
+<td>this there</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="most-frequent-interrogative-particles">Most frequent interrogative particles</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">get_lexeme_by_type</span><span class="p">(</span><span class="s1">&#39;inrg&#39;</span><span class="p">)</span>
+<span class="n">df_cloud</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;freq_lex&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">print_df</span> <span class="o">=</span> <span class="n">export_df_to_org_table</span><span class="p">(</span><span class="n">df_cloud</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>w</th>
+<th>freq_lex</th>
+<th>lex_utf8</th>
+<th>gloss</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1437821</td>
+<td>743</td>
+<td>ה</td>
+<td>&lt;interrogative&gt;</td>
+</tr>
+
+<tr>
+<td>1437877</td>
+<td>178</td>
+<td>למה</td>
+<td>why</td>
+</tr>
+
+<tr>
+<td>1438738</td>
+<td>72</td>
+<td>מדוע</td>
+<td>why</td>
+</tr>
+
+<tr>
+<td>1438719</td>
+<td>61</td>
+<td>איך</td>
+<td>how</td>
+</tr>
+
+<tr>
+<td>1438443</td>
+<td>45</td>
+<td>איה</td>
+<td>where</td>
+</tr>
+
+<tr>
+<td>1438846</td>
+<td>43</td>
+<td>מתי</td>
+<td>when</td>
+</tr>
+
+<tr>
+<td>1438396</td>
+<td>41</td>
+<td>אן</td>
+<td>whither</td>
+</tr>
+
+<tr>
+<td>1437815</td>
+<td>39</td>
+<td>אי</td>
+<td>where</td>
+</tr>
+
+<tr>
+<td>1440801</td>
+<td>17</td>
+<td>איכה</td>
+<td>how</td>
+</tr>
+
+<tr>
+<td>1438803</td>
+<td>17</td>
+<td>אין</td>
+<td>whence</td>
+</tr>
+
+<tr>
+<td>1439081</td>
+<td>10</td>
+<td>איפה</td>
+<td>where</td>
+</tr>
+
+<tr>
+<td>1445345</td>
+<td>6</td>
+<td>ה</td>
+<td>&lt;interrogative&gt;</td>
+</tr>
+
+<tr>
+<td>1445029</td>
+<td>4</td>
+<td>איככה</td>
+<td>how</td>
+</tr>
+
+<tr>
+<td>1444096</td>
+<td>3</td>
+<td>אהי</td>
+<td>where</td>
+</tr>
+
+<tr>
+<td>1445070</td>
+<td>2</td>
+<td>אי</td>
+<td>how</td>
+</tr>
+
+<tr>
+<td>1445785</td>
+<td>2</td>
+<td>היך</td>
+<td>how</td>
+</tr>
+
+<tr>
+<td>1441950</td>
+<td>1</td>
+<td>אל</td>
+<td>where</td>
+</tr>
+
+<tr>
+<td>1442508</td>
+<td>1</td>
+<td>איכה</td>
+<td>how</td>
+</tr>
+</tbody>
+</table>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:fn-1"><dl>
+<dd>I will have to double check this. What I understood from the
+documentation of the API is that the lexemes do not have vowel pointing, however
+the shin/sin seems to have diacritics so I had to remove the diacritics of each
+word, because the word cloud was not properly rendered with diacritics.</dd>
+</dl>
+ <a class="footnote-return" href="#fnref:fn-1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/scriptures" term="scriptures" label="scriptures" />
+                             
+                                <category scheme="https://albertdelafuente.com/categories/development" term="development" label="development" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/hebrew" term="hebrew" label="hebrew" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/python" term="python" label="python" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/bhsa" term="bhsa" label="BHSA" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/codex" term="codex" label="codex" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Learning hebrew like a geek]]></title>
+            <link href="https://albertdelafuente.com/posts/lhlg/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/bhs/?utm_source=atom_feed" rel="related" type="text/html" title="Analyzing the Biblia Hebraica Stuttgartensia with Text Fabric in Python" />
+                <link href="https://albertdelafuente.com/exobrain/20220128220728-curso_de_hebreo_de_emc_shalom_colombia/?utm_source=atom_feed" rel="related" type="text/html" title="Curso de hebreo de EMC Shalom Colombia" />
+                <link href="https://albertdelafuente.com/exobrain/20220129174154-how_to_configure_the_keyboard_layout_for_hebrew/?utm_source=atom_feed" rel="related" type="text/html" title="How to configure the keyboard layout for Hebrew (biblicalSIL, phonetic, etc)" />
+                <link href="https://albertdelafuente.com/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/?utm_source=atom_feed" rel="related" type="text/html" title="How to parse the Aleppo codex and analyze its content in python" />
+                <link href="https://albertdelafuente.com/exobrain/20220130183606-how_to_use_dictd/?utm_source=atom_feed" rel="related" type="text/html" title="How to use dictd with hebrew dictionaries" />
+            
+                <id>https://albertdelafuente.com/posts/lhlg/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2022-06-01T00:00:00-03:00</published>
+            <updated>2023-08-13T11:28:22-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>The other day I was thinking about some practical way of learning hebrew,
+something dynamic that tickles my scientist curiosity. And I thought, wouldn&rsquo;t
+it be cool if I could parse one of the hebrew codexes and get the top 20 most
+frequent words of a chapter or a book? Well this is an attempt to answer these
+type of questions.</p>
+
+<h2 id="how">How?</h2>
+
+<p>So I rolled my sleeves and I thought: I will google the Aleppo codex in plain
+text so I can download it and later use it for analysis. The problem is, I
+couldn&rsquo;t find it&hellip;</p>
+
+<p>The next challenge then is, how can I produce a plain text version of the Aleppo
+codex? I thought about parsing a mysword module, which are in reality a sqlite
+database so that should be easy&hellip; but then when I was doing something totally
+unrelated (probably around the bees or my first batch of mead) it hit me&hellip; I
+have several bibles from the Sword project already installed on my notebook and
+is all OSS, so&hellip; there is probably a python wrapper around diatheke or
+similar&hellip; and sure it is =)</p>
+
+<p>If you want the technicalities, go read my note on <a href="/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/">How to parse the Aleppo codex
+and analyze its content in python</a>.</p>
+
+<p>But if you are not a geekie human, you probably are interested only in the
+results rather than the bits and bytes. This is why I splitted the whole thing
+in two notes, one more IT related and one more Hebrew related. So here we go,
+brace yourselves this is probably going to be long.</p>
+
+<p>I am not sure on how to &ldquo;slice&rdquo; the codex so the chunks makes sense for an
+analysis, for instance: per chapter? Per book? Per &ldquo;stories&rdquo;? Or even other
+slicing like Torah, Neviim and Ketuvim. Since it is not clear I will start
+slicing by books at first.</p>
+
+<h2 id="assumptions-and-limitations">Assumptions and limitations</h2>
+
+<p>Hebrew has some peculiarities one of them being the vowel pointing. This brings
+a ton of challenges. For the sake of simplicity I had to stick to a codex that
+does not include niqqud whatsoever. I am not sure if this is a good approach or
+not because two different words without niqqud can render the same writing yet
+have totally different meaning.</p>
+
+<p>Another problem is that there are words that are trivially known like לא (h2834)
+or אל (h3882); or words that are not translated yet used very much like את
+(h7073). I have implemented a filter to have the possibility to skip these
+words. Not because they are not relevant, the Aleph-Tav has a ton of secrets and
+importance. But there are mixed together some irrelevant tokens considered as
+words, like opening and closing brackets and parenthesis or similar. So I
+implemented a list to ignore these words that are rather known or really
+irrelevant.</p>
+
+<h2 id="interesting-findings">Interesting findings</h2>
+
+<p>It was rather interesting to me how fast the repetitions decline on unfiltered
+words. For instance the most used word is the  את (h854) with 7073 occurrences.
+Yet 30 words later in a row, there is a 90% decline in occurrences, משה (h) with
+704 occurrences.</p>
+
+<h2 id="experiments-organized-by-sections">Experiments organized by sections</h2>
+
+<h3 id="full-tanakh-top-20-words-unfiltered">Full Tanakh - top 20 words - unfiltered</h3>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/lhlg_tanakh_nofilter.png"/> </figure>
+
+
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Count</th>
+<th>Strong</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>את</td>
+<td>7073</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>יהוה</td>
+<td>5611</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3068/esv/wlc/0-1/">h3068</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>אשר</td>
+<td>4629</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h834/esv/wlc/0-1/">h834</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>אל</td>
+<td>3882</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h410/esv/wlc/0-1/">h410</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>כי</td>
+<td>3553</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3588/esv/wlc/0-1/">h3588</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>על</td>
+<td>3140</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/">h5921</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>לא</td>
+<td>2834</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/">h3809</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>כל</td>
+<td>2757</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/">h5921</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>ואת</td>
+<td>2190</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>ישראל</td>
+<td>2085</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3479/esv/wlc/0-1/">h3479</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>ויאמר</td>
+<td>2043</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a></td>
+<td>Related</td>
+</tr>
+
+<tr>
+<td>בני</td>
+<td>1650</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1123/esv/wlc/0-1/">h1123</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>בן</td>
+<td>1607</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1121/esv/wlc/0-1/">h1121</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>ולא</td>
+<td>1447</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/">h3809</a></td>
+<td>Related</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="full-tanakh-top-50-words-unfiltered">Full Tanakh - Top 50 words - unfiltered</h3>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/lhlg_tanakh_top50.png"/> </figure>
+
+
+<p>The words from above as the top 20, plus the following words</p>
+
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Count</th>
+<th>Strong</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>לו</td>
+<td>1045</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3863/esv/wlc/0-1/">h3863</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>איש</td>
+<td>1027</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h376/esv/wlc/0-1/">h376</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>המלך</td>
+<td>1014</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h4428/esv/wlc/0-1/">h4428</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>בית</td>
+<td>1003</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1004/esv/wlc/0-1/">h1004</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>מלך</td>
+<td>1000</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h4427/esv/wlc/0-1/">h4427</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>הוא</td>
+<td>910</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1931/esv/wlc/0-1/">h1931</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>עד</td>
+<td>904</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5704/esv/wlc/0-1/">h5704</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>לאמר</td>
+<td>897</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a> / <a href="https://www.blueletterbible.org/lexicon/564/esv/wlc/0-1/">564</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>לך</td>
+<td>871</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>הארץ</td>
+<td>856</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h776/esv/wlc/0-1/">h776</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>ויהי</td>
+<td>808</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>אמר</td>
+<td>797</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>דבר</td>
+<td>787</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1697/esv/wlc/0-1/">h1697</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>העם</td>
+<td>724</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5971/esv/wlc/0-1/">h5971</a></td>
+<td>Related</td>
+</tr>
+
+<tr>
+<td>וכל</td>
+<td>712</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3606/esv/wlc/0-1/">h3606</a></td>
+<td>Related</td>
+</tr>
+
+<tr>
+<td>משה</td>
+<td>704</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h4872/esv/wlc/0-1/">h4872</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>שם</td>
+<td>681</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h8043/esv/wlc/0-1/">h8043</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>מן</td>
+<td>661</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h4478/esv/wlc/0-1/">h4478</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>לי</td>
+<td>660</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>הזה</td>
+<td>650</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1957/esv/wlc/0-1/">h1957</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>אני</td>
+<td>635</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h589/esv/wlc/0-1/">h589</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>יהודה</td>
+<td>632</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3063/esv/wlc/0-1/">h3063</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>לפני</td>
+<td>615</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3942/esv/wlc/0-1/">h3942</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>להם</td>
+<td>607</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3859/esv/wlc/0-1/">h3859</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>אם</td>
+<td>607</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h518/esv/wlc/0-1/">h518</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>אלהים</td>
+<td>597</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h430/esv/wlc/0-1/">h430</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>אדני</td>
+<td>587</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h136/esv/wlc/0-1/">h136</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>דוד</td>
+<td>583</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1730/esv/wlc/0-1/">h1730</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>אתה</td>
+<td>582</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h857/esv/wlc/0-1/">h857</a></td>
+<td></td>
+</tr>
+
+<tr>
+<td>עם</td>
+<td>582</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5973/esv/wlc/0-1/">h5973</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="torah">Torah</h3>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/lhlg_torah_wc.png"/> </figure>
+
+
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Count</th>
+<th>Strong</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>את</td>
+<td>2569</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>אשר</td>
+<td>1617</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>יהוה</td>
+<td>1493</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>אל</td>
+<td>1241</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>על</td>
+<td>949</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>כל</td>
+<td>921</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>כי</td>
+<td>895</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>לא</td>
+<td>861</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>ואת</td>
+<td>809</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>בני</td>
+<td>620</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>ויאמר</td>
+<td>619</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>משה</td>
+<td>598</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>ישראל</td>
+<td>508</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>ס</td>
+<td>491</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>הוא</td>
+<td>420</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>הארץ</td>
+<td>352</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>ולא</td>
+<td>345</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+
+<tr>
+<td>לו</td>
+<td>330</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h/esv/wlc/0-1/">h</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="experiments-organized-by-books">Experiments organized by books</h2>
+
+<h3 id="genesis">Genesis</h3>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/genesis.png"/> </figure>
+
+
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Count</th>
+<th>Strong</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>את</td>
+<td>658</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
+</tr>
+
+<tr>
+<td>אשר</td>
+<td>351</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h834/esv/wlc/0-1/">h834</a></td>
+</tr>
+
+<tr>
+<td>ויאמר</td>
+<td>337</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h559/esv/wlc/0-1/">h559</a></td>
+</tr>
+
+<tr>
+<td>אל</td>
+<td>335</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h410/esv/wlc/0-1/">h410</a></td>
+</tr>
+
+<tr>
+<td>כי</td>
+<td>263</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3588/esv/wlc/0-1/">h3588</a></td>
+</tr>
+
+<tr>
+<td>ואת</td>
+<td>205</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h854/esv/wlc/0-1/">h854</a></td>
+</tr>
+
+<tr>
+<td>על</td>
+<td>203</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h5921/esv/wlc/0-1/">h5921</a></td>
+</tr>
+
+<tr>
+<td>כל</td>
+<td>199</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3605/esv/wlc/0-1/">h3605</a></td>
+</tr>
+
+<tr>
+<td>אלהים</td>
+<td>150</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h430/esv/wlc/0-1/">h430</a></td>
+</tr>
+
+<tr>
+<td>יוסף</td>
+<td>144</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3130/esv/wlc/0-1/">h3130</a></td>
+</tr>
+
+<tr>
+<td>יעקב</td>
+<td>142</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3290/esv/wlc/0-1/">h3290</a></td>
+</tr>
+
+<tr>
+<td>יהוה</td>
+<td>141</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3068/esv/wlc/0-1/">h3068</a></td>
+</tr>
+
+<tr>
+<td>לא</td>
+<td>137</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3809/esv/wlc/0-1/">h3809</a></td>
+</tr>
+
+<tr>
+<td>הארץ</td>
+<td>126</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h776/esv/wlc/0-1/">h776</a></td>
+</tr>
+
+<tr>
+<td>לו</td>
+<td>126</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h3863/esv/wlc/0-1/">h3863</a></td>
+</tr>
+
+<tr>
+<td>ויהי</td>
+<td>125</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1961/esv/wlc/0-1/">h1961</a></td>
+</tr>
+
+<tr>
+<td>בני</td>
+<td>118</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1123/esv/wlc/0-1/">h1123</a></td>
+</tr>
+
+<tr>
+<td>הוא</td>
+<td>110</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h1931/esv/wlc/0-1/">h1931</a></td>
+</tr>
+
+<tr>
+<td>אברהם</td>
+<td>108</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h85/esv/wlc/0-1/">h85</a></td>
+</tr>
+
+<tr>
+<td>שנה</td>
+<td>102</td>
+<td><a href="https://www.blueletterbible.org/lexicon/h8141/esv/wlc/0-1/">h8141</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The more I try to know, the less I feel I know&hellip; This coding-linguistic area is
+fascinating and intreaguing. I feel like a taxonomy of this area is needed.</p>
+
+<p>This will probaly take a lot of time, which I don&rsquo;t have. So I want to try to
+balance between being effective and being efficient. I cannot afford to spend
+much time with this project but on the other hand the Hebrew language is really
+really apealing to me. I have yet to find a balance on how to proceed.</p>
+
+<p>As part of documenting things I am going to include some very interesting
+resources that I have found.</p>
+
+<p>From the time I spent researching I would probably go with the BHSA DB. This is
+a proposed roadmap:</p>
+
+<ul>
+<li>Check the ETCBC/course materials for an introduction</li>
+<li>Check the BHSA/bigTables for Pandas examples and learn how to use it</li>
+<li>Reevaluate then</li>
+</ul>
+
+<p>Also, if focus is more in learning Hebrew, check the Parabible website which
+looks really lean and straigthforward.</p>
+
+<h3 id="bible-in-hebrew-demo"><a href="https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10">Bible in Hebrew Demo</a></h3>
+
+<ul>
+<li>Source: <a href="https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10">https://www.bibleinhebrew.com/bih/BiH_demo.php?uid=10</a></li>
+<li>Title: Bible in Hebrew Demo</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+
+<h3 id="see-hear-and-read-the-bible-in-hebrew-bibleinhebrew-dot-com"><a href="https://www.bibleinhebrew.com/bih/">See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com</a></h3>
+
+<ul>
+<li>Source: <a href="https://www.bibleinhebrew.com/bih/">https://www.bibleinhebrew.com/bih/</a></li>
+<li>Title: See, Hear, and Read the Bible in Hebrew - BibleinHebrew.com</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+
+<h3 id="parabible-genesis-1"><a href="https://parabible.com/Genesis/1">Parabible | Genesis 1</a></h3>
+
+<ul>
+<li>Source: <a href="https://parabible.com/Genesis/1">https://parabible.com/Genesis/1</a></li>
+<li>Title: Parabible | Genesis 1</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+
+<h3 id="github-jcuenod-awesome-bible-data-a-curated-list-of-generously-licensed-bible-data-dot"><a href="https://github.com/jcuenod/awesome-bible-data">GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.</a></h3>
+
+<ul>
+<li>Source: <a href="https://github.com/jcuenod/awesome-bible-data">https://github.com/jcuenod/awesome-bible-data</a></li>
+<li>Title: GitHub - jcuenod/awesome-bible-data: 😎 A curated list of generously licensed Bible data.</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+
+<h3 id="text-fabric-versus-shebanq-bhsa"><a href="https://etcbc.github.io/bhsa/mql/">Text-Fabric versus SHEBANQ - BHSA</a></h3>
+
+<ul>
+<li>Source: <a href="https://etcbc.github.io/bhsa/mql/">https://etcbc.github.io/bhsa/mql/</a></li>
+<li>Title: Text-Fabric versus SHEBANQ - BHSA</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+
+<h3 id="github-etcbc-course-materials-contains-scripts-to-learn-to-work-with-the-etcbc-database"><a href="https://github.com/ETCBC/course_materials">GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database</a></h3>
+
+<ul>
+<li>Source: <a href="https://github.com/ETCBC/course_materials">https://github.com/ETCBC/course_materials</a></li>
+<li>Title: GitHub - ETCBC/course_materials: Contains scripts to learn to work with the ETCBC database</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+
+<h3 id="bhsa-bigtablesp-dot-ipynb-at-master-etcbc-bhsa-github"><a href="https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb">bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub</a></h3>
+
+<ul>
+<li>Source: <a href="https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb">https://github.com/ETCBC/bhsa/blob/master/programs/bigTablesP.ipynb</a></li>
+<li>Title: bhsa/bigTablesP.ipynb at master · ETCBC/bhsa · GitHub</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+
+<h3 id="shebanq-words-words">Shebanq / Words <a href="https://shebanq.ancient-data.org/hebrew/words">Words</a></h3>
+
+<ul>
+<li>Source: <a href="https://shebanq.ancient-data.org/hebrew/words">https://shebanq.ancient-data.org/hebrew/words</a></li>
+<li>Title: Words</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+
+<h3 id="shebanq-text-2017-genesis-30-1">Shebanq / text <a href="https://shebanq.ancient-data.org/hebrew/text">[2017] Genesis 30:1</a></h3>
+
+<ul>
+<li>Source: <a href="https://shebanq.ancient-data.org/hebrew/text">https://shebanq.ancient-data.org/hebrew/text</a></li>
+<li>Title: [2017] Genesis 30:1</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+
+<h3 id="jupyter-notebook-viewer"><a href="https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb">Jupyter Notebook Viewer</a></h3>
+
+<ul>
+<li>Source: <a href="https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb">https://nbviewer.org/github/etcbc/bhsa/blob/master/tutorial/search.ipynb</a></li>
+<li>Title: Jupyter Notebook Viewer</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+
+<h3 id="oshb-read"><a href="https://hb.openscriptures.org/read/">OSHB Read</a></h3>
+
+<ul>
+<li>Source: <a href="https://hb.openscriptures.org/read/">https://hb.openscriptures.org/read/</a></li>
+<li>Title: OSHB Read</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+
+<h3 id="oshb-lexicon"><a href="http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html">OSHB Lexicon</a></h3>
+
+<ul>
+<li>Source: <a href="http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html">http://openscriptures.github.io/HebrewLexicon/HomeFiles/Lexicon.html</a></li>
+<li>Title: OSHB Lexicon</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+
+<h3 id="bible-online-learner"><a href="https://booge.eu/">Bible Online Learner</a></h3>
+
+<ul>
+<li>Source: <a href="https://booge.eu/">https://booge.eu/</a></li>
+<li>Title: Bible Online Learner</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+
+<h3 id="j-dot-ted-blakley-online-hebrew-resources"><a href="https://www.blakleycreative.com/jtb/HebrewOnline.htm">J. Ted Blakley — Online Hebrew Resources</a></h3>
+
+<ul>
+<li>Source: <a href="https://www.blakleycreative.com/jtb/HebrewOnline.htm">https://www.blakleycreative.com/jtb/HebrewOnline.htm</a></li>
+<li>Title: J. Ted Blakley — Online Hebrew Resources</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+</ul>
+
+<h3 id="tanach-dot-us-text-files-webservice-text-files">Tanach.us text files webservice <a href="https://www.tanach.us/Pages/TextFiles.html">Text files</a></h3>
+
+<ul>
+<li>Source: <a href="https://www.tanach.us/Pages/TextFiles.html">https://www.tanach.us/Pages/TextFiles.html</a></li>
+<li>Title: Text files</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-06 Mon]</span></span></li>
+<li>Command: wget &ndash;user-agent=&rdquo; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&rdquo; &ldquo;<a href="http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;layout=Text-only&amp;content=Consonants">http://tanach.us/Server.txt?Deuteronomy26:1-1&amp;layout=Text-only&amp;content=Consonants</a>&ldquo;</li>
+</ul>
+
+<h3 id="removing-vowels-from-hebrew-unicode-text-github"><a href="https://gist.github.com/yakovsh/345a71d841871cc3d375">Removing Vowels from Hebrew Unicode Text · GitHub</a></h3>
+
+<ul>
+<li>Source: <a href="https://gist.github.com/yakovsh/345a71d841871cc3d375">https://gist.github.com/yakovsh/345a71d841871cc3d375</a></li>
+<li>Title: Removing Vowels from Hebrew Unicode Text · GitHub</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+
+<h3 id="shoroshim-dot-pdf"><a href="https://halakhah.com/rst/shoroshim.pdf">shoroshim.pdf</a></h3>
+
+<ul>
+<li>Source: <a href="https://halakhah.com/rst/shoroshim.pdf">https://halakhah.com/rst/shoroshim.pdf</a></li>
+<li>Title:</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+
+<h3 id="unfoldingword-hebrew-grammar-unfoldingword-hebrew-grammar-1-documentation"><a href="https://uhg.readthedocs.io/en/latest/front.html">unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation</a></h3>
+
+<ul>
+<li>Source: <a href="https://uhg.readthedocs.io/en/latest/front.html">https://uhg.readthedocs.io/en/latest/front.html</a></li>
+<li>Title: unfoldingWord® Hebrew Grammar — unfoldingWord® Hebrew Grammar 1 documentation</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2022-06-05 Sun]</span></span></li>
+</ul>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/scriptures" term="scriptures" label="scriptures" />
+                             
+                                <category scheme="https://albertdelafuente.com/categories/development" term="development" label="development" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/hebrew" term="hebrew" label="hebrew" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/python" term="python" label="python" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/aleppo" term="aleppo" label="Aleppo" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/codex" term="codex" label="codex" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

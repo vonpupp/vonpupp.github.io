@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[system on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/tags/system/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/tags/system/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
+            <link href="https://albertdelafuente.com/tags/system/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/tags/system/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2024-04-20T20:58:11-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/tags/system/</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to recover a GRUB bootloader on a filesystem with LUKS and LVM]]></title>
+            <link href="https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/?utm_source=atom_feed" rel="related" type="text/html" title="How to manually boot/recover a system with LUKS and LVM" />
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+                <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="related" type="text/html" title="How to publish a GPG key via DNS" />
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
+            
+                <id>https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2021-08-04T00:00:00-03:00</published>
+            <updated>2023-08-13T11:19:32-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<div class="ox-hugo-toc toc">
+
+<div class="heading">Table of Contents</div>
+
+<ul>
+<li><a href="#optional--create-a-boot-flash-disk-using-android">(OPTIONAL) Create a boot flash disk using android</a>
+    - <a href="#etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository">EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</a></li>
+<li><a href="#mounting-and-chrooting-the-system">Mounting and chrooting the system</a></li>
+<li><a href="#edit-the-etc-default-grub-file">Edit the /etc/default/grub file</a></li>
+<li><a href="#config-and-install-grub-and-create-the-ramdisk">Config and install GRUB and create the ramdisk</a></li>
+<li><a href="#references">References</a>
+
+<ul>
+<li><a href="#solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums">[SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</a></li>
+</ul></li>
+</ul>
+
+<p></div>
+<!--endtoc--></p>
+
+<p>Recently an upgrade on my notebook went bad and broke something. I wasn&rsquo;t sure
+what went wrong but since I had just one system at that time, I had to figure
+out how to fix it with the help of my phone. Basically what I did is install
+EtchDroid to be able to download an iso and flash it to a flash drive on my
+phone directly. Later I could boot form that flash drive, mount the LUKS/LVM
+partitions and fix the bootloader. Here is a short how to.</p>
+
+<h2 id="optional--create-a-boot-flash-disk-using-android">(OPTIONAL) Create a boot flash disk using android</h2>
+
+<h4 id="etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository"><a href="https://f-droid.org/en/packages/eu.depau.etchdroid/">EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</a></h4>
+
+<ul>
+<li>Source: <a href="https://f-droid.org/en/packages/eu.depau.etchdroid/">https://f-droid.org/en/packages/eu.depau.etchdroid/</a></li>
+<li>Title: EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-05 Thu]</span></span></li>
+</ul>
+
+<h2 id="mounting-and-chrooting-the-system">Mounting and chrooting the system</h2>
+
+<p>#+begin_src sh</p>
+
+<p>cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm</p>
+
+<p>mount /dev/storage/root /mnt
+mount /dev/storage/home /mnt/home</p>
+
+<p>mount /dev/sda1 /mnt/boot</p>
+
+<p>cd <em>mnt
+mount -t proc /proc proc</em>
+#mount -t sysfs <em>sys sys</em>
+#mount -o bind <em>dev dev</em>
+mount -o bind <em>run run</em></p>
+
+<p>arch-chroot /mnt</p>
+
+<p>dhcpcd eth0
+#+end_src sh</p>
+
+<h2 id="edit-the-etc-default-grub-file">Edit the /etc/default/grub file</h2>
+
+<p>#+begin_src sh</p>
+
+<p>GRUB_CMDLINE_LINUX=&ldquo;cryptdevice=/dev/sda2:lvm&rdquo;
+  GRUB_PRELOAD_MODULES=&ldquo;part_gpt part_msdos cryptodisk luks&rdquo;
+#+end_src sh</p>
+
+<h2 id="config-and-install-grub-and-create-the-ramdisk">Config and install GRUB and create the ramdisk</h2>
+
+<p>#+begin_src sh</p>
+
+<p>grub-mkconfig &gt; /boot/grub/grub.cfg
+grub-install &ndash;efi-directory=/boot &ndash;target=x86_64-efi /dev/sda</p>
+
+<p>mkinitcpio -p linux
+#+end_src sh</p>
+
+<h2 id="references">References</h2>
+
+<h3 id="solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums"><a href="https://bbs.archlinux.org/viewtopic.php?id=246628">[SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</a></h3>
+
+<ul>
+<li>Source: <a href="https://bbs.archlinux.org/viewtopic.php?id=246628">https://bbs.archlinux.org/viewtopic.php?id=246628</a></li>
+<li>Title: [SOLVED] Grub with lvm on LUKS -&gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-04 Wed]</span></span></li>
+</ul>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/grub" term="grub" label="grub" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to manually boot/recover a system with LUKS and LVM]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+                <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="related" type="text/html" title="How to publish a GPG key via DNS" />
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
+            
+                <id>https://albertdelafuente.com/posts/20220109212259-how_to_manually_boot_recover_a_system_with_luks_and_lvm/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2016-11-22T00:00:00-02:00</published>
+            <updated>2023-08-13T11:20:59-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>I have been using LVM on top of LUKS for more than 2 years without problems.
+However since I haven&rsquo;t had the chance to troubleshoot these technologies in
+the past I was quite concerned of what would happen when I would have problems.
+Today my main computer didn&rsquo;t boot up and I had to fix it manually. This
+post shows the steps I performed to recover my system.</p>
+
+<p>I use Arch Linux and I prepared a repository with my custom install method
+based on archinstaller. Basically I have a custom partitioning based on LVM on
+top of LUKS and some variables to start he installing method.</p>
+
+<p>Here is an overview of the parts on this tutorial:</p>
+
+<h2 id="tutorial-overview">Tutorial overview</h2>
+
+<ol>
+<li>Create a bootable USB and boot the broken system with it (AKA recovery mode**</li>
+<li>Chroot into the system</li>
+<li>Fix the issue</li>
+</ol>
+
+<h2 id="assumptions">Assumptions</h2>
+
+<p>I will assume that the error is similar as mine. After opening the LUKS device,
+I had the following problem:
+<code>ERROR: device /dev/mapper/storage-root not found</code>.</p>
+
+<h2 id="create-a-bootable-usb">Create a bootable USB</h2>
+
+<p>To create a bootable USB you need to download the latest Arch Linux iso and
+then us <code>dd</code> to dump it to a flash drive.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dd <span class="nv">bs</span><span class="o">=</span>4M <span class="k">if</span><span class="o">=</span>/path/to/archlinux.iso <span class="nv">of</span><span class="o">=</span>/dev/sdx <span class="nv">status</span><span class="o">=</span>progress <span class="o">&amp;&amp;</span> sync</code></pre></div>
+<p>After completion, use the same flash drive to boot the broken computer. You
+generally need to hit a key on the <code>F5</code> - <code>F6</code> range to choose the boot method.</p>
+
+<h2 id="chroot-into-the-system">Chroot into the system</h2>
+
+<p>Once the system has booted, now we need to mount everything the system would
+mount on a boot stage.  Adapt the LUKS label and LVM devices according to your
+needs.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Open the LUKS device.</span>
+cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm
+
+<span class="c1"># Mount the root partition</span>
+mount /dev/storage/root /mnt
+
+<span class="c1"># Mount the boot partition</span>
+mount /dev/sda1 /mnt/boot
+
+<span class="c1"># Mount proc, sys and dev</span>
+mount -t proc proc proc/
+mount -t sysfs sys sys/
+mount -o <span class="nb">bind</span> /dev dev/
+
+<span class="c1"># Switch to bash</span>
+bash
+
+<span class="c1"># Chroot</span>
+chroot /mnt
+
+<span class="c1"># Bring up network if needed</span>
+dhcpcd eth0</code></pre></div>
+<p>At this point you should have shell with a recovery environment set to fix the
+issue, so let&rsquo;s fix it.</p>
+
+<h2 id="fix-the-issue">Fix the issue</h2>
+
+<p>To fix the issue we basically are going to perform an upgrade an recreate the
+initial ramdisk</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># Update the packages database</span>
+pacman -Syy
+
+<span class="c1"># Upgrade the packages</span>
+pacman -Syu
+
+<span class="c1"># Update udev package</span>
+pacman -S udev
+
+<span class="c1"># Update mkinitcpio package</span>
+pacman -S mkinitcpio
+
+<span class="c1"># Recreate the initial ramdisk</span>
+mkinitcpio -p linux
+
+<span class="c1"># Exit the chroot environment</span>
+<span class="nb">exit</span>
+
+<span class="c1"># Reboot</span>
+reboot</code></pre></div>
+<p>If everything went well, you now should be able to boot the system properly.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>I was quite worried about how to solve this issue due to the several layers of
+complexity: GPT, LUKS and LVM, however everything went out quite smoothly. The
+key part is to use a USB flash drive and then mount the boot and root
+partitions to recreate the ramdisk.</p>
+
+<p>Thanks for reading. Spot an error or want to explain something better, feel
+free to send me a PR.</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[How to publish a GPG key via DNS]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="related" type="text/html" title="Resizing lvm on luks" />
+            
+                <id>https://albertdelafuente.com/posts/20220109212103-how_to_publish_a_gpg_key_via_dns/</id>
+            
+            
+                    <author>
+                        <name>Albert</name>
+                    </author>
+            <published>2016-11-13T00:00:00-02:00</published>
+            <updated>2023-08-13T11:22:29-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>Publishing keys is quite common. One nice way to do so is by using the Public
+Key Association (PKA) DNS record. Basically this is a record that points to a
+file that can be downloaded over the internet. This method is an alternative
+(not exclusive) to using keyservers.</p>
+
+<p>One of the problems of keyservers (in my opinion), is the problem of deleting
+old keys. I pretty much like the idea of PGP keyserver which verifies
+periodically by sending an email if the address is still in use and therefore
+maintain that <code>uid</code> of the key. The only problem is that the PGP server is
+centralized and it does not use FLOSS standards.</p>
+
+<p>I understand that deleting a key on a distributed environment is hard and
+probably maintaining a history of deletions as done actually on most of
+keyservers is still a good solution. However since I don&rsquo;t use GPG very often
+and I am not publishing my key yet, I wanted to try PKA.</p>
+
+<p>This tutorial is made of two basic parts, first creating a TXT DNS record and
+then verifying that the key gets downloaded properly.</p>
+
+<h3 id="tutorial-overview">Tutorial overview</h3>
+
+<ol>
+<li>Creating the TXT DNS record</li>
+<li>Testing the PKA record</li>
+</ol>
+
+<h2 id="assumptions">Assumptions</h2>
+
+<p>I assume that you have gpg installed and that you know the basic idea on how it
+works, that you know what a private and a public keys are for and how to use
+them.</p>
+
+<h2 id="creating-the-txt-dns-record">Creating the TXT DNS record</h2>
+
+<p>To create the TXT DNS record you will need to know the fingerprint of the key.
+To do so:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ gpg --list-keys vonpupp@keybase.io
+pub   rsa2048/0x536814BF4871A220 <span class="m">2016</span>-11-12 <span class="o">[</span>SC<span class="o">]</span> <span class="o">[</span>expires: <span class="m">2018</span>-11-12<span class="o">]</span>
+      Key <span class="nv">fingerprint</span> <span class="o">=</span> F0B9 B3FB 25E9 <span class="m">1209</span> 728E  <span class="m">4844</span> <span class="m">5368</span> 14BF <span class="m">4871</span> A220
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente &lt;vonpupp@keybase.io&gt;
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Social email address<span class="o">)</span> &lt;vonpupp@gmail.com&gt;
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Main email address<span class="o">)</span> &lt;mail@albertdelafuente.com&gt;
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Haevas email address<span class="o">)</span> &lt;albert@haevas.com&gt;
+      uid                   <span class="o">[</span>ultimate<span class="o">]</span> Albert De La Fuente <span class="o">(</span>Academic email address<span class="o">)</span> &lt;albert@ime.usp.br&gt;
+      sub   rsa2048/0xE2977BF3F82AB971 <span class="m">2016</span>-11-12 <span class="o">[</span>E<span class="o">]</span> <span class="o">[</span>expires: <span class="m">2018</span>-11-12<span class="o">]</span></code></pre></div>
+<p>In my case, the fingerprint is <strong>F0B9 B3FB 25E9 1209 728E  4844 5368 14BF 4871
+A220</strong>, or <strong>0x536814BF4871A220</strong> for short.</p>
+
+<p>Then you need to export the key with:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ gpg --export -a 0x536814BF4871A220 &gt; public-0x536814BF4871A220.asc</code></pre></div>
+<p>Then create a TXT record where:</p>
+
+<h2 id="the-name-part">The <code>Name</code> part:</h2>
+
+<p>Is composed of <code>mailbox</code>._pka.albertdelafuente.com. So for
+instance if my email is <code>long-anti-spam-email-address@albertdelafuentedotcom</code>,
+then the name part should be
+<code>long-anti-spam-email-address._pka.albertdelafuente.com</code>.</p>
+
+<h2 id="the-text-data">The <code>Text</code> data:</h2>
+
+<p>Contains the <code>fingerprint</code> and the <code>URL</code> where to download the key. In my case:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">  <span class="s2">&#34;v=pka1;fpr=F0B9B3FB25E91209728E4844536814BF4871A220;uri=http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc&#34;</span></code></pre></div>
+<p>Do not forget to upload the key to match the <code>uri</code> as on the TXT record. In my case:
+<a href="http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc">http://albertdelafuente.com/media/files/public-0x536814BF4871A220.asc</a></p>
+
+<h2 id="testing-the-pka-record">Testing the PKA record</h2>
+
+<p>Once done that you can download the key (just for testing purposes) on another computer or VM as follows:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ <span class="nb">echo</span> <span class="s2">&#34;Test message&#34;</span> <span class="p">|</span> gpg --auto-key-locate pka -ear mail@albertdelafuente.com</code></pre></div>
+<p>In my case this will prompt you with a confirmation since my primary uid does
+not match the email. This is made in purpose because I have read that some
+spammers are using keyservers to get valid email addresses, therefore I always
+use keybase as my primary id.</p>
+
+<p>You will see something similar to this as the output:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">gpg: <span class="nv">directory</span> <span class="o">=</span>/home/vagrant/.gnupg<span class="s1">&#39; created
+</span><span class="s1">gpg: new configuration file =/home/vagrant/.gnupg/gpg.conf&#39;</span> created
+gpg: WARNING: options <span class="nv">in</span> <span class="o">=</span>/home/vagrant/.gnupg/gpg.conf<span class="s1">&#39; are not yet active during this run
+</span><span class="s1">gpg: keyring =/home/vagrant/.gnupg/secring.gpg&#39;</span> created
+gpg: <span class="nv">keyring</span> <span class="o">=</span>/home/vagrant/.gnupg/pubring.gpg<span class="s1">&#39; created
+</span><span class="s1">gpg: requesting key 4871A220 from http server albertdelafuente.com
+</span><span class="s1">gpg: /home/vagrant/.gnupg/trustdb.gpg: trustdb created
+</span><span class="s1">gpg: key 4871A220: public key &#34;Albert De La Fuente &lt;vonpupp@keybase.io&gt;&#34; imported
+</span><span class="s1">gpg: Total number processed: 1
+</span><span class="s1">gpg:               imported: 1  (RSA: 1)
+</span><span class="s1">gpg: automatically retrieved =mail@albertdelafuente.com&#39;</span> via PKA
+gpg: F82AB971: There is no assurance this key belongs to the named user
+
+pub  2048R/F82AB971 <span class="m">2016</span>-11-12 Albert De La Fuente &lt;vonpupp@keybase.io&gt;
+ Primary key fingerprint: F0B9 B3FB 25E9 <span class="m">1209</span> 728E  <span class="m">4844</span> <span class="m">5368</span> 14BF <span class="m">4871</span> A220
+      Subkey fingerprint: 7A10 07B4 3F49 <span class="m">5317</span> 5DE0  52E8 E297 7BF3 F82A B971
+
+It is NOT certain that the key belongs to the person named
+in the user ID.  If you *really* know what you are doing,
+you may answer the next question with yes.
+
+Use this key anyway? <span class="o">(</span>y/N<span class="o">)</span> y
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+
+hQEMA+KXe/P4KrlxAQf/d1yxYFBSPs0RKHJ98w+s82jK25R/IXCiFNe6BkX+oyp+
+uh+4AObx93SuJ/ryHlthHQmnpid4BQWmhmCksiAH+xD1xrlrCDIsNQfJ5+aPQXjz
++Z6iKrWy8Lk13i6u3wgMZuk2eKN9Z1ppi15arXhFc93cta5p5K5tAH7CwMd5zP93
+r7wgI2Jff+x3erN0zbkJ2PZgDrHZVLVWyOnwgRBw12N8El3L8i6JFbNY+g25AMUm
+MMCPSTit8ILsFoPtkrJEOdq5p5aCw3dvIVSzmxflMJEsgqO+Per+KxtMehaBF5qX
+I2TzltcgjlisSJ3rcBtjpm12rSVJrPs4BG2UKz0w6tJIAbF0FLlWXe8zMJMK1E3Q
+BQ7y/gjTduiuuD++qyIxqWCoLCgHixvP4WiTPbbKvoXl4BP8Bf1ED9M/0Cyss2NI
+<span class="nv">tW7vVlLcXRQb</span>
+<span class="o">=</span>gdKa
+-----END PGP MESSAGE-----</code></pre></div>
+<h2 id="conclusions">Conclusions</h2>
+
+<p>As you can see it is not that hard to publish a public key via DNS. You need to
+export your key to a file and upload it and then create a TXT record relating
+the fingerprint and the location of the key. You may also publish your key on a
+keyserver also since not everybody retrieve the keys over DNS.</p>
+
+<p>Thanks for reading. Spot an error or want to explain something better, feel
+free to send me a PR.</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/gpg" term="gpg" label="gpg" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/dns" term="dns" label="dns" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Resizing lvm on luks]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+                <link href="https://albertdelafuente.com/posts/20220109211826-configuring_pacsrv_and_powerpill_on_arch_linux/?utm_source=atom_feed" rel="related" type="text/html" title="Configuring pacsrv and powerpill on Arch Linux" />
+            
+                <id>https://albertdelafuente.com/posts/20220109211911-resizing_lvm_on_luks/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2015-11-01T00:00:00-02:00</published>
+            <updated>2023-08-13T11:23:43-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<h2 id="how-to-manually-boot-recover-a-system-with-luks-and-lvm">How to manually boot/recover a system with LUKS and LVM</h2>
+
+<p>I have been using LVM on top of LUKS for more than 2 years without problems. However since I haven&rsquo;t had the chance to troubleshoot these technologies in the past I was quite concerned of what would happen when I would have problems. Today my main computer didn&rsquo;t boot up and I had to fix it manually. This post shows the steps I performed to recover my system.</p>
+
+<h3 id="intro">Intro</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">cryptsetup luksOpen /dev/sda2 cryptlvm
+
+e2fsck -f /dev/mapper/storage-home
+
+resize2fs -p /dev/mapper/storage-home 200g
+
+e2fsck -f /dev/mapper/storage-home
+
+<span class="o">(</span>lvdisplay<span class="o">)</span>
+lvreduce -L -15.68G /dev/storage/home
+<span class="o">(</span>lvdisplay<span class="o">)</span>
+
+<span class="o">[</span>lvresize -l +100%FREE /dev/storate/root<span class="o">]</span>
+
+e2fsck -f /dev/mapper/storage-root
+
+resize2fs /dev/mapper/storage-root
+
+cryptsetup luksClose /dev/sda2 cryptlvm
+
+
+<span class="c1">### NOT NEEDED</span>
+
+<span class="o">(</span>pvdisplay<span class="o">)</span>
+pvresize --sephysicalvolumesize 218G /dev/mapper/cryptlvm
+
+/dev/mapper/cryptlvm is active and is in use
+  type:    LUKS1
+  cipher:  aes-xts-plain64
+  keysize: <span class="m">256</span> bits
+  device:  /dev/sda2
+  offset:  <span class="m">4096</span> sectors
+  size:    <span class="m">487981391</span> sectors
+  mode:    read/write
+
+<span class="nv">NEW_SECTORS</span> <span class="o">=</span> EXISTING_SECTORS * NEW_SIZE_IN_GB / EXISTING_SIZE_IN_GB
+<span class="m">487981391</span> * <span class="m">200</span>.7 / <span class="m">232</span>.7   <span class="o">=</span> <span class="m">420876085</span>
+<span class="o">(</span><span class="m">487981391</span> - <span class="m">15</span>*1024*1024*2 <span class="o">=</span> <span class="m">456524111</span><span class="o">)</span>
+
+cryptsetup -b <span class="m">420876085</span> resize cryptlvm
+
+<span class="o">(</span>cryptsetup status cryptlvm<span class="o">)</span>
+
+parted /dev/sda
+
+resize</code></pre></div>]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/linux" term="linux" label="linux" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/archlinux" term="archlinux" label="archlinux" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/system" term="system" label="system" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/luks" term="luks" label="luks" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/lvm" term="lvm" label="lvm" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

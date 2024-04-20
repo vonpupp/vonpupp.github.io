@@ -12,7 +12,7 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 10 Dec 2023 09:46:47 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 20 Apr 2024 20:58:11 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/tags/exobrain/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -28,15 +28,18 @@ ago where I parsed the client requirements relationships into a graph and I
 could determine the priorities of modules development based on that. Good
 souvenirs. This original idea came from an analysis I did on my social
 networks out of curiosity and I could identify and &lt;a href=&#34;https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/&#34;&gt;find communities on graphs&lt;/a&gt;.&lt;/p&gt;
+
 &lt;p&gt;Now I am using org-roam as my notes management app. It is great and it works on
 top of org-mode and of course Emacs. Not everyone feels comfortable with this
 since it requires to be okay with technical bits and bytes. I just love it&amp;hellip;&lt;/p&gt;
+
 &lt;p&gt;I started using v1.0 which did not supported to map org headings but only file
 top headers. This was brilliant already enough in itself. With v2.0 org-roam
 included the ability to map headers also. What was good became even better! The
 only caveat at that time is that org-roam-server stopped working. That is
 understandable. Now there is a new project called org-roam-ui which is basically
 org-roam-server for v2.0 with headings support.&lt;/p&gt;
+
 &lt;p&gt;Recently I trimmed my DB, I am trying to find a balance between using headings
 and not using headings. My Emacs default config used to creat UUIDs for each
 heading. This was good at first but I had to adapt this for org-roam v2.0&amp;hellip; I
@@ -44,17 +47,23 @@ had +9000 notes, which is unpractical to be honest&amp;hellip; So I cleared the 
 the headers of several files that were not needed and now I have +3000 notes. It
 is still too much IMO, so further trimming is needed but that cleanup needs more
 thought.&lt;/p&gt;
+
 &lt;p&gt;Now lets preview this thing&amp;hellip; Most screenshots have been anonimized.  At the
 time of this writing this is how my notes looks like. Keep in mind that out of
 all of my notes, only a few selected ones are shared here on my website.&lt;/p&gt;
+
 &lt;p&gt;I am going to show first a little video sample&lt;/p&gt;
+
 
 &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
   &lt;iframe src=&#34;https://www.youtube.com/embed/YCaotPnKU5w&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
 &lt;/div&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:full-headings&#34;&gt;1&lt;/a&gt; is how the exobrain looks considering all notes&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:full-headings&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -70,8 +79,11 @@ all of my notes, only a few selected ones are shared here on my website.&lt;/p&g
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:only-headers&#34;&gt;2&lt;/a&gt; is how the exobrain looks only considering the file headers and subheadings.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:only-headers&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -87,8 +99,11 @@ all of my notes, only a few selected ones are shared here on my website.&lt;/p&g
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:only-headers&#34;&gt;2&lt;/a&gt; shows my Emacs configuration file cluster and how it relates to other notes.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:doom-emacs-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -104,8 +119,11 @@ all of my notes, only a few selected ones are shared here on my website.&lt;/p&g
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:parashot-notes&#34;&gt;4&lt;/a&gt; shows my parashot study notes.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:parashot-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -121,9 +139,12 @@ all of my notes, only a few selected ones are shared here on my website.&lt;/p&g
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:beekeeping-notes&#34;&gt;5&lt;/a&gt;
 shows my beekeeping notes and log, which is quite extensive by the way.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:beekeeping-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -139,9 +160,12 @@ shows my beekeeping notes and log, which is quite extensive by the way.&lt;/p&gt
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:trading-testing-notes&#34;&gt;6&lt;/a&gt;
 shows my testing trading notes. I developed my own tool to document my simulated tradings and tests.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:trading-testing-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -157,12 +181,15 @@ shows my testing trading notes. I developed my own tool to document my simulated
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:trading-testing-notes&#34;&gt;6&lt;/a&gt; shows my simulated trading log. I integrated my
 own python tool with yasnippets, so Emacs could get all the goodies out of it.
 The result is a very detailed (and possibly overkill) simulated trade log. This
 is going to probably be decoupled from my org-roam database. I don&amp;rsquo;t really need
 to search on all of that.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:trading-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -178,9 +205,12 @@ to search on all of that.&lt;/p&gt;
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:bots-notes&#34;&gt;8&lt;/a&gt;
 shows my research notes on automated trading strategies.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:bots-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -196,9 +226,12 @@ shows my research notes on automated trading strategies.&lt;/p&gt;
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:agroforestry-notes&#34;&gt;9&lt;/a&gt;
 shows my research notes on agroforestry.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:agroforestry-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -214,9 +247,12 @@ shows my research notes on agroforestry.&lt;/p&gt;
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:journal-2022-notes&#34;&gt;10&lt;/a&gt;
 shows my journal of the current year 2022. TODO&amp;rsquo;s tasks and how they integrate with the rest of the notes.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:journal-2022-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -232,9 +268,12 @@ shows my journal of the current year 2022. TODO&amp;rsquo;s tasks and how they i
                 
             &lt;/figcaption&gt;&lt;/figure&gt;
 
+
 &lt;p&gt;Figure &lt;a href=&#34;#figure--fig:homestead-notes&#34;&gt;11&lt;/a&gt;
 shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
+
 &lt;p&gt;&lt;a id=&#34;figure--fig:homestead-notes&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 
 
 
@@ -291,7 +330,7 @@ shows my homesteading notes and all the ongoing projects.&lt;/p&gt;
                     
                 
                 <guid>https://albertdelafuente.com/posts/20220612002812-exploring_my_exo_brain/</guid>
-                <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
+                <pubDate>Sun, 12 Jun 2022 00:00:00 -0300</pubDate>
             </item>
         
     </channel>

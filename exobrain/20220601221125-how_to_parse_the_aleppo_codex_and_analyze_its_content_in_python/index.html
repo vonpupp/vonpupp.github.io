@@ -22,20 +22,6 @@
 
     
     
-    <!-- Google Analytics -->
-    <script type="application/javascript">
-     
-     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
-         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
-         ga('create', 'UA-27656036-2', 'auto');
-         ga('require', 'linkid'); 
-         ga('send', 'pageview');
-     }
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
-
-
 
     
     
@@ -74,9 +60,9 @@
     
     
     
-    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    <link rel="stylesheet" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css">
     
-    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+    <link rel="preload" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css" as="style">
 
     
 
@@ -180,15 +166,15 @@
     
 
     
-    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    <script src="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js"></script>
     
-    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+    <link rel="preload" href="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js" as="script">
 
     
     
-    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    <script defer src="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js"></script>
     
-    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js" as="script">
 
     
 
@@ -214,7 +200,7 @@
 <meta property="og:description"
       content="These notes are part of the blog post I wrote in my quest of trying to learn Hebrew. Maybe you want to check that out first for proper context.
 Some important notes to keep in mind:
-I am applying literate programming for some lisp code that I write to maintain my Doom Emacs configuration. I am using pysword which is a wrapper in python around the Sword project. So I already have the bible modules correctly correctly installed on my computer." />
+ I am applying literate programming for some lisp code that I write to maintain my Doom Emacs configuration. I am using pysword which is a wrapper in python around the Sword project. So I already have the bible modules correctly correctly installed on my computer." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://albertdelafuente.com/exobrain/20220601221125-how_to_parse_the_aleppo_codex_and_analyze_its_content_in_python/" />
 
@@ -243,7 +229,7 @@ I am applying literate programming for some lisp code that I write to maintain m
 <meta name="twitter:title" content="How to parse the Aleppo codex and analyze its content in python"/>
 <meta name="twitter:description" content="These notes are part of the blog post I wrote in my quest of trying to learn Hebrew. Maybe you want to check that out first for proper context.
 Some important notes to keep in mind:
-I am applying literate programming for some lisp code that I write to maintain my Doom Emacs configuration. I am using pysword which is a wrapper in python around the Sword project. So I already have the bible modules correctly correctly installed on my computer."/>
+ I am applying literate programming for some lisp code that I write to maintain my Doom Emacs configuration. I am using pysword which is a wrapper in python around the Sword project. So I already have the bible modules correctly correctly installed on my computer."/>
 <meta name="twitter:site" content="@vonpupp"/>
     <meta name="twitter:creator" content="@vonpupp"/>
 
@@ -275,9 +261,9 @@ I am applying literate programming for some lisp code that I write to maintain m
     
     
     
-    <meta name="hugo-build-date" content=""/>
-    <meta name="hugo-commit-hash" content=""/>
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="hugo-build-date" content="2019-09-11T08:16:28-0400"/>
+    <meta name="hugo-commit-hash" content="5276f1e9:chroma-26f03cb"/>
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
 </head>
 
 
@@ -497,98 +483,99 @@ I am applying literate programming for some lisp code that I write to maintain m
 
 
 <p>These notes are part of the <a href="http://albertdelafuente.com/posts/20220530210526-learning_hebrew_like_a_geek/">blog post</a> I wrote in my quest of trying to learn Hebrew. Maybe you want to check that out first for proper context.</p>
+
 <p>Some important notes to keep in mind:</p>
+
 <ul>
 <li>I am applying <a href="http://howardism.org/Technical/Emacs/literate-programming-tutorial.html">literate programming</a> for some lisp code that I write to maintain my <a href="https://github.com/doomemacs/doomemacs">Doom Emacs</a> configuration.</li>
 <li>I am using pysword which is a wrapper in python around <a href="https://www.crosswire.org/sword/">the Sword project</a>. So I already have the bible modules correctly correctly installed on my computer.</li>
 <li>I am using several other libs like <code>nltk</code> for natural language processing, and others to generate the plots of the wordcloud</li>
 <li>I use Arch Linux as my OS. I thought at first of using jupyter notebook to be able to execute blocks. Influenced by my love for <a href="https://en.wikipedia.org/wiki/Smalltalk">Smalltalk</a>, I thought there should be a Melpa package to execute chunks of code and lo and behold, I discovered <code>org-babel-eval-in-repl</code>, which does exactly that&hellip; So I installed it on emacs.</li>
 </ul>
+
 <p>With that in mind&hellip; lets start&hellip;</p>
+
 <p>This chunk is needed to install jupyter-notebook, which is not used here at this time, but I am looking forward to integrate it with Emacs also. So take this sections as a minor and irrelevant parenthesis for the time being.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo pacman -S jupyter-notebook python-ipykernel python-ipython-genutils
-</span></span></code></pre></div><p>Now lets get it done&hellip; First of all, create a virtual environment and install the libs</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">virtualenv ~/tmp/venv-geek-hebrew
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/tmp/venv-geek-hebrew
-</span></span><span class="line"><span class="cl"><span class="nb">source</span> ./bin/activate.fish
-</span></span><span class="line"><span class="cl">pip install pysword nltk matplotlib wordcloud
-</span></span></code></pre></div><p>Within emacs, you need to load the virtual environment by using <code>pyvenv</code> to create a session:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">pyvenv-activate</span> <span class="s">&#34;/home/av/tmp/venv-geek-hebrew&#34;</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pysword.modules</span> <span class="kn">import</span> <span class="n">SwordModules</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">nltk</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">nltk.probability</span> <span class="kn">import</span> <span class="n">FreqDist</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">urllib.request</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">modules</span> <span class="o">=</span> <span class="n">SwordModules</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="n">found_modules</span> <span class="o">=</span> <span class="n">modules</span><span class="o">.</span><span class="n">parse_modules</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="n">bible</span> <span class="o">=</span> <span class="n">modules</span><span class="o">.</span><span class="n">get_bible_from_module</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Aleppo&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">pentateuch_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Genesis&#39;</span><span class="p">,</span> <span class="s1">&#39;Exodus&#39;</span><span class="p">,</span> <span class="s1">&#39;Leviticus&#39;</span><span class="p">,</span> <span class="s1">&#39;Numbers&#39;</span><span class="p">,</span> <span class="s1">&#39;Deuteronomy&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">historical_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Joshua&#39;</span><span class="p">,</span> <span class="s1">&#39;Judges&#39;</span><span class="p">,</span> <span class="s1">&#39;Ruth&#39;</span><span class="p">,</span> <span class="s1">&#39;I Samuel&#39;</span><span class="p">,</span> <span class="s1">&#39;II Samuel&#39;</span><span class="p">,</span> <span class="s1">&#39;I Kings&#39;</span><span class="p">,</span> <span class="s1">&#39;II Kings&#39;</span><span class="p">,</span> <span class="s1">&#39;I Chronicles&#39;</span><span class="p">,</span> <span class="s1">&#39;II Chronicles&#39;</span><span class="p">,</span> <span class="s1">&#39;Ezra&#39;</span><span class="p">,</span> <span class="s1">&#39;Nehemiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Esther&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">wisdom_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Job&#39;</span><span class="p">,</span> <span class="s1">&#39;Psalms&#39;</span><span class="p">,</span> <span class="s1">&#39;Proverbs&#39;</span><span class="p">,</span> <span class="s1">&#39;Ecclesiastes&#39;</span><span class="p">,</span> <span class="s1">&#39;Song of Solomon&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">major_prophets_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Isaiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Jeremiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Lamentations&#39;</span><span class="p">,</span> <span class="s1">&#39;Ezekiel&#39;</span><span class="p">,</span> <span class="s1">&#39;Daniel&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">minor_prophets_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hosea&#39;</span><span class="p">,</span> <span class="s1">&#39;Joel&#39;</span><span class="p">,</span> <span class="s1">&#39;Amos&#39;</span><span class="p">,</span> <span class="s1">&#39;Obadiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Jonah&#39;</span><span class="p">,</span> <span class="s1">&#39;Micah&#39;</span><span class="p">,</span> <span class="s1">&#39;Nahum&#39;</span><span class="p">,</span> <span class="s1">&#39;Habakkuk&#39;</span><span class="p">,</span> <span class="s1">&#39;Zephaniah&#39;</span><span class="p">,</span> <span class="s1">&#39;Haggai&#39;</span><span class="p">,</span> <span class="s1">&#39;Zechariah&#39;</span><span class="p">,</span> <span class="s1">&#39;Malachi&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">christian_books</span> <span class="o">=</span> <span class="n">pentateuch_books</span> <span class="o">+</span> <span class="n">historical_books</span> <span class="o">+</span> <span class="n">wisdom_books</span> <span class="o">+</span> <span class="n">major_prophets_books</span> <span class="o">+</span> <span class="n">minor_prophets_books</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">torah_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Genesis&#39;</span><span class="p">,</span> <span class="s1">&#39;Exodus&#39;</span><span class="p">,</span> <span class="s1">&#39;Leviticus&#39;</span><span class="p">,</span> <span class="s1">&#39;Numbers&#39;</span><span class="p">,</span> <span class="s1">&#39;Deuteronomy&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">neviim_former_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Joshua&#39;</span><span class="p">,</span> <span class="s1">&#39;Judges&#39;</span><span class="p">,</span> <span class="s1">&#39;I Samuel&#39;</span><span class="p">,</span> <span class="s1">&#39;II Samuel&#39;</span><span class="p">,</span> <span class="s1">&#39;I Kings&#39;</span><span class="p">,</span> <span class="s1">&#39;II Kings&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">neviim_later_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Isaiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Jeremiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Ezekiel&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">neviim_minor_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hosea&#39;</span><span class="p">,</span> <span class="s1">&#39;Joel&#39;</span><span class="p">,</span> <span class="s1">&#39;Amos&#39;</span><span class="p">,</span> <span class="s1">&#39;Obadiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Jonah&#39;</span><span class="p">,</span> <span class="s1">&#39;Micah&#39;</span><span class="p">,</span> <span class="s1">&#39;Nahum&#39;</span><span class="p">,</span> <span class="s1">&#39;Habakkuk&#39;</span><span class="p">,</span> <span class="s1">&#39;Zephaniah&#39;</span><span class="p">,</span> <span class="s1">&#39;Haggai&#39;</span><span class="p">,</span> <span class="s1">&#39;Zechariah&#39;</span><span class="p">,</span> <span class="s1">&#39;Malachi&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">ketuvim_poetic_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Psalms&#39;</span><span class="p">,</span> <span class="s1">&#39;Proverbs&#39;</span><span class="p">,</span> <span class="s1">&#39;Job&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">ketuvim_five_megillot</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Song of Solomon&#39;</span><span class="p">,</span> <span class="s1">&#39;Ruth&#39;</span><span class="p">,</span> <span class="s1">&#39;Lamentations&#39;</span><span class="p">,</span> <span class="s1">&#39;Ecclesiastes&#39;</span><span class="p">,</span> <span class="s1">&#39;Esther&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">ketuvim_historical_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Daniel&#39;</span><span class="p">,</span> <span class="s1">&#39;Ezra&#39;</span><span class="p">,</span> <span class="s1">&#39;Nehemiah&#39;</span><span class="p">,</span> <span class="s1">&#39;I Chronicles&#39;</span><span class="p">,</span> <span class="s1">&#39;II Chronicles&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">judaism_books</span> <span class="o">=</span> <span class="n">torah_books</span> <span class="o">+</span> <span class="n">neviim_former_books</span> <span class="o">+</span> <span class="n">neviim_later_books</span> <span class="o">+</span> <span class="n">neviim_minor_books</span> <span class="o">+</span> <span class="n">ketuvim_poetic_books</span> <span class="o">+</span> <span class="n">ketuvim_five_megillot</span> <span class="o">+</span> <span class="n">ketuvim_historical_books</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">analyze_words</span><span class="p">(</span><span class="n">analysis_books</span><span class="p">,</span> <span class="n">analysis_word_count</span><span class="p">,</span> <span class="n">analysis_ignore_words</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">text</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">books</span><span class="o">=</span><span class="n">analysis_books</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">words</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Analizing the books of: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">analysis_books</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of words to consider: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">analysis_word_count</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ignoring the following words: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">analysis_ignore_words</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sample of text: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sample of tokens: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of words in the text is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">fdist</span> <span class="o">=</span> <span class="n">FreqDist</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fdist</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">analysis_word_count</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">#print(fdist)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">    <span class="n">all_words</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">fdist</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">#print(&#39;{}: {}&#39;.format(word, fdist[word]))</span>
-</span></span><span class="line"><span class="cl">        <span class="n">all_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="c1"># Yes, I know I should be using a while loop and I don&#39;t like this pattern</span>
-</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">analysis_word_count</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="k">break</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">(</span><span class="n">all_words</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generate_word_cloud</span><span class="p">(</span><span class="n">all_words</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">all_words_string</span> <span class="o">=</span> <span class="s2">&#34; &#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">all_words</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">wordcloud</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">#font_path = &#39;/usr/share/fonts/TTF/Cardo104s.ttf&#39;,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">font_path</span> <span class="o">=</span> <span class="s1">&#39;/usr/share/fonts/TTF/Cardob101.ttf&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">background_color</span><span class="o">=</span><span class="s2">&#34;white&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">relative_scaling</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">scale</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">all_words_string</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wordcloud</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&#34;off&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;block loaded&#39;</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">analysis_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Genesis&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">analysis_word_count</span> <span class="o">=</span> <span class="mi">300</span>
-</span></span><span class="line"><span class="cl"><span class="n">all_words</span> <span class="o">=</span> <span class="n">analyze_words</span><span class="p">(</span><span class="n">analysis_books</span><span class="p">,</span> <span class="n">analysis_word_count</span><span class="p">,</span> <span class="p">[])</span>
-</span></span><span class="line"><span class="cl"><span class="n">generate_word_cloud</span><span class="p">(</span><span class="n">all_words</span><span class="p">)</span>
-</span></span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo pacman -S jupyter-notebook python-ipykernel python-ipython-genutils</code></pre></div>
+<p>Now lets get it done&hellip; First of all, create a virtual environment and install the libs</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">virtualenv ~/tmp/venv-geek-hebrew
+<span class="nb">cd</span> ~/tmp/venv-geek-hebrew
+<span class="nb">source</span> ./bin/activate.fish
+pip install pysword nltk matplotlib wordcloud</code></pre></div>
+<p>Within emacs, you need to load the virtual environment by using <code>pyvenv</code> to create a session:</p>
+<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nv">pyvenv-activate</span> <span class="s">&#34;/home/av/tmp/venv-geek-hebrew&#34;</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pysword.modules</span> <span class="kn">import</span> <span class="n">SwordModules</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.probability</span> <span class="kn">import</span> <span class="n">FreqDist</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span>
+
+<span class="n">modules</span> <span class="o">=</span> <span class="n">SwordModules</span><span class="p">()</span>
+<span class="n">found_modules</span> <span class="o">=</span> <span class="n">modules</span><span class="o">.</span><span class="n">parse_modules</span><span class="p">()</span>
+<span class="n">bible</span> <span class="o">=</span> <span class="n">modules</span><span class="o">.</span><span class="n">get_bible_from_module</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Aleppo&#39;</span><span class="p">)</span>
+
+<span class="n">pentateuch_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Genesis&#39;</span><span class="p">,</span> <span class="s1">&#39;Exodus&#39;</span><span class="p">,</span> <span class="s1">&#39;Leviticus&#39;</span><span class="p">,</span> <span class="s1">&#39;Numbers&#39;</span><span class="p">,</span> <span class="s1">&#39;Deuteronomy&#39;</span><span class="p">]</span>
+<span class="n">historical_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Joshua&#39;</span><span class="p">,</span> <span class="s1">&#39;Judges&#39;</span><span class="p">,</span> <span class="s1">&#39;Ruth&#39;</span><span class="p">,</span> <span class="s1">&#39;I Samuel&#39;</span><span class="p">,</span> <span class="s1">&#39;II Samuel&#39;</span><span class="p">,</span> <span class="s1">&#39;I Kings&#39;</span><span class="p">,</span> <span class="s1">&#39;II Kings&#39;</span><span class="p">,</span> <span class="s1">&#39;I Chronicles&#39;</span><span class="p">,</span> <span class="s1">&#39;II Chronicles&#39;</span><span class="p">,</span> <span class="s1">&#39;Ezra&#39;</span><span class="p">,</span> <span class="s1">&#39;Nehemiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Esther&#39;</span><span class="p">]</span>
+<span class="n">wisdom_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Job&#39;</span><span class="p">,</span> <span class="s1">&#39;Psalms&#39;</span><span class="p">,</span> <span class="s1">&#39;Proverbs&#39;</span><span class="p">,</span> <span class="s1">&#39;Ecclesiastes&#39;</span><span class="p">,</span> <span class="s1">&#39;Song of Solomon&#39;</span><span class="p">]</span>
+<span class="n">major_prophets_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Isaiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Jeremiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Lamentations&#39;</span><span class="p">,</span> <span class="s1">&#39;Ezekiel&#39;</span><span class="p">,</span> <span class="s1">&#39;Daniel&#39;</span><span class="p">]</span>
+<span class="n">minor_prophets_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hosea&#39;</span><span class="p">,</span> <span class="s1">&#39;Joel&#39;</span><span class="p">,</span> <span class="s1">&#39;Amos&#39;</span><span class="p">,</span> <span class="s1">&#39;Obadiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Jonah&#39;</span><span class="p">,</span> <span class="s1">&#39;Micah&#39;</span><span class="p">,</span> <span class="s1">&#39;Nahum&#39;</span><span class="p">,</span> <span class="s1">&#39;Habakkuk&#39;</span><span class="p">,</span> <span class="s1">&#39;Zephaniah&#39;</span><span class="p">,</span> <span class="s1">&#39;Haggai&#39;</span><span class="p">,</span> <span class="s1">&#39;Zechariah&#39;</span><span class="p">,</span> <span class="s1">&#39;Malachi&#39;</span><span class="p">]</span>
+<span class="n">christian_books</span> <span class="o">=</span> <span class="n">pentateuch_books</span> <span class="o">+</span> <span class="n">historical_books</span> <span class="o">+</span> <span class="n">wisdom_books</span> <span class="o">+</span> <span class="n">major_prophets_books</span> <span class="o">+</span> <span class="n">minor_prophets_books</span>
+
+<span class="n">torah_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Genesis&#39;</span><span class="p">,</span> <span class="s1">&#39;Exodus&#39;</span><span class="p">,</span> <span class="s1">&#39;Leviticus&#39;</span><span class="p">,</span> <span class="s1">&#39;Numbers&#39;</span><span class="p">,</span> <span class="s1">&#39;Deuteronomy&#39;</span><span class="p">]</span>
+<span class="n">neviim_former_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Joshua&#39;</span><span class="p">,</span> <span class="s1">&#39;Judges&#39;</span><span class="p">,</span> <span class="s1">&#39;I Samuel&#39;</span><span class="p">,</span> <span class="s1">&#39;II Samuel&#39;</span><span class="p">,</span> <span class="s1">&#39;I Kings&#39;</span><span class="p">,</span> <span class="s1">&#39;II Kings&#39;</span><span class="p">]</span>
+<span class="n">neviim_later_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Isaiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Jeremiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Ezekiel&#39;</span><span class="p">]</span>
+<span class="n">neviim_minor_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hosea&#39;</span><span class="p">,</span> <span class="s1">&#39;Joel&#39;</span><span class="p">,</span> <span class="s1">&#39;Amos&#39;</span><span class="p">,</span> <span class="s1">&#39;Obadiah&#39;</span><span class="p">,</span> <span class="s1">&#39;Jonah&#39;</span><span class="p">,</span> <span class="s1">&#39;Micah&#39;</span><span class="p">,</span> <span class="s1">&#39;Nahum&#39;</span><span class="p">,</span> <span class="s1">&#39;Habakkuk&#39;</span><span class="p">,</span> <span class="s1">&#39;Zephaniah&#39;</span><span class="p">,</span> <span class="s1">&#39;Haggai&#39;</span><span class="p">,</span> <span class="s1">&#39;Zechariah&#39;</span><span class="p">,</span> <span class="s1">&#39;Malachi&#39;</span><span class="p">]</span>
+<span class="n">ketuvim_poetic_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Psalms&#39;</span><span class="p">,</span> <span class="s1">&#39;Proverbs&#39;</span><span class="p">,</span> <span class="s1">&#39;Job&#39;</span><span class="p">]</span>
+<span class="n">ketuvim_five_megillot</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Song of Solomon&#39;</span><span class="p">,</span> <span class="s1">&#39;Ruth&#39;</span><span class="p">,</span> <span class="s1">&#39;Lamentations&#39;</span><span class="p">,</span> <span class="s1">&#39;Ecclesiastes&#39;</span><span class="p">,</span> <span class="s1">&#39;Esther&#39;</span><span class="p">]</span>
+<span class="n">ketuvim_historical_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Daniel&#39;</span><span class="p">,</span> <span class="s1">&#39;Ezra&#39;</span><span class="p">,</span> <span class="s1">&#39;Nehemiah&#39;</span><span class="p">,</span> <span class="s1">&#39;I Chronicles&#39;</span><span class="p">,</span> <span class="s1">&#39;II Chronicles&#39;</span><span class="p">]</span>
+<span class="n">judaism_books</span> <span class="o">=</span> <span class="n">torah_books</span> <span class="o">+</span> <span class="n">neviim_former_books</span> <span class="o">+</span> <span class="n">neviim_later_books</span> <span class="o">+</span> <span class="n">neviim_minor_books</span> <span class="o">+</span> <span class="n">ketuvim_poetic_books</span> <span class="o">+</span> <span class="n">ketuvim_five_megillot</span> <span class="o">+</span> <span class="n">ketuvim_historical_books</span>
+
+<span class="k">def</span> <span class="nf">analyze_words</span><span class="p">(</span><span class="n">analysis_books</span><span class="p">,</span> <span class="n">analysis_word_count</span><span class="p">,</span> <span class="n">analysis_ignore_words</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">books</span><span class="o">=</span><span class="n">analysis_books</span><span class="p">)</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Analizing the books of: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">analysis_books</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Number of words to consider: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">analysis_word_count</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Ignoring the following words: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">analysis_ignore_words</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Sample of text: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Sample of tokens: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Total number of words in the text is: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)))</span>
+
+    <span class="n">fdist</span> <span class="o">=</span> <span class="n">FreqDist</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+    <span class="n">fdist</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="n">analysis_word_count</span><span class="p">)</span>
+    <span class="c1">#print(fdist)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">all_words</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">fdist</span><span class="p">:</span>
+        <span class="c1">#print(&#39;{}: {}&#39;.format(word, fdist[word]))</span>
+        <span class="n">all_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+        <span class="c1"># Yes, I know I should be using a while loop and I don&#39;t like this pattern</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">analysis_word_count</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">all_words</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">generate_word_cloud</span><span class="p">(</span><span class="n">all_words</span><span class="p">):</span>
+    <span class="n">all_words_string</span> <span class="o">=</span> <span class="s2">&#34; &#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">all_words</span><span class="p">)</span>
+    <span class="n">wordcloud</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span>
+        <span class="c1">#font_path = &#39;/usr/share/fonts/TTF/Cardo104s.ttf&#39;,</span>
+        <span class="n">font_path</span> <span class="o">=</span> <span class="s1">&#39;/usr/share/fonts/TTF/Cardob101.ttf&#39;</span><span class="p">,</span>
+        <span class="n">background_color</span><span class="o">=</span><span class="s2">&#34;white&#34;</span><span class="p">,</span>
+        <span class="n">relative_scaling</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">all_words_string</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wordcloud</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&#34;off&#34;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;block loaded&#39;</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">analysis_books</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Genesis&#39;</span><span class="p">]</span>
+<span class="n">analysis_word_count</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">all_words</span> <span class="o">=</span> <span class="n">analyze_words</span><span class="p">(</span><span class="n">analysis_books</span><span class="p">,</span> <span class="n">analysis_word_count</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">generate_word_cloud</span><span class="p">(</span><span class="n">all_words</span><span class="p">)</span></code></pre></div>
 
         </div>
     </div>
@@ -610,15 +597,10 @@ I am applying literate programming for some lisp code that I write to maintain m
 
  
     
-        <div class="hugotoc no-text-decoration">
-            <nav id="TableOfContents"></nav>
-            <a href="#" class="back-to-top">Back to top</a>
-        </div>
     
-    
-<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js"></script>
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js"></script>
 
-<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js" as="script">
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js" as="script">
 
 <script type="application/javascript">(function() {
      var $window = $(window);
@@ -820,6 +802,9 @@ I am applying literate programming for some lisp code that I write to maintain m
 
 
 
+ 
+    
+    
 
 
 
@@ -857,7 +842,7 @@ I am applying literate programming for some lisp code that I write to maintain m
 
 
 
-<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+<script defer src="/js/libs/fragmentions/wrapper.min.4c511209cd3786314b251d891c8da528b47a972669aa4eea416b64d4be01eee2.js"></script>
 
 
 

@@ -22,20 +22,6 @@
 
     
     
-    <!-- Google Analytics -->
-    <script type="application/javascript">
-     
-     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
-         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
-         ga('create', 'UA-27656036-2', 'auto');
-         ga('require', 'linkid'); 
-         ga('send', 'pageview');
-     }
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
-
-
 
     
     
@@ -74,9 +60,9 @@
     
     
     
-    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    <link rel="stylesheet" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css">
     
-    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+    <link rel="preload" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css" as="style">
 
     
 
@@ -180,15 +166,15 @@
     
 
     
-    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    <script src="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js"></script>
     
-    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+    <link rel="preload" href="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js" as="script">
 
     
     
-    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    <script defer src="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js"></script>
     
-    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js" as="script">
 
     
 
@@ -218,7 +204,7 @@
 
 
     
-        <meta property="article:published_time" content="2015-11-01T00:00:00&#43;00:00"/>
+        <meta property="article:published_time" content="2015-11-01T00:00:00-02:00"/>
     
     
         <meta property="article:modified_time" content="2023-08-13T11:23:43-03:00"/>
@@ -271,9 +257,9 @@
     
     
     
-    <meta name="hugo-build-date" content=""/>
-    <meta name="hugo-commit-hash" content=""/>
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="hugo-build-date" content="2019-09-11T08:16:28-0400"/>
+    <meta name="hugo-commit-hash" content="5276f1e9:chroma-26f03cb"/>
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
 </head>
 
 
@@ -460,7 +446,7 @@
     
     <div class="post-date">
         
-        <time datetime="2015-11-01T00:00:00+0000" class="dt-published">Sun Nov 1, 2015</time>
+        <time datetime="2015-11-01T00:00:00-0200" class="dt-published">Sun Nov 1, 2015</time>
         
         
             
@@ -517,56 +503,59 @@
 
 
 
+
+
 <h2 id="how-to-manually-boot-recover-a-system-with-luks-and-lvm">How to manually boot/recover a system with LUKS and LVM&nbsp;<a class="headline-hash no-text-decoration" href="#how-to-manually-boot-recover-a-system-with-luks-and-lvm">#</a> </h2>
+
 <p>I have been using LVM on top of LUKS for more than 2 years without problems. However since I haven&rsquo;t had the chance to troubleshoot these technologies in the past I was quite concerned of what would happen when I would have problems. Today my main computer didn&rsquo;t boot up and I had to fix it manually. This post shows the steps I performed to recover my system.</p>
+
 <h3 id="intro">Intro&nbsp;<a class="headline-hash no-text-decoration" href="#intro">#</a> </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cryptsetup luksOpen /dev/sda2 cryptlvm
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">e2fsck -f /dev/mapper/storage-home
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">resize2fs -p /dev/mapper/storage-home 200g
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">e2fsck -f /dev/mapper/storage-home
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">(</span>lvdisplay<span class="o">)</span>
-</span></span><span class="line"><span class="cl">lvreduce -L -15.68G /dev/storage/home
-</span></span><span class="line"><span class="cl"><span class="o">(</span>lvdisplay<span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">[</span>lvresize -l +100%FREE /dev/storate/root<span class="o">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">e2fsck -f /dev/mapper/storage-root
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">resize2fs /dev/mapper/storage-root
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">cryptsetup luksClose /dev/sda2 cryptlvm
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">### NOT NEEDED</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">(</span>pvdisplay<span class="o">)</span>
-</span></span><span class="line"><span class="cl">pvresize --sephysicalvolumesize 218G /dev/mapper/cryptlvm
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">/dev/mapper/cryptlvm is active and is in use
-</span></span><span class="line"><span class="cl">  type:    LUKS1
-</span></span><span class="line"><span class="cl">  cipher:  aes-xts-plain64
-</span></span><span class="line"><span class="cl">  keysize: <span class="m">256</span> bits
-</span></span><span class="line"><span class="cl">  device:  /dev/sda2
-</span></span><span class="line"><span class="cl">  offset:  <span class="m">4096</span> sectors
-</span></span><span class="line"><span class="cl">  size:    <span class="m">487981391</span> sectors
-</span></span><span class="line"><span class="cl">  mode:    read/write
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">NEW_SECTORS</span> <span class="o">=</span> EXISTING_SECTORS * NEW_SIZE_IN_GB / EXISTING_SIZE_IN_GB
-</span></span><span class="line"><span class="cl"><span class="m">487981391</span> * 200.7 / 232.7   <span class="o">=</span> <span class="m">420876085</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span><span class="m">487981391</span> - 15*1024*1024*2 <span class="o">=</span> 456524111<span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">cryptsetup -b <span class="m">420876085</span> resize cryptlvm
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">(</span>cryptsetup status cryptlvm<span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">parted /dev/sda
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">resize
-</span></span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">cryptsetup luksOpen /dev/sda2 cryptlvm
+
+e2fsck -f /dev/mapper/storage-home
+
+resize2fs -p /dev/mapper/storage-home 200g
+
+e2fsck -f /dev/mapper/storage-home
+
+<span class="o">(</span>lvdisplay<span class="o">)</span>
+lvreduce -L -15.68G /dev/storage/home
+<span class="o">(</span>lvdisplay<span class="o">)</span>
+
+<span class="o">[</span>lvresize -l +100%FREE /dev/storate/root<span class="o">]</span>
+
+e2fsck -f /dev/mapper/storage-root
+
+resize2fs /dev/mapper/storage-root
+
+cryptsetup luksClose /dev/sda2 cryptlvm
+
+
+<span class="c1">### NOT NEEDED</span>
+
+<span class="o">(</span>pvdisplay<span class="o">)</span>
+pvresize --sephysicalvolumesize 218G /dev/mapper/cryptlvm
+
+/dev/mapper/cryptlvm is active and is in use
+  type:    LUKS1
+  cipher:  aes-xts-plain64
+  keysize: <span class="m">256</span> bits
+  device:  /dev/sda2
+  offset:  <span class="m">4096</span> sectors
+  size:    <span class="m">487981391</span> sectors
+  mode:    read/write
+
+<span class="nv">NEW_SECTORS</span> <span class="o">=</span> EXISTING_SECTORS * NEW_SIZE_IN_GB / EXISTING_SIZE_IN_GB
+<span class="m">487981391</span> * <span class="m">200</span>.7 / <span class="m">232</span>.7   <span class="o">=</span> <span class="m">420876085</span>
+<span class="o">(</span><span class="m">487981391</span> - <span class="m">15</span>*1024*1024*2 <span class="o">=</span> <span class="m">456524111</span><span class="o">)</span>
+
+cryptsetup -b <span class="m">420876085</span> resize cryptlvm
+
+<span class="o">(</span>cryptsetup status cryptlvm<span class="o">)</span>
+
+parted /dev/sda
+
+resize</code></pre></div>
 
         </div>
     </div>
@@ -590,21 +579,23 @@
     
         <div class="hugotoc no-text-decoration">
             <nav id="TableOfContents">
-  <ul>
-    <li><a href="#how-to-manually-boot-recover-a-system-with-luks-and-lvm">How to manually boot/recover a system with LUKS and LVM</a>
-      <ul>
-        <li><a href="#intro">Intro</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#how-to-manually-boot-recover-a-system-with-luks-and-lvm">How to manually boot/recover a system with LUKS and LVM</a>
+<ul>
+<li><a href="#intro">Intro</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
             <a href="#" class="back-to-top">Back to top</a>
         </div>
     
     
-<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js"></script>
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js"></script>
 
-<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js" as="script">
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js" as="script">
 
 <script type="application/javascript">(function() {
      var $window = $(window);
@@ -824,6 +815,9 @@
 
 
 
+ 
+    
+    
 
 
 
@@ -861,7 +855,7 @@
 
 
 
-<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+<script defer src="/js/libs/fragmentions/wrapper.min.4c511209cd3786314b251d891c8da528b47a972669aa4eea416b64d4be01eee2.js"></script>
 
 
 

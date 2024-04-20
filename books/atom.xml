@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
-    <generator uri="https://gohugo.io/" version="0.119.0">Hugo</generator><title type="html"><![CDATA[Books on Albert De La Fuente's site]]></title>
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[Books on Albert De La Fuente's site]]></title>
     
         <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
     
     
     
-            <link href="https://albertdelafuente.com/books/" rel="alternate" type="text/html" title="html" />
-            <link href="https://albertdelafuente.com/books/index.xml" rel="alternate" type="application/rss+xml" title="rss" />
+            <link href="https://albertdelafuente.com/books/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/books/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
             <link href="https://albertdelafuente.com/books/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
             <link href="https://albertdelafuente.com/books/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
-    <updated>2023-12-10T09:46:47-03:00</updated>
+    <updated>2024-04-20T20:58:11-03:00</updated>
     
     
     <author>

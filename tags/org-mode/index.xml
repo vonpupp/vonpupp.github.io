@@ -12,7 +12,7 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 10 Dec 2023 09:46:47 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 20 Apr 2024 20:58:11 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/tags/org-mode/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -23,7 +23,10 @@
                 <link>https://albertdelafuente.com/posts/sandbox/</link>
                 
                 
-                <description>&lt;p&gt;Okay this is like my fifth attempt to blog and so far, unsuccessfully.&lt;/p&gt;
+                <description>
+
+&lt;p&gt;Okay this is like my fifth attempt to blog and so far, unsuccessfully.&lt;/p&gt;
+
 &lt;p&gt;My first couple of blogs were on blogspot around 2005 or so, later I switched to
 dokuwiki, which is awesome but it didn&amp;rsquo;t integrated well on my workflow. So I
 tried some extensions to try to write directly in markdown but it didn&amp;rsquo;t work
@@ -31,92 +34,124 @@ well for me. Then I moved to Hyde, which a Python static website generator. I
 invested quite some time customizing everything to my needs and while it was
 functional, I had to write in markdown (which I don&amp;rsquo;t like&amp;hellip;). I tried to write
 in RST at that time without success.&lt;/p&gt;
+
 &lt;p&gt;Then I moved from Vim to &lt;a href=&#34;https://gnu.org/software/emacs/&#34;&gt;Emacs&lt;/a&gt; and discovered &lt;a href=&#34;http://orgmode.org/&#34;&gt;org-mode&lt;/a&gt;&amp;hellip; And yeah, everything
 changed&amp;hellip; I love Emacs+Org-Mode and I used quite a lot (and I still use Vim
 occasionally).&lt;/p&gt;
+
 &lt;p&gt;I wanted to write directly in Org-Mode for my new blog to see if content flows
 this time (hopefully) and I can achieve the integration I was looking for all
 these years.&lt;/p&gt;
+
 &lt;p&gt;The version of this blog uses plain Org-Mode and Hugo with ox-hugo as a middle
 helper. So far, so good, I just migrated my old posts which are few in number.&lt;/p&gt;
+
 &lt;p&gt;What I am looking forward is to create a mix of a Blog and a digital garden for
 my notes (also known as second brain or exobrain).&lt;/p&gt;
+
 &lt;p&gt;The rest of the file is actually a sandbox of general Org-Mode formatting to
 check out how it renders on Hugo itself.&lt;/p&gt;
+
 &lt;h2 id=&#34;this-is-h1&#34;&gt;This is H1&lt;/h2&gt;
+
 &lt;p&gt;There is paragraph under h1&lt;/p&gt;
+
 &lt;h3 id=&#34;h2&#34;&gt;H2&lt;/h3&gt;
+
 &lt;!--list-separator--&gt;
+
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;H3&lt;/p&gt;
-&lt;p&gt;Something&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;H3&lt;/p&gt;
+
+&lt;p&gt;Something&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;!--list-separator--&gt;
+
 &lt;ul&gt;
 &lt;li&gt;H3 with a tag &lt;span class=&#34;tag&#34;&gt;&lt;span class=&#34;sometag&#34;&gt;sometag&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h2 id=&#34;some-basic-test&#34;&gt;Some basic test&lt;/h2&gt;
+
 &lt;p&gt;This is &lt;strong&gt;bold&lt;/strong&gt;, &lt;em&gt;italic&lt;/em&gt;, &lt;code&gt;code&lt;/code&gt;, &lt;code&gt;verbatim&lt;/code&gt; and &lt;del&gt;strike&lt;/del&gt; text.&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;However &lt;strong&gt;&lt;em&gt;bold and italic&lt;/em&gt;&lt;/strong&gt; doesn&amp;rsquo;t play well when used together like in markdown.&lt;/li&gt;
 &lt;li&gt;However &lt;em&gt;&lt;strong&gt;bold and italic&lt;/strong&gt;&lt;/em&gt; doesn&amp;rsquo;t play well when used together like in markdown.&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h2 id=&#34;list&#34;&gt;List&lt;/h2&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Bullet&lt;/li&gt;
 &lt;li&gt;Another bullet
+
 &lt;ul&gt;
 &lt;li&gt;child
+
 &lt;ul&gt;
 &lt;li&gt;deep&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+
 &lt;h3 id=&#34;other-style&#34;&gt;Other style&lt;/h3&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Bullet&lt;/li&gt;
 &lt;li&gt;Another bullet
+
 &lt;ul&gt;
 &lt;li&gt;child
+
 &lt;ul&gt;
 &lt;li&gt;deep&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;other-style&#34;&gt;Other style&lt;/h3&gt;
+
+&lt;h3 id=&#34;other-style-1&#34;&gt;Other style&lt;/h3&gt;
+
 &lt;ol&gt;
 &lt;li&gt;Bullet&lt;/li&gt;
 &lt;li&gt;Another bullet
+
 &lt;ol&gt;
 &lt;li&gt;child
+
 &lt;ol&gt;
 &lt;li&gt;deep&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
+
 &lt;p&gt;Style &lt;code&gt;*&lt;/code&gt; isn&amp;rsquo;t supported.&lt;/p&gt;
+
 &lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+
 &lt;p&gt;&lt;a href=&#34;http://orgmode.org/&#34;&gt;link to org mode homepage&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;check-list&#34;&gt;Check List &lt;code&gt;[1/3]&lt;/code&gt; &lt;code&gt;[33%]&lt;/code&gt;&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Checked item&lt;/li&gt;
+
+&lt;h2 id=&#34;check-list&#34;&gt;Check List &lt;code&gt;[&lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt;]&lt;/code&gt; &lt;code&gt;[33%]&lt;/code&gt;&lt;/h2&gt;
+
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; Item&lt;/label&gt;&lt;/li&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; Item&lt;/label&gt;&lt;/li&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; checked disabled class=&#34;task-list-item&#34;&gt; Checked item&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;Heading and has special class however &lt;code&gt;&amp;lt;ul&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;li&amp;gt;&lt;/code&gt; are plain.&lt;/p&gt;
+
 &lt;h2 id=&#34;task-list&#34;&gt;Task List&lt;/h2&gt;
+
 &lt;h3 id=&#34;some-to-do&#34;&gt;&lt;span class=&#34;org-todo todo TODO&#34;&gt;TODO&lt;/span&gt; some to-do&lt;/h3&gt;
+
 &lt;h3 id=&#34;done-to-do&#34;&gt;&lt;span class=&#34;org-todo done DONE&#34;&gt;DONE&lt;/span&gt; done to-do&lt;/h3&gt;
+
 &lt;p&gt;Items are added with special class.&lt;/p&gt;
+
 &lt;h2 id=&#34;tables&#34;&gt;Tables&lt;/h2&gt;
+
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -124,57 +159,79 @@ check out how it renders on Hugo itself.&lt;/p&gt;
 &lt;th&gt;description&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
+
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;1&lt;/td&gt;
 &lt;td&gt;looooong long name&lt;/td&gt;
 &lt;/tr&gt;
+
 &lt;tr&gt;
 &lt;td&gt;5&lt;/td&gt;
 &lt;td&gt;name&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
 &lt;p&gt;&lt;code&gt;&amp;lt;tr&amp;gt;&lt;/code&gt; has &lt;code&gt;even&lt;/code&gt; and &lt;code&gt;odd&lt;/code&gt; classes.&lt;/p&gt;
+
 &lt;h2 id=&#34;source-code&#34;&gt;Source Code&lt;/h2&gt;
+
 &lt;p&gt;&lt;strong&gt;Emacs Lisp:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;defun&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;negate&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s&#34;&gt;&amp;#34;Negate the value of x.&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;negate&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are interesting classes like &lt;code&gt;sourceCode&lt;/code&gt; and &lt;code&gt;example&lt;/code&gt;.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;defun&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;negate&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;s&#34;&gt;&amp;#34;Negate the value of x.&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;negate&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There are interesting classes like &lt;code&gt;sourceCode&lt;/code&gt; and &lt;code&gt;example&lt;/code&gt;.
 Also there html5 attributes prefixed with &lt;code&gt;rundoc-&lt;/code&gt;.&lt;/p&gt;
+
 &lt;p&gt;&lt;strong&gt;Haskell:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-haskell&#34; data-lang=&#34;haskell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;factorial&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;factorial&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;factorial&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;factorial&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;latex&#34;&gt;LaTeX&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-haskell&#34; data-lang=&#34;haskell&#34;&gt;&lt;span class=&#34;nf&#34;&gt;factorial&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;
+&lt;span class=&#34;nf&#34;&gt;factorial&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;span class=&#34;nf&#34;&gt;factorial&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;factorial&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;latex&#34;&gt;LaTeX&lt;/h2&gt;
+
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Characters:&lt;/strong&gt; α β → ↑ \or \and \implies π ∞&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Characters:&lt;/strong&gt; &amp;alpha; &amp;beta; &amp;rarr; &amp;uarr; \or \and \implies &amp;pi; &amp;infin;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Inline Math:&lt;/strong&gt; \(f(x) = x^2\)&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;More complex:&lt;/strong&gt; \(\frac{x^2}{2}\)&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;LaTeX characters are wrapped in &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; and Math inside &lt;code&gt;&amp;lt;span class=&amp;quot;math inline&amp;quot;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
 &lt;h3 id=&#34;mathscr-hello&#34;&gt;\mathscr{Hello!}&lt;/h3&gt;
+
 &lt;p&gt;\begin{align*}
-8 * 3 &amp;amp;= 8 + 8 \\
-&amp;amp;= 24
+  8 * 3 &amp;amp;= 8 + 8 \&lt;br /&gt;
+        &amp;amp;= 24
 \end{align*}&lt;/p&gt;
+
 &lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; &lt;em&gt;There is standard LaTeX embeded above which is skipped during compilation to HTML.&lt;/em&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;strong&gt;This is using&lt;/strong&gt; &lt;a href=&#34;https://www.mathjax.org/&#34;&gt;MathJax&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;\[\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}\]&lt;/p&gt;
+
 &lt;h2 id=&#34;deadline&#34;&gt;Deadline&lt;/h2&gt;
+
 &lt;h2 id=&#34;tagged&#34;&gt;Tagged &lt;span class=&#34;tag&#34;&gt;&lt;span class=&#34;tag&#34;&gt;tag&lt;/span&gt;&lt;/span&gt;&lt;/h2&gt;
+
 &lt;p&gt;Tags are not visible in render&lt;/p&gt;
+
 &lt;h2 id=&#34;block-quote&#34;&gt;Block Quote&lt;/h2&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;Org mode is amazing. So is Hakyll &amp;amp; Pandoc.&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;h2 id=&#34;image&#34;&gt;Image&lt;/h2&gt;
+
 &lt;p&gt;&lt;a href=&#34;http://media.riffsy.com/images/f8534774b678ad1932b379a03460680b/raw&#34;&gt;http://media.riffsy.com/images/f8534774b678ad1932b379a03460680b/raw&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;Images has to have extension like:&lt;/p&gt;
+
 &lt;p&gt;then it can be loaded even from other origin..&lt;/p&gt;
+
 
 
 
@@ -183,7 +240,9 @@ Also there html5 attributes prefixed with &lt;code&gt;rundoc-&lt;/code&gt;.&lt;/
         
             &lt;img src=&#34;https://media.tenor.com/Vkid3xkvTAMAAAAd/dog-in-space-dog.gif&#34;/&gt; &lt;/figure&gt;
 
+
 &lt;h2 id=&#34;description-list&#34;&gt;Description List&lt;/h2&gt;
+
 &lt;dl&gt;
 &lt;dt&gt;Frodo&lt;/dt&gt;
 &lt;dd&gt;The hobbit ringbearer&lt;/dd&gt;
@@ -192,6 +251,7 @@ Also there html5 attributes prefixed with &lt;code&gt;rundoc-&lt;/code&gt;.&lt;/
 &lt;dt&gt;Gandalf&lt;/dt&gt;
 &lt;dd&gt;The Grey Wizard&lt;/dd&gt;
 &lt;/dl&gt;
+
 &lt;p&gt;creddits to &lt;a href=&#34;https://www.reddit.com/user/nihilmancer&#34;&gt;nihilmancer&lt;/a&gt;&lt;/p&gt;
 </description>
                 
@@ -224,7 +284,7 @@ Also there html5 attributes prefixed with &lt;code&gt;rundoc-&lt;/code&gt;.&lt;/
                     
                 
                 <guid>https://albertdelafuente.com/posts/sandbox/</guid>
-                <pubDate>Fri, 07 Aug 2020 00:00:00 +0000</pubDate>
+                <pubDate>Fri, 07 Aug 2020 00:00:00 -0300</pubDate>
             </item>
         
     </channel>

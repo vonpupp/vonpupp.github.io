@@ -22,20 +22,6 @@
 
     
     
-    <!-- Google Analytics -->
-    <script type="application/javascript">
-     
-     if(navigator.userAgent.indexOf("Speed Insights") == -1) {
-         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date; 
-         ga('create', 'UA-27656036-2', 'auto');
-         ga('require', 'linkid'); 
-         ga('send', 'pageview');
-     }
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
-
-
 
     
     
@@ -74,9 +60,9 @@
     
     
     
-    <link rel="stylesheet" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css">
+    <link rel="stylesheet" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css">
     
-    <link rel="preload" href="/css/refined.min.58e89ada38269a3bb449e27e9e7aea51120635f87ecb008b883ee86b30d6dd6b.css" as="style">
+    <link rel="preload" href="/css/refined.min.7ec1151eedd5c95ab67f128c8ed9ec469e4525c460604dd9b823e8baf3599b24.css" as="style">
 
     
 
@@ -180,15 +166,15 @@
     
 
     
-    <script src="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js"></script>
+    <script src="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js"></script>
     
-    <link rel="preload" href="/js/responsive-nav-orig.min.e2b5f2a956b488f466da513820636134defdc38b90ed566248960593f2bb4ba5.js" as="script">
+    <link rel="preload" href="/js/responsive-nav-orig.min.355eebd835ac8071d56b337f68ffbbddc0f6487625599895e3e0b0461e791ebb.js" as="script">
 
     
     
-    <script defer src="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js"></script>
+    <script defer src="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js"></script>
     
-    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.ff4d50a4c0c1d811d4910eb648811ac9021a1cb6fece2dfd8c6c271d0cdacd0b.js" as="script">
+    <link rel="preload" href="/js/libs/fa/fontawesome-all.min.78bd3583027f40ce4330d39e1f1df56bda5f4af819aac2d0214ba529918c9e95.js" as="script">
 
     
 
@@ -219,10 +205,10 @@ Now I am using org-roam as my notes management app." />
 
 
     
-        <meta property="article:published_time" content="2022-06-12T00:00:00&#43;00:00"/>
+        <meta property="article:published_time" content="2022-06-12T00:00:00-03:00"/>
     
     
-        <meta property="article:modified_time" content="2023-08-13T11:05:12-03:00"/>
+        <meta property="article:modified_time" content="2024-04-20T20:35:29-03:00"/>
     
 
 
@@ -273,9 +259,9 @@ Now I am using org-roam as my notes management app."/>
     
     
     
-    <meta name="hugo-build-date" content=""/>
-    <meta name="hugo-commit-hash" content=""/>
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="hugo-build-date" content="2019-09-11T08:16:28-0400"/>
+    <meta name="hugo-commit-hash" content="5276f1e9:chroma-26f03cb"/>
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
 </head>
 
 
@@ -516,11 +502,11 @@ Now I am using org-roam as my notes management app."/>
     
     <div class="post-date">
         
-        <time datetime="2022-06-12T00:00:00+0000" class="dt-published">Sun Jun 12, 2022</time>
+        <time datetime="2022-06-12T00:00:00-0300" class="dt-published">Sun Jun 12, 2022</time>
         
         
             
-            <span class="dt-updated">(Updated on Sun Aug 13, 2023)</span>
+            <span class="dt-updated">(Updated on Sat Apr 20, 2024)</span>
         
     </div>
 
@@ -578,15 +564,18 @@ ago where I parsed the client requirements relationships into a graph and I
 could determine the priorities of modules development based on that. Good
 souvenirs. This original idea came from an analysis I did on my social
 networks out of curiosity and I could identify and <a href="/posts/20220109211521-finding_communities_on_graphs/">find communities on graphs</a>.</p>
+
 <p>Now I am using org-roam as my notes management app. It is great and it works on
 top of org-mode and of course Emacs. Not everyone feels comfortable with this
 since it requires to be okay with technical bits and bytes. I just love it&hellip;</p>
+
 <p>I started using v1.0 which did not supported to map org headings but only file
 top headers. This was brilliant already enough in itself. With v2.0 org-roam
 included the ability to map headers also. What was good became even better! The
 only caveat at that time is that org-roam-server stopped working. That is
 understandable. Now there is a new project called org-roam-ui which is basically
 org-roam-server for v2.0 with headings support.</p>
+
 <p>Recently I trimmed my DB, I am trying to find a balance between using headings
 and not using headings. My Emacs default config used to creat UUIDs for each
 heading. This was good at first but I had to adapt this for org-roam v2.0&hellip; I
@@ -594,17 +583,23 @@ had +9000 notes, which is unpractical to be honest&hellip; So I cleared the UUID
 the headers of several files that were not needed and now I have +3000 notes. It
 is still too much IMO, so further trimming is needed but that cleanup needs more
 thought.</p>
+
 <p>Now lets preview this thing&hellip; Most screenshots have been anonimized.  At the
 time of this writing this is how my notes looks like. Keep in mind that out of
 all of my notes, only a few selected ones are shared here on my website.</p>
+
 <p>I am going to show first a little video sample</p>
+
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <iframe src="https://www.youtube.com/embed/YCaotPnKU5w" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
 
+
 <p>Figure <a href="#figure--fig:full-headings">1</a> is how the exobrain looks considering all notes</p>
+
 <p><a id="figure--fig:full-headings"></a></p>
+
 
 
 
@@ -620,8 +615,11 @@ all of my notes, only a few selected ones are shared here on my website.</p>
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:only-headers">2</a> is how the exobrain looks only considering the file headers and subheadings.</p>
+
 <p><a id="figure--fig:only-headers"></a></p>
+
 
 
 
@@ -637,8 +635,11 @@ all of my notes, only a few selected ones are shared here on my website.</p>
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:only-headers">2</a> shows my Emacs configuration file cluster and how it relates to other notes.</p>
+
 <p><a id="figure--fig:doom-emacs-notes"></a></p>
+
 
 
 
@@ -654,8 +655,11 @@ all of my notes, only a few selected ones are shared here on my website.</p>
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:parashot-notes">4</a> shows my parashot study notes.</p>
+
 <p><a id="figure--fig:parashot-notes"></a></p>
+
 
 
 
@@ -671,9 +675,12 @@ all of my notes, only a few selected ones are shared here on my website.</p>
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:beekeeping-notes">5</a>
 shows my beekeeping notes and log, which is quite extensive by the way.</p>
+
 <p><a id="figure--fig:beekeeping-notes"></a></p>
+
 
 
 
@@ -689,9 +696,12 @@ shows my beekeeping notes and log, which is quite extensive by the way.</p>
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:trading-testing-notes">6</a>
 shows my testing trading notes. I developed my own tool to document my simulated tradings and tests.</p>
+
 <p><a id="figure--fig:trading-testing-notes"></a></p>
+
 
 
 
@@ -707,12 +717,15 @@ shows my testing trading notes. I developed my own tool to document my simulated
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:trading-testing-notes">6</a> shows my simulated trading log. I integrated my
 own python tool with yasnippets, so Emacs could get all the goodies out of it.
 The result is a very detailed (and possibly overkill) simulated trade log. This
 is going to probably be decoupled from my org-roam database. I don&rsquo;t really need
 to search on all of that.</p>
+
 <p><a id="figure--fig:trading-notes"></a></p>
+
 
 
 
@@ -728,9 +741,12 @@ to search on all of that.</p>
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:bots-notes">8</a>
 shows my research notes on automated trading strategies.</p>
+
 <p><a id="figure--fig:bots-notes"></a></p>
+
 
 
 
@@ -746,9 +762,12 @@ shows my research notes on automated trading strategies.</p>
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:agroforestry-notes">9</a>
 shows my research notes on agroforestry.</p>
+
 <p><a id="figure--fig:agroforestry-notes"></a></p>
+
 
 
 
@@ -764,9 +783,12 @@ shows my research notes on agroforestry.</p>
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:journal-2022-notes">10</a>
 shows my journal of the current year 2022. TODO&rsquo;s tasks and how they integrate with the rest of the notes.</p>
+
 <p><a id="figure--fig:journal-2022-notes"></a></p>
+
 
 
 
@@ -782,9 +804,12 @@ shows my journal of the current year 2022. TODO&rsquo;s tasks and how they integ
                 
             </figcaption></figure>
 
+
 <p>Figure <a href="#figure--fig:homestead-notes">11</a>
 shows my homesteading notes and all the ongoing projects.</p>
+
 <p><a id="figure--fig:homestead-notes"></a></p>
+
 
 
 
@@ -822,15 +847,10 @@ shows my homesteading notes and all the ongoing projects.</p>
 
  
     
-        <div class="hugotoc no-text-decoration">
-            <nav id="TableOfContents"></nav>
-            <a href="#" class="back-to-top">Back to top</a>
-        </div>
     
-    
-<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js"></script>
+<script src="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js"></script>
 
-<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.22ee3db0c0e99fd0fbce3aee19672bd53d25469daf734bd4c165649f6eaf7d7f.js" as="script">
+<link rel="preload" href="/js/libs/jquery/3.3.1/jquery.slim.min.min.528a9ce56371729e50605653bf72b1e933574cdb97519529bf8fab01b63f9703.js" as="script">
 
 <script type="application/javascript">(function() {
      var $window = $(window);
@@ -1104,6 +1124,9 @@ shows my homesteading notes and all the ongoing projects.</p>
 
 
 
+ 
+    
+    
 
 
 
@@ -1141,7 +1164,7 @@ shows my homesteading notes and all the ongoing projects.</p>
 
 
 
-<script defer src="/js/libs/fragmentions/wrapper.min.b19ddbd69b83019e75a4e9bd8b5a027c75675e00329aab620ed1d470c85782ba.js"></script>
+<script defer src="/js/libs/fragmentions/wrapper.min.4c511209cd3786314b251d891c8da528b47a972669aa4eea416b64d4be01eee2.js"></script>
 
 
 

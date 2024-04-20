@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[experiments on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/categories/experiments/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/categories/experiments/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
+            <link href="https://albertdelafuente.com/categories/experiments/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/categories/experiments/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2024-04-20T20:58:11-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/categories/experiments/</id>
+    
+        
+        <entry>
+            <title type="html"><![CDATA[Finding communities on graphs]]></title>
+            <link href="https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/?utm_source=atom_feed" rel="alternate" type="text/html" />
+            
+            
+                <id>https://albertdelafuente.com/posts/20220109211521-finding_communities_on_graphs/</id>
+            
+            
+                    <author>
+                        <name>Albert De La Fuente Vigliotti</name>
+                    </author>
+            <published>2013-08-25T00:00:00-03:00</published>
+            <updated>2023-08-13T11:50:29-03:00</updated>
+            
+            
+            <content type="html"><![CDATA[
+
+<p>Some months before I had to import a quite big list of use cases, relationships and requirements data into Enterprise Architect for a project. Of course I didn&rsquo;t do that manually, so I made a hack to do that automatically. Recently I had a new task to accomplish, to split into groups that use case list by their relationships, and once again I thought about doing it automatically since I already have the data structures available and then, I decided: let&rsquo;s play a little bit with the data 8-).</p>
+
+<p>Since I&rsquo;m not very familiarized with the use case data itself I looked up for a way on how to apply for the same concepts on other areas, and then I came up making some experiments with my Facebook and LinkedIn networks. I learned many things and the results were really interesting.</p>
+
+<p>I first started with my Facebook contacts and this was the initial result</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/fb1-2.jpeg"/> </figure>
+
+
+<p>Afterward I applied a community detection algorithm (Louvain) with a specific parameter and I could identify 63 groups / communities.</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/fb2-2.jpeg"/> </figure>
+
+
+<p>Can you see them? Well&hellip; neither do I&hellip; So I applied a atlas layout algorithm so it&rsquo;s visually friendly, and this is the result</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/fb3-800.jpeg"/> </figure>
+
+
+<p>It&rsquo;s interesting to notice that about 46% of my contacts are within the three biggest groups (20.77%, 14.46% and 12.52%). There are also contacts (that multicolored group in the middle) that I couldn&rsquo;t retrieve their connections (probably because a privacy setting). Of course the graphics generated are anonymized, but I&rsquo;m able to identify each group, for instance the bottom middle blue group are my last job work European colleagues. The top right cyan group are some friends from FLOSS communities. Pretty cool, huh?</p>
+
+<p>On the other hand getting the Linkedin results wasn&rsquo;t that straightforward I had to deal with oauth and the LinkedIn API webservice directly within python. This are the results of my LinkedIn network.</p>
+
+
+
+
+<figure>
+    
+        <img src="https://albertdelafuente.com/ox-hugo/linkedin.jpeg"/> </figure>
+
+
+<p>Some notable groups at first were: bottom left cyan group are again my last work European colleagues, and green my last work Latin America colleagues.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>This is an amazingly powerful analytics tool that could be used in many areas, probably the most notable  (nowadays) are marketing and social networking. At the same time it&rsquo;s quite scary to see how our privacy goes away, I don&rsquo;t think it would be hard to track somebody having the right information. If I could do this by just examining the relationships imagine what could be possible with some extra data.</p>
+]]></content>
+            
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/categories/experiments" term="experiments" label="experiments" />
+                            
+                        
+                    
+                 
+                    
+                 
+                    
+                         
+                        
+                            
+                             
+                                <category scheme="https://albertdelafuente.com/tags/graphs" term="graphs" label="graphs" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/communities" term="communities" label="communities" />
+                             
+                                <category scheme="https://albertdelafuente.com/tags/clustering" term="clustering" label="clustering" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+</feed>

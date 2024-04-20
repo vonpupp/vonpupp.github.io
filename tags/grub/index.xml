@@ -12,7 +12,7 @@
         <language>en-us</language>
         
                 <managingEditor>vonpupp@gmail.com (Albert)</managingEditor>
-                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sun, 10 Dec 2023 09:46:47 -0300</lastBuildDate>
+                <webMaster>vonpupp@gmail.com (Albert)</webMaster><lastBuildDate>Sat, 20 Apr 2024 20:58:11 -0300</lastBuildDate>
         <generator>Hugo -- gohugo.io</generator>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
             <atom:link href="https://albertdelafuente.com/tags/grub/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -23,62 +23,89 @@
                 <link>https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/</link>
                 
                 
-                <description>&lt;div class=&#34;ox-hugo-toc toc&#34;&gt;
+                <description>
+
+&lt;div class=&#34;ox-hugo-toc toc&#34;&gt;
+
 &lt;div class=&#34;heading&#34;&gt;Table of Contents&lt;/div&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#optional--create-a-boot-flash-disk-using-android&#34;&gt;(OPTIONAL) Create a boot flash disk using android&lt;/a&gt;
-- &lt;a href=&#34;#etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository&#34;&gt;EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository&lt;/a&gt;&lt;/li&gt;
+    - &lt;a href=&#34;#etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository&#34;&gt;EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#mounting-and-chrooting-the-system&#34;&gt;Mounting and chrooting the system&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#edit-the-etc-default-grub-file&#34;&gt;Edit the /etc/default/grub file&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#config-and-install-grub-and-create-the-ramdisk&#34;&gt;Config and install GRUB and create the ramdisk&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#references&#34;&gt;References&lt;/a&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums&#34;&gt;[SOLVED] Grub with lvm on LUKS -&amp;gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;!--endtoc--&gt;
+
+&lt;p&gt;&lt;/div&gt;
+&lt;!--endtoc--&gt;&lt;/p&gt;
+
 &lt;p&gt;Recently an upgrade on my notebook went bad and broke something. I wasn&amp;rsquo;t sure
 what went wrong but since I had just one system at that time, I had to figure
 out how to fix it with the help of my phone. Basically what I did is install
 EtchDroid to be able to download an iso and flash it to a flash drive on my
 phone directly. Later I could boot form that flash drive, mount the LUKS/LVM
 partitions and fix the bootloader. Here is a short how to.&lt;/p&gt;
+
 &lt;h2 id=&#34;optional--create-a-boot-flash-disk-using-android&#34;&gt;(OPTIONAL) Create a boot flash disk using android&lt;/h2&gt;
+
 &lt;h4 id=&#34;etchdroid-usb-writer-f-droid-free-and-open-source-android-app-repository&#34;&gt;&lt;a href=&#34;https://f-droid.org/en/packages/eu.depau.etchdroid/&#34;&gt;EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository&lt;/a&gt;&lt;/h4&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Source: &lt;a href=&#34;https://f-droid.org/en/packages/eu.depau.etchdroid/&#34;&gt;https://f-droid.org/en/packages/eu.depau.etchdroid/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Title: EtchDroid USB writer | F-Droid - Free and Open Source Android App Repository&lt;/li&gt;
 &lt;li&gt;Captured on: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;[2021-08-05 Thu]&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h2 id=&#34;mounting-and-chrooting-the-system&#34;&gt;Mounting and chrooting the system&lt;/h2&gt;
+
 &lt;p&gt;#+begin_src sh&lt;/p&gt;
+
 &lt;p&gt;cryptsetup luksOpen /dev/disk/by-partlabel/cryptlvm lvm&lt;/p&gt;
+
 &lt;p&gt;mount /dev/storage/root /mnt
 mount /dev/storage/home /mnt/home&lt;/p&gt;
+
 &lt;p&gt;mount /dev/sda1 /mnt/boot&lt;/p&gt;
+
 &lt;p&gt;cd &lt;em&gt;mnt
 mount -t proc /proc proc&lt;/em&gt;
 #mount -t sysfs &lt;em&gt;sys sys&lt;/em&gt;
 #mount -o bind &lt;em&gt;dev dev&lt;/em&gt;
 mount -o bind &lt;em&gt;run run&lt;/em&gt;&lt;/p&gt;
+
 &lt;p&gt;arch-chroot /mnt&lt;/p&gt;
+
 &lt;p&gt;dhcpcd eth0
 #+end_src sh&lt;/p&gt;
+
 &lt;h2 id=&#34;edit-the-etc-default-grub-file&#34;&gt;Edit the /etc/default/grub file&lt;/h2&gt;
+
 &lt;p&gt;#+begin_src sh&lt;/p&gt;
+
 &lt;p&gt;GRUB_CMDLINE_LINUX=&amp;ldquo;cryptdevice=/dev/sda2:lvm&amp;rdquo;
-GRUB_PRELOAD_MODULES=&amp;ldquo;part_gpt part_msdos cryptodisk luks&amp;rdquo;
+  GRUB_PRELOAD_MODULES=&amp;ldquo;part_gpt part_msdos cryptodisk luks&amp;rdquo;
 #+end_src sh&lt;/p&gt;
+
 &lt;h2 id=&#34;config-and-install-grub-and-create-the-ramdisk&#34;&gt;Config and install GRUB and create the ramdisk&lt;/h2&gt;
+
 &lt;p&gt;#+begin_src sh&lt;/p&gt;
+
 &lt;p&gt;grub-mkconfig &amp;gt; /boot/grub/grub.cfg
 grub-install &amp;ndash;efi-directory=/boot &amp;ndash;target=x86_64-efi /dev/sda&lt;/p&gt;
+
 &lt;p&gt;mkinitcpio -p linux
 #+end_src sh&lt;/p&gt;
+
 &lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
 &lt;h3 id=&#34;solved-grub-with-lvm-on-luks-rescue-mode-dot-incomplete-grub-dot-cfg-installation-arch-linux-forums&#34;&gt;&lt;a href=&#34;https://bbs.archlinux.org/viewtopic.php?id=246628&#34;&gt;[SOLVED] Grub with lvm on LUKS -&amp;gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums&lt;/a&gt;&lt;/h3&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Source: &lt;a href=&#34;https://bbs.archlinux.org/viewtopic.php?id=246628&#34;&gt;https://bbs.archlinux.org/viewtopic.php?id=246628&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Title: [SOLVED] Grub with lvm on LUKS -&amp;gt; rescue mode. Incomplete grub.cfg? / Installation / Arch Linux Forums&lt;/li&gt;
@@ -121,7 +148,7 @@ grub-install &amp;ndash;efi-directory=/boot &amp;ndash;target=x86_64-efi /dev/sd
                     
                 
                 <guid>https://albertdelafuente.com/posts/20210804193727-how_to_recover_grub_with_luks_and_lvm/</guid>
-                <pubDate>Wed, 04 Aug 2021 00:00:00 +0000</pubDate>
+                <pubDate>Wed, 04 Aug 2021 00:00:00 -0300</pubDate>
             </item>
         
     </channel>
