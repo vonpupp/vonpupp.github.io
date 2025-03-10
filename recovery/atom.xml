@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <generator uri="https://gohugo.io/" version="0.59.0-DEV">Hugo</generator><title type="html"><![CDATA[Recoveries on Albert De La Fuente's site]]></title>
+    
+        <subtitle type="html"><![CDATA[The tagline.]]></subtitle>
+    
+    
+    
+            <link href="https://albertdelafuente.com/recovery/" rel="alternate" type="text/html" title="HTML" />
+            <link href="https://albertdelafuente.com/recovery/index.xml" rel="alternate" type="application/rss+xml" title="RSS" />
+            <link href="https://albertdelafuente.com/recovery/atom.xml" rel="self" type="application/atom+xml" title="Atom" />
+            <link href="https://albertdelafuente.com/recovery/jf2feed.json" rel="alternate" type="application/jf2feed+json" title="jf2feed" />
+    <updated>2025-03-09T21:22:28-03:00</updated>
+    
+    
+    <author>
+            <name>Albert</name>
+            
+                <email>vonpupp@gmail.com</email>
+            </author>
+    
+        <id>https://albertdelafuente.com/recovery/</id>
+    
+</feed>

@@ -207,10 +207,10 @@ sudo pacman &amp;ndash;noconfirm -S vulkan-intel vulkan-icd-loader vulkan-swrast
 
 
     
-        <meta property="article:published_time" content="2024-04-20T20:53:21-03:00"/>
+        <meta property="article:published_time" content="2024-04-28T23:45:45-03:00"/>
     
     
-        <meta property="article:modified_time" content="2024-04-20T20:53:21-03:00"/>
+        <meta property="article:modified_time" content="2024-04-28T23:45:45-03:00"/>
     
 
 
@@ -394,7 +394,7 @@ sudo pacman &amp;ndash;noconfirm -S vulkan-intel vulkan-icd-loader vulkan-swrast
     
     <div class="post-date">
         
-        <time datetime="2024-04-20T20:53:21-0300" class="dt-published">Sat Apr 20, 2024</time>
+        <time datetime="2024-04-28T23:45:45-0300" class="dt-published">Sun Apr 28, 2024</time>
         
         
     </div>
@@ -455,12 +455,32 @@ sudo pacman &amp;ndash;noconfirm -S vulkan-intel vulkan-icd-loader vulkan-swrast
 <div class="heading">Table of Contents</div>
 
 <ul>
-<li><a href="#how-to-install-the-bbc-symphony-orchestra-on-arch-linux-using-yabridge-for-reaper-use">How to install the BBC Symphony Orchestra on Arch Linux using Yabridge for Reaper use</a></li>
+<li><a href="#how-to-install-the-bbc-symphony-orchestra-on-arch-linux-using-yabridge-for-reaper-use">How to install the BBC Symphony Orchestra on Arch Linux using Yabridge for Reaper use</a>
+
+<ul>
+<li><a href="#using-wine">Using wine</a></li>
+<li><a href="#using-bottles">Using bottles</a>
+
+<ul>
+<li><a href="#create-the-bottle">Create the bottle</a></li>
+<li><a href="#configure-yabridge">Configure yabridge</a></li>
+<li><a href="#launch-reaper">Launch reaper</a></li>
+</ul></li>
+</ul></li>
 <li><a href="#references">References</a>
 
 <ul>
 <li><a href="#how-to-run-spitfire-labs-on-linux-r-linuxaudio">How to run Spitfire LABS on Linux? : r/linuxaudio</a></li>
 <li><a href="#produção-musical-no-linux-raul-dipeas">Produção musical no Linux | Raul Dipeas</a></li>
+</ul></li>
+<li><a href="#plugins-worthwhile-looking-at">Plugins worthwhile looking at</a>
+
+<ul>
+<li><a href="#labs-drums-labs">LABS Drums — LABS</a></li>
+<li><a href="#labs-percussion-labs">LABS Percussion — LABS</a></li>
+<li><a href="#labs-bass-guitar-labs">LABS Bass Guitar — LABS</a></li>
+<li><a href="#labs-electric-guitars-labs">LABS Electric Guitars — LABS</a></li>
+<li><a href="#labs-peel-guitar-labs">LABS Peel Guitar — LABS</a></li>
 </ul></li>
 </ul>
 
@@ -476,17 +496,42 @@ sudo pacman &amp;ndash;noconfirm -S vulkan-intel vulkan-icd-loader vulkan-swrast
 sudo pacman --noconfirm -S yabridge yabridgectl
 sudo pacman --noconfirm -S realtime-privileges
 sudo pacman --noconfirm -S wine-staging
-yay --noconfirm -S bottles
 
 mkdir .lv2
 mkdir .clap
 mkdir .vst
 sudo usermod -a -G realtime av
 sudo reboot</code></pre></div>
-<p>NOTE: If for some reason anything breaks with the bottle and you cannot install
-it again under the same path, check out the <code>~/.local/share/bottles/bottles</code>
-folder and delete the bottle manually.</p>
+<p>On this tutorial it is assumed that you use the following version of wine:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">wine --version</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">wine-8.21 (Staging)</code></pre></div>
+<p>Once you have done this, you have two options, use wine directly or using
+bottles. The first version of this guide started using bottles because I thought
+that one bottle would fit all my plugins. I was naive&hellip; Apparently I will need
+several plugins and several bottles. Because of that I lean more towards using
+different WINEPREFIX for different setups.</p>
 
+<p>Do one or the other of the following sections, not both.</p>
+
+<h3 id="using-wine">Using wine&nbsp;<a class="headline-hash no-text-decoration" href="#using-wine">#</a> </h3>
+
+<p>If you are more tech savy, probably you would prefer going for wine directly. If
+not skip this section and read using bottles.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">WINEPREFIX</span><span class="o">=</span>~/.wine_bbcso
+winetricks -f -q dxvk
+wine ~/Downloads/SpitfireAudio-Win-3.4.10.exe
+
+yabridgectl add ~/.wine_bbcso/drive_c/Program<span class="se">\ </span>Files/Common<span class="se">\ </span>Files/VST3/
+yabridgectl add ~/.wine_bbcso/drive_c/Program<span class="se">\ </span>Files/VstPlugins/
+yabridgectl sync --prune --verbose
+yabridgectl status</code></pre></div>
+<p>Run reaper through a wrapper script as follows:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/usr/bin/env bash
+</span><span class="cp"></span><span class="nv">WINEPREFIX</span><span class="o">=</span>~/.wine_bbcso
+reaper</code></pre></div>
+<h3 id="using-bottles">Using bottles&nbsp;<a class="headline-hash no-text-decoration" href="#using-bottles">#</a> </h3>
+
+<h4 id="create-the-bottle">Create the bottle&nbsp;<a class="headline-hash no-text-decoration" href="#create-the-bottle">#</a> </h4>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">yay --noconfirm -S bottles</code></pre></div>
 <p>Create a new bottle:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">bottles</code></pre></div>
 <ul>
@@ -498,6 +543,12 @@ folder and delete the bottle manually.</p>
 <p>Fill the email and password and check remember me. Minimize and restore the
 window several times to update.</p>
 
+<p>NOTE: If for some reason anything breaks with the bottle and you cannot install
+it again under the same path, check out the <code>~/.local/share/bottles/bottles</code>
+folder and delete the bottle manually.</p>
+
+<h4 id="configure-yabridge">Configure yabridge&nbsp;<a class="headline-hash no-text-decoration" href="#configure-yabridge">#</a> </h4>
+
 <p>Add your new VST to yabridge:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">yabridgectl add ~/.bottles/audio_plugins/drive_c/Program<span class="se">\ </span>Files/Common<span class="se">\ </span>Files/VST3/
 yabridgectl add ~/.bottles/audio_plugins/drive_c/Program<span class="se">\ </span>Files/VstPlugins/</code></pre></div>
@@ -505,21 +556,13 @@ yabridgectl add ~/.bottles/audio_plugins/drive_c/Program<span class="se">\ </spa
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">yabridgectl sync --prune --verbose</code></pre></div>
 <p>Check it:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">yabridgectl status</code></pre></div>
+<h4 id="launch-reaper">Launch reaper&nbsp;<a class="headline-hash no-text-decoration" href="#launch-reaper">#</a> </h4>
+
 <p>Now run your DAW with the following wrapper script</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/usr/bin/env bash
-</span><span class="cp"></span>
-<span class="nv">WINEPREFIX</span><span class="o">=</span>~/.bottles/audio_plugins
+</span><span class="cp"></span><span class="nv">WINEPREFIX</span><span class="o">=</span>~/.bottles/audio_plugins
 <span class="nv">WINELOADER</span><span class="o">=</span>~/.local/share/bottles/runners/soda-8.0-2/bin/wine
-
 reaper</code></pre></div>
-<p>NOTE: Alternatively if you don&rsquo;t want to use bottles, you should be able to use
-wine by using another folder like this:</p>
-
-<ul>
-<li><code>WINEPREFIX=~/.wine_audio_plugins winetricks -f -q dxvk</code></li>
-<li><code>WINEPREFIX=~/.wine_audio_plugins wine SpitfireAudio-Win-3.x.x.exe</code></li>
-</ul>
-
 <h2 id="references">References&nbsp;<a class="headline-hash no-text-decoration" href="#references">#</a> </h2>
 
 <h3 id="how-to-run-spitfire-labs-on-linux-r-linuxaudio"><a href="https://www.reddit.com/r/linuxaudio/comments/vj9gmw/how_to_run_spitfire_labs_on_linux/">How to run Spitfire LABS on Linux? : r/linuxaudio</a>&nbsp;<a class="headline-hash no-text-decoration" href="#how-to-run-spitfire-labs-on-linux-r-linuxaudio">#</a> </h3>
@@ -536,6 +579,48 @@ wine by using another folder like this:</p>
 <li>Source: <a href="https://rauldipeas.surge.sh/blog/posts/produ%C3%A7%C3%A3o-musical-no-linux/">https://rauldipeas.surge.sh/blog/posts/produ%C3%A7%C3%A3o-musical-no-linux/</a></li>
 <li>Title: Produção musical no Linux | Raul Dipeas</li>
 <li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-04-20 Sat]</span></span></li>
+</ul>
+
+<h2 id="plugins-worthwhile-looking-at">Plugins worthwhile looking at&nbsp;<a class="headline-hash no-text-decoration" href="#plugins-worthwhile-looking-at">#</a> </h2>
+
+<h3 id="labs-drums-labs"><a href="https://labs.spitfireaudio.com/drums">LABS Drums — LABS</a>&nbsp;<a class="headline-hash no-text-decoration" href="#labs-drums-labs">#</a> </h3>
+
+<ul>
+<li>Source: <a href="https://labs.spitfireaudio.com/drums">https://labs.spitfireaudio.com/drums</a></li>
+<li>Title: LABS Drums — LABS</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-04-27 Sat]</span></span></li>
+</ul>
+
+<h3 id="labs-percussion-labs"><a href="https://labs.spitfireaudio.com/percussion">LABS Percussion — LABS</a>&nbsp;<a class="headline-hash no-text-decoration" href="#labs-percussion-labs">#</a> </h3>
+
+<ul>
+<li>Source: <a href="https://labs.spitfireaudio.com/percussion">https://labs.spitfireaudio.com/percussion</a></li>
+<li>Title: LABS Percussion — LABS</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-04-27 Sat]</span></span></li>
+</ul>
+
+<h3 id="labs-bass-guitar-labs"><a href="https://labs.spitfireaudio.com/bass-guitar">LABS Bass Guitar — LABS</a>&nbsp;<a class="headline-hash no-text-decoration" href="#labs-bass-guitar-labs">#</a> </h3>
+
+<ul>
+<li>Source: <a href="https://labs.spitfireaudio.com/bass-guitar">https://labs.spitfireaudio.com/bass-guitar</a></li>
+<li>Title: LABS Bass Guitar — LABS</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-04-27 Sat]</span></span></li>
+</ul>
+
+<h3 id="labs-electric-guitars-labs"><a href="https://labs.spitfireaudio.com/electric-guitars">LABS Electric Guitars — LABS</a>&nbsp;<a class="headline-hash no-text-decoration" href="#labs-electric-guitars-labs">#</a> </h3>
+
+<ul>
+<li>Source: <a href="https://labs.spitfireaudio.com/electric-guitars">https://labs.spitfireaudio.com/electric-guitars</a></li>
+<li>Title: LABS Electric Guitars — LABS</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-04-27 Sat]</span></span></li>
+</ul>
+
+<h3 id="labs-peel-guitar-labs"><a href="https://labs.spitfireaudio.com/peel-guitar">LABS Peel Guitar — LABS</a>&nbsp;<a class="headline-hash no-text-decoration" href="#labs-peel-guitar-labs">#</a> </h3>
+
+<ul>
+<li>Source: <a href="https://labs.spitfireaudio.com/peel-guitar">https://labs.spitfireaudio.com/peel-guitar</a></li>
+<li>Title: LABS Peel Guitar — LABS</li>
+<li>Captured on: <span class="timestamp-wrapper"><span class="timestamp">[2024-04-27 Sat]</span></span></li>
 </ul>
 
 
@@ -564,11 +649,28 @@ wine by using another folder like this:</p>
 <ul>
 <li>
 <ul>
-<li><a href="#how-to-install-the-bbc-symphony-orchestra-on-arch-linux-using-yabridge-for-reaper-use">How to install the BBC Symphony Orchestra on Arch Linux using Yabridge for Reaper use</a></li>
+<li><a href="#how-to-install-the-bbc-symphony-orchestra-on-arch-linux-using-yabridge-for-reaper-use">How to install the BBC Symphony Orchestra on Arch Linux using Yabridge for Reaper use</a>
+<ul>
+<li><a href="#using-wine">Using wine</a></li>
+<li><a href="#using-bottles">Using bottles</a>
+<ul>
+<li><a href="#create-the-bottle">Create the bottle</a></li>
+<li><a href="#configure-yabridge">Configure yabridge</a></li>
+<li><a href="#launch-reaper">Launch reaper</a></li>
+</ul></li>
+</ul></li>
 <li><a href="#references">References</a>
 <ul>
 <li><a href="#how-to-run-spitfire-labs-on-linux-r-linuxaudio"><a href="https://www.reddit.com/r/linuxaudio/comments/vj9gmw/how_to_run_spitfire_labs_on_linux/">How to run Spitfire LABS on Linux? : r/linuxaudio</a></a></li>
 <li><a href="#produção-musical-no-linux-raul-dipeas"><a href="https://rauldipeas.surge.sh/blog/posts/produ%C3%A7%C3%A3o-musical-no-linux/">Produção musical no Linux | Raul Dipeas</a></a></li>
+</ul></li>
+<li><a href="#plugins-worthwhile-looking-at">Plugins worthwhile looking at</a>
+<ul>
+<li><a href="#labs-drums-labs"><a href="https://labs.spitfireaudio.com/drums">LABS Drums — LABS</a></a></li>
+<li><a href="#labs-percussion-labs"><a href="https://labs.spitfireaudio.com/percussion">LABS Percussion — LABS</a></a></li>
+<li><a href="#labs-bass-guitar-labs"><a href="https://labs.spitfireaudio.com/bass-guitar">LABS Bass Guitar — LABS</a></a></li>
+<li><a href="#labs-electric-guitars-labs"><a href="https://labs.spitfireaudio.com/electric-guitars">LABS Electric Guitars — LABS</a></a></li>
+<li><a href="#labs-peel-guitar-labs"><a href="https://labs.spitfireaudio.com/peel-guitar">LABS Peel Guitar — LABS</a></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -687,9 +789,13 @@ wine by using another folder like this:</p>
 
 <div class="prev-next-navigator clear-float">
     
+        <span class="prev-post left no-text-decoration">
+            <a href="https://albertdelafuente.com/exobrain/20231223220912-music_theory/" class="nobr">« Music theory</a>
+        </span>
+    
     
         <span class="next-post right no-text-decoration">
-            <a href="https://albertdelafuente.com/exobrain/20231223220912-music_theory/" class="nobr">Music theory »</a>
+            <a href="https://albertdelafuente.com/exobrain/20231230184943-nutrition_nutricao/" class="nobr">Nutrition / Nutrição »</a>
         </span>
     
 </div>
